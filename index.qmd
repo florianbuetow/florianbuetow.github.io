@@ -1,0 +1,6 @@
+---
+title: "Cracking AI"
+---
+
+Welcome to my blog where I write about my personal learnings and showcase projects in AI and machine learning.
+
