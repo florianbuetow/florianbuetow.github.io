@@ -1,16 +1,23 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
+    "objectID": "pages/about.html",
+    "href": "pages/about.html",
     "title": "About",
     "section": "",
-    "text": "About this site\n\n1 + 1\n\n[1] 2"
+    "text": "Postgraduate CS student during the day and ML engineering Padawan at night. Previous roles include: Sr Data Scientist, Sr Backend SWE, Lead Data Engineer"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Cracking AI Engineering",
     "section": "",
-    "text": "Welcome to my blog where I write about AI and showcase projects in AI and machine learning."
+    "text": "Welcome to my blog! I write about AI and showcase projects I am working on."
+  },
+  {
+    "objectID": "pages/projects.html",
+    "href": "pages/projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "List of projects\n\n1 + 2\n\n[1] 3"
   }
 ]
