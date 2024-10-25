@@ -1,0 +1,14 @@
+# Dockerfile.preview
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy the Quarto docs folder into the container
+COPY ./docs /app/docs
+
+# Expose port
+EXPOSE $PORT
+
+# Command to serve the website using Python's http.server
+CMD ["sh", "-c", "python3 -m http.server $PORT -d ./docs"]

@@ -1,8 +1,21 @@
 services:
-  quarto:
-    image: quarto-build-florianbuetow
+  build:
+    image: quarto-build-florianbuetow-blog
     build:
       context: .
+      dockerfile: Dockerfile.build
     volumes:
       - ./:/site
     command: ["quarto", "render", ".", "--output-dir", "docs"]
+    container_name: quarto-build-florianbuetow-blog
+
+  preview:
+    image: quarto-preview-florianbuetow-blog
+    build:
+      context: .
+      dockerfile: Dockerfile.preview
+    environment:
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    container_name: quarto-preview-florianbuetow-blog
