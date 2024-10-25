@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+Postgraduate CS student during the day and ML engineering Padawan at night. Previous roles include: Sr Data Scientist, Sr Backend SWE, Lead Data Engineer

@@ -1,17 +1,25 @@
 project:
   type: website
   output-dir: docs
-  
+
 website:
   title: "Cracking AI Engineering"
   navbar:
     left:
       - href: index.qmd
-        text: Home
-      - about.qmd
+        text: Blog
+      - href: pages/projects.qmd
+        text: Projects
+      - href: pages/about.qmd
+        text: About
+    right:
+    - icon: github
+      href: https://github.com/florianbuetow
+    - icon: twitter
+      href: https://twitter.com/bytetweets
 format:
   html:
-    theme: cosmo
+    theme: simplex
     css: styles.css
     toc: true
 

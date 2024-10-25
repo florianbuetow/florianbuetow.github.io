@@ -2,5 +2,5 @@
 title: "Cracking AI Engineering"
 ---
 
-Welcome to my blog where I write about AI and showcase projects in AI and machine learning.
+Welcome to my blog! I write about AI and showcase projects I am working on.
 
