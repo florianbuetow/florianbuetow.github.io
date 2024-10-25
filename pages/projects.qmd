@@ -1,0 +1,9 @@
+---
+title: "Projects"
+---
+
+List of projects
+
+```{r}
+1 + 2
+```
