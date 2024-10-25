@@ -1,0 +1,8 @@
+services:
+  quarto:
+    image: quarto-build-florianbuetow
+    build:
+      context: .
+    volumes:
+      - ./:/site
+    command: ["quarto", "render", ".", "--output-dir", "docs"]
