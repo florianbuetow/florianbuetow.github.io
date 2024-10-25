@@ -1,9 +1,16 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site\n\n1 + 1\n\n[1] 2"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Cracking AI",
+    "title": "Cracking AI Engineering",
     "section": "",
-    "text": "Welcome to my blog where I write about my personal learnings and showcase projects in AI and machine learning."
+    "text": "Welcome to my blog where I write about AI and showcase projects in AI and machine learning."
   }
 ]

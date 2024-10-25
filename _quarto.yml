@@ -3,14 +3,12 @@ project:
   output-dir: docs
   
 website:
-  title: "florianbuetow.github.io"
+  title: "Cracking AI Engineering"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
-      - href: blog.qmd
-        text: Blog
 format:
   html:
     theme: cosmo

@@ -1,6 +1,6 @@
 ---
-title: "Cracking AI"
+title: "Cracking AI Engineering"
 ---
 
-Welcome to my blog where I write about my personal learnings and showcase projects in AI and machine learning.
+Welcome to my blog where I write about AI and showcase projects in AI and machine learning.
 
