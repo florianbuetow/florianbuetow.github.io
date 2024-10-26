@@ -1,10 +1,17 @@
 [
   {
-    "objectID": "pages/about.html",
-    "href": "pages/about.html",
-    "title": "About",
+    "objectID": "notebooks/example-notebook.html",
+    "href": "notebooks/example-notebook.html",
+    "title": "Example Notebook Page",
     "section": "",
-    "text": "Postgraduate CS student during the day and ML engineering Padawan at night. Previous roles include: Sr Data Scientist, Sr Backend SWE, Lead Data Engineer"
+    "text": "print(\"Hello, world!\")"
+  },
+  {
+    "objectID": "pages/projects.html",
+    "href": "pages/projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "List of projects\n\n1 + 2\n\n[1] 3"
   },
   {
     "objectID": "index.html",
@@ -14,10 +21,10 @@
     "text": "Welcome to my blog! I write about AI and showcase projects I am working on."
   },
   {
-    "objectID": "pages/projects.html",
-    "href": "pages/projects.html",
-    "title": "Projects",
+    "objectID": "pages/about.html",
+    "href": "pages/about.html",
+    "title": "About",
     "section": "",
-    "text": "List of projects\n\n1 + 2\n\n[1] 3"
+    "text": "Postgraduate CS student during the day and ML engineering Padawan at night. Previous roles include: Sr Data Scientist, Sr Backend SWE, Lead Data Engineer"
   }
 ]

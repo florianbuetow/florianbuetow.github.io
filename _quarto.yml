@@ -12,6 +12,8 @@ website:
         text: Projects
       - href: pages/about.qmd
         text: About
+      - href: notebooks/example-notebook.ipynb
+        text: Example Notebook
     right:
     - icon: github
       href: https://github.com/florianbuetow
