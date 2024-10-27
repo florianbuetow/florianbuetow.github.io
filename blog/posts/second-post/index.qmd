@@ -1,0 +1,22 @@
+---
+title: "Building Your First ML Pipeline"
+description: "A practical guide to creating production-ready ML pipelines"
+author: "Florian Buetow"
+date: "2024-03-21"
+categories: [ML, Pipeline, Tutorial, Python]
+code-annotations: true
+---
+
+In this tutorial, we'll build a simple but production-ready ML pipeline using Python.
+
+![](thumbnail.jpg)
+
+## Prerequisites
+
+- Python 3.8+
+- Basic understanding of ML concepts
+- Familiarity with pandas and scikit-learn
+
+## The Pipeline Structure
+
+Here's a basic example of a modular ML pipeline:

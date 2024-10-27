@@ -4,27 +4,90 @@
     "href": "notebooks/example-notebook.html",
     "title": "Example Notebook",
     "section": "",
-    "text": "print(\"Hello, world!\")\n\nHello, world!\n\n\n\nimport sys\n\n# Check if git, docker, and docker-compose are installed\ngit_check = !git --version\ndocker_check = !docker --version\ndocker_compose_check = !docker-compose --version\ndocker_running_check = !docker info &gt; /dev/null 2&gt;&1 && echo \"Docker daemon is running\" || echo \"Docker daemon is not running\"\n\n# Check if any software is missing or Docker daemon is not running\nif not git_check:\n    print(\"Error: Git is not installed.\")\n    sys.exit(\"Exiting: Git is required.\")\nelif not docker_check:\n    print(\"Error: Docker is not installed.\")\n    sys.exit(\"Exiting: Docker is required.\")\nelif not docker_compose_check:\n    print(\"Error: Docker Compose is not installed.\")\n    sys.exit(\"Exiting: Docker Compose is required.\")\nelif docker_running_check[0] != \"Docker daemon is running\":\n    print(\"Error: Docker daemon is not running.\")\n    sys.exit(\"Exiting: Docker daemon needs to be running.\")\n\n# If everything is okay\nprint(\"All required software is installed and Docker daemon is running.\")\n\nAll required software is installed and Docker daemon is running.\n\n\n\n!git clone git@github.com:florianbuetow/arxiv_publications_tracker.git\n%cd arxiv_publications_tracker\n!bash build_and_run.sh &gt; /dev/null 2&gt;&1\n\nCloning into 'arxiv_publications_tracker'...\nremote: Enumerating objects: 23, done.\nremote: Counting objects: 100% (23/23), done.\nremote: Compressing objects: 100% (15/15), done.\nremote: Total 23 (delta 10), reused 19 (delta 6), pack-reused 0 (from 0)\nReceiving objects: 100% (23/23), 5.62 KiB | 1.87 MiB/s, done.\nResolving deltas: 100% (10/10), done.\n/Users/flo/projects/github/florianbuetow.github.io/arxiv_publications_tracker\n\n\n\nprint(\"Done!\")\n\nDone!\n\n\n\n# Iterate over all subdiretories in arxiv_publications_tracker/data\nimport os\nfor subdir, dirs, files in os.walk(\"data\"):\n    for file in files:\n        filename = os.path.join(subdir, file)\n        if filename.endswith(\".json\"):\n            print(filename)\n\ndata/stat.ML/2024-10-26_013840.json\ndata/cs.AI/2024-10-26_013808.json\ndata/cs.LG/2024-10-26_013831.json\ndata/cs.CV/2024-10-26_013824.json\ndata/cs.CL/2024-10-26_013816.json\n\n\n\n%cd ../\n!rm -rf arxiv_publications_tracker\n\n/Users/flo/projects/github/florianbuetow.github.io\n\n\n\nprint(\"Done!\")\n\nDone!"
+    "text": "print(\"Hello, world!\")\n\nHello, world!\n\n\n\nimport sys\n\n# Check if git, docker, and docker-compose are installed\ngit_check = !git --version\ndocker_check = !docker --version\ndocker_compose_check = !docker-compose --version\ndocker_running_check = !docker info &gt; /dev/null 2&gt;&1 && echo \"Docker daemon is running\" || echo \"Docker daemon is not running\"\n\n# Check if any software is missing or Docker daemon is not running\nif not git_check:\n    print(\"Error: Git is not installed.\")\n    sys.exit(\"Exiting: Git is required.\")\nelif not docker_check:\n    print(\"Error: Docker is not installed.\")\n    sys.exit(\"Exiting: Docker is required.\")\nelif not docker_compose_check:\n    print(\"Error: Docker Compose is not installed.\")\n    sys.exit(\"Exiting: Docker Compose is required.\")\nelif docker_running_check[0] != \"Docker daemon is running\":\n    print(\"Error: Docker daemon is not running.\")\n    sys.exit(\"Exiting: Docker daemon needs to be running.\")\n\n# If everything is okay\nprint(\"All required software is installed and Docker daemon is running.\")\n\nAll required software is installed and Docker daemon is running.\n\n\n\n!git clone git@github.com:florianbuetow/arxiv_publications_tracker.git\n%cd arxiv_publications_tracker\n!bash build_and_run.sh &gt; /dev/null 2&gt;&1\n\nCloning into 'arxiv_publications_tracker'...\nremote: Enumerating objects: 23, done.\nremote: Counting objects: 100% (23/23), done.\nremote: Compressing objects: 100% (15/15), done.\nremote: Total 23 (delta 10), reused 19 (delta 6), pack-reused 0 (from 0)\nReceiving objects: 100% (23/23), 5.62 KiB | 1.87 MiB/s, done.\nResolving deltas: 100% (10/10), done.\n/Users/flo/projects/github/florianbuetow.github.io/arxiv_publications_tracker\n\n\n\nprint(\"Done!\")\n\nDone!\n\n\n\n# Iterate over all subdiretories in arxiv_publications_tracker/data\nimport os\nfor subdir, dirs, files in os.walk(\"data\"):\n    for file in files:\n        filename = os.path.join(subdir, file)\n        if filename.endswith(\".json\"):\n            print(filename)\n\ndata/stat.ML/2024-10-26_013840.json\ndata/cs.AI/2024-10-26_013808.json\ndata/cs.LG/2024-10-26_013831.json\ndata/cs.CV/2024-10-26_013824.json\ndata/cs.CL/2024-10-26_013816.json\n\n\n\n%cd ../\n!rm -rf arxiv_publications_tracker\n\n/Users/flo/projects/github/florianbuetow.github.io\n\n\n\nprint(\"Done!\")\n\nDone!\n\n\n\n\n\n\n:::"
   },
   {
-    "objectID": "pages/projects.html",
-    "href": "pages/projects.html",
+    "objectID": "blog/index.html",
+    "href": "blog/index.html",
+    "title": "",
+    "section": "",
+    "text": "Welcome to my professional blog where I write about AI and data science.\n\n:::\n\n\n\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\n\nBuilding Your First ML Pipeline\n\n\n1 min\n\n\n\nML\n\n\nPipeline\n\n\nTutorial\n\n\nPython\n\n\n\nA practical guide to creating production-ready ML pipelines\n\n\n\nMar 21, 2024\n\n\n\n\n\n\n\n\n\n\n\nGetting Started with AI Engineering\n\n\n1 min\n\n\n\nAI\n\n\nEngineering\n\n\nIntroduction\n\n\n\nAn introduction to AI Engineering and what to expect from this blog\n\n\n\nMar 20, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "blog/posts/first-post/index.html",
+    "href": "blog/posts/first-post/index.html",
+    "title": "Getting Started with AI Engineering",
+    "section": "",
+    "text": "Welcome to my first blog post! In this article, I’ll introduce you to AI Engineering and share what you can expect from this blog."
+  },
+  {
+    "objectID": "blog/posts/first-post/index.html#what-is-ai-engineering",
+    "href": "blog/posts/first-post/index.html#what-is-ai-engineering",
+    "title": "Getting Started with AI Engineering",
+    "section": "What is AI Engineering?",
+    "text": "What is AI Engineering?\n\nAI Engineering combines software engineering principles with machine learning and artificial intelligence to build robust, scalable AI systems."
+  },
+  {
+    "objectID": "blog/posts/first-post/index.html#what-to-expect",
+    "href": "blog/posts/first-post/index.html#what-to-expect",
+    "title": "Getting Started with AI Engineering",
+    "section": "What to Expect",
+    "text": "What to Expect\nIn this blog, I’ll be covering: - Best practices for AI/ML systems - Practical tutorials and code examples - Project showcases and learnings - Industry trends and insights\nStay tuned for more content!\n\n:::"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
     "title": "Projects",
     "section": "",
-    "text": "List of projects\n\n1 + 2\n\n[1] 3"
+    "text": "List of projects\n\n1 + 2\n\n[1] 3\n\n\n\n:::"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Cracking AI Engineering",
+    "title": "title",
     "section": "",
     "text": "Welcome to my blog! I write about AI and showcase projects I am working on."
   },
   {
-    "objectID": "pages/about.html",
-    "href": "pages/about.html",
+    "objectID": "index.html#subtitle-1",
+    "href": "index.html#subtitle-1",
+    "title": "title",
+    "section": "subtitle 1",
+    "text": "subtitle 1\n\nsubsubtitle 1.2"
+  },
+  {
+    "objectID": "index.html#subtitle-2",
+    "href": "index.html#subtitle-2",
+    "title": "title",
+    "section": "subtitle 2",
+    "text": "subtitle 2\n\n:::"
+  },
+  {
+    "objectID": "blog/posts/second-post/index.html",
+    "href": "blog/posts/second-post/index.html",
+    "title": "Building Your First ML Pipeline",
+    "section": "",
+    "text": "In this tutorial, we’ll build a simple but production-ready ML pipeline using Python."
+  },
+  {
+    "objectID": "blog/posts/second-post/index.html#prerequisites",
+    "href": "blog/posts/second-post/index.html#prerequisites",
+    "title": "Building Your First ML Pipeline",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nPython 3.8+\nBasic understanding of ML concepts\nFamiliarity with pandas and scikit-learn"
+  },
+  {
+    "objectID": "blog/posts/second-post/index.html#the-pipeline-structure",
+    "href": "blog/posts/second-post/index.html#the-pipeline-structure",
+    "title": "Building Your First ML Pipeline",
+    "section": "The Pipeline Structure",
+    "text": "The Pipeline Structure\nHere’s a basic example of a modular ML pipeline:\n\n:::"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Postgraduate CS student during the day and ML engineering Padawan at night. Previous roles include: Sr Data Scientist, Sr Backend SWE, Lead Data Engineer"
+    "text": "Postgraduate CS student during the day and ML engineering Padawan at night. Previous roles include: Sr Data Scientist, Sr Backend SWE, Lead Data Engineer\n\n:::"
   }
 ]

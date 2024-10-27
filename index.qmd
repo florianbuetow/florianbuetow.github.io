@@ -1,6 +1,15 @@
 ---
-title: "Cracking AI Engineering"
+title: "" # prevents title from being displayed
+author: "" # prevents author from being displayed
+toc: true
 ---
 
 Welcome to my blog! I write about AI and showcase projects I am working on.
 
+# title
+
+## subtitle 1
+
+### subsubtitle 1.2
+
+## subtitle 2

@@ -1,0 +1,26 @@
+---
+title: "Getting Started with AI Engineering"
+description: "An introduction to AI Engineering and what to expect from this blog"
+author: "Florian Buetow"
+date: "2024-03-20"
+categories: [AI, Engineering, Introduction]
+image: "thumbnail.jpg"  # Optional: Add this if you want to include a thumbnail image
+---
+
+Welcome to my first blog post! In this article, I'll introduce you to AI Engineering and share what you can expect from this blog.
+
+## What is AI Engineering?
+
+![](thumbnail.jpg)
+
+AI Engineering combines software engineering principles with machine learning and artificial intelligence to build robust, scalable AI systems.
+
+## What to Expect
+
+In this blog, I'll be covering:
+- Best practices for AI/ML systems
+- Practical tutorials and code examples
+- Project showcases and learnings
+- Industry trends and insights
+
+Stay tuned for more content!

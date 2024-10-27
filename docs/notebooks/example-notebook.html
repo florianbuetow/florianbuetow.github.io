@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Florian Buetow">
 
-<title>Projects – Cracking AI Engineering</title>
+<title>Example Notebook – Cracking AI Engineering</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../images/favicon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -124,29 +126,38 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../pages/projects.html" aria-current="page"> 
+    <a class="nav-link" href="../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../pages/about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../notebooks/example-notebook.html"> 
+    <a class="nav-link active" href="../notebooks/example-notebook.html" aria-current="page"> 
 <span class="menu-text">Example Notebook</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/florianbuetow"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/florianbuetow" rel="noopener noreferrer" target="_blank"> <i class="bi bi-github" role="img" aria-label="GitHub Profile">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/bytetweets"> <i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://twitter.com/bytetweets" rel="noopener noreferrer" target="_blank"> <i class="bi bi-twitter" role="img" aria-label="Twitter Profile">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/fbuetow" rel="noopener noreferrer" target="_blank"> <i class="bi bi-linkedin" role="img" aria-label="LinkedIn Profile">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -169,13 +180,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
+<h1 class="title">Example Notebook</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Florian Buetow </p>
+          </div>
+  </div>
     
   
     
@@ -186,14 +203,96 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>List of projects</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="4088674fdef4350" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-10-26T01:38:02.528962Z&quot;,&quot;start_time&quot;:&quot;2024-10-26T01:38:02.522680Z&quot;}" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Hello, world!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3</code></pre>
+<pre><code>Hello, world!</code></pre>
 </div>
+</div>
+<div id="d495d0e29ed738dd" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-10-26T01:38:03.488371Z&quot;,&quot;start_time&quot;:&quot;2024-10-26T01:38:02.533461Z&quot;}" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if git, docker, and docker-compose are installed</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>git_check <span class="op">=</span> <span class="op">!</span>git <span class="op">--</span>version</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>docker_check <span class="op">=</span> <span class="op">!</span>docker <span class="op">--</span>version</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>docker_compose_check <span class="op">=</span> <span class="op">!</span>docker<span class="op">-</span>compose <span class="op">--</span>version</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>docker_running_check <span class="op">=</span> <span class="op">!</span>docker info <span class="op">&gt;</span> <span class="op">/</span>dev<span class="op">/</span>null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="op">&amp;&amp;</span> echo <span class="st">"Docker daemon is running"</span> <span class="op">||</span> echo <span class="st">"Docker daemon is not running"</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Check if any software is missing or Docker daemon is not running</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> git_check:</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Error: Git is not installed."</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    sys.exit(<span class="st">"Exiting: Git is required."</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="kw">not</span> docker_check:</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Error: Docker is not installed."</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    sys.exit(<span class="st">"Exiting: Docker is required."</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="kw">not</span> docker_compose_check:</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Error: Docker Compose is not installed."</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    sys.exit(<span class="st">"Exiting: Docker Compose is required."</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> docker_running_check[<span class="dv">0</span>] <span class="op">!=</span> <span class="st">"Docker daemon is running"</span>:</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Error: Docker daemon is not running."</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    sys.exit(<span class="st">"Exiting: Docker daemon needs to be running."</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># If everything is okay</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"All required software is installed and Docker daemon is running."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>All required software is installed and Docker daemon is running.</code></pre>
+</div>
+</div>
+<div id="b310e15445e7ff4e" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-10-26T01:38:49.369549Z&quot;,&quot;start_time&quot;:&quot;2024-10-26T01:38:03.490541Z&quot;}" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>git clone git<span class="op">@</span>github.com:florianbuetow<span class="op">/</span>arxiv_publications_tracker.git</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>cd arxiv_publications_tracker</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>bash build_and_run.sh <span class="op">&gt;</span> <span class="op">/</span>dev<span class="op">/</span>null <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cloning into 'arxiv_publications_tracker'...
+remote: Enumerating objects: 23, done.
+remote: Counting objects: 100% (23/23), done.
+remote: Compressing objects: 100% (15/15), done.
+remote: Total 23 (delta 10), reused 19 (delta 6), pack-reused 0 (from 0)
+Receiving objects: 100% (23/23), 5.62 KiB | 1.87 MiB/s, done.
+Resolving deltas: 100% (10/10), done.
+/Users/flo/projects/github/florianbuetow.github.io/arxiv_publications_tracker</code></pre>
+</div>
+</div>
+<div id="fdde0ffba247d012" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-10-26T01:38:49.381260Z&quot;,&quot;start_time&quot;:&quot;2024-10-26T01:38:49.375430Z&quot;}" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Done!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Done!</code></pre>
+</div>
+</div>
+<div id="c708586aeb2a4d4f" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-10-26T01:38:49.394801Z&quot;,&quot;start_time&quot;:&quot;2024-10-26T01:38:49.385764Z&quot;}" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over all subdiretories in arxiv_publications_tracker/data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> subdir, dirs, files <span class="kw">in</span> os.walk(<span class="st">"data"</span>):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="bu">file</span> <span class="kw">in</span> files:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        filename <span class="op">=</span> os.path.join(subdir, <span class="bu">file</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> filename.endswith(<span class="st">".json"</span>):</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>data/stat.ML/2024-10-26_013840.json
+data/cs.AI/2024-10-26_013808.json
+data/cs.LG/2024-10-26_013831.json
+data/cs.CV/2024-10-26_013824.json
+data/cs.CL/2024-10-26_013816.json</code></pre>
+</div>
+</div>
+<div id="2fc58d5a6e98512f" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-10-26T01:38:49.611780Z&quot;,&quot;start_time&quot;:&quot;2024-10-26T01:38:49.397536Z&quot;}" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>cd ..<span class="op">/</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>rm <span class="op">-</span>rf arxiv_publications_tracker</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>/Users/flo/projects/github/florianbuetow.github.io</code></pre>
+</div>
+</div>
+<div id="b35591d16e2e0e57" class="cell" data-executetime="{&quot;end_time&quot;:&quot;2024-10-26T01:38:49.699330Z&quot;,&quot;start_time&quot;:&quot;2024-10-26T01:38:49.693182Z&quot;}" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Done!"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Done!</code></pre>
+</div>
+</div>
+<div id="29b3fe4dd50a1b94" class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
+<p>:::</p>
 
 
 </main> <!-- /main -->
@@ -289,7 +388,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/florianbuetow\.github\.io");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
@@ -618,6 +717,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ Copyright © by <script>document.write(new Date().getFullYear())</script> Florian Buetow
+  </li>  
+</ul>
+    </div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+ <a href="https://github.com/florianbuetow/florianbuetow.github.io" target="_blank" rel="noopener noreferrer">Edit this website <i class="fab fa-github"></i></a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
 
 
 

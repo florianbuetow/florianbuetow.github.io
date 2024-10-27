@@ -1,0 +1,21 @@
+---
+title: "" # prevents title from being displayed
+author: "" # prevents author from being displayed
+listing:
+  contents: posts
+  sort: "date desc"
+  type: grid
+  categories: true
+  sort-ui: true
+  filter-ui: true
+  fields: [date, title, reading-time, description, categories]
+  feed: true
+page-layout: article
+---
+
+Welcome to my professional blog where I write about AI and data science.
+
+
+
+
+

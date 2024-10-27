@@ -1,8 +1,9 @@
 ---
 title: "Projects"
+toc: true
 ---
 
-List of projects
+# List of projects
 
 ```{r}
 1 + 2

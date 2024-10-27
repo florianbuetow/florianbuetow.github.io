@@ -6,9 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
+<meta name="author" content="Florian Buetow">
+<meta name="dcterms.date" content="2024-03-20">
+<meta name="description" content="An introduction to AI Engineering and what to expect from this blog">
 
-<title>index</title>
+<title>Getting Started with AI Engineering – Cracking AI Engineering</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -24,23 +26,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./images/favicon.png" rel="icon" type="image/png">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/favicon.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -70,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../../styles.css">
 </head>
 
 <body class="nav-fixed">
@@ -79,6 +81,11 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">Cracking AI Engineering</span>
+    </a>
+  </div>
             <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -86,23 +93,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog/index.html"> 
+    <a class="nav-link" href="../../../blog/index.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html"> 
+    <a class="nav-link" href="../../../projects.html"> 
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./notebooks/example-notebook.html"> 
+    <a class="nav-link" href="../../../notebooks/example-notebook.html"> 
 <span class="menu-text">Example Notebook</span></a>
   </li>  
 </ul>
@@ -138,38 +145,68 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#title" id="toc-title" class="nav-link active" data-scroll-target="#title">title</a>
-  <ul class="collapse">
-  <li><a href="#subtitle-1" id="toc-subtitle-1" class="nav-link" data-scroll-target="#subtitle-1">subtitle 1</a>
-  <ul class="collapse">
-  <li><a href="#subsubtitle-1.2" id="toc-subsubtitle-1.2" class="nav-link" data-scroll-target="#subsubtitle-1.2">subsubtitle 1.2</a></li>
-  </ul></li>
-  <li><a href="#subtitle-2" id="toc-subtitle-2" class="nav-link" data-scroll-target="#subtitle-2">subtitle 2</a></li>
-  </ul></li>
+  <li><a href="#what-is-ai-engineering" id="toc-what-is-ai-engineering" class="nav-link active" data-scroll-target="#what-is-ai-engineering">What is AI Engineering?</a></li>
+  <li><a href="#what-to-expect" id="toc-what-to-expect" class="nav-link" data-scroll-target="#what-to-expect">What to Expect</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Getting Started with AI Engineering</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AI</div>
+    <div class="quarto-category">Engineering</div>
+    <div class="quarto-category">Introduction</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    An introduction to AI Engineering and what to expect from this blog
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
 
-<p>Welcome to my blog! I write about AI and showcase projects I am working on.</p>
-<section id="title" class="level1">
-<h1>title</h1>
-<section id="subtitle-1" class="level2">
-<h2 class="anchored" data-anchor-id="subtitle-1">subtitle 1</h2>
-<section id="subsubtitle-1.2" class="level3">
-<h3 class="anchored" data-anchor-id="subsubtitle-1.2">subsubtitle 1.2</h3>
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Florian Buetow </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 20, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Welcome to my first blog post! In this article, I’ll introduce you to AI Engineering and share what you can expect from this blog.</p>
+<section id="what-is-ai-engineering" class="level2">
+<h2 class="anchored" data-anchor-id="what-is-ai-engineering">What is AI Engineering?</h2>
+<p><img src="thumbnail.jpg" class="img-fluid"></p>
+<p>AI Engineering combines software engineering principles with machine learning and artificial intelligence to build robust, scalable AI systems.</p>
 </section>
-</section>
-<section id="subtitle-2" class="level2">
-<h2 class="anchored" data-anchor-id="subtitle-2">subtitle 2</h2>
+<section id="what-to-expect" class="level2">
+<h2 class="anchored" data-anchor-id="what-to-expect">What to Expect</h2>
+<p>In this blog, I’ll be covering: - Best practices for AI/ML systems - Practical tutorials and code examples - Project showcases and learnings - Industry trends and insights</p>
+<p>Stay tuned for more content!</p>
 
 <p>:::</p>
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -599,7 +636,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       <ul class="footer-items list-unstyled">
     <li class="nav-item">
- Copyright © by <script>document.write(new Date().getFullYear())</script> 
+ Copyright © by <script>document.write(new Date().getFullYear())</script> Florian Buetow
   </li>  
 </ul>
     </div>   

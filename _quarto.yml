@@ -2,28 +2,52 @@ project:
   type: website
   output-dir: docs
 
+author: "Florian Buetow"
+
 website:
-  title: "Cracking AI Engineering"
+  title: "" # Cracking AI Engineering
+  site-url: "https://florianbuetow.github.io"
+  favicon: "images/favicon.png"
   navbar:
     left:
-      - href: index.qmd
+      # - href: index.qmd
+      #   text: Home
+      - href: blog/index.qmd
         text: Blog
-      - href: pages/projects.qmd
+      - href: projects.qmd
         text: Projects
-      - href: pages/about.qmd
+      - href: about.qmd
         text: About
       - href: notebooks/example-notebook.ipynb
         text: Example Notebook
     right:
-    - icon: github
-      href: https://github.com/florianbuetow
-    - icon: twitter
-      href: https://twitter.com/bytetweets
+      - icon: github
+        href: https://github.com/florianbuetow
+        target: "_blank"
+        rel: "noopener noreferrer"
+        aria-label: "GitHub Profile"
+      - icon: twitter
+        href: https://twitter.com/bytetweets
+        target: "_blank"
+        rel: "noopener noreferrer"
+        aria-label: "Twitter Profile"
+      - icon: linkedin
+        href: https://linkedin.com/in/fbuetow
+        target: "_blank"
+        rel: "noopener noreferrer"
+        aria-label: "LinkedIn Profile"
+  page-footer:
+    left:
+      - text: "Copyright &copy; by <script>document.write(new Date().getFullYear())</script> {{< meta author >}}"
+    right:
+      - text: |
+          <a href="https://github.com/florianbuetow/florianbuetow.github.io" target="_blank" rel="noopener noreferrer">Edit this website <i class="fab fa-github"></i></a>
 format:
   html:
     theme: simplex
     css: styles.css
     toc: true
+    code-overflow: wrap
 
-
-
+esbuild:
+  sourcemap: false
