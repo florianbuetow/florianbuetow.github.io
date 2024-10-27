@@ -5,14 +5,14 @@ project:
 author: "Florian Buetow"
 
 website:
-  title: "" # Cracking AI Engineering
+  title: "Cracking AI Engineering"
   site-url: "https://florianbuetow.github.io"
   favicon: "images/favicon.png"
   navbar:
     left:
       # - href: index.qmd
       #   text: Home
-      - href: blog/index.qmd
+      - href: blog.qmd
         text: Blog
       - href: projects.qmd
         text: Projects
