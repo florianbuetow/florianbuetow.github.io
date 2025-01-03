@@ -1,0 +1,13 @@
+mkdocs-material
+mkdocs-material[imaging]
+mkdocstrings
+mkdocstrings-python
+mkdocs-minify-plugin
+mkdocs-redirects
+mkdocs
+
+pandas
+numpy
+matplotlib
+lxml_html_clean
+python-frontmatter
