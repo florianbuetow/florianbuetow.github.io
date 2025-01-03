@@ -1,0 +1,7 @@
+[data-md-color-scheme="blog"] {
+  --md-primary-fg-color: #c85442; /* New primary color for the default theme */
+  --md-primary-fg-color--light: #f0b8ae; /* A lighter shade for accents */
+  --md-primary-fg-color--dark: #8f3229; /* A darker shade for contrast */
+  --md-typeset-a-color: #c85442; /* Normal link color */
+  --md-typeset-a-hover-color: #f0b8ae; /* Link color when hovering */
+}
