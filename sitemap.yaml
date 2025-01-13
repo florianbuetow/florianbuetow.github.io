@@ -53,12 +53,15 @@ writing/posts/the-default-heuristic.md:
     emphasizing its advantages in resource-constrained projects, critical applications,
     and scenarios requiring rapid scaling or unclear long-term requirements.
 writing/posts/working-with-an-sre-interview.md:
-  hash: 32e7bf88218fad28566387eb54c582d6
-  summary: "Explore insights from Paul B\xFCtow, a Principal Site Reliability Engineer\
-    \ at Mimecast, as he discusses Site Reliability Engineering (SRE) practices, focusing\
-    \ on automation, observability, and collaboration. Learn about the role of an\
-    \ 'Embedded SRE,' the importance of early involvement, and using infrastructure\
-    \ as code tools like Terraform. Paul shares practical tips for working with SREs,\
-    \ using runbooks, monitoring, and setting SLIs, SLOs, and SLAs. Discover how AI\
-    \ tools assist in streamlining SRE tasks and gain recommendations for SRE resources\
-    \ like the Google SRE book and \"Seeking SRE.\""
+  hash: 25124288b9d169de65030156f4f2b397
+  summary: "In the interview \"Working with an SRE,\" Paul B\xFCtow, a Principal Site\
+    \ Reliability Engineer at Mimecast, shares his insights on Site Reliability Engineering\
+    \ (SRE) practices, including automation, observability, and effective incident\
+    \ management. With over a decade of experience, Paul emphasizes the significance\
+    \ of integrating SRE aspects from the start of any project, differentiating roles\
+    \ like SREs, DevOps, and SysAdmins, and using AI tools to enhance efficiency.\
+    \ He discusses the importance of runbooks, collaboration with different teams,\
+    \ and provides learning resources for those interested in SRE. The conversation\
+    \ also delves into practical tips for working with SREs and explores AI's role\
+    \ in log analysis and automated workflows. Key themes include automation, collaboration,\
+    \ AI in SRE, and infrastructure management."
