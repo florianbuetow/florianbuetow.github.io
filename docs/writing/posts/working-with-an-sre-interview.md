@@ -33,11 +33,13 @@ In this insightful interview, Paul Bütow, a Principal Site Reliability Engineer
 
 **Hi Paul, please introduce yourself briefly to the audience. Who are you, what do you do for a living, and where do you work?**
 
-> _My name is Paul Bütow, I work at Mimecast, and I’m a Principal Site Reliability Engineer there. I’ve been with Mimecast for almost ten years now. The company specializes in email security, including things like archiving, phishing detection, malware protection, and spam filtering."_
+> _My name is Paul Bütow, I work at Mimecast, and I’m a Principal Site Reliability Engineer there. I’ve been with Mimecast for almost ten years now. The company specializes in email security, including things like archiving, phishing detection, malware protection, and spam filtering._
 
 **You mentioned that you’re an ‘Embedded SRE.’ What does that mean exactly?**
 
 > _It means that I’m directly part of the software engineering team, not in a separate Ops department. I ensure that nothing is deployed manually, and everything runs through automation. I also set up monitoring and observability. These are two distinct aspects: monitoring alerts us when something breaks, while observability helps us identify trends. I also create runbooks so we know what to do when specific incidents occur frequently._
+
+> _Infrastructure SREs on the other hand handle the foundational setup, like providing the Kubernetes cluster itself or ensuring the operating systems are installed. They don't work on the application directly but ensure the base infrastructure is there for others to use. This works well when a company has multiple teams that need shared infrastructure._
 
 ---
 
@@ -49,23 +51,27 @@ In this insightful interview, Paul Bütow, a Principal Site Reliability Engineer
 
 **And after school, you pursued computer science, correct?**
 
-> _Exactly. I wasn’t sure at first whether I wanted to be a software developer or a system administrator. I applied for both and eventually accepted an offer as a Linux system administrator. This was before 'SRE' became a buzzword, but much of what I did back then—automation, infrastructure as code, monitoring—is now considered part of the typical SRE role._
+> _Exactly. I wasn’t sure at first whether I wanted to be a software developer or a system administrator. I applied for both and eventually accepted an offer as a Linux system administrator. This was before 'SRE' became a buzzword, but much of what I did back then-automation, infrastructure as code, monitoring-is now considered part of the typical SRE role._
 
 ---
 
-## Career Progression
+## Roles and Career Progression
 
 **Tell us about how you joined Mimecast. When did you fully embrace the SRE role?**
 
 > _I started as a Linux sysadmin at 1&1. I managed an ad server farm with hundreds of systems and later handled load balancers. Together with an architect, we managed F5 load balancers distributing around 2,000 services, including for portals like web.de and GMX. I also led the operations team technically for a while before moving to London to join Mimecast._
 
-> _At Mimecast, the job title was explicitly 'Site Reliability Engineer.' The biggest difference was that I was no longer in a separate Ops department but embedded directly within the storage and search backend team. I loved that because we could plan features together—from automation to measurability and observability. Mimecast also operates thousands of physical servers for email archiving, which was fascinating since I already had experience with large distributed systems at 1&1. It was the right step for me because it allowed me to work close to the code while remaining hands-on with infrastructure._
+> _At Mimecast, the job title was explicitly 'Site Reliability Engineer.' The biggest difference was that I was no longer in a separate Ops department but embedded directly within the storage and search backend team. I loved that because we could plan features together-from automation to measurability and observability. Mimecast also operates thousands of physical servers for email archiving, which was fascinating since I already had experience with large distributed systems at 1&1. It was the right step for me because it allowed me to work close to the code while remaining hands-on with infrastructure._
+
+**What are the differences between SRE, DevOps, SysAdmin, and Architects?**
+
+> _SREs are like the next step after SysAdmins. A SysAdmin might manually install servers, replace disks, or use simple scripts for automation, while SREs use infrastructure as code and focus on reliability through SLIs, SLOs, and automation. DevOps isn’t really a job-it’s more of a way of working, where developers are involved in operations tasks like setting up CI/CD pipelines. Architects focus on designing systems and infrastructures, such as load balancers or distributed systems, working alongside SREs to ensure the systems meet the reliability and scalability requirements. The specific responsibilities of each role depend on the company, and there is often overlap._  
 
 **What are the most important reliability lessons you’ve learned so far?**
 
-> _Don’t leave SRE aspects as an afterthought. It’s much better to discuss automation, monitoring, SLIs, and SLOs early on. Traditional sysadmins often installed systems manually, but today, we do everything via infrastructure as code—using tools like Terraform or Puppet._
+> _Don’t leave SRE aspects as an afterthought. It’s much better to discuss automation, monitoring, SLIs, and SLOs early on. Traditional sysadmins often installed systems manually, but today, we do everything via infrastructure as code-using tools like Terraform or Puppet._
 > _I also distinguish between monitoring and observability. Monitoring tells us, 'The server is down, alarm!' Observability dives deeper, showing trends like increasing latency so we can act proactively._
-> _SLI, SLO, and SLA are core elements. We focus on what users actually experience—for example, how quickly an email is sent—and set our goals accordingly._
+> _SLI, SLO, and SLA are core elements. We focus on what users actually experience-for example, how quickly an email is sent-and set our goals accordingly._
 > _Runbooks are also crucial. When something goes wrong at night, you don’t want to start from scratch. A runbook outlines how to debug and resolve specific problems, saving time and reducing downtime._
 
 ---
@@ -74,7 +80,16 @@ In this insightful interview, Paul Bütow, a Principal Site Reliability Engineer
 
 **Runbooks sound very practical. Can you explain how they’re used day-to-day?**
 
-> _Runbooks are essentially guides for handling specific incidents. For instance, if a service won’t start, the runbook will specify where the logs are and which commands to use. Observability takes it a step further, helping us spot changes early—like rising error rates or latency—so we can address issues before they escalate._
+> _Runbooks are essentially guides for handling specific incidents. For instance, if a service won’t start, the runbook will specify where the logs are and which commands to use. Observability takes it a step further, helping us spot changes early-like rising error rates or latency-so we can address issues before they escalate._
+
+
+**When should you decide to put something into a runbook, and when is it unnecessary?**
+
+> _If an issue happens frequently, it should be documented in a runbook so that anyone, even someone new, can follow the steps to fix it. The idea is that 90% of the common incidents should be covered. For example, if a service is down, the runbook would specify where to find logs, which commands to check, and what actions to take. On the other hand, rare or complex issues, where the resolution depends heavily on context or varies each time, don’t make sense to include in detail. For those, it’s better to focus on general troubleshooting steps._  
+
+**How do you search for and find the correct runbooks?**
+
+> _Runbooks should be linked directly in the alert you receive. For example, if you get an alert about a service not running, the alert will have a link to the runbook that tells you what to check, like logs or commands to run. Runbooks are best stored in an internal wiki, so if you don’t find the link in the alert, you know where to search. The important thing is that runbooks are easy to find and up to date because that’s what makes them useful during incidents._  
 
 **Do you have an interesting war story you can share with us?**
 
@@ -84,7 +99,7 @@ In this insightful interview, Paul Bütow, a Principal Site Reliability Engineer
 
 ## Working with Different Teams
 
-**You’re embedded in a team—how does collaboration with developers work practically?**
+**You’re embedded in a team-how does collaboration with developers work practically?**
 
 > _We plan everything together from the start. If there’s a new feature, we discuss infrastructure, automated deployments, and monitoring right away. Developers are experts in the code, and I bring the infrastructure expertise. This avoids unpleasant surprises before going live._
 
@@ -147,11 +162,11 @@ In this insightful interview, Paul Bütow, a Principal Site Reliability Engineer
 
 **To wrap up, what are three things every team should keep in mind for stability?**
 
-> _First, maintain runbooks and documentation to avoid chaos at night. Second, automate everything—manual installs in production are risky. Third, define SLIs, SLOs, and SLAs early so everyone knows what we’re monitoring and guaranteeing._
+> _First, maintain runbooks and documentation to avoid chaos at night. Second, automate everything-manual installs in production are risky. Third, define SLIs, SLOs, and SLAs early so everyone knows what we’re monitoring and guaranteeing._
 
 **Is there a motto or mindset that particularly inspires you as an SRE?**
 
-> _‘Keep it simple and stupid’—KISS. Not everything has to be overly complex. And always stay curious. I’m still fascinated by how systems work under the hood._
+> _"Keep it simple and stupid"-KISS. Not everything has to be overly complex. And always stay curious. I’m still fascinated by how systems work under the hood._
 
 **Where can people find you online?**
 
