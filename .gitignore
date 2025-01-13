@@ -1,0 +1,8 @@
+/.env
+/.idea/
+/.venv/
+/.vscode/
+**/.DS_Store
+
+/scratch/
+/.cache/

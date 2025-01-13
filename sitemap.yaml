@@ -1,0 +1,64 @@
+index.md:
+  hash: e2868a7b2fbd3de72cc761b275af19d5
+  summary: This website documents a journey from software engineering to AI, offering
+    insights, tips, and career inspiration for individuals interested in Artificial
+    Intelligence. It features stories and learnings about personal growth and career
+    transitions, appealing to those seeking practical advice or a fresh perspective.
+    Readers can explore content by browsing categories or check the latest posts directly.
+    A monthly newsletter provides updates and post summaries, while social media links
+    to Twitter and GitHub allow for more frequent engagement. Key themes include AI
+    journey, software engineering, career inspiration, and personal growth.
+reading/book-club.md:
+  hash: 1c3a368a03a92d24b514d97a024fa618
+  summary: Join the Data Science and Machine Learning Book Club, a free community
+    on Discord where members read and discuss books related to data science and machine
+    learning. Each month, the community votes on a book to read and holds asynchronous
+    discussions, often featuring live post-reading discussions with authors on YouTube.
+    Engage with a vibrant community interested in data science, machine learning,
+    and engaging author interactions. Perfect for those passionate about a reading
+    community, data science, machine learning, and book club activities.
+reading/books.md:
+  hash: a7aac981f9ec986b229e8642bafc290a
+  summary: 'Explore essential books for building a successful career in AI and Machine
+    Learning (ML) with a curated selection covering topics such as data science, leadership,
+    and machine learning systems. Enhance your skills with resources like "Ace the
+    Data Science Interview" for interview preparation, "Machine Learning Engineering
+    in Action" for practical ML techniques, and "Designing Machine Learning Systems"
+    for developing production-ready applications. Develop leadership abilities with
+    titles like "Build a Career in Data Science" and "How to Lead in Data Science,"
+    and manage projects effectively with "Managing Machine Learning Projects." These
+    books offer comprehensive guidance for anyone aiming to advance in the AI/ML industry.
+    Join the [DS/ML Book Club](book-club.md) for additional recommendations. Keywords:
+    AI, ML, Data Science, Career Development, Book Recommendations.'
+writing/index.md:
+  hash: 4fb67b949aaa65b1e4f47da5ebe162f0
+  summary: 'This content highlights the journey of a software engineer transitioning
+    to the field of AI, with a focus on system design, challenges, and project insights.
+    Key topics include AI transition, system design, and technical leadership. The
+    author shares valuable learnings and experiences through articles, emphasizing
+    the integration of software engineering skills into AI applications. Additionally,
+    a newsletter is available for updates on new posts, and readers have access to
+    a relevant interview and system design guide. Keywords: AI transition, system
+    design, software engineering, technical leadership, newsletter.'
+writing/posts/the-default-heuristic.md:
+  hash: 940d718c9d55832879372bacb7a43de4
+  summary: This article explores the concept of the "Default Heuristic" in tech selection
+    for production systems, advocating for the use of established, reliable technologies
+    over novel, untested alternatives to ensure stability, maintainability, and reliability.
+    It warns against the "Optimization Fallacy," which is the pursuit of perfect solutions
+    at the expense of simplicity and resource efficiency. Real-world examples from
+    Pinterest and StackOverflow illustrate the benefits of using proven technologies
+    like SQL databases and familiar frameworks to minimize risks and leverage community
+    support. The article also provides guidelines on when to apply the Default Heuristic,
+    emphasizing its advantages in resource-constrained projects, critical applications,
+    and scenarios requiring rapid scaling or unclear long-term requirements.
+writing/posts/working-with-an-sre-interview.md:
+  hash: 32e7bf88218fad28566387eb54c582d6
+  summary: "Explore insights from Paul B\xFCtow, a Principal Site Reliability Engineer\
+    \ at Mimecast, as he discusses Site Reliability Engineering (SRE) practices, focusing\
+    \ on automation, observability, and collaboration. Learn about the role of an\
+    \ 'Embedded SRE,' the importance of early involvement, and using infrastructure\
+    \ as code tools like Terraform. Paul shares practical tips for working with SREs,\
+    \ using runbooks, monitoring, and setting SLIs, SLOs, and SLAs. Discover how AI\
+    \ tools assist in streamlining SRE tasks and gain recommendations for SRE resources\
+    \ like the Google SRE book and \"Seeking SRE.\""
