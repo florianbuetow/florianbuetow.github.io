@@ -123,13 +123,18 @@ nav:
       - "reading/book-club.md"
 plugins:
   - rss:
-      match_path: ".*"
+      use_git: false
+      match_path: "^(writing/posts/.*|projects/.*)$"
       feeds_filenames:
         rss_created: feed.rss
         json_created: feed.json
       date_from_meta:
-        as_creation: date.created
-        as_update: date.updated
+        as_creation: "date"
+        as_update: "update"
+        datetime_format: "%Y-%m-%d %H:%M"
+        default_time: "08:30"
+        default_timezone: UTC
+
   - social
   - search:
       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'

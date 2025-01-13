@@ -1,11 +1,15 @@
 ---
+title: >-
+  Interview Series - Working with an SRE
+date: 2025-01-12
+updated: 2025-01-12
 authors:
 - fb
 - pb
 categories:
 - Interviews
-date: 2025-01-12
-description: Explore insights from Paul Bütow on SRE practices, automation, collaboration,
+description: >-
+  Explore insights from Paul Bütow on SRE practices, automation, collaboration,
   and the role of AI in engineering. Read more!
 draft: false
 slug: working-with-an-sre-interview
