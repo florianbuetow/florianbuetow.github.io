@@ -13,9 +13,9 @@ theme:
     - docs/stylesheets/extra.css
   icon:
     repo: fontawesome/brands/github
-    edit: material/pencil 
+    edit: material/pencil
     view: material/eye
-    theme:    
+    theme:
     admonition:
       note: octicons/tag-16
       abstract: octicons/checklist-16
@@ -56,7 +56,7 @@ theme:
     - search.suggest
     - toc.follow
   palette:
-      - scheme: blog
+    - scheme: blog
   font:
     text: Roboto
     code: Roboto Mono
@@ -89,7 +89,7 @@ markdown_extensions:
   - pymdownx.magiclink:
       normalize_issue_symbols: true
       repo_url_shorthand: true
-      user: fb 
+      user: fb
       repo: instructor
   - pymdownx.mark
   - pymdownx.smartsymbols
@@ -113,11 +113,13 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 nav:
-  - Home: 
-    - Introductions: 'index.md'
-    - Blog: "writing/index.md"
-  - Writing:
-    - "writing/index.md"
+  - Home:
+      - Introductions: "index.md"
+      - Blog: "writing/index.md"
+  - Blog:
+      - "writing/index.md"
+  - User Manual:
+      - "user-manual.md"
   - Resources:
       - "reading/books.md"
       - "reading/book-club.md"

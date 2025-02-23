@@ -4,19 +4,19 @@ authors:
 categories:
 - Applied AI
 date: 2025-01-01
-description: Explore insights from a software engineer transitioning to AI, covering
-  system design, challenges, and helpful projects.
+description: Explore insights on software engineering, AI transition, system design,
+  and technical leadership in my blog. Subscribe for updates!
 draft: false
 slug: writing
 tags:
-- AI transition
-- system design
-- technical leadership
-- software engineering
-- learn and grow
+- AI
+- Software Engineering
+- System Design
+- Technical Leadership
+- Blog
 ---
 
-# Writings
+# Blog
 
 I mainly write about learnings, challenges and projects that I encounter during my transition from software engineering to AI.
 Due to my background is in software engineering, you will also find articles that focus on system design and technical leadership.

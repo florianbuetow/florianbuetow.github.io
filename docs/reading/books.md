@@ -1,14 +1,14 @@
 ---
 categories:
-- Applied AI
-description: Explore essential books for AI/ML careers, including reads on data science,
-  leadership, and machine learning systems.
+- Software Engineering
+description: Explore essential AI/ML books to boost your career. Discover recommendations
+  for reading, interview prep, and leadership insights.
 tags:
 - AI
-- Machine Learning
-- Data Science
-- Career Development
-- Book Recommendations
+- MachineLearning
+- CareerDevelopment
+- DataScience
+- BookRecommendations
 ---
 
 # Books

@@ -2,17 +2,17 @@
 authors:
 - fb
 categories:
-- System Design
+- Software Engineering
 date: 2025-02-01
-description: Learn how to choose proven tech for production with the Default Heuristic,
-  balancing innovation and stability in system design.
+description: Explore the Default Heuristic to choose proven tech for production systems,
+  enhancing stability and minimizing risks in development.
 draft: false
 slug: the-default-heuristic
 tags:
 - Default Heuristic
-- Tech Choices
-- System Design
-- Production Stability
+- Tech Selection
+- Software Engineering
+- Production Systems
 - Optimization Fallacy
 ---
 

@@ -30,16 +30,28 @@ reading/books.md:
     books offer comprehensive guidance for anyone aiming to advance in the AI/ML industry.
     Join the [DS/ML Book Club](book-club.md) for additional recommendations. Keywords:
     AI, ML, Data Science, Career Development, Book Recommendations.'
+user-manual.md:
+  hash: 0978c77875bd215417e39c6ffea66691
+  summary: 'This guide outlines effective collaboration strategies, providing insights
+    into personal work styles, communication preferences, and feedback mechanisms
+    to enhance teamwork. Key topics include decision-making processes that balance
+    data-driven analysis with intuition, preferred communication channels such as
+    direct messages, and meeting practices centered on clear agendas and outcomes.
+    The guide emphasizes a collaborative and respectful approach to teamwork, with
+    a focus on understanding tasks'' underlying ''why'' and fostering a positive,
+    inclusive environment. Additionally, it highlights the importance of giving and
+    receiving constructive feedback, shielding the team from external pressures, and
+    tackling challenges collectively. Keywords: collaboration, feedback, teamwork,
+    communication, work habits, decision-making, personal growth.'
 writing/index.md:
-  hash: 4fb67b949aaa65b1e4f47da5ebe162f0
-  summary: 'This content highlights the journey of a software engineer transitioning
-    to the field of AI, with a focus on system design, challenges, and project insights.
-    Key topics include AI transition, system design, and technical leadership. The
-    author shares valuable learnings and experiences through articles, emphasizing
-    the integration of software engineering skills into AI applications. Additionally,
-    a newsletter is available for updates on new posts, and readers have access to
-    a relevant interview and system design guide. Keywords: AI transition, system
-    design, software engineering, technical leadership, newsletter.'
+  hash: a90404005cec5cc72ba8ad7431871647
+  summary: This blog by a former software engineer transitioning to AI explores insights
+    into system design, the challenges faced in shifting to AI, and helpful projects
+    encountered along the way. Key topics include technical leadership, system design
+    decisions, and learning and growing in the AI field. The author also shares interviews,
+    such as working with Site Reliability Engineers (SRE), and offers a newsletter
+    for monthly updates on new posts. Keywords include AI transition, system design,
+    technical leadership, and software engineering.
 writing/posts/the-default-heuristic.md:
   hash: 940d718c9d55832879372bacb7a43de4
   summary: This article explores the concept of the "Default Heuristic" in tech selection
