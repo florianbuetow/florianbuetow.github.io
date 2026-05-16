@@ -13,11 +13,17 @@
     </main>
     {{ partial "footer.html" . }}
 </div>
-<button class="debug-toggle" id="debug-toggle" type="button">Toggle layout borders</button>
+<button class="debug-toggle" id="debug-toggle" type="button" hidden>Toggle layout borders</button>
 <script>
-  document.getElementById('debug-toggle').addEventListener('click', function () {
-    document.body.classList.toggle('debug-layout');
-  });
+  (function () {
+    var host = window.location.hostname;
+    if (host !== 'localhost' && host !== '127.0.0.1') return;
+    var btn = document.getElementById('debug-toggle');
+    btn.hidden = false;
+    btn.addEventListener('click', function () {
+      document.body.classList.toggle('debug-layout');
+    });
+  })();
 </script>
 {{ block "scripts" . }}{{ end }}
 </body>
