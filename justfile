@@ -59,6 +59,7 @@ help:
     @printf "  %-40s %s\n" "ci" "Run ALL validation checks (verbose)"
     @printf "  %-40s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
     @printf "  %-40s %s\n" "build" "Build the production site"
+    @printf "  %-40s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
 
 # Initialize the build environment (installs missing deps)
@@ -323,3 +324,93 @@ build:
     @hugo --minify
     @printf "\033[0;32m✓ build completed successfully\033[0m\n"
     @echo ""
+
+# Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
+deploy:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Deploying to GitHub Pages ===\033[0m\n"
+
+    if ! command -v gh >/dev/null 2>&1; then
+        printf "\033[0;31m✗ deploy failed: gh CLI is not installed\033[0m\n"
+        printf "  Install with: brew install gh\n"
+        echo ""
+        exit 1
+    fi
+
+    if ! gh auth status >/dev/null 2>&1; then
+        printf "\033[0;31m✗ deploy failed: gh CLI is not authenticated\033[0m\n"
+        printf "  Run: gh auth login\n"
+        echo ""
+        exit 1
+    fi
+
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    if [ "$BRANCH" != "main" ]; then
+        printf "\033[0;31m✗ deploy failed: not on main (current: %s)\033[0m\n" "$BRANCH"
+        printf "  GitHub Pages deploys from main only. Switch with: git checkout main\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ on branch main\033[0m\n"
+
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+        printf "\033[0;31m✗ deploy failed: working tree is dirty\033[0m\n"
+        printf "  Commit or stash your changes first. Status:\n"
+        git status --short | sed 's/^/    /'
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ working tree clean\033[0m\n"
+
+    git fetch origin main --quiet
+    UNPUSHED=$(git rev-list --count origin/main..main)
+
+    if [ "$UNPUSHED" -gt 0 ]; then
+        printf "\033[0;33m→ %s unpushed commit(s); pushing main...\033[0m\n" "$UNPUSHED"
+        git push origin main
+        printf "\033[0;32m✓ pushed; workflow will be triggered by push\033[0m\n"
+    else
+        printf "\033[0;33m→ nothing to push; triggering workflow_dispatch...\033[0m\n"
+        gh workflow run hugo.yml --ref main
+        printf "\033[0;32m✓ workflow dispatched\033[0m\n"
+    fi
+
+    printf "\033[0;33m→ waiting for run to appear...\033[0m\n"
+    RUN_ID=""
+    for i in $(seq 1 20); do
+        RUN_ID=$(gh run list --workflow=hugo.yml --branch=main --limit=1 --json databaseId,status --jq '.[] | select(.status == "in_progress" or .status == "queued") | .databaseId' | head -1)
+        if [ -n "$RUN_ID" ]; then
+            break
+        fi
+        sleep 1
+    done
+
+    if [ -z "$RUN_ID" ]; then
+        printf "\033[0;31m✗ deploy failed: no in-progress run appeared within 20s\033[0m\n"
+        printf "  Check manually: gh run list --workflow=hugo.yml\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ watching run %s\033[0m\n" "$RUN_ID"
+
+    if ! gh run watch "$RUN_ID" --exit-status >/dev/null 2>&1; then
+        printf "\033[0;31m✗ deploy failed: workflow run %s did not succeed\033[0m\n" "$RUN_ID"
+        printf "  Inspect: gh run view %s --log-failed\n" "$RUN_ID"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ workflow succeeded\033[0m\n"
+
+    printf "\033[0;33m→ verifying https://cracking-ai-engineering.com/ ...\033[0m\n"
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://cracking-ai-engineering.com/ || echo "000")
+    if [ "$HTTP_CODE" != "200" ]; then
+        printf "\033[0;31m✗ deploy failed: live site returned HTTP %s\033[0m\n" "$HTTP_CODE"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ live site responding (HTTP 200)\033[0m\n"
+
+    printf "\033[0;32m✓ deploy completed successfully\033[0m\n"
+    echo ""
