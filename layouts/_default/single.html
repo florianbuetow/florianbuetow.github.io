@@ -1,0 +1,76 @@
+{{ define "main" }}
+<div class="article-layout">
+
+    <nav class="article-sidebar-left">
+        <a href="{{ with .Parent }}{{ .RelPermalink }}{{ else }}/{{ end }}" class="meta-row back-link">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+            Back to index
+        </a>
+        <hr class="sidebar-divider">
+
+        <div class="author-card">
+            <div class="author-header">
+                <div class="author-avatar">{{ site.Params.authorInitials | default "FB" }}</div>
+                <div>
+                    <div class="author-name">{{ .Params.author | default site.Params.author }}</div>
+                    <div class="author-role">Author</div>
+                </div>
+            </div>
+            <div class="meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>{{ .Date.Format "2006/01/02" }}</span>
+            </div>
+            {{ with .GetTerms "categories" }}
+            <div class="meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                <span>in
+                {{ range $i, $t := . }}{{ if $i }}, {{ end }}<a href="{{ $t.RelPermalink }}">{{ $t.LinkTitle }}</a>{{ end }}
+                </span>
+            </div>
+            {{ end }}
+            {{ with .Params.readTime }}
+            <div class="meta-row">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>{{ . }}</span>
+            </div>
+            {{ end }}
+        </div>
+        <hr class="sidebar-divider">
+
+        <p class="toc-title">Table of Contents</p>
+        {{ .TableOfContents }}
+    </nav>
+
+    <article class="article-body prose">
+        <h1>{{ .Title }}</h1>
+        {{ with .Params.subtitle }}<p class="subtitle">{{ . }}</p>{{ end }}
+        {{ .Content }}
+    </article>
+
+    <aside class="article-sidebar-right">
+        {{ with .Params.sidenotes }}
+            {{ range . }}
+                {{ if .quote }}
+                    <div class="side-quote">
+                        {{ .quote }}
+                        {{ with .cite }}<cite>&mdash; {{ . }}</cite>{{ end }}
+                    </div>
+                {{ else }}
+                    <div class="side-note">
+                        {{ with .label }}<strong>{{ . }}</strong>{{ end }}
+                        {{ .text }}
+                    </div>
+                {{ end }}
+            {{ end }}
+        {{ end }}
+    </aside>
+
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $toc := resources.Get "js/toc.js" | js.Build | minify | fingerprint }}
+<script src="{{ $toc.RelPermalink }}" integrity="{{ $toc.Data.Integrity }}" defer></script>
+{{ $lightbox := resources.Get "js/lightbox.js" | js.Build | minify | fingerprint }}
+<script src="{{ $lightbox.RelPermalink }}" integrity="{{ $lightbox.Data.Integrity }}" defer></script>
+{{ end }}

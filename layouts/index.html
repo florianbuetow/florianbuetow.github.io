@@ -1,0 +1,6 @@
+{{ define "main" }}
+<div class="home-layout prose">
+    <h1>{{ .Title | default site.Title }}</h1>
+    {{ .Content }}
+</div>
+{{ end }}

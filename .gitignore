@@ -1,8 +1,32 @@
+# IDE / OS
 /.env
-/.idea/
-/.venv/
-/.vscode/
+.idea/
+.vscode/
 **/.DS_Store
 
+# Local scratch
 /scratch/
 /.cache/
+
+# Hugo build artifacts
+/public/
+/resources/
+.hugo_build.lock
+
+# Hugo dev server state
+.hugo-server.pid
+.hugo-server.log
+
+# Python tooling (tools/)
+**/.venv/
+**/__pycache__/
+**/.mypy_cache/
+**/.pytest_cache/
+**/.ruff_cache/
+**/.pyright/
+*.pyc
+
+# Tooling / local state
+.claude/
+.omx/
+.playwright-cli/

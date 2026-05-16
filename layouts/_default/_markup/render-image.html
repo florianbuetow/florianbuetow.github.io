@@ -1,0 +1,22 @@
+{{- $src := .Destination -}}
+{{- $zoom := false -}}
+{{- if strings.Contains $src "?zoom" -}}
+  {{- $src = replace $src "?zoom" "" -}}
+  {{- $zoom = true -}}
+{{- end -}}
+{{- $alt := .PlainText -}}
+{{- $title := .Title -}}
+{{- $res := and .Page .Page.Resources (.Page.Resources.GetMatch $src) -}}
+<figure class="post-figure">
+  {{- if $res -}}
+    {{- if $zoom -}}
+      {{- $thumb := $res.Resize "800x" -}}
+      <img src="{{ $thumb.RelPermalink }}" data-zoom-src="{{ $res.RelPermalink }}" alt="{{ $alt }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" loading="lazy" class="zoomable">
+    {{- else -}}
+      <img src="{{ $res.RelPermalink }}" alt="{{ $alt }}" width="{{ $res.Width }}" height="{{ $res.Height }}" loading="lazy">
+    {{- end -}}
+  {{- else -}}
+    <img src="{{ $src | safeURL }}" alt="{{ $alt }}" loading="lazy"{{ if $zoom }} class="zoomable"{{ end }}>
+  {{- end -}}
+  {{- with $title }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>

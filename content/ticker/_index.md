@@ -1,0 +1,4 @@
+---
+title: "Ticker"
+layout: "articles"
+---

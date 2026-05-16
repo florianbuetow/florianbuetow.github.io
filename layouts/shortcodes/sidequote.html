@@ -1,0 +1,5 @@
+{{- /* Usage: {{< sidequote cite="Marvin Minsky" >}}Quote text{{< /sidequote >}} */ -}}
+<div class="side-quote">
+    {{ .Inner | markdownify }}
+    {{ with .Get "cite" }}<cite>&mdash; {{ . }}</cite>{{ end }}
+</div>

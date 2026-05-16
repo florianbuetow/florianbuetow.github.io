@@ -1,0 +1,64 @@
+{
+  "tags": [
+    {
+      "name": "LLM",
+      "description": "Articles about large language model fundamentals, model releases, base vs instruction-tuned behavior, and model-level evaluation. Do not apply to posts that merely use an LLM as a tool — the post must be about the models themselves."
+    },
+    {
+      "name": "Prompt Engineering",
+      "description": "Techniques for structuring prompts: paradigms, patterns, system prompts, few-shot examples. Do not apply to posts about tools that happen to use prompts internally."
+    },
+    {
+      "name": "RAG",
+      "description": "Retrieval-augmented generation, vector search, and hybrid retrieval pipelines. Do not apply to model training or plain context-window posts."
+    },
+    {
+      "name": "Agents",
+      "description": "Autonomous agents, multi-agent systems, and agentic workflows as the primary subject. Do not apply just because a post mentions an agent in passing or targets a single-turn LLM use case."
+    },
+    {
+      "name": "Claude Code",
+      "description": "The Claude Code CLI, its plugins, slash commands, hooks, and ecosystem. Do not apply to generic agentic coding or other coding assistants."
+    },
+    {
+      "name": "MCP",
+      "description": "The Model Context Protocol and servers, clients, or tools built on it. Do not apply to generic API integrations."
+    },
+    {
+      "name": "Code Quality",
+      "description": "SOLID and related design principles, code review, refactoring, linting. Do not apply to high-level architecture or to testing-focused posts."
+    },
+    {
+      "name": "Guardrails",
+      "description": "AI safety, constraint enforcement, and protecting codebases from unauthorized agent actions. Do not apply to general software security or to code-quality posts."
+    },
+    {
+      "name": "SRE",
+      "description": "Site reliability, observability, incident management, and production stability. Do not apply to local development or build tooling."
+    },
+    {
+      "name": "Automation",
+      "description": "Automating repetitive engineering tasks and workflows (CI, changelogs, content pipelines). Do not apply to agentic workflows — use Agents — or to developer-productivity meta content — use Productivity."
+    },
+    {
+      "name": "Python",
+      "description": "The Python language, Python ecosystem, or Python tooling and package management (pip, uv, virtualenv, conda). Apply whenever the subject is a tool or practice in the Python world. Do not apply when Python is merely the implementation language of a code example."
+    },
+    {
+      "name": "Memory",
+      "description": "Long-term memory, context management, knowledge graphs, and persistent recall for AI systems. Do not apply to plain retrieval-augmented generation without a memory architecture — use RAG for that."
+    },
+    {
+      "name": "Email",
+      "description": "IMAP, inbox automation, and email-based workflows. Do not apply to other communication channels."
+    },
+    {
+      "name": "Software Engineering",
+      "description": "Engineering methodology: spec-driven development, architecture audits, system design, technology selection. Do not apply to code-level refactoring — use Code Quality — or to individual CLI tools — use the relevant product tag."
+    },
+    {
+      "name": "Productivity",
+      "description": "Personal task management, habit tracking, and developer workflow meta-content. Do not apply to automation of engineering tasks — use Automation — or to coding methodology — use Software Engineering."
+    }
+  ]
+}

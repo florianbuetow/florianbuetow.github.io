@@ -1,0 +1,140 @@
+# tools
+
+A Python CLI application
+
+## Repository Structure
+
+```
+tools/
+├── pyproject.toml          # Project dependencies and metadata
+├── pyrightconfig.json      # Pyright LSP type checker configuration
+├── .python-version         # Python version for uv/pyenv/asdf
+├── .pre-commit-config.yaml # Pre-commit hooks configuration
+├── .gitignore              # Git ignore patterns
+├── justfile                # Task runner with build/test/validation commands
+├── AGENTS.md               # AI agent development rules
+├── CLAUDE.md               # Claude Code compatibility (symlink to AGENTS.md)
+├── README.md               # This file
+├── .cursor/                # Cursor IDE configuration
+│   └── commands/          # Cursor AI commands
+│       └── doc-statemachine.md  # Generate state machine diagrams
+├── src/                    # Source code
+│   └── tools/   # Main package
+│       └── __init__.py     # Package initialization
+├── main.py                 # Main entry point
+├── tests/                  # Test files
+│   └── __init__.py         # Test package marker
+├── scripts/                # Utility scripts
+├── data/                   # Data files
+│   ├── input/             # Input data files
+│   └── output/            # Generated output files
+├── config/                 # Configuration files
+│   ├── semgrep/           # Semgrep static analysis rules
+│   │   ├── no-default-values.yml
+│   │   ├── no-sneaky-fallbacks.yml
+│   │   ├── no_type_suppression.yml
+│   │   ├── no-noqa.yml
+│   │   └── python-constants.yml
+│   └── codespell/         # Spell-check configuration
+│       └── ignore.txt      # Spell-check ignore list
+└── reports/                # Generated reports (not in git)
+    ├── coverage/          # Code coverage reports
+    ├── security/          # Security scan reports
+    ├── pyright/           # Type checking reports
+    └── deptry/            # Dependency reports
+```
+
+## Prerequisites
+
+- **Python 3.12+** - Programming language
+- **uv** - Python package manager ([installation guide](https://docs.astral.sh/uv/getting-started/installation/))
+- **just** - Command runner ([installation guide](https://github.com/casey/just#installation))
+
+## Setup
+
+Initialize the project environment:
+
+```bash
+just init
+```
+
+This will:
+- Create necessary directories (reports/, etc.)
+- Install all dependencies via `uv sync --all-extras`
+
+## Usage
+
+Run the main application:
+
+```bash
+just run
+```
+
+See all available commands:
+
+```bash
+just help
+```
+
+Or simply:
+
+```bash
+just
+```
+
+## Development
+
+### Available Commands
+
+- `just init` - Initialize development environment
+- `just run` - Run the main application
+- `just destroy` - Remove virtual environment
+- `just help` - Show available commands
+
+### Code Quality
+
+- `just code-style` - Check code style (read-only)
+- `just code-format` - Auto-fix code style
+- `just code-typecheck` - Run type checking (mypy)
+- `just code-lspchecks` - Run strict type checking (pyright)
+- `just code-security` - Run security checks (bandit)
+- `just code-deptry` - Check dependency hygiene
+- `just code-stats` - Generate code statistics
+- `just code-spell` - Check spelling
+- `just code-audit` - Scan for vulnerabilities
+- `just code-semgrep` - Run custom static analysis
+
+### Testing
+
+- `just test` - Run unit tests
+- `just test-coverage` - Run tests with coverage (80% threshold)
+
+### CI
+
+- `just ci` - Run all validation checks (verbose)
+- `just ci-quiet` - Run all checks (silent, fail-fast)
+
+The CI pipeline runs the following steps in order:
+1. `init` - Initialize environment
+2. `code-format` - Auto-format code
+3. `code-style` - Verify formatting
+4. `code-typecheck` - Type checking (mypy)
+5. `code-security` - Security scan (bandit)
+6. `code-deptry` - Dependency hygiene
+7. `code-spell` - Spell checking
+8. `code-semgrep` - Custom static analysis
+9. `code-audit` - Vulnerability scanning
+10. `test` - Unit tests
+11. `code-lspchecks` - Strict type checking (pyright)
+
+## Project Rules
+
+See [AGENTS.md](AGENTS.md) for detailed development guidelines including:
+- Python execution rules (use `uv run` exclusively)
+- Git commit guidelines (no AI attribution)
+- Testing requirements
+- Project structure conventions
+
+## License
+
+<!-- Add your license here -->

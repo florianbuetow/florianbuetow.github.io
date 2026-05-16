@@ -1,0 +1,21 @@
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-inner">
+            <span class="footer-copyright">Copyright &copy; {{ site.Params.copyrightYear | default now.Year }}</span>
+            <div class="footer-socials">
+        {{ with site.Params.socials.x }}
+        <a href="{{ . }}" target="_blank" rel="noopener" aria-label="X">{{ partial "icons/icon" (dict "vendor" "fab" "name" "x-twitter") }}</a>
+        {{ end }}
+        {{ with site.Params.socials.github }}
+        <a href="{{ . }}" target="_blank" rel="noopener" aria-label="GitHub">{{ partial "icons/icon" (dict "vendor" "fab" "name" "github") }}</a>
+        {{ end }}
+        {{ with site.Params.socials.rss }}
+        <a href="{{ . }}" aria-label="RSS">{{ partial "icons/icon" (dict "vendor" "fas" "name" "rss") }}</a>
+        {{ end }}
+        {{ with site.Params.socials.linkedin }}
+        <a href="{{ . }}" target="_blank" rel="noopener" aria-label="LinkedIn">{{ partial "icons/icon" (dict "vendor" "fab" "name" "linkedin") }}</a>
+        {{ end }}
+        </div>
+        </div>
+    </div>
+</footer>

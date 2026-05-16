@@ -1,0 +1,33 @@
+{{ define "main" }}
+<div class="main-layout">
+    <div class="post-list">
+        {{ $posts := where .Pages "Type" "!=" "page" }}
+        {{ if not $posts }}{{ $posts = .Pages }}{{ end }}
+        {{ range $i, $p := $posts }}
+            <article class="post"
+                     data-categories="{{ delimit ($p.Params.categories | default slice) "," }}"
+                     data-tags="{{ delimit ($p.Params.tags | default slice) "," }}">
+                <aside class="post-meta">
+                    <div class="meta-item"><span class="meta-icon"></span> {{ $p.Date.Format "Jan 02, 2006" }}</div>
+                    {{ with $p.Params.readTime }}
+                    <div class="meta-item"><span class="meta-icon"></span> {{ . }}</div>
+                    {{ end }}
+                </aside>
+                <div class="post-content">
+                    <h2><a href="{{ $p.RelPermalink }}">{{ $p.Title }} &raquo;</a></h2>
+                    {{ with $p.Params.subtitle }}<h3>{{ . }}</h3>{{ end }}
+                    <p>{{ $p.Summary | plainify | truncate 280 }}</p>
+                </div>
+            </article>
+            {{ if lt (add $i 1) (len $posts) }}<hr class="divider">{{ end }}
+        {{ end }}
+        <p class="no-results" id="no-results">No posts match your filters.</p>
+    </div>
+    <aside class="filter-sidebar" id="filter-sidebar"></aside>
+</div>
+{{ end }}
+
+{{ define "scripts" }}
+{{ $js := resources.Get "js/filter.js" | js.Build | minify | fingerprint }}
+<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+{{ end }}

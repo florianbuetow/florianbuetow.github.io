@@ -1,0 +1,351 @@
+[
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/blog/2025-02-01-basellm-vs-instruction-tuned-llm/index.md",
+    "title": "The Difference Between a Base LLM and an Instruction-Tuned LLM",
+    "current_tags": [
+      "LLM",
+      "SmolLM",
+      "Base LLM",
+      "Instruction Tuning",
+      "Hugging Face",
+      "Prompt Engineering",
+      "Fine-tuning",
+      "DPO"
+    ],
+    "suggested_tags": [
+      "LLM"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/blog/2025-02-23-dev-tools-uv/index.md",
+    "title": "uv - An Extremely Fast Python Package and Project Manager, Written in Rust",
+    "current_tags": [
+      "Python",
+      "uv",
+      "Rust",
+      "Package Manager",
+      "pip",
+      "virtualenv",
+      "Astral",
+      "Docker"
+    ],
+    "suggested_tags": [
+      "Python"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/blog/2025-07-07-four-prompting-paradigms/index.md",
+    "title": "The Four Paradigms of Prompting",
+    "current_tags": [
+      "LLM",
+      "Prompt Engineering",
+      "Instruction Prompting",
+      "Completion Prompting",
+      "Scenario Prompting",
+      "Few-Shot Learning",
+      "Demonstration Prompting"
+    ],
+    "suggested_tags": [
+      "Prompt Engineering",
+      "LLM"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/blog/2025-07-12-moores-law-for-ai/index.md",
+    "title": "Moore's Law for AI?",
+    "current_tags": [
+      "AI",
+      "LLM",
+      "Scaling",
+      "Multi-Agent Systems",
+      "Moore's Law",
+      "Dennard Scaling",
+      "Mixture of Experts",
+      "AI Architecture",
+      "Agents"
+    ],
+    "suggested_tags": [
+      "Agents",
+      "LLM"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/blog/2026-04-07-a-short-case-study-in-ai-systems-engineering/index.md",
+    "title": "A Short Case Study in AI Systems Engineering",
+    "current_tags": [
+      "Memory",
+      "Retrieval",
+      "Knowledge Graph"
+    ],
+    "suggested_tags": [
+      "Memory",
+      "RAG"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/blog/the-default-heuristic.md",
+    "title": "How to Choose Tech for Production: The Default Heuristic",
+    "current_tags": [
+      "Tech Selection",
+      "Production Systems",
+      "Architecture"
+    ],
+    "suggested_tags": [
+      "Software Engineering"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/blog/working-with-an-sre-interview.md",
+    "title": "Interview Series - Working with an SRE",
+    "current_tags": [
+      "SRE",
+      "DevOps",
+      "Automation",
+      "Incident Management",
+      "Observability"
+    ],
+    "suggested_tags": [
+      "SRE"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/projects/agentic-news-generator/index.md",
+    "title": "Agentic News Generator",
+    "current_tags": [
+      "ai-agents",
+      "llm",
+      "content-generation"
+    ],
+    "suggested_tags": [
+      "Agents"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/projects/ai-guardrails/index.md",
+    "title": "AI Guardrails",
+    "current_tags": [
+      "ai-agents",
+      "guardrails",
+      "templates",
+      "safety"
+    ],
+    "suggested_tags": [
+      "Guardrails"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/projects/guard-tool/index.md",
+    "title": "Guard",
+    "current_tags": [
+      "ai-agents",
+      "guardrails",
+      "safety"
+    ],
+    "suggested_tags": [
+      "Guardrails",
+      "Agents"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/projects/imap-mini-mcp/index.md",
+    "title": "IMAP Mini MCP",
+    "current_tags": [
+      "mcp",
+      "ai-agents",
+      "email",
+      "imap"
+    ],
+    "suggested_tags": [
+      "MCP",
+      "Email"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/projects/mini-rag/index.md",
+    "title": "MiniRAG",
+    "current_tags": [
+      "rag",
+      "search",
+      "mcp",
+      "ai-agents"
+    ],
+    "suggested_tags": [
+      "RAG",
+      "MCP"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/projects/touchtask/index.md",
+    "title": "TouchTask",
+    "current_tags": [
+      "productivity",
+      "task-management",
+      "habit-tracking"
+    ],
+    "suggested_tags": [
+      "Productivity"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/projects/x-rag/index.md",
+    "title": "X-RAG",
+    "current_tags": [
+      "rag",
+      "search",
+      "distributed-systems"
+    ],
+    "suggested_tags": [
+      "RAG"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-02-12-imap-mini-mcp/index.md",
+    "title": "IMAP Mini MCP",
+    "current_tags": [
+      "MCP",
+      "Email",
+      "Open Source"
+    ],
+    "suggested_tags": [
+      "MCP",
+      "Email",
+      "Agents"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-02-13-introducing-guard/index.md",
+    "title": "Introducing Guard - Protect Files from AI Coding Agents",
+    "current_tags": [
+      "Open Source"
+    ],
+    "suggested_tags": [
+      "Guardrails",
+      "Agents"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-02-14-guard-won-8th-place/index.md",
+    "title": "Guard Won 8th Place in the Kiro Hackathon",
+    "current_tags": [
+      "Open Source",
+      "Hackathon"
+    ],
+    "suggested_tags": [
+      "Guardrails",
+      "Agents"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-03-10-five-power-rangers-for-solid-code-reviews/index.md",
+    "title": "Five Power Rangers for SOLID Code Reviews",
+    "current_tags": [
+      "Claude Code",
+      "Plugin",
+      "Open Source",
+      "Code Quality"
+    ],
+    "suggested_tags": [
+      "Code Quality",
+      "Claude Code"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-03-11-architecture-audit-plugin-for-claude-code/index.md",
+    "title": "Architecture Audit Plugin for Claude Code and Codex",
+    "current_tags": [
+      "Claude Code",
+      "Plugin",
+      "Open Source",
+      "Architecture"
+    ],
+    "suggested_tags": [
+      "Claude Code",
+      "Software Engineering"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-03-16-stop-spoon-feeding-your-coding-agent-try-specs-driven-development/index.md",
+    "title": "Stop Spoon-Feeding Your Coding Agent \u2014 Try Specs-Driven Development",
+    "current_tags": [
+      "Claude Code",
+      "Plugin",
+      "Open Source"
+    ],
+    "suggested_tags": [
+      "Claude Code",
+      "Software Engineering"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-03-18-retrospective-plugin-for-claude-code/index.md",
+    "title": "Retrospective Plugin for Claude Code",
+    "current_tags": [
+      "Claude Code",
+      "Plugin",
+      "Open Source"
+    ],
+    "suggested_tags": [
+      "Claude Code",
+      "Software Engineering"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-03-28-install-the-dream-command-in-claude-code/index.md",
+    "title": "Install the /dream Command in Claude Code",
+    "current_tags": [
+      "Claude Code"
+    ],
+    "suggested_tags": [
+      "Claude Code",
+      "Memory"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-03-30-automate-your-changelog-md-with-this-claude-code-plugin/index.md",
+    "title": "Automate Your CHANGELOG.md With This Claude Code Plugin",
+    "current_tags": [
+      "Claude Code",
+      "Plugin",
+      "Open Source"
+    ],
+    "suggested_tags": [
+      "Claude Code",
+      "Automation"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-04-02-introducing-fixclaude/index.md",
+    "title": "Introducing /fixclaude",
+    "current_tags": [
+      "Claude Code",
+      "Plugin",
+      "Open Source"
+    ],
+    "suggested_tags": [
+      "Claude Code"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-04-07-a-critical-regression-in-claude-code/index.md",
+    "title": "A Critical Regression in Claude Code",
+    "current_tags": [
+      "Claude Code"
+    ],
+    "suggested_tags": [
+      "Claude Code",
+      "LLM"
+    ]
+  },
+  {
+    "path": "/Users/flo/Developer/Blog/40-published/hugo-blog/content/ticker/2026-04-16-claude-opus-4-7-behavior-changes/index.md",
+    "title": "Claude Opus 4.7: The Behavior Changes We Actually Wanted",
+    "current_tags": [
+      "Claude Code",
+      "Anthropic",
+      "LLM"
+    ],
+    "suggested_tags": [
+      "LLM"
+    ]
+  }
+]

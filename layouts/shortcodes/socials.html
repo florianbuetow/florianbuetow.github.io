@@ -1,0 +1,12 @@
+{{ with site.Params.socials.x }}
+<a href="{{ . }}" target="_blank" rel="noopener" aria-label="X" title="X">{{ partial "icons/icon" (dict "vendor" "fab" "name" "x-twitter") }}</a>
+{{ end }}
+{{ with site.Params.socials.github }}
+<a href="{{ . }}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">{{ partial "icons/icon" (dict "vendor" "fab" "name" "github") }}</a>
+{{ end }}
+{{ with site.Params.socials.rss }}
+<a href="{{ . }}" aria-label="RSS" title="RSS">{{ partial "icons/icon" (dict "vendor" "fas" "name" "rss") }}</a>
+{{ end }}
+{{ with site.Params.socials.linkedin }}
+<a href="{{ . }}" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">{{ partial "icons/icon" (dict "vendor" "fab" "name" "linkedin") }}</a>
+{{ end }}

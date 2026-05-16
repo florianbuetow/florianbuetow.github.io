@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="{{ site.Language.Locale | default `en` }}">
+<head>
+    {{ partial "head.html" . }}
+</head>
+<body>
+<div class="page-wrapper">
+    {{ partial "header.html" . }}
+    <main id="main-content">
+        <div class="container">
+            {{ block "main" . }}{{ end }}
+        </div>
+    </main>
+    {{ partial "footer.html" . }}
+</div>
+<button class="debug-toggle" id="debug-toggle" type="button">Toggle layout borders</button>
+<script>
+  document.getElementById('debug-toggle').addEventListener('click', function () {
+    document.body.classList.toggle('debug-layout');
+  });
+</script>
+{{ block "scripts" . }}{{ end }}
+</body>
+</html>

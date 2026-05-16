@@ -1,0 +1,64 @@
+baseURL = 'https://cracking-ai-engineering.com/'
+locale = 'en-us'
+title = "Florian's Blog"
+
+[module]
+  [[module.imports]]
+    path = 'github.com/hugomods/icons/vendors/font-awesome'
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
+
+[params]
+  author = 'Florian Buetow'
+  authorInitials = 'FB'
+  copyrightYear = '2026'
+
+[params.socials]
+  x = 'https://x.com/bytetweets/'
+  github = 'https://github.com/florianbuetow/'
+  linkedin = 'https://www.linkedin.com/in/fbuetow/'
+  rss = '/feed.xml'
+
+[[menu.main]]
+  name = 'Home'
+  pageRef = '/'
+  weight = 10
+[[menu.main]]
+  name = 'Articles'
+  pageRef = '/blog'
+  weight = 20
+[[menu.main]]
+  name = 'Ticker'
+  pageRef = '/ticker'
+  weight = 30
+[[menu.main]]
+  name = 'Open Source'
+  pageRef = '/projects'
+  weight = 40
+[[menu.main]]
+  name = 'Resources'
+  pageRef = '/resources'
+  weight = 50
+[[menu.main]]
+  name = 'About'
+  pageRef = '/about'
+  weight = 60
+[[menu.main]]
+  name = 'Newsletter'
+  pageRef = '/newsletter'
+  weight = 70
+
+[permalinks]
+  blog = '/blog/:slug/'
+  ticker = '/ticker/:slug/'
+  projects = '/projects/:slug/'
+
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 4
+    ordered = false
+  [markup.goldmark.renderer]
+    unsafe = true

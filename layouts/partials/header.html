@@ -1,0 +1,20 @@
+<header class="site-header">
+    <div class="container">
+        <div class="header-inner">
+            <div class="logo">
+                <a href="{{ site.Home.RelPermalink }}" aria-label="Home">
+                    <img src="/logo.png" alt="Logo" class="site-logo" width="48" title="Cracking AI Engineering" />
+                </a>
+            </div>
+            <nav class="main-nav">
+                {{ range site.Menus.main }}
+                    {{ $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+                    <a href="{{ .URL }}"{{ if $active }} class="active"{{ end }}>{{ .Name }}</a>
+                {{ end }}
+            </nav>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search page…">
+            </div>
+        </div>
+    </div>
+</header>

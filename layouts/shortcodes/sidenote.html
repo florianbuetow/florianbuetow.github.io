@@ -1,0 +1,5 @@
+{{- /* Usage: {{< sidenote label="Note" >}}Body text here{{< /sidenote >}} */ -}}
+<div class="side-note">
+    {{ with .Get "label" }}<strong>{{ . }}</strong>{{ end }}
+    {{ .Inner | markdownify }}
+</div>
