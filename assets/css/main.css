@@ -106,11 +106,14 @@ a {
 }
 .main-nav {
     display: flex;
+    flex-wrap: nowrap;
     gap: 24px;
     font-size: 1.1rem;
 }
 .main-nav a {
     color: #ccc;
+    white-space: nowrap;
+    flex-shrink: 0;
     transition: color 0.2s;
 }
 .main-nav a:hover {
