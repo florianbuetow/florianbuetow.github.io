@@ -206,14 +206,21 @@ just help
 - **Setup & lifecycle:** `init`, `destroy`, `clean`, `check`, `help`
 - **Run:** `start`, `stop`, `status`
 - **CI & testing:** `build`, `ci`
+- **Deploy:** `deploy`
 
 ## Configuration notes
 
 - **Site title, author, socials** — edit `[params]` and `[params.socials]` in `hugo.toml`.
 - **Navigation menu** — edit `[[menu.main]]` entries in `hugo.toml`.
 - **Taxonomies** (tags, categories) — defined in `[taxonomies]`; Hugo auto-generates `/tags/<tag>/` and `/categories/<category>/` list pages.
-- **baseURL** — currently `https://example.org/`. Update when deploying.
+- **baseURL** — currently `https://cracking-ai-engineering.com/`. Update in `hugo.toml` if the domain changes.
 
 ## Deployment
 
-Not yet configured. The old blog remains the public site. A GitHub Pages workflow can be added later under `.github/workflows/` once deployment is desired.
+Deploy to GitHub Pages and verify the live site in one step:
+
+```bash
+just deploy
+```
+
+This pushes `main` if needed, triggers the GitHub Pages workflow, waits for it to succeed, and confirms the live site returns HTTP 200. Requires the `gh` CLI to be installed and authenticated.
