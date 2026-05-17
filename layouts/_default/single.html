@@ -73,4 +73,9 @@
 <script src="{{ $toc.RelPermalink }}" integrity="{{ $toc.Data.Integrity }}" defer></script>
 {{ $lightbox := resources.Get "js/lightbox.js" | js.Build | minify | fingerprint }}
 <script src="{{ $lightbox.RelPermalink }}" integrity="{{ $lightbox.Data.Integrity }}" defer></script>
+{{ if .Store.Get "hasMermaid" }}
+{{ $opts := dict "targetPath" "js/mermaid.js" "format" "esm" "minify" hugo.IsProduction }}
+{{ $js := resources.Get "js/mermaid-init.js" | js.Build $opts | fingerprint }}
+<script type="module" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"></script>
+{{ end }}
 {{ end }}

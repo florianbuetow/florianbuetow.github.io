@@ -93,6 +93,16 @@ init:
     hugo mod get github.com/hugomods/icons/vendors/font-awesome
     hugo mod tidy
     printf "\033[0;32m✓ icon modules fetched\033[0m\n"
+    if ! command -v node >/dev/null 2>&1; then
+        printf "\033[0;33m→ node missing, installing via brew...\033[0m\n"
+        brew install node
+    fi
+    printf "\033[0;32m✓ node ready (%s)\033[0m\n" "$(node --version)"
+    if [ ! -d node_modules ]; then
+        printf "\033[0;33m→ node_modules missing, running 'npm install'...\033[0m\n"
+        npm install
+    fi
+    printf "\033[0;32m✓ node_modules present\033[0m\n"
     mkdir -p public
     printf "\033[0;32m✓ init completed successfully\033[0m\n"
     echo ""
@@ -130,6 +140,20 @@ check:
         exit 1
     fi
     printf "\033[0;32m✓ hugo modules ready\033[0m\n"
+    if ! command -v node >/dev/null 2>&1; then
+        printf "\033[0;31m✗ check failed: node is not installed\033[0m\n"
+        printf "  Install with: brew install node  (or run: just init)\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ node is installed (%s)\033[0m\n" "$(node --version)"
+    if [ ! -d node_modules ]; then
+        printf "\033[0;31m✗ check failed: node_modules not found\033[0m\n"
+        printf "  Run: just init\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ node_modules present\033[0m\n"
     echo ""
 
 # Clean generated files

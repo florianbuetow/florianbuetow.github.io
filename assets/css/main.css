@@ -453,6 +453,9 @@ a {
     line-height: 1.7;
     margin-bottom: 24px;
 }
+.prose pre.mermaid {
+    text-align: center;
+}
 .prose pre code {
     background: transparent;
     padding: 0;

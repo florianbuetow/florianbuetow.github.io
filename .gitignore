@@ -8,6 +8,9 @@
 /scratch/
 /.cache/
 
+# Node
+/node_modules/
+
 # Hugo build artifacts
 /public/
 /resources/
