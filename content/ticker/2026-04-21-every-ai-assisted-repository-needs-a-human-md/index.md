@@ -10,7 +10,7 @@ categories: ["AI Engineering"]
 tags: ["AI", "Software Engineering", "HUMAN.md"]
 ---
 
-![Every AI-assisted repository needs a HUMAN.md](illustration.jpg?zoom "Code is cheap - Show me the HUMAN.md")
+![Every AI-assisted repository needs a HUMAN.md](illustration.webp?zoom "Code is cheap - Show me the HUMAN.md")
 
 Being able to write and ship code used to be a proxy for expertise.
 

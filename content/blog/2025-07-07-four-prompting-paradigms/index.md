@@ -37,7 +37,7 @@ If you prefer listening over reading, check out this podcast episode where the f
 
 ## The Fragility of Model Behavior
 
-![The Fragility of Model Behavior](fragile-model-behavior.jpg)
+![The Fragility of Model Behavior](fragile-model-behavior.webp)
 
 At the heart of the prompt engineering challenge is the **sensitivity of LLMs to input phrasing**. Unlike traditional deterministic systems, LLMs do not "understand" tasks in the human sense; they generate the most statistically probable continuation of a given sequence. This makes their output highly sensitive to subtle changes in prompt design.
 
@@ -208,7 +208,7 @@ Demonstration prompting can greatly enhance accuracy in classification, informat
 
 ## Takeaways
 
-![The Four Prompting Paradigms](four-prompting-paradigms.jpg)
+![The Four Prompting Paradigms](four-prompting-paradigms.webp)
 
 ### Strategic Prompt Design
 

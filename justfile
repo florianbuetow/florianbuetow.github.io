@@ -58,7 +58,9 @@ help:
     @printf "\033[0;33mBuilding:\033[0m\n"
     @printf "  %-40s %s\n" "ci" "Run ALL validation checks (verbose)"
     @printf "  %-40s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
-    @printf "  %-40s %s\n" "build" "Build the production site"
+    @printf "  %-40s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99)"
+    @printf "  %-40s %s\n" "validate-images" "Check all image references resolve to files"
+    @printf "  %-40s %s\n" "build" "Build the production site (optimize → validate → hugo)"
     @printf "  %-40s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
 
@@ -103,6 +105,11 @@ init:
         npm install
     fi
     printf "\033[0;32m✓ node_modules present\033[0m\n"
+    if ! command -v cwebp >/dev/null 2>&1; then
+        printf "\033[0;33m→ cwebp missing, installing webp via brew...\033[0m\n"
+        brew install webp
+    fi
+    printf "\033[0;32m✓ cwebp ready (%s)\033[0m\n" "$(cwebp -version 2>&1 | head -1)"
     mkdir -p public
     printf "\033[0;32m✓ init completed successfully\033[0m\n"
     echo ""
@@ -154,6 +161,13 @@ check:
         exit 1
     fi
     printf "\033[0;32m✓ node_modules present\033[0m\n"
+    if ! command -v cwebp >/dev/null 2>&1; then
+        printf "\033[0;31m✗ check failed: cwebp is not installed\033[0m\n"
+        printf "  Install with: brew install webp  (or run: just init)\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ cwebp is installed (%s)\033[0m\n" "$(cwebp -version 2>&1 | head -1)"
     echo ""
 
 # Clean generated files
@@ -341,13 +355,33 @@ ci-quiet:
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
 
-# Build the production site
+# Convert PNG/JPG/JPEG to WebP (max 1440px longest side, quality 99, never upsize)
+optimize-images:
+    @echo ""
+    @printf "\033[0;34m=== Optimizing Images → WebP ===\033[0m\n"
+    @bash scripts/optimize-images.sh
+    @printf "\033[0;32m✓ optimize-images completed\033[0m\n"
+    @echo ""
+
+# Check all image references in non-draft markdown resolve to files
+validate-images:
+    @echo ""
+    @printf "\033[0;34m=== Validating Image References ===\033[0m\n"
+    @bash scripts/validate-images.sh
+    @printf "\033[0;32m✓ validate-images passed\033[0m\n"
+    @echo ""
+
+# Build the production site (optimize → validate → hugo)
 build:
-    @echo ""
-    @printf "\033[0;34m=== Building Production Site ===\033[0m\n"
-    @hugo --minify
-    @printf "\033[0;32m✓ build completed successfully\033[0m\n"
-    @echo ""
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Building Production Site ===\033[0m\n"
+    just optimize-images
+    just validate-images
+    hugo --minify
+    printf "\033[0;32m✓ build completed successfully\033[0m\n"
+    echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
 deploy:

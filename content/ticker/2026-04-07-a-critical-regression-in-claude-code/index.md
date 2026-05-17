@@ -9,7 +9,7 @@ categories: ["AI Engineering"]
 tags: ["Claude Code"]
 ---
 
-![A critical regression in Claude Code](illustration.jpg?zoom "Infographic: The anatomy of an AI regression")
+![A critical regression in Claude Code](illustration.webp?zoom "Infographic: The anatomy of an AI regression")
 
 Stella Laurenzo's analysis reveals a critical regression in Claude Code for AI-driven complex engineering, correlating the redaction of "thinking" tokens with a collapse in reasoning quality.
 

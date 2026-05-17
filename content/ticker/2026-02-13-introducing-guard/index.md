@@ -9,7 +9,7 @@ categories: ["AI Engineering", "Tools", "Guardrails"]
 tags: ["Open Source"]
 ---
 
-![Introducing Guard](illustration.png?zoom "Logo: Yes, You Are Absolutely Right!")
+![Introducing Guard](illustration.webp?zoom "Logo: Yes, You Are Absolutely Right!")
 
 2001: A Space Odyssey predicted "I'm sorry, I can't do that, Dave". Instead, we got "Yes, you are absolutely right!" — which is equally frightening if you're a software developer.
 

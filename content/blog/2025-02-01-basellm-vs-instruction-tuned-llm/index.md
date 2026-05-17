@@ -74,7 +74,7 @@ In the case of `SmolLM-360M-Instruct`, the model was trained on permissively lic
 
 What makes the SmolLM family particularly compelling is how effective this two-phase training is, even at smaller scales. Despite its modest size, `SmolLM-360M-Instruct` performs competitively with much larger models in instruction-following benchmarks like [IFEval](https://github.com/google-research/google-research/tree/master/instruction_following_eval).
 
-![BaseLLM vs Instruction-Tuned LLM](basellm-vs-instruction-tuned-llm.jpg)
+![BaseLLM vs Instruction-Tuned LLM](basellm-vs-instruction-tuned-llm.webp)
 
 But enough theory, let's load these models and write some Python code to observe firsthand how the instruction-tuned version behaves differently from the base model in a few simple but telling tasks.
 
@@ -257,7 +257,7 @@ Both models produce plausible continuations, but the instruction-tuned model is 
 
 ## Conclusions
 
-![BaseLLM vs Instruction-Tuned LLM](basellm-vs-instruction-tuned-llm-user.jpg)
+![BaseLLM vs Instruction-Tuned LLM](basellm-vs-instruction-tuned-llm-user.webp)
 
 This side-by-side comparison of base and instruction-tuned models reveals a profound behavioral shift driven by a seemingly minor change in training objective. The **Base LLM**, trained exclusively through next-token prediction, treats prompts as fragments to continue. In contrast, the **Instruction-Tuned LLM**, fine-tuned on explicit prompt–response pairs, interprets those same inputs as tasks to fulfill.
 

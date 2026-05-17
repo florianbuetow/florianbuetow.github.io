@@ -9,7 +9,7 @@ categories: ["AI Engineering", "Tools", "Guardrails"]
 tags: ["Open Source", "Hackathon"]
 ---
 
-![Guard won 8th place in the Kiro Hackathon](illustration.jpg?zoom "Infographic: Guard on the Kiro Hackathon podium")
+![Guard won 8th place in the Kiro Hackathon](illustration.webp?zoom "Infographic: Guard on the Kiro Hackathon podium")
 
 My open source Guard tool won 8th place in the international Kiro Hackathon hosted by Dynamous.ai and AWS Kiro!
 

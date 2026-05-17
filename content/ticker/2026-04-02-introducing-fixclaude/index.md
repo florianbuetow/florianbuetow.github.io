@@ -9,7 +9,7 @@ categories: ["AI Engineering", "Tools"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---
 
-![Introducing fixclaude](illustration.jpg?zoom "Infographic: Overcomming the 8 Hidden Limitations of Claude Code")
+![Introducing fixclaude](illustration.webp?zoom "Infographic: Overcomming the 8 Hidden Limitations of Claude Code")
 
 People were quick to analyze the leaked Claude Code codebase and the findings are startling: Anthropic is aware of Claude Code's "laziness" and hallucinations, but the most effective fixes are gated to employees only.
 

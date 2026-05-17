@@ -9,7 +9,7 @@ categories: ["AI Engineering", "Case Study"]
 tags: ["Memory", "Retrieval", "Knowledge Graph"]
 ---
 
-![MemPalace](illustration.jpg?zoom "Illustration: Milla Jovovich engineering in a sea of documents")
+![MemPalace](illustration.webp?zoom "Illustration: Milla Jovovich engineering in a sea of documents")
 
 A short case study in AI systems engineering: Hollywood actress Milla Jovovich released an AI memory system with 12k+ stars on GitHub.
 
