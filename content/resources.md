@@ -6,3 +6,4 @@ title: "Resources"
 - [Guard](/projects/guard-tool/) — Protect your files from unwanted modifications by AI coding agents.
 - [MiniRAG](/projects/mini-rag/) — Local hybrid search engine for your docs with MCP integration for AI agents.
 - [tmux-watchdog-tools](https://github.com/florianbuetow/tmux-watchdog-tools) — Shell scripts and functions to spawn, monitor, auto-attach to, and manage named tmux sessions when working with CLI AI agents.
+- [TouchTask](/projects/touchtask/) — Task management meets habit tracking.
