@@ -203,7 +203,7 @@ start:
         exit 1
     fi
     rm -f .hugo-server.pid .hugo-server.log
-    nohup hugo server -D --bind 127.0.0.1 --port {{port}} > .hugo-server.log 2>&1 &
+    nohup hugo server -D -F -E --bind 127.0.0.1 --port {{port}} > .hugo-server.log 2>&1 &
     echo $! > .hugo-server.pid
     PID=$(cat .hugo-server.pid)
     for i in $(seq 1 20); do
@@ -321,7 +321,7 @@ dev:
     fi
     printf "\033[0;32m→ serving at http://127.0.0.1:{{port}}/  (Ctrl+C to stop)\033[0m\n"
     echo ""
-    exec hugo server -D --bind 127.0.0.1 --port {{port}} --navigateToChanged --disableFastRender
+    exec hugo server -D -F -E --bind 127.0.0.1 --port {{port}} --navigateToChanged --disableFastRender
 
 # Run ALL validation checks (verbose)
 ci:
