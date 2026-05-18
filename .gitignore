@@ -19,6 +19,9 @@
 # Original images (backed up by just optimize-images)
 /data/assets/
 
+# Logo test (not committed)
+/static/logo2.png
+
 # Hugo dev server state
 .hugo-server.pid
 .hugo-server.log
