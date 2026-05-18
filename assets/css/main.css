@@ -31,6 +31,11 @@
     --t-fast: 0.15s;
     --t-med:  0.2s;
     --t-slow: 0.25s;
+
+    /* Layout — shared by header, footer, blog list, article page,
+       and used by inline sidenotes to float into the right column. */
+    --side-col: 200px;
+    --side-gap: 40px;
 }
 
 /* === GLOBAL === */
@@ -77,8 +82,8 @@ a {
 .article-layout,
 .footer-inner {
     display: grid;
-    grid-template-columns: 200px 1fr 200px;
-    column-gap: 40px;
+    grid-template-columns: var(--side-col) 1fr var(--side-col);
+    column-gap: var(--side-gap);
     align-items: start;
 }
 
@@ -618,6 +623,20 @@ a {
     margin-top: 6px;
 }
 
+/* Sidenotes authored inline inside the article body via the
+   {{< sidenote >}} / {{< sidequote >}} shortcodes are floated
+   into the right column at their authored vertical position.
+   The negative right margin equals (side-gap + side-col), which
+   places the float's box entirely in the right-column track. */
+.article-body .side-note,
+.article-body .side-quote {
+    float: right;
+    clear: right;
+    width: var(--side-col);
+    margin-right: calc(-1 * (var(--side-col) + var(--side-gap)));
+    margin-top: 0;
+}
+
 /* === DEBUG LAYOUT BORDERS === */
 /* Toggled via .debug-layout on body. Uses outline (not border) so
    borders don't affect layout measurements. */
@@ -684,6 +703,13 @@ a {
     }
     .author-card {
         grid-column: 1 / -1;
+    }
+    .article-body .side-note,
+    .article-body .side-quote {
+        float: none;
+        clear: none;
+        width: auto;
+        margin-right: 0;
     }
 }
 @media (max-width: 900px) {
