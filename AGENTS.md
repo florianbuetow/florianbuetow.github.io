@@ -43,7 +43,7 @@ Same structure — comment link comes before the `## Sources` / `## References` 
 - For the Projects section design spec, see [`docs/superpowers/specs/2026-04-16-projects-section-design.md`](docs/superpowers/specs/2026-04-16-projects-section-design.md)
 
 ### Development
-- When authoring or editing article content — Mermaid diagrams, sidenotes, the closing References section — see [`docs/article-formatting.md`](docs/article-formatting.md)
+- When authoring or editing article content — Mermaid diagrams, sidenotes, zoomable images, the closing References section — see [`docs/article-formatting.md`](docs/article-formatting.md)
 - For the Projects section implementation plan, see [`docs/superpowers/plans/2026-04-16-projects-section.md`](docs/superpowers/plans/2026-04-16-projects-section.md)
 - For autotag-tool technique and research notes (used by the Python sub-project), see [`tools/docs/autotag.md`](tools/docs/autotag.md)
 

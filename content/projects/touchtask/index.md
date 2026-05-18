@@ -13,7 +13,10 @@ repo: "https://github.com/florianbuetow/touchtask"
 demo: "https://cracking-ai-engineering.com/touchtask/"
 video: "https://www.youtube.com/watch?v=Bihlr5uGq8g"
 featured: false
+image: "/projects/touchtask/screenshot.webp"
 ---
+
+![TouchTask screenshot](screenshot.webp?zoom)
 
 ## The Problem With Five Tabs
 
