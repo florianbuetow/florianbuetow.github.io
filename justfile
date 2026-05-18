@@ -60,6 +60,7 @@ help:
     @printf "  %-18s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
     @printf "  %-18s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99)"
     @printf "  %-18s %s\n" "validate-images" "Check all image references resolve to files"
+    @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo)"
     @printf "  %-18s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
@@ -371,6 +372,14 @@ validate-images:
     @printf "\033[0;32m✓ validate-images passed\033[0m\n"
     @echo ""
 
+# Fail when any draft article still contains unresolved TODO/placeholder markers
+validate-content:
+    @echo ""
+    @printf "\033[0;34m=== Validating Draft Content ===\033[0m\n"
+    @bash scripts/validate-content.sh
+    @printf "\033[0;32m✓ validate-content passed\033[0m\n"
+    @echo ""
+
 # Build the production site (optimize → validate → hugo)
 build:
     #!/usr/bin/env bash
@@ -379,6 +388,7 @@ build:
     printf "\033[0;34m=== Building Production Site ===\033[0m\n"
     just optimize-images
     just validate-images
+    just validate-content
     hugo --minify
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
