@@ -19,6 +19,12 @@
 # Original images (backed up by just optimize-images)
 /data/assets/
 
+# Codex-generated draft project descriptions (temp, not published)
+/data/drafts/
+
+# Local backups of content before bulk edits
+/data/backups/
+
 # Logo test (not committed)
 /static/logo2.png
 
