@@ -42,7 +42,7 @@
     </nav>
 
     <article class="article-body prose">
-        <h1>{{ .Title }}</h1>
+        <h1 id="{{ anchorize .Title }}">{{ .Title }}</h1>
         {{ with .Params.subtitle }}<p class="subtitle">{{ . }}</p>{{ end }}
         {{ .Content }}
     </article>
