@@ -59,7 +59,7 @@ help:
     @printf "  %-18s %s\n" "ci" "Run ALL validation checks (verbose)"
     @printf "  %-18s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
     @printf "  %-18s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
-    @printf "  %-18s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99)"
+    @printf "  %-18s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
     @printf "  %-18s %s\n" "validate-images" "Check all image references resolve to files"
     @printf "  %-18s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
@@ -392,11 +392,13 @@ strip-exif:
     @printf "\033[0;32m✓ strip-exif completed\033[0m\n"
     @echo ""
 
-# Convert PNG/JPG/JPEG to WebP (max 1440px longest side, quality 99, never upsize)
-optimize-images:
+# Convert PNG/JPG/JPEG to WebP (max 1440px longest side, quality 99, never upsize).
+# Scans content/ by default. Pass a path to convert a single file outside content/
+# e.g.: just optimize-images static/logo2.png
+optimize-images file="":
     @echo ""
     @printf "\033[0;34m=== Optimizing Images → WebP ===\033[0m\n"
-    @bash scripts/optimize-images.sh
+    @bash scripts/optimize-images.sh {{file}}
     @printf "\033[0;32m✓ optimize-images completed\033[0m\n"
     @echo ""
 

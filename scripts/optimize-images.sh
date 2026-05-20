@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONTENT_DIR="${1:-content}"
-BACKUP_DIR="${2:-data/assets}"
+BACKUP_DIR="data/assets"
 MAX_SIDE=1440
 QUALITY=99
 
@@ -10,17 +9,17 @@ FOUND=0
 CONVERTED=0
 SKIPPED=0
 
-while IFS= read -r -d '' img; do
+convert_image() {
+    local img="$1"
     FOUND=$((FOUND + 1))
 
-    ext="${img##*.}"
-    webp="${img%.*}.webp"
-
+    local webp="${img%.*}.webp"
     if [ -f "$webp" ]; then
         SKIPPED=$((SKIPPED + 1))
-        continue
+        return
     fi
 
+    local W H
     W=$(sips -g pixelWidth "$img" 2>/dev/null | awk '/pixelWidth/{print $2}')
     H=$(sips -g pixelHeight "$img" 2>/dev/null | awk '/pixelHeight/{print $2}')
 
@@ -29,8 +28,8 @@ while IFS= read -r -d '' img; do
         exit 1
     fi
 
-    RESIZE=""
-    MAX=$((W > H ? W : H))
+    local RESIZE=""
+    local MAX=$((W > H ? W : H))
     if [ "$MAX" -gt "$MAX_SIDE" ]; then
         if [ "$W" -ge "$H" ]; then
             RESIZE="-resize $MAX_SIDE 0"
@@ -42,10 +41,11 @@ while IFS= read -r -d '' img; do
     # shellcheck disable=SC2086
     cwebp -q "$QUALITY" $RESIZE "$img" -o "$webp" >/dev/null 2>&1
 
-    backup="$BACKUP_DIR/$img"
+    local backup="$BACKUP_DIR/$img"
     mkdir -p "$(dirname "$backup")"
     mv "$img" "$backup"
 
+    local dir base_orig base_webp
     dir="$(dirname "$img")"
     base_orig="$(basename "$img")"
     base_webp="$(basename "$webp")"
@@ -53,10 +53,23 @@ while IFS= read -r -d '' img; do
 
     CONVERTED=$((CONVERTED + 1))
     printf "  converted: %s (%dx%d)\n" "$img" "$W" "$H"
-done < <(find "$CONTENT_DIR" -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \) -print0)
+}
+
+ARG="${1:-}"
+
+if [ -n "$ARG" ] && [ -f "$ARG" ]; then
+    # Single-file mode: convert the given file directly
+    convert_image "$ARG"
+else
+    # Directory mode: scan content/ (or the provided directory)
+    CONTENT_DIR="${ARG:-content}"
+    while IFS= read -r -d '' img; do
+        convert_image "$img"
+    done < <(find "$CONTENT_DIR" -type f \( -iname '*.png' -o -iname '*.jpg' -o -iname '*.jpeg' \) -print0)
+fi
 
 if [ "$FOUND" -eq 0 ]; then
-    printf "\033[0;32m  no optimizable images found in %s/\033[0m\n" "$CONTENT_DIR"
+    printf "\033[0;32m  no optimizable images found\033[0m\n"
 else
     printf "\033[0;32m  %d converted, %d skipped, %d total\033[0m\n" "$CONVERTED" "$SKIPPED" "$FOUND"
 fi
