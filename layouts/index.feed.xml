@@ -8,7 +8,7 @@
   <channel>
     <title>{{ site.Title }}</title>
     <link>{{ site.BaseURL }}</link>
-    <description>Recent content on {{ site.Title }}</description>
+    <description>Cracking AI Engineering</description>
     <generator>Hugo</generator>
     <language>{{ site.Language.LanguageCode }}</language>
     {{ with $pages }}
