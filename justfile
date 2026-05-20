@@ -58,9 +58,12 @@ help:
     @printf "\033[0;33mBuilding:\033[0m\n"
     @printf "  %-18s %s\n" "ci" "Run ALL validation checks (verbose)"
     @printf "  %-18s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
+    @printf "  %-18s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
     @printf "  %-18s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99)"
     @printf "  %-18s %s\n" "validate-images" "Check all image references resolve to files"
+    @printf "  %-18s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
+    @printf "  %-18s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
     @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo)"
     @printf "  %-18s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
@@ -111,7 +114,25 @@ init:
         brew install webp
     fi
     printf "\033[0;32m✓ cwebp ready (%s)\033[0m\n" "$(cwebp -version 2>&1 | head -1)"
+    if ! command -v exiftool >/dev/null 2>&1; then
+        printf "\033[0;33m→ exiftool missing, installing via brew...\033[0m\n"
+        brew install exiftool
+    fi
+    printf "\033[0;32m✓ exiftool ready (%s)\033[0m\n" "$(exiftool -ver)"
+    if ! command -v harper-cli >/dev/null 2>&1; then
+        if ! command -v cargo >/dev/null 2>&1; then
+            printf "\033[0;31m✗ init failed: harper-cli requires Rust/Cargo (cargo not found)\033[0m\n"
+            printf "  Install Rust from https://rustup.rs then re-run: just init\n"
+            echo ""
+            exit 1
+        fi
+        printf "\033[0;33m→ harper-cli missing, installing via cargo (may take a few minutes)...\033[0m\n"
+        cargo install --locked --git https://github.com/Automattic/harper.git harper-cli
+    fi
+    printf "\033[0;32m✓ harper-cli ready (%s)\033[0m\n" "$(harper-cli --version 2>&1 | head -1)"
     mkdir -p public
+    git config core.hooksPath .githooks
+    printf "\033[0;32m✓ git hooks configured (.githooks/pre-push → just ci-quiet)\033[0m\n"
     printf "\033[0;32m✓ init completed successfully\033[0m\n"
     echo ""
 
@@ -169,6 +190,13 @@ check:
         exit 1
     fi
     printf "\033[0;32m✓ cwebp is installed (%s)\033[0m\n" "$(cwebp -version 2>&1 | head -1)"
+    if ! command -v exiftool >/dev/null 2>&1; then
+        printf "\033[0;31m✗ check failed: exiftool is not installed\033[0m\n"
+        printf "  Install with: brew install exiftool  (or run: just init)\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ exiftool is installed (%s)\033[0m\n" "$(exiftool -ver)"
     echo ""
 
 # Clean generated files
@@ -356,6 +384,14 @@ ci-quiet:
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
 
+# Remove EXIF metadata from all images and videos in content/
+strip-exif:
+    @echo ""
+    @printf "\033[0;34m=== Stripping EXIF Metadata ===\033[0m\n"
+    @bash scripts/strip-exif.sh
+    @printf "\033[0;32m✓ strip-exif completed\033[0m\n"
+    @echo ""
+
 # Convert PNG/JPG/JPEG to WebP (max 1440px longest side, quality 99, never upsize)
 optimize-images:
     @echo ""
@@ -372,6 +408,14 @@ validate-images:
     @printf "\033[0;32m✓ validate-images passed\033[0m\n"
     @echo ""
 
+# Check blog markdown for disallowed characters (em dashes)
+validate-md:
+    @echo ""
+    @printf "\033[0;34m=== Validating Markdown (semgrep) ===\033[0m\n"
+    @semgrep --config config/semgrep/no-em-dash.yml --error content
+    @printf "\033[0;32m✓ validate-md passed\033[0m\n"
+    @echo ""
+
 # Fail when any draft article still contains unresolved TODO/placeholder markers
 validate-content:
     @echo ""
@@ -380,6 +424,36 @@ validate-content:
     @printf "\033[0;32m✓ validate-content passed\033[0m\n"
     @echo ""
 
+# Spell check all draft articles (draft: true) with harper-cli, or a single file if given
+spell-check file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Spell Checking Draft Articles ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        DRAFTS="{{file}}"
+    else
+        DRAFTS=$(grep -rl "^draft: true" content/ 2>/dev/null || true)
+    fi
+    if [ -z "$DRAFTS" ]; then
+        printf "\033[0;32m✓ no draft articles found\033[0m\n"
+        echo ""
+        exit 0
+    fi
+    ERRORS=0
+    while IFS= read -r file; do
+        printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
+        harper-cli lint --user-dict-path config/harper/dictionary.txt "$file" || ERRORS=$((ERRORS + 1))
+        echo ""
+    done <<< "$DRAFTS"
+    if [ "$ERRORS" -gt 0 ]; then
+        printf "\033[0;31m✗ spell-check: %s file(s) reported issues\033[0m\n" "$ERRORS"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ spell-check passed\033[0m\n"
+    echo ""
+
 # Build the production site (optimize → validate → hugo)
 build:
     #!/usr/bin/env bash
@@ -387,14 +461,16 @@ build:
     echo ""
     printf "\033[0;34m=== Building Production Site ===\033[0m\n"
     just optimize-images
+    just strip-exif
     just validate-images
     just validate-content
+    just validate-md
     hugo --minify
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
-deploy:
+deploy: build
     #!/usr/bin/env bash
     set -e
     echo ""

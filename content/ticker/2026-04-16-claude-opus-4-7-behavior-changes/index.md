@@ -2,7 +2,7 @@
 title: "Claude Opus 4.7: The Behavior Changes We Actually Wanted"
 date: 2026-04-16
 draft: false
-description: "Anthropic's Opus 4.7 ships calibrated response length, stricter instruction following, leaner agentic defaults, and higher-resolution image support — but a new tokenizer raises effective cost on text-heavy workloads."
+description: "Anthropic's Opus 4.7 ships calibrated response length, stricter instruction following, leaner agentic defaults, and higher-resolution image support - but a new tokenizer raises effective cost on text-heavy workloads."
 author: "Florian Buetow"
 readTime: "3 min read"
 categories: ["AI Engineering"]
@@ -19,11 +19,11 @@ Anthropic just released Opus 4.7, and the behaviour changes of the new models ar
 - **Stricter effort calibration:** low finally means low. Raise effort for complex tasks instead of prompt-hacking around an unpredictable dial.
 - **Fewer tool calls, more reasoning:** Thinks before it reaches for grep. Less trash, better results in most cases.
 - **Real-time cybersecurity safeguards:** May refuse high-risk topics. Legitimate security work routes through the Cyber Verification Program.
-- **High-resolution image support:** Up to 2576px long edge (from 1568). Bounding-box coordinates are now 1:1 with image pixels — no scale conversion required.
+- **High-resolution image support:** Up to 2576px long edge (from 1568). Bounding-box coordinates are now 1:1 with image pixels - no scale conversion required.
 
 The through-line: prompts get simpler, outputs get sharper, and agents get leaner. A lot of the CLAUDE.md directives people have been carrying around since 4.5 as quasi guardrails can probably be retired.
 
-The literalism change also means a prompt that was slightly underspecified on 4.6 may now do exactly — and only — what it says.
+The literalism change also means a prompt that was slightly underspecified on 4.6 may now do exactly - and only - what it says.
 
 ## The catch
 

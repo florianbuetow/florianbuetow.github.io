@@ -3,7 +3,7 @@ title: "Automate Your CHANGELOG.md With This Claude Code Plugin"
 slug: "automate-your-changelog-md-with-this-claude-code-plugin"
 date: 2026-03-30
 draft: false
-description: "A Claude Code plugin that reads your Git history and writes a proper CHANGELOG.md following Keep a Changelog format — one command, no config, no templates."
+description: "A Claude Code plugin that reads your Git history and writes a proper CHANGELOG.md following Keep a Changelog format - one command, no config, no templates."
 author: "Florian Buetow"
 readTime: "3 min read"
 categories: ["AI Engineering", "Tools"]
@@ -26,7 +26,7 @@ Here's what happens under the hood:
 
 **1. Version Boundary Detection.** Finds all semver tags and slices the commit history into version ranges. No tags? Everything goes under `[Unreleased]`. Mixed tagged and untagged commits? Tagged versions get dated sections; new commits land in `[Unreleased]` until you cut the next release.
 
-**2. Commit Classification.** Every commit gets categorized into Added, Changed, Deprecated, Removed, Fixed, or Security. Conventional commit prefixes (`feat:`, `fix:`, `refactor:`) take priority — keyword matching is the fallback. Merge commits are skipped automatically.
+**2. Commit Classification.** Every commit gets categorized into Added, Changed, Deprecated, Removed, Fixed, or Security. Conventional commit prefixes (`feat:`, `fix:`, `refactor:`) take priority - keyword matching is the fallback. Merge commits are skipped automatically.
 
 **3. Synthesis, Not Copy-Paste.** Related commits get grouped into single user-facing bullet points. "Fixed crash when uploading large files", not "fix: null check in upload handler." Internal noise (CI tweaks, trivial chores, docs-only changes) gets filtered unless it affects users.
 

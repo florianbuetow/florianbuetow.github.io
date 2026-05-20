@@ -1,0 +1,10 @@
+rules:
+  - id: content.no-em-dash
+    languages: [generic]
+    message: >
+      Em dash (—, U+2014) found. Replace it with an ASCII minus sign (-).
+    severity: ERROR
+    paths:
+      include:
+        - "**/*.md"
+    pattern-regex: '—'

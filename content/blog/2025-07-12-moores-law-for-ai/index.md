@@ -105,9 +105,9 @@ Evidence shows that multi-module systems meaningfully boost intelligence - not j
 
 - Anthropic's research leverages a lead agent and multiple specialized subagents operating in parallel. It records a 90%+ uplift over a solo Claude Opus 4 model on complex research tasks \[47\], demonstrating how structured collaboration between models unlocks deeper understanding.
 
-- AgentGroupChat‑V2 uses a divide-and-conquer mechanism across agent groups, achieving 91.5% on GSM8K (+5.6 points), nearly doubling accuracy on AIME, and 79.2% pass@1 on HumanEval—without scaling the model size \[48\].
+- AgentGroupChat‑V2 uses a divide-and-conquer mechanism across agent groups, achieving 91.5% on GSM8K (+5.6 points), nearly doubling accuracy on AIME, and 79.2% pass@1 on HumanEval-without scaling the model size \[48\].
 
-- A survey of multi-agent LLMs \[49\] shows consistent gains in reasoning, programming, and summarizing tasks thanks to diverse agent perspectives and agent feedback loops—even small multi-agent setups outperform individual models.
+- A survey of multi-agent LLMs \[49\] shows consistent gains in reasoning, programming, and summarizing tasks thanks to diverse agent perspectives and agent feedback loops-even small multi-agent setups outperform individual models.
 
 What we've seen so far aren't just implementation hacks. They reflect a shift in thinking: from "How do I make one model smarter?" to "How do I compose intelligent behavior from systems?" These architectures enable us to scale capabilities horizontally by combining specialized components, rather than vertically by growing a single LLM monolith.
 

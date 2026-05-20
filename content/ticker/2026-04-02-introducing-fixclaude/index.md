@@ -33,10 +33,10 @@ fixclaude installs 279 lines of directives that override seven structural bottle
 
 ## Four new commands for your workflow
 
-- `/fixclaude` — Auto-detects and routes to installation or updates.
-- `/fixclaude:init` — Creates a fresh, 9-section CLAUDE.md template.
-- `/fixclaude:update` — Merges missing directives into your existing files without ruining your formatting.
-- `/fixclaude:analyze` — Produces a gap report rating your current setup against all seven findings.
+- `/fixclaude` - Auto-detects and routes to installation or updates.
+- `/fixclaude:init` - Creates a fresh, 9-section CLAUDE.md template.
+- `/fixclaude:update` - Merges missing directives into your existing files without ruining your formatting.
+- `/fixclaude:analyze` - Produces a gap report rating your current setup against all seven findings.
 
 While a bandage like this isn't a perfect substitute for source-level changes, it is far better than leaving an "open wound" in your development workflow.
 

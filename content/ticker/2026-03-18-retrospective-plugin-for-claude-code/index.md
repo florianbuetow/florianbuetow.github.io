@@ -13,11 +13,11 @@ In engineering, retrospectives uncover work patterns that work well and those th
 
 Run `/retrospective`, and you get a report that tells you exactly:
 
-- What's working well — and how to apply those strengths to the areas where you keep struggling
-- Where and why you're losing time — bad prompts? Missing rules? A tooling gap?
-- What to fix first — sorted by impact and effort, so you start with the changes that matter most
+- What's working well - and how to apply those strengths to the areas where you keep struggling
+- Where and why you're losing time - bad prompts? Missing rules? A tooling gap?
+- What to fix first - sorted by impact and effort, so you start with the changes that matter most
 - Exactly what to change: copy-paste CLAUDE.md rules, hook configs, skill files, and a command to verify each one worked
-- How your interactions have shifted since your last retro — resolved issues, recurring ones, and what's new
+- How your interactions have shifted since your last retro - resolved issues, recurring ones, and what's new
 
 Retrospectives are based on up to 3 months of your project's session logs and stored as date-versioned markdown files in `docs/retrospectives/`.
 

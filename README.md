@@ -6,6 +6,8 @@ A custom Hugo static site with a hand-built theme (no third-party theme dependen
 
 - [Hugo](https://gohugo.io/) extended edition (0.160+): `brew install hugo`
 - [just](https://github.com/casey/just) command runner: `brew install just`
+- [ExifTool](https://exiftool.org/) EXIF metadata removal: `brew install exiftool`
+- [harper-cli](https://writewithharper.com/) spell/grammar checker: installed automatically by `just init` via Cargo (requires Rust — install from [rustup.rs](https://rustup.rs) if not present)
 
 Verify installation:
 
@@ -216,8 +218,19 @@ An inline pull quote.
 
 1. Create the file with `draft: true`.
 2. Run `just start` and preview at `http://127.0.0.1:1313/blog/`.
-3. When ready, set `draft: false`.
-4. Run `just build` to generate the production site into `public/`.
+3. Run `just spell-check <file>` and resolve any issues.
+4. When ready, set `draft: false` — never flip this before spell check passes.
+5. Run `just build` to generate the production site into `public/`.
+
+### Spell checking
+
+`just spell-check` lints all draft articles (`draft: true`) with [harper-cli](https://writewithharper.com/). To check a single file regardless of draft status:
+
+```bash
+just spell-check content/blog/my-post/index.md
+```
+
+Project-specific words (proper names, technical terms) can be added to `config/harper/dictionary.txt`, one word per line, to suppress false positives.
 
 ### URLs and slugs
 
@@ -257,7 +270,7 @@ just help
 
 - **Setup & lifecycle:** `init`, `destroy`, `clean`, `check`, `help`
 - **Run:** `start`, `stop`, `status`
-- **CI & testing:** `build`, `ci`
+- **CI & testing:** `build`, `ci`, `spell-check`
 - **Deploy:** `deploy`
 
 ## Configuration notes

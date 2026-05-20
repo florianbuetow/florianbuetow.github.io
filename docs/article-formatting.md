@@ -170,6 +170,18 @@ The render hook (`layouts/_default/_markup/render-image.html`) strips `?zoom` fr
 
 ---
 
+## 6. Links that open in a new tab
+
+Markdown's `[text](url)` syntax has no way to set `target="_blank"`. Use a raw HTML anchor instead. This works because `markup.goldmark.renderer.unsafe = true` is set in `hugo.toml`.
+
+```markdown
+<a href="https://example.com" target="_blank" rel="noopener">link text</a>
+```
+
+Use `rel="noopener"` whenever you set `target="_blank"` — it prevents the opened page from accessing `window.opener`.
+
+---
+
 ## Reference article
 
 `content/blog/2026-05-17-yes-you-are-absolutely-right/index.md` uses Mermaid diagrams and the references section.
