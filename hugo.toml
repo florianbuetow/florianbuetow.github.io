@@ -55,6 +55,18 @@ title = "Florian's Blog"
   ticker = '/ticker/:slug/'
   projects = '/projects/:slug/'
 
+[outputFormats]
+  [outputFormats.Feed]
+    mediaType = "application/rss+xml"
+    baseName = "feed"
+    isPlainText = true
+    rel = "alternate"
+    isHTML = false
+    noUgly = true
+
+[outputs]
+  home = ["HTML", "RSS", "Feed"]
+
 [markup]
   [markup.tableOfContents]
     startLevel = 2
