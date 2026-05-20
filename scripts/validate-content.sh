@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Guard: fail the build when any `draft: true` article still contains
-# unresolved placeholder/TODO markers. By design this only scans drafts —
-# the intent is to surface unfinished work before an article is flipped
-# to `draft: false` and shipped.
+# Guard: error when a published (draft: false) article contains placeholder markers;
+# warn (no build failure) when a draft (draft: true) article contains them.
 set -euo pipefail
 
 CONTENT_DIR="${1:-content}"
-TMPFILE=$(mktemp)
-trap 'rm -f "$TMPFILE"' EXIT
+ERRORS=$(mktemp)
+WARNINGS=$(mktemp)
+HITS=$(mktemp)
+trap 'rm -f "$ERRORS" "$WARNINGS" "$HITS"' EXIT
 
 # Forbidden markers (case-sensitive ERE patterns).
 patterns=(
@@ -20,27 +20,42 @@ patterns=(
 )
 
 while IFS= read -r -d '' md; do
-    # Only scan drafts (draft: true) — non-drafts are out of scope for this guard.
-    if ! awk '/^---$/{n++} n==1{print} n==2{exit}' "$md" | grep -q '^draft: *true'; then
-        continue
+    if awk '/^---$/{n++} n==1{print} n==2{exit}' "$md" | grep -q '^draft: *true'; then
+        is_draft=1
+    else
+        is_draft=0
     fi
 
     for pat in "${patterns[@]}"; do
-        if grep -nE -- "$pat" "$md" >> "$TMPFILE.raw" 2>/dev/null; then
+        : > "$HITS"
+        grep -nE -- "$pat" "$md" > "$HITS" 2>/dev/null || true
+        if [ -s "$HITS" ]; then
             while IFS= read -r hit; do
-                printf "%s:%s\n" "$md" "$hit" >> "$TMPFILE"
-            done < "$TMPFILE.raw"
-            : > "$TMPFILE.raw"
+                if [ "$is_draft" -eq 1 ]; then
+                    printf "%s:%s\n" "$md" "$hit" >> "$WARNINGS"
+                else
+                    printf "%s:%s\n" "$md" "$hit" >> "$ERRORS"
+                fi
+            done < "$HITS"
         fi
     done
 done < <(find "$CONTENT_DIR" -name '*.md' -type f -print0)
 
-ERRORS=$(wc -l < "$TMPFILE" | tr -d ' ')
-if [ "$ERRORS" -gt 0 ]; then
+WARN_COUNT=$(wc -l < "$WARNINGS" | tr -d ' ')
+if [ "$WARN_COUNT" -gt 0 ]; then
+    while IFS= read -r line; do
+        printf "\033[0;33m  ⚠ %s\033[0m\n" "$line"
+    done < "$WARNINGS"
+    printf "\033[0;33m⚠ validate-content: %d placeholder marker(s) in draft articles (warnings only)\033[0m\n" "$WARN_COUNT"
+fi
+
+ERROR_COUNT=$(wc -l < "$ERRORS" | tr -d ' ')
+if [ "$ERROR_COUNT" -gt 0 ]; then
     while IFS= read -r line; do
         printf "\033[0;31m  ✗ %s\033[0m\n" "$line"
-    done < "$TMPFILE"
-    printf "\033[0;31m✗ validate-content failed: %d placeholder marker(s) in draft articles\033[0m\n" "$ERRORS"
+    done < "$ERRORS"
+    printf "\033[0;31m✗ validate-content failed: %d placeholder marker(s) in published articles\033[0m\n" "$ERROR_COUNT"
     exit 1
 fi
-printf "\033[0;32m  no unresolved placeholders found in draft articles\033[0m\n"
+
+printf "\033[0;32m  no unresolved placeholders found in published articles\033[0m\n"
