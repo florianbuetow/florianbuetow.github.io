@@ -1,5 +1,5 @@
 ---
-title: "Install the /dream Command in Claude Code"
+title: "Claude Code: Install the /dream Command"
 slug: "install-the-dream-command-in-claude-code"
 date: 2026-03-28
 draft: false
