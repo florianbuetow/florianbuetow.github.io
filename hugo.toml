@@ -1,6 +1,9 @@
 baseURL = 'https://cracking-ai-engineering.com/'
 locale = 'en-us'
 title = "Florian's Blog"
+[pagination]
+  pagerSize = 4
+
 
 [module]
   [[module.imports]]

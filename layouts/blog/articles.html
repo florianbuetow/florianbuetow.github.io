@@ -3,7 +3,8 @@
     <div class="post-list">
         {{ $posts := where .Pages "Type" "!=" "page" }}
         {{ if not $posts }}{{ $posts = .Pages }}{{ end }}
-        {{ range $i, $p := $posts }}
+        {{ $paginator := .Paginate $posts }}
+        {{ range $i, $p := $paginator.Pages }}
             <article class="post"
                      data-categories="{{ delimit ($p.Params.categories | default slice) "," }}"
                      data-tags="{{ delimit ($p.Params.tags | default slice) "," }}">
@@ -19,7 +20,23 @@
                     <p>{{ $p.Summary | plainify | truncate 280 }}</p>
                 </div>
             </article>
-            {{ if lt (add $i 1) (len $posts) }}<hr class="divider">{{ end }}
+            {{ if lt (add $i 1) (len $paginator.Pages) }}<hr class="divider">{{ end }}
+        {{ end }}
+        {{ if gt $paginator.TotalPages 1 }}
+        <hr class="divider">
+        <nav class="pagination">
+            {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}" class="pagination-link">&#8592; Newer</a>
+            {{ else }}
+            <span class="pagination-link pagination-disabled">&#8592; Newer</span>
+            {{ end }}
+            <span class="pagination-info">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
+            {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}" class="pagination-link">Older &#8594;</a>
+            {{ else }}
+            <span class="pagination-link pagination-disabled">Older &#8594;</span>
+            {{ end }}
+        </nav>
         {{ end }}
     </div>
 </div>
