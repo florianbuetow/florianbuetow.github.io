@@ -1,5 +1,5 @@
 ---
-title: "Progressive Disclosure Plugin for Claude Code"
+title: "Fight Context Rot with the Progressive Disclosure Plugin for Claude Code"
 slug: "prevent-context-rot-with-this-claude-code-plugin"
 date: 2026-05-06
 draft: true
@@ -10,11 +10,11 @@ categories: ["AI Engineering", "Tools"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---
 
-{{< sidenote label="See also" >}}[progressive-disclosure on GitHub](https://github.com/florianbuetow/claude-code){{< /sidenote >}}
+{{< sidenote label="Download" >}}[github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code){{< /sidenote >}}
 
-If your `CLAUDE.md` has grown into a monolith, every convention, every workflow rule, every one-off note inlined, it is doing the opposite of progressive disclosure. The agent loads everything at session start, burns through its instruction budget, and starts ignoring directives. That is context rot.
+If your `CLAUDE.md` has grown into a monolith, every convention, every workflow rule, and every stray note inlined, it is doing the opposite of progressive disclosure. The agent loads everything at session start, burns through its instruction budget, and starts ignoring directives. That is context rot.
 
-The progressive-disclosure plugin audits and fixes this. It scans up to nine root configuration files (`README.md`, `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `USER.md`, `TOOLS.md`, `BOOTSTRAP.md`, `DESIGN.md`, `NOTICE.md`), maps their reference graphs, and detects orphaned documentation that exists on disk but is invisible to the agent.
+The progressive-disclosure plugin audits and fixes this. It scans common root configuration files (`README.md`, `AGENTS.md`, `CLAUDE.md`, ...), maps their reference graphs, and detects orphaned documentation that exists on disk but is invisible to the agent.
 
 Run `/progressive-disclosure`, and you get a report that tells you:
 
@@ -30,6 +30,7 @@ claude plugin install progressive-disclosure
 /reload-plugins
 ```
 
-## References
+## Links
 
-- [progressive-disclosure plugin on GitHub](https://github.com/florianbuetow/claude-code)
+- Plugin source: [github.com/florianbuetow/claude-code/...progressive-disclosure](https://github.com/florianbuetow/claude-code/tree/main/plugins/progressive-disclosure)
+- My (free) plugin marketplace: [github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code)

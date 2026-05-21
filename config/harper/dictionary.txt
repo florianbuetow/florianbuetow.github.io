@@ -1,4 +1,5 @@
 Andrej
+florianbuetow
 Jovovich
 Karpathy
 Karpathy's
@@ -7,3 +8,5 @@ MemPalace
 Milla
 Milla's
 Sigman
+re-running
+sidenote
