@@ -1,5 +1,5 @@
 ---
-title: "Automate Your CHANGELOG.md With This Claude Code Plugin"
+title: "Claude Plugin: Automate Your CHANGELOG.md"
 slug: "automate-your-changelog-md-with-this-claude-code-plugin"
 date: 2026-03-30
 draft: false
