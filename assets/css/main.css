@@ -905,6 +905,17 @@ a {
     line-height: 1.4;
 }
 
+.resources-table td {
+    padding: 0.5rem 0;
+    vertical-align: top;
+    text-align: left;
+}
+
+.resources-table td:first-child {
+    padding-right: 1.5rem;
+    white-space: nowrap;
+}
+
 .search-result-item span {
     display: block;
     font-size: 0.7rem;
