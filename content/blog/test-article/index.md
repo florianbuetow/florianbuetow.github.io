@@ -1,7 +1,8 @@
 ---
-title: "TEST: Sidenote Tooltips"
-subtitle: "This page exists to verify sidenote/tooltip rendering"
-date: 2026-04-20
+title: "TEST: Sidenotes + Wardley Maps"
+subtitle: "This page exists to verify sidenote/tooltip and Wardley map rendering"
+slug: "test-article"
+date: 2200-01-01
 draft: true
 author: "Florian Buetow"
 readTime: "1 min read"
@@ -42,3 +43,13 @@ Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saep
 **← sidenote inserted here** - This paragraph tests a **See also** sidenote. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.
 
 Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi.
+
+## Wardley map
+
+This section verifies the `wtg2svg` rendering pipeline. The image below is generated from `map.wtg2` (sidecar file in this page bundle) by `just wardley-render`.
+
+![Wardley map of a tea shop](map.svg "Tea Shop value chain")
+
+The same map with the zoom lightbox enabled:
+
+![Wardley map of a tea shop, zoomable](map.svg?zoom "Click to zoom")

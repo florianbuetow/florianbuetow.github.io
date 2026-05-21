@@ -60,6 +60,7 @@ help:
     @printf "  %-18s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
     @printf "  %-18s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
     @printf "  %-18s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
+    @printf "  %-18s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
     @printf "  %-18s %s\n" "validate-images" "Check all image references resolve to files"
     @printf "  %-18s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
@@ -131,6 +132,14 @@ init:
         cargo install --locked --git https://github.com/Automattic/harper.git harper-cli
     fi
     printf "\033[0;32m✓ harper-cli ready (%s)\033[0m\n" "$(harper-cli --version 2>&1 | head -1)"
+    if ! command -v wtg2svg >/dev/null 2>&1; then
+        printf "\033[0;33m→ wtg2svg missing, installing via go install...\033[0m\n"
+        # Pinned to v2.30.2 via commit SHA. Upstream module path lacks the /v2
+        # suffix, so `@v2.x.x` tag installs fail Go's semantic-import-versioning
+        # check. SHA installs use a v0.x.x pseudo-version and bypass it.
+        go install github.com/owulveryck/wardleyToGo/cmd/wtg2svg@a31d299ed0100ace9c7ab9513a6b87b10bfc4ea3
+    fi
+    printf "\033[0;32m✓ wtg2svg ready (%s)\033[0m\n" "$(command -v wtg2svg)"
     mkdir -p public
     git config core.hooksPath .githooks
     printf "\033[0;32m✓ git hooks configured (.githooks/pre-push → just ci-quiet)\033[0m\n"
@@ -198,6 +207,15 @@ check:
         exit 1
     fi
     printf "\033[0;32m✓ exiftool is installed (%s)\033[0m\n" "$(exiftool -ver)"
+    if find content -type f -name '*.wtg2' -print -quit 2>/dev/null | grep -q .; then
+        if ! command -v wtg2svg >/dev/null 2>&1; then
+            printf "\033[0;31m✗ check failed: .wtg2 files present in content/ but wtg2svg is not installed\033[0m\n"
+            printf "  Install with: just init\n"
+            echo ""
+            exit 1
+        fi
+        printf "\033[0;32m✓ wtg2svg is installed (%s)\033[0m\n" "$(command -v wtg2svg)"
+    fi
     echo ""
 
 # Clean generated files
@@ -405,6 +423,15 @@ optimize-images file="":
     @printf "\033[0;34m=== Optimizing Images → WebP ===\033[0m\n"
     @bash scripts/optimize-images.sh {{file}}
     @printf "\033[0;32m✓ optimize-images completed\033[0m\n"
+    @echo ""
+
+# Render Wardley map .wtg2 files to .svg using wtg2svg. Run locally after editing
+# any .wtg2; commit the generated .svg alongside its source.
+wardley-render:
+    @echo ""
+    @printf "\033[0;34m=== Rendering Wardley Maps → SVG ===\033[0m\n"
+    @bash scripts/wardley-render.sh
+    @printf "\033[0;32m✓ wardley-render completed\033[0m\n"
     @echo ""
 
 # Check all image references in non-draft markdown resolve to files

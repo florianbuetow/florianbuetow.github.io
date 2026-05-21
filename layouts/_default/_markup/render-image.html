@@ -9,7 +9,10 @@
 {{- $res := and .Page .Page.Resources (.Page.Resources.GetMatch $src) -}}
 <figure class="post-figure">
   {{- if $res -}}
-    {{- if $zoom -}}
+    {{- if hasSuffix $src ".svg" -}}
+      {{- /* SVG resources lack Width/Height/Resize; emit raw, browser scales via viewBox. */ -}}
+      <img src="{{ $res.RelPermalink }}" alt="{{ $alt }}" loading="lazy"{{ if $zoom }} data-zoom-src="{{ $res.RelPermalink }}" class="zoomable"{{ end }}>
+    {{- else if $zoom -}}
       {{- $thumb := $res.Resize "800x" -}}
       <img src="{{ $thumb.RelPermalink }}" data-zoom-src="{{ $res.RelPermalink }}" alt="{{ $alt }}" width="{{ $thumb.Width }}" height="{{ $thumb.Height }}" loading="lazy" class="zoomable">
     {{- else -}}

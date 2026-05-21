@@ -106,7 +106,34 @@ flowchart LR
 
 ---
 
-## 4. Sidenotes and sidequotes
+## 4. Wardley maps
+
+Wardley maps are rendered at build time from a `.wtg2` source file (the [wardleyToGo](https://github.com/owulveryck/wardleyToGo) DSL) into an SVG that ships as a normal page-bundle asset. Both the `.wtg2` source and the generated `.svg` are committed to git.
+
+### How to write one
+
+1. Inside the article's page-bundle directory, create the DSL source as `map.wtg2`. For multiple maps in the same article, use descriptive basenames (e.g., `auth-evolution.wtg2`, `data-platform.wtg2`).
+2. Run `just wardley-render`. This walks `content/**/*.wtg` and produces a `.svg` of the same basename next to each `.wtg2`, using `wtg2svg -static`.
+3. Reference the generated SVG with standard Markdown image syntax:
+
+   ```markdown
+   ![Wardley map of X](map.svg "Optional caption")
+   ```
+
+4. Commit both `map.wtg2` and `map.svg` together.
+
+### Notes
+
+- The `?zoom` lightbox documented in section 6 works for SVG too: `![...](map.svg?zoom "...")`.
+- The render hook (`layouts/_default/_markup/render-image.html`) detects `.svg` files by suffix and emits them without explicit `width`/`height`. The browser uses the SVG's intrinsic `viewBox` for sizing.
+- After editing any `.wtg2`, re-run `just wardley-render` before committing. The generated `.svg` must travel with its source.
+- `validate-images` enforces that any non-draft article referencing a `.svg` has the file present, so a forgotten render is caught by CI.
+- The renderer (`wtg2svg`) is installed by `just init` at a pinned commit SHA; see the install block in the justfile for the rationale.
+- DSL reference and examples: see the [wardleyToGo](https://github.com/owulveryck/wardleyToGo) repository (`sample.wtg` in the repo root is a good starting point).
+
+---
+
+## 5. Sidenotes and sidequotes
 
 Two shortcodes float content into the right margin of the article column:
 
@@ -147,7 +174,7 @@ The paragraph the quote sits beside goes here.
 
 ---
 
-## 5. Zoomable images
+## 6. Zoomable images
 
 Append `?zoom` to any image path to make it clickable. Clicking the image opens a full-resolution lightbox overlay.
 
@@ -170,7 +197,7 @@ The render hook (`layouts/_default/_markup/render-image.html`) strips `?zoom` fr
 
 ---
 
-## 6. Links that open in a new tab
+## 7. Links that open in a new tab
 
 Markdown's `[text](url)` syntax has no way to set `target="_blank"`. Use a raw HTML anchor instead. This works because `markup.goldmark.renderer.unsafe = true` is set in `hugo.toml`.
 
@@ -185,4 +212,4 @@ Use `rel="noopener"` whenever you set `target="_blank"` — it prevents the open
 ## Reference article
 
 `content/blog/2026-05-17-yes-you-are-absolutely-right/index.md` uses Mermaid diagrams and the references section.
-`content/blog/test-sidenotes.md` exists specifically to exercise the sidenote and sidequote shortcodes. Open it side-by-side with the rendered page when iterating.
+`content/blog/test-article/` exists specifically to exercise the sidenote, sidequote, and Wardley map rendering pipelines. Open it side-by-side with the rendered page when iterating.
