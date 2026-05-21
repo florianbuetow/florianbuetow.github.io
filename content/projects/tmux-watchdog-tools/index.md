@@ -16,6 +16,8 @@ featured: false
 image: "/projects/tmux-auto-attach/watcher-terminals.webp"
 ---
 
+{{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/tmux-auto-attach" target="_blank" rel="noopener">https://github.com/florianbuetow/tmux-auto-attach</a>{{< /sidenote >}}
+
 Tmux Auto Attach is a helper script that automatically attaches idle terminals to new tmux sessions spawned by your AI coding agent. The reason to spawn sub-agents, or agents from different vendors, in tmux sessions is observability and interoperability: you get a live window into what each sub-agent is doing, and sub-agents can be from any vendor (Anthropic, Google, OpenAI, …).
 
 For a full walkthrough of how to use it, please read the blog post titled: [Auto-attach to tmux Sessions Spawned by AI Agents](/blog/tmux-auto-attach/).
