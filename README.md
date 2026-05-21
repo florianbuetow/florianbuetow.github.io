@@ -70,7 +70,6 @@ hugo-blog/
 │   ├── css/
 │   │   └── main.css             # All site styles (processed by Hugo Pipes)
 │   └── js/
-│       ├── filter.js            # Blog/ticker index: tag/category filter sidebar
 │       ├── lightbox.js          # Zoomable image overlay
 │       ├── mermaid-init.js      # Mermaid diagram rendering
 │       └── toc.js               # Article: table-of-contents scroll spy
@@ -117,7 +116,9 @@ hugo-blog/
 │       └── articles.html        # Ticker section list page
 ├── static/
 │   ├── CNAME                    # Custom domain for GitHub Pages
-│   └── logo.png                 # Site logo
+│   ├── logo.png                 # Site logo
+│   └── js/
+│       └── global-search.js     # Site-wide search overlay (wires header input to Pagefind)
 ├── tools/                       # Python sub-project (autotag, description rewriting)
 └── public/                      # Generated site output (gitignored)
 ```
@@ -129,7 +130,7 @@ hugo-blog/
 | `hugo.toml` | Site title, menu entries, taxonomies, author, socials, permalink rules |
 | `layouts/_default/baseof.html` | Outer HTML shell — shared header, footer, main region |
 | `layouts/_default/single.html` | Article page with TOC, author card, and side notes |
-| `layouts/_default/list.html` | Blog index + tag/category list pages with filter sidebar |
+| `layouts/_default/list.html` | Taxonomy list pages (tags, categories) |
 | `assets/css/main.css` | All styles — edit here, Hugo Pipes fingerprints and minifies |
 
 ## Running the site locally
@@ -244,7 +245,7 @@ Generate the production site into `public/`:
 just build
 ```
 
-Run the full validation pipeline (currently `check` + `build`):
+Run the full validation pipeline (currently `check` + `build` + `pagefind`):
 
 ```bash
 just ci
@@ -270,7 +271,7 @@ just help
 
 - **Setup & lifecycle:** `init`, `destroy`, `clean`, `check`, `help`
 - **Run:** `start`, `stop`, `status`
-- **CI & testing:** `build`, `ci`, `spell-check`
+- **CI & testing:** `build`, `pagefind`, `ci`, `spell-check`
 - **Deploy:** `deploy`
 
 ## Configuration notes

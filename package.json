@@ -2,5 +2,8 @@
   "private": true,
   "dependencies": {
     "mermaid": "^11"
+  },
+  "devDependencies": {
+    "pagefind": "^1.x"
   }
 }

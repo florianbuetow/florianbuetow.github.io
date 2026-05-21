@@ -65,6 +65,7 @@ help:
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-18s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
     @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo)"
+    @printf "  %-18s %s\n" "pagefind" "Rebuild the Pagefind search index from public/"
     @printf "  %-18s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
 
@@ -104,8 +105,8 @@ init:
         brew install node
     fi
     printf "\033[0;32m✓ node ready (%s)\033[0m\n" "$(node --version)"
-    if [ ! -d node_modules ]; then
-        printf "\033[0;33m→ node_modules missing, running 'npm install'...\033[0m\n"
+    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ]; then
+        printf "\033[0;33m→ node deps missing/incomplete, running 'npm install'...\033[0m\n"
         npm install
     fi
     printf "\033[0;32m✓ node_modules present\033[0m\n"
@@ -361,6 +362,7 @@ ci:
     echo ""
     just check
     just build
+    just pagefind
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
@@ -379,6 +381,9 @@ ci-quiet:
 
     just build > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat $TMPFILE; exit 1; }
     printf "\033[0;32m✓ Build passed\033[0m\n"
+
+    just pagefind > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Pagefind passed\033[0m\n"
 
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -467,12 +472,27 @@ build:
     just validate-images
     just validate-content
     just validate-md
-    hugo --minify
+    hugo --minify --cleanDestinationDir
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
 
+# Rebuild the Pagefind search index from public/
+pagefind:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Rebuilding Pagefind Search Index ===\033[0m\n"
+    if [ ! -d public ]; then
+        printf "\033[0;31m✗ pagefind failed: public/ does not exist — run 'just build' first\033[0m\n"
+        echo ""
+        exit 1
+    fi
+    npx pagefind --site public
+    printf "\033[0;32m✓ pagefind index rebuilt successfully\033[0m\n"
+    echo ""
+
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
-deploy: build
+deploy: ci
     #!/usr/bin/env bash
     set -e
     echo ""

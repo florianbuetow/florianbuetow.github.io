@@ -752,9 +752,9 @@ a {
 /* === PAGE: PROJECTS GRID === */
 
 .project-grid {
-    grid-column: 1 / 3;
+    grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 24px;
     align-content: start;
     min-width: 0;
@@ -857,4 +857,56 @@ a {
     .project-grid {
         grid-template-columns: 1fr;
     }
+}
+
+#search-results {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: min(480px, 90vw);
+    max-height: 420px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    z-index: 1000;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-result-item {
+    display: block;
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.search-result-item:last-child {
+    border-bottom: 0;
+}
+
+.search-result-item:hover {
+    background: #f8f8f8;
+}
+
+.search-result-item strong {
+    display: block;
+    font-size: 0.85rem;
+    color: #111;
+    margin-bottom: 4px;
+}
+
+.search-result-item p {
+    font-size: 0.75rem;
+    color: #555;
+    margin-bottom: 3px;
+    line-height: 1.4;
+}
+
+.search-result-item span {
+    display: block;
+    font-size: 0.7rem;
+    color: #888;
 }

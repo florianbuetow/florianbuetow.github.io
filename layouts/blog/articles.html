@@ -21,13 +21,6 @@
             </article>
             {{ if lt (add $i 1) (len $posts) }}<hr class="divider">{{ end }}
         {{ end }}
-        <p class="no-results" id="no-results">No posts match your filters.</p>
     </div>
-    <aside class="filter-sidebar" id="filter-sidebar"></aside>
 </div>
-{{ end }}
-
-{{ define "scripts" }}
-{{ $js := resources.Get "js/filter.js" | js.Build | minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}

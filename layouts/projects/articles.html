@@ -24,13 +24,6 @@
                 </div>
             </article>
         {{ end }}
-        <p class="no-results" id="no-results">No projects match your filters.</p>
     </div>
-    <aside class="filter-sidebar" id="filter-sidebar"></aside>
 </div>
-{{ end }}
-
-{{ define "scripts" }}
-{{ $js := resources.Get "js/filter.js" | js.Build | minify | fingerprint }}
-<script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
 {{ end }}

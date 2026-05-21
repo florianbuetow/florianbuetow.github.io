@@ -56,7 +56,7 @@
         {{ .TableOfContents }}
     </nav>
 
-    <article class="article-body prose">
+    <article class="article-body prose" data-pagefind-body>
         <h1>{{ .Title }}</h1>
         {{ with .Params.subtitle }}<p class="subtitle">{{ . }}</p>{{ end }}
         {{ .Content }}
