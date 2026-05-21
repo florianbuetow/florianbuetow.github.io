@@ -8,5 +8,7 @@ MemPalace
 Milla
 Milla's
 Sigman
+claude
+plugin
 re-running
 sidenote
