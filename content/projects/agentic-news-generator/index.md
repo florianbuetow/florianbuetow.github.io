@@ -13,7 +13,7 @@ repo: "https://github.com/florianbuetow/agentic-news-generator"
 demo: ""
 video: ""
 featured: false
-image: "/projects/agentic-news-generator/illustration-agentic-news-generator.webp"
+image: "/projects/open-source-images/agentic-news-generator.webp"
 ---
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/agentic-news-generator" target="_blank" rel="noopener">https://github.com/florianbuetow/agentic-news-generator</a>{{< /sidenote >}}

@@ -13,7 +13,7 @@ repo: "https://github.com/florianbuetow/mini-rag"
 demo: ""
 video: ""
 featured: true
-image: "/projects/mini-rag/minirag-illustration.webp"
+image: "/projects/open-source-images/mini-rag.webp"
 ---
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/mini-rag" target="_blank" rel="noopener">https://github.com/florianbuetow/mini-rag</a>{{< /sidenote >}}

@@ -13,7 +13,7 @@ repo: "https://github.com/florianbuetow/guard"
 demo: ""
 video: ""
 featured: false
-image: "/projects/guard-tool/guard-hero.webp"
+image: "/projects/open-source-images/guard-tool.webp"
 ---
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/guard" target="_blank" rel="noopener">https://github.com/florianbuetow/guard</a>{{< /sidenote >}}

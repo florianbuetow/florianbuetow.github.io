@@ -13,7 +13,7 @@ repo: "https://github.com/florianbuetow/touchtask"
 demo: "https://cracking-ai-engineering.com/touchtask/"
 video: "https://www.youtube.com/watch?v=Bihlr5uGq8g"
 featured: false
-image: "/projects/touchtask/screenshot.webp"
+image: "/projects/open-source-images/touchtask.webp"
 ---
 
 {{< sidenote label="LIVE DEMO" >}}TouchTask runs entirely in your browser - no account, no install. <a href="https://cracking-ai-engineering.com/touchtask/" target="_blank" rel="noopener">Open the live demo.</a>{{< /sidenote >}}

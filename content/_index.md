@@ -2,9 +2,9 @@
 title: "Cracking AI Engineering"
 ---
 
-Notes on software engineering, data, and the journey into AI.
+Hi, I am Florian, an engineer with over a decade of experience in software engineering, specifically petabyte-scale backend systems for information retrieval/search, data processing, storage, and machine learning. 
 
-I'm Florian - an engineer with a background in backend systems, search, and data-intensive platforms (ex-Reddit). These days I write about the path from software engineering into AI: practical lessons, experiments, and the occasional opinion.
+I write about AI engineering and engineering with AI, mostly from a practical point of view and sometimes from a holistic perspective to understand how AI is changing engineering.
 
 ## Writing
 
@@ -13,7 +13,7 @@ I'm Florian - an engineer with a background in backend systems, search, and data
 
 ## Newsletter
 
-Subscribe to my newsletter [here](https://dub.sh/caie-newsletter)
+If you want to keep up with new posts, subscribe to my [newsletter](https://dub.sh/caie-newsletter) or the [RSS feed](/feed.xml).
 
 ## Socials
 

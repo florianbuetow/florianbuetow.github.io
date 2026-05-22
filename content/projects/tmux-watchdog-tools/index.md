@@ -13,7 +13,7 @@ repo: "https://github.com/florianbuetow/tmux-auto-attach"
 demo: ""
 video: ""
 featured: false
-image: "/projects/tmux-auto-attach/watcher-terminals.webp"
+image: "/projects/open-source-images/tmux-watchdog-tools.webp"
 ---
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/tmux-auto-attach" target="_blank" rel="noopener">https://github.com/florianbuetow/tmux-auto-attach</a>{{< /sidenote >}}
