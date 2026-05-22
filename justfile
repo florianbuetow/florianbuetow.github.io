@@ -65,8 +65,9 @@ help:
     @printf "  %-18s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-18s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
-    @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo)"
-    @printf "  %-18s %s\n" "pagefind" "Rebuild the Pagefind search index from public/"
+    @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
+    @printf "  %-18s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
+    @printf "  %-18s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
     @printf "  %-18s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
 
@@ -380,7 +381,7 @@ ci:
     echo ""
     just check
     just build
-    just pagefind
+    just validate-pagefind-index
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
@@ -400,8 +401,8 @@ ci-quiet:
     just build > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat $TMPFILE; exit 1; }
     printf "\033[0;32m✓ Build passed\033[0m\n"
 
-    just pagefind > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Pagefind passed\033[0m\n"
+    just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
 
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -500,22 +501,39 @@ build:
     just validate-content
     just validate-md
     hugo --minify --cleanDestinationDir
+    just build-pagefind-index
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
 
-# Rebuild the Pagefind search index from public/
-pagefind:
+# Build the Pagefind search index from public/ (chained by `just build`)
+build-pagefind-index:
     #!/usr/bin/env bash
     set -e
     echo ""
-    printf "\033[0;34m=== Rebuilding Pagefind Search Index ===\033[0m\n"
+    printf "\033[0;34m=== Building Pagefind Search Index ===\033[0m\n"
     if [ ! -d public ]; then
-        printf "\033[0;31m✗ pagefind failed: public/ does not exist — run 'just build' first\033[0m\n"
+        printf "\033[0;31m✗ build-pagefind-index failed: public/ does not exist — run 'just build' first\033[0m\n"
         echo ""
         exit 1
     fi
     npx pagefind --site public
-    printf "\033[0;32m✓ pagefind index rebuilt successfully\033[0m\n"
+    printf "\033[0;32m✓ pagefind index built successfully\033[0m\n"
+    echo ""
+
+# Verify the Pagefind search index exists in public/ (tripwire against silent failures)
+validate-pagefind-index:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Validating Pagefind Search Index ===\033[0m\n"
+    if [ ! -f public/pagefind/pagefind.js ] || [ ! -f public/pagefind/pagefind-entry.json ]; then
+        printf "\033[0;31m✗ validate-pagefind-index failed: pagefind/ index missing or incomplete in public/\033[0m\n"
+        printf "  Expected: public/pagefind/pagefind.js and public/pagefind/pagefind-entry.json\n"
+        printf "  Fix: re-run 'just build' (or 'just build-pagefind-index' if public/ already exists)\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ pagefind index present in public/pagefind/\033[0m\n"
     echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)

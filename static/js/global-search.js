@@ -21,7 +21,10 @@
                 pagefind = mod;
                 return pagefind;
             })
-            .catch(function () {
+            .catch(function (err) {
+                if (typeof console !== 'undefined' && console.warn) {
+                    console.warn('[global-search] failed to load /pagefind/pagefind.js; search disabled. Run `just build-pagefind-index` (or `just build`) to rebuild the index.', err);
+                }
                 pagefind = null;
                 pagefindLoad = null;
                 return null;

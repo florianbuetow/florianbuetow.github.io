@@ -245,7 +245,7 @@ Generate the production site into `public/`:
 just build
 ```
 
-Run the full validation pipeline (currently `check` + `build` + `pagefind`):
+Run the full validation pipeline (`check` + `build` + `validate-pagefind-index`; `build` now chains `build-pagefind-index` internally):
 
 ```bash
 just ci
@@ -271,7 +271,7 @@ just help
 
 - **Setup & lifecycle:** `init`, `destroy`, `clean`, `check`, `help`
 - **Run:** `start`, `stop`, `status`
-- **CI & testing:** `build`, `pagefind`, `ci`, `spell-check`
+- **CI & testing:** `build`, `build-pagefind-index`, `validate-pagefind-index`, `ci`, `spell-check`
 - **Deploy:** `deploy`
 
 ## Configuration notes
