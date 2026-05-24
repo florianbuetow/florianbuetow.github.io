@@ -64,6 +64,7 @@ help:
     @printf "  %-18s %s\n" "validate-images" "Check all image references resolve to files"
     @printf "  %-18s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
+    @printf "  %-18s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
     @printf "  %-18s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
     @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
     @printf "  %-18s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
@@ -451,6 +452,14 @@ validate-md:
     @printf "\033[0;32m✓ validate-md passed\033[0m\n"
     @echo ""
 
+# Check code blocks in draft articles for lines exceeding 76 characters (ignores mermaid/wardley)
+check-code-line-length file='':
+    @echo ""
+    @printf "\033[0;34m=== Checking Code Block Line Lengths ===\033[0m\n"
+    @bash scripts/check-code-line-length.sh {{file}}
+    @printf "\033[0;32m✓ check-code-line-length passed\033[0m\n"
+    @echo ""
+
 # Fail when any draft article still contains unresolved TODO/placeholder markers
 validate-content:
     @echo ""
@@ -499,6 +508,7 @@ build:
     just strip-exif
     just validate-images
     just validate-content
+    just check-code-line-length
     just validate-md
     hugo --minify --cleanDestinationDir
     just build-pagefind-index
