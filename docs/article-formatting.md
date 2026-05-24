@@ -56,7 +56,7 @@ Every article ends with the same closing block, in this order:
 
 1. A `[Comment on LinkedIn](url)` link.
 2. A `## References` (or `## Sources`) heading.
-3. A bullet list of links, each with a descriptive label, never a bare URL.
+3. A `resources` shortcode listing the sources. This is the standard format for the closing section of every article.
 
 ### Template
 
@@ -65,15 +65,27 @@ Every article ends with the same closing block, in this order:
 
 ## References
 
-- [Descriptive label for the source](https://example.com/path)
-- [Another source, what it is](https://example.com/other)
+{{< resources >}}
+[Descriptive label for the source](https://example.com/path) | What this source is and why it is cited.
+[Another source, what it is](https://example.com/other) | One-sentence description of the source.
+{{< /resources >}}
 ```
+
+### How the `resources` shortcode works
+
+- One row per non-empty line inside the shortcode body.
+- Each row has two cells separated by a single `|` character: the link on the left, the description on the right.
+- Both cells accept inline Markdown. The link cell is always wrapped in `<strong>` by the template, so write a plain `[label](url)`, not `**[label](url)**`.
+- The shortcode emits a `<table class="resources-table">`. The same CSS class powers the dedicated [resources](/resources/) page, so the appearance stays consistent across the site.
+- Every `<a>` in the rendered table is emitted with `target="_blank" rel="noopener"`, so all reference links open in a new tab by default. You do not need to write the anchor by hand to get this behaviour.
+- A row with zero or more than one `|` is a hard error. The build will fail with `resources shortcode: expected exactly one \`|\` per row`.
 
 ### Notes
 
 - The LinkedIn URL must come from the actual LinkedIn post file outside this repo. Don't invent activity IDs.
 - Use `## References` for ticker articles and `## Sources` for longer essays. Both are accepted; pick one and stay consistent within the article.
 - Use descriptive link text. Readers, screen readers, and search engines all benefit. `[Hugo docs on shortcodes](...)` beats `[link](...)` or `[https://gohugo.io/...](...)`.
+- Do not hand-write an HTML `<table>` block for sources. Use the `resources` shortcode so the markup stays in one place.
 - Nothing should follow the references list. The references block is the article's footer.
 
 ---
@@ -150,7 +162,7 @@ Both are inline shortcodes. Place them immediately before the paragraph they sho
 The paragraph this sidenote attaches to goes here. The note floats into the right column next to it.
 ```
 
-- `label` is optional but recommended. Conventional labels: `Note`, `Tip`, `See also`, `Caveat`, `Aside`.
+- `label` is optional but recommended. When the sidenote defines or explains a specific term, use that term as the label (e.g. `label="Hard Guardrail"`), not a generic word like `Definition`. Generic labels like `Note`, `Tip`, `See also`, `Caveat`, `Aside` are for contextual asides that do not define a single term.
 - The body supports inline Markdown. Links, emphasis, code spans all work.
 - Keep sidenotes short. One or two sentences. If it needs a paragraph, it belongs in the main text.
 
@@ -170,6 +182,7 @@ The paragraph the quote sits beside goes here.
 
 - One sidenote/sidequote per paragraph. Two in a row collide visually.
 - Place the shortcode **before** the paragraph it should align with. Hugo renders it inline, and the CSS floats it.
+- **Never place a sidenote in the middle of a sentence.** It must always stand alone on its own line, before the paragraph it annotates.
 - On narrow viewports the floated column collapses and the sidenote falls inline. Write the body so it reads naturally in both layouts.
 
 ---

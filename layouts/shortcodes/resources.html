@@ -1,0 +1,29 @@
+{{- /* Usage:
+{{< resources >}}
+[Title](https://example.com) | Description text.
+[Other title](https://example.com/other) | Other description.
+{{< /resources >}}
+
+One row per non-empty line. The `|` separates the link cell from the description cell.
+Both sides are rendered as inline Markdown.
+*/ -}}
+<table class="resources-table">
+<tbody>
+{{- range $line := split (trim .Inner " \t\r\n") "\n" }}
+  {{- $line = trim $line " \t\r" }}
+  {{- if $line }}
+    {{- $parts := split $line "|" }}
+    {{- if eq (len $parts) 2 }}
+      {{- $name := replaceRE `<a ` `<a target="_blank" rel="noopener" ` (string (markdownify (trim (index $parts 0) " \t"))) | safeHTML }}
+      {{- $desc := replaceRE `<a ` `<a target="_blank" rel="noopener" ` (string (markdownify (trim (index $parts 1) " \t"))) | safeHTML }}
+<tr>
+  <td><strong>{{ $name }}</strong></td>
+  <td>{{ $desc }}</td>
+</tr>
+    {{- else }}
+      {{- errorf "resources shortcode: expected exactly one `|` per row, got %q" $line }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+</tbody>
+</table>
