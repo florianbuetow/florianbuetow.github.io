@@ -19,6 +19,8 @@ The arc is unusual on two axes: a late entry into engineering and a career that 
 <!--more-->
 ---
 
+![Eike Rackwitz's journey from classical music to AI engineering](Music_to_AI_Engineering_Journey.webp?zoom)
+
 ## Introducing Eike
 
 **Hi Eike, please introduce yourself briefly. Who are you? What do you do? Where do you work?**

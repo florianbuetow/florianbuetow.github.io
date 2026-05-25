@@ -203,6 +203,7 @@ The render hook (`layouts/_default/_markup/render-image.html`) strips `?zoom` fr
 
 ### Notes
 
+- **Always append `?zoom` to images in blog and ticker posts.** This is the default for all content images.
 - Works with page-bundle images (most common) and external URLs alike.
 - The title string becomes the `title` attribute on the `<img>` tag -- it appears as a browser tooltip, not a caption.
 - Use for illustrations, screenshots, or any image where detail matters at full size. Skip it for decorative images.
