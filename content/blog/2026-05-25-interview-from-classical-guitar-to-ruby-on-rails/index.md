@@ -227,7 +227,7 @@ The arc is unusual on two axes: a late entry into engineering and a career that 
 
 Two threads run through this conversation. The first is the value of late starts: Eike's path into software is unusual, but the discipline of having to earn the basics quickly - first as a working student on a small team, then through a math-heavy remote degree, accompanied by serious side projects - is exactly the discipline that AI tooling rewards. People who already know how to learn from scratch handle the new tools well. 
 
-Notice how Eicke is leveraging his domain expertise in music for at least one of his side projects. That is a real competitive advantage that must not be overlooked.
+Notice how Eike is leveraging his domain expertise in music for at least one of his side projects. That is a real competitive advantage that must not be overlooked.
 
 The second thread is the shape of a career that has been AI-native from day one: no "before times" to anchor against, a comfort with running parallel agents and writing specifications instead of code, and a deliberate practice of hand-coding fundamentals as a counterweight to the cognitive debt that builds up when you stop. If you are a junior trying to find footing in this environment, his advice is concrete enough to act on this week. AI amplifies your skills, which is why strong fundamentals are more important than ever. If not you, who else is going to tell the AI when it is wrong? If you are a senior engineer, reflect on how easy it is to acquire new ways of working and use it as a benchmark against your own workflows and skills, which you need to keep evolving.
 
