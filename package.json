@@ -4,6 +4,7 @@
     "mermaid": "^11"
   },
   "devDependencies": {
+    "@lhci/cli": "^0.15.1",
     "pagefind": "^1.x"
   }
 }

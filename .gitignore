@@ -16,6 +16,10 @@
 /resources/
 .hugo_build.lock
 
+# Lighthouse CI reports
+/.lighthouseci/
+/reports/lighthouse/
+
 # Original images (backed up by just optimize-images)
 /data/assets/
 

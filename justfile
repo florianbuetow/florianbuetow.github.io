@@ -62,6 +62,7 @@ help:
     @printf "  %-18s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
     @printf "  %-18s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
     @printf "  %-18s %s\n" "validate-images" "Check all image references resolve to files"
+    @printf "  %-18s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
     @printf "  %-18s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-18s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
@@ -69,6 +70,9 @@ help:
     @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
     @printf "  %-18s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
     @printf "  %-18s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
+    @printf "  %-18s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
+    @printf "  %-18s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
+    @printf "  %-18s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
     @printf "  %-18s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
 
@@ -108,11 +112,26 @@ init:
         brew install node
     fi
     printf "\033[0;32m✓ node ready (%s)\033[0m\n" "$(node --version)"
-    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ]; then
+    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ] || [ ! -x node_modules/.bin/lhci ]; then
         printf "\033[0;33m→ node deps missing/incomplete, running 'npm install'...\033[0m\n"
         npm install
     fi
     printf "\033[0;32m✓ node_modules present\033[0m\n"
+    if [ -n "${CHROME_PATH:-}" ] && [ -x "$CHROME_PATH" ]; then
+        printf "\033[0;32m✓ Chrome ready for Lighthouse CI via CHROME_PATH (%s)\033[0m\n" "$CHROME_PATH"
+    elif ! node -e "const chromeLauncher=require('chrome-launcher'); process.exit(chromeLauncher.Launcher.getInstallations().length ? 0 : 1)" >/dev/null 2>&1; then
+        printf "\033[0;33m→ Chrome missing, installing Google Chrome via brew cask...\033[0m\n"
+        brew install --cask google-chrome
+        if ! node -e "const chromeLauncher=require('chrome-launcher'); process.exit(chromeLauncher.Launcher.getInstallations().length ? 0 : 1)" >/dev/null 2>&1; then
+            printf "\033[0;31m✗ init failed: Chrome still not found after install\033[0m\n"
+            printf "  Set CHROME_PATH to a Chrome/Chromium executable and re-run: just init\n"
+            echo ""
+            exit 1
+        fi
+        printf "\033[0;32m✓ Chrome ready for Lighthouse CI\033[0m\n"
+    else
+        printf "\033[0;32m✓ Chrome ready for Lighthouse CI\033[0m\n"
+    fi
     if ! command -v cwebp >/dev/null 2>&1; then
         printf "\033[0;33m→ cwebp missing, installing webp via brew...\033[0m\n"
         brew install webp
@@ -188,13 +207,25 @@ check:
         exit 1
     fi
     printf "\033[0;32m✓ node is installed (%s)\033[0m\n" "$(node --version)"
-    if [ ! -d node_modules ]; then
-        printf "\033[0;31m✗ check failed: node_modules not found\033[0m\n"
+    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ] || [ ! -x node_modules/.bin/lhci ]; then
+        printf "\033[0;31m✗ check failed: node_modules missing or incomplete\033[0m\n"
         printf "  Run: just init\n"
         echo ""
         exit 1
     fi
-    printf "\033[0;32m✓ node_modules present\033[0m\n"
+    printf "\033[0;32m✓ node_modules present with pagefind and lhci\033[0m\n"
+    if [ -n "${CHROME_PATH:-}" ] && [ -x "$CHROME_PATH" ]; then
+        printf "\033[0;32m✓ Chrome is available for Lighthouse CI via CHROME_PATH (%s)\033[0m\n" "$CHROME_PATH"
+    else
+        CHROME_INSTALL=$(node -e "const chromeLauncher=require('chrome-launcher'); const paths=chromeLauncher.Launcher.getInstallations(); if (!paths.length) process.exit(1); console.log(paths[0])" 2>/dev/null || true)
+        if [ -z "$CHROME_INSTALL" ]; then
+            printf "\033[0;31m✗ check failed: Chrome/Chromium not found for Lighthouse CI\033[0m\n"
+            printf "  Run: just init  (or set CHROME_PATH to a Chrome/Chromium executable)\n"
+            echo ""
+            exit 1
+        fi
+        printf "\033[0;32m✓ Chrome is available for Lighthouse CI (%s)\033[0m\n" "$CHROME_INSTALL"
+    fi
     if ! command -v cwebp >/dev/null 2>&1; then
         printf "\033[0;31m✗ check failed: cwebp is not installed\033[0m\n"
         printf "  Install with: brew install webp  (or run: just init)\n"
@@ -224,7 +255,7 @@ check:
 clean:
     @echo ""
     @printf "\033[0;34m=== Cleaning Generated Files ===\033[0m\n"
-    @rm -rf public resources .hugo_build.lock
+    @rm -rf public resources .hugo_build.lock .lighthouseci reports/lighthouse
     @printf "\033[0;32m✓ clean completed successfully\033[0m\n"
     @echo ""
 
@@ -232,7 +263,7 @@ clean:
 destroy:
     @echo ""
     @printf "\033[0;34m=== Destroying Build Artifacts ===\033[0m\n"
-    @rm -rf public resources .hugo_build.lock .hugo-server.pid .hugo-server.log
+    @rm -rf public resources .hugo_build.lock .hugo-server.pid .hugo-server.log .lighthouseci reports/lighthouse
     @printf "\033[0;32m✓ destroy completed successfully\033[0m\n"
     @echo ""
 
@@ -383,6 +414,7 @@ ci:
     just check
     just build
     just validate-pagefind-index
+    just _run-lighthouse-checks
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
@@ -404,6 +436,9 @@ ci-quiet:
 
     just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
     printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
+
+    just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
 
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -443,6 +478,20 @@ validate-images:
     @bash scripts/validate-images.sh
     @printf "\033[0;32m✓ validate-images passed\033[0m\n"
     @echo ""
+
+# Check unique external article links with curl, or a single Markdown file if given
+check-links file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Checking External Links ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        python3 scripts/check-links.py --file "{{file}}"
+    else
+        python3 scripts/check-links.py content
+    fi
+    printf "\033[0;32m✓ check-links passed\033[0m\n"
+    echo ""
 
 # Check blog markdown for disallowed characters (em dashes)
 validate-md:
@@ -544,6 +593,72 @@ validate-pagefind-index:
         exit 1
     fi
     printf "\033[0;32m✓ pagefind index present in public/pagefind/\033[0m\n"
+    echo ""
+
+# Build and run Lighthouse CI against public/ on an LHCI-managed temporary server
+run-lighthouse-checks:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Building and Running Lighthouse CI ===\033[0m\n"
+    just build
+    just _run-lighthouse-checks
+    printf "\033[0;32m✓ run-lighthouse-checks completed successfully\033[0m\n"
+    echo ""
+
+# Remove generated Lighthouse CI reports
+lighthouse-clean:
+    @echo ""
+    @printf "\033[0;34m=== Cleaning Lighthouse CI Reports ===\033[0m\n"
+    @rm -rf .lighthouseci reports/lighthouse
+    @printf "\033[0;32m✓ lighthouse-clean completed successfully\033[0m\n"
+    @echo ""
+
+# Open representative Lighthouse HTML reports
+lighthouse-open:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Opening Lighthouse CI Reports ===\033[0m\n"
+    if [ ! -f reports/lighthouse/manifest.json ]; then
+        printf "\033[0;31m✗ lighthouse-open failed: reports/lighthouse/manifest.json not found\033[0m\n"
+        printf "  Run: just run-lighthouse-checks\n"
+        echo ""
+        exit 1
+    fi
+    REPORTS=$(node -e "const m=require('./reports/lighthouse/manifest.json'); console.log(m.filter(r=>r.isRepresentativeRun).map(r=>r.htmlPath).join('\n'))")
+    if [ -z "$REPORTS" ]; then
+        printf "\033[0;31m✗ lighthouse-open failed: no representative reports found\033[0m\n"
+        echo ""
+        exit 1
+    fi
+    while IFS= read -r report; do
+        open "$report"
+    done <<< "$REPORTS"
+    printf "\033[0;32m✓ lighthouse reports opened\033[0m\n"
+    echo ""
+
+# Run Lighthouse CI against an already-built public/ directory
+_run-lighthouse-checks:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Running Lighthouse CI ===\033[0m\n"
+    if [ ! -f public/index.html ]; then
+        printf "\033[0;31m✗ lighthouse failed: public/index.html not found\033[0m\n"
+        printf "  Run: just build\n"
+        echo ""
+        exit 1
+    fi
+    if [ ! -x node_modules/.bin/lhci ]; then
+        printf "\033[0;31m✗ lighthouse failed: node_modules/.bin/lhci not found\033[0m\n"
+        printf "  Run: just init\n"
+        echo ""
+        exit 1
+    fi
+    rm -rf .lighthouseci reports/lighthouse
+    npx lhci autorun
+    printf "\033[0;32m✓ Lighthouse CI reports written to reports/lighthouse/\033[0m\n"
     echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)

@@ -929,6 +929,11 @@ a {
     line-height: 1.4;
 }
 
+.resources-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
 .resources-table td {
     padding: 0.5rem 0;
     vertical-align: top;
@@ -936,8 +941,8 @@ a {
 }
 
 .resources-table td:first-child {
+    width: 30%;
     padding-right: 1.5rem;
-    white-space: nowrap;
 }
 
 .search-result-item span {
