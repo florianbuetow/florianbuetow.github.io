@@ -451,6 +451,7 @@ ci-quiet:
     just check-clean-worktree > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat $TMPFILE; exit 1; }
     printf "\033[0;32m✓ Working tree clean\033[0m\n"
 
+    printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
     just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
     printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
 
