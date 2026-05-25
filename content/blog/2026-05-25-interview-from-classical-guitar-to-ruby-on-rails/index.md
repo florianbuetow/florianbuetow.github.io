@@ -99,7 +99,7 @@ The arc is unusual on two axes: a late entry into engineering and a career that 
 
 {{< sidenote label="UUID" >}}A UUID (Universally Unique Identifier) is a long, randomly generated string of letters and numbers used to identify information. Different formats and generation strategies can heavily affect write speed, index efficiency, and overall system performance at scale.{{< /sidenote >}}
 
-> Correct, the topic of my thesis is _A UUID benchmark across PostgreSQL, MySQL, MongoDB, and Cassandra - how different UUID strategies interact with each storage engine's internal architecture. SQL databases lean on B-tree indexes, Cassandra uses LSM trees, and the choice of UUID version changes write performance, read performance, and concurrent-write behaviour in non-obvious ways._
+> _Correct, the topic of my thesis is A UUID benchmark across PostgreSQL, MySQL, MongoDB, and Cassandra - how different UUID strategies interact with each storage engine's internal architecture. SQL databases lean on B-tree indexes, Cassandra uses LSM trees, and the choice of UUID version changes write performance, read performance, and concurrent-write behaviour in non-obvious ways._
 
 **Who supervised it?**
 
@@ -109,7 +109,7 @@ The arc is unusual on two axes: a late entry into engineering and a career that 
 
 **And there's a paper coming out of it.**
 
-> _I received a perfect mark, which surprised me enough that I wanted to do more with it. We're now extending the work - running the Cassandra benchmark across multiple nodes - and preparing a 12-page paper for EDBT (International conference for Extending Database Technology) submission in June or July. If it's accepted it would be published next year._
+> _I received a perfect mark, which surprised me enough that I wanted to do more with it. We're now extending the work - running the Cassandra benchmark across multiple nodes - and preparing a 12-page paper for EDBT (International Conference on Extending Database Technology) submission in June or July. If it's accepted it would be published next year._
 
 **That's an unusual academic path for someone not heading into academia.**
 
@@ -169,7 +169,7 @@ The arc is unusual on two axes: a late entry into engineering and a career that 
 
 **Is there a downside?**
 
-> _Yes. When an agent writes a feature I've never built before, even if I review it line by line, I don't always know why it chose this design and not that one. I lose a kind of control I can't fully articulate.
+> _Yes. When an agent writes a feature I've never built before, even if I review it line by line, I don't always know why it chose this design and not that one. I lose a kind of control I can't fully articulate._
 
 **Can you give a concrete example where that bites?**
 
@@ -199,7 +199,7 @@ The arc is unusual on two axes: a late entry into engineering and a career that 
 
 **What about resumes?**
 
-> _Start refining yours before you'll need to. There's a lot of YouTube content about it, but there's also something free and concrete you can do: post your CV anonymously, for example on Reddit, and ask people to grill me. You can also do it with AI; hand your CV and your project descriptions to a model and ask, "If you were a senior engineer hiring for this role, what's missing?" Or feed it your codebase including a git log and ask for a summary that will help you ask and answer better questions about your own project._
+> _Start refining yours before you'll need to. There's a lot of YouTube content about it, but there's also something free and concrete you can do: post your CV anonymously, for example on Reddit, and ask people to grill you. You can also do it with AI; hand your CV and your project descriptions to a model and ask, "If you were a senior engineer hiring for this role, what's missing?" Or feed it your codebase including a git log and ask for a summary that will help you ask and answer better questions about your own project._
 
 ---
 
