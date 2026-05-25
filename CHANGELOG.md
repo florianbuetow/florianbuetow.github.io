@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## 2026-05-25
+
+### Added
+
+- Published interview article "From Classical Guitar to Ruby on Rails."
+- Added Ticker News category to all ticker articles.
+- Added `resources` shortcode for references sections in articles.
+
+### Changed
+
+- Zoomable images now require an explicit `?zoom` URL parameter.
+
 ## 2026-05-24
 
 ### Added
