@@ -3,7 +3,7 @@ title: "A Simple Workflow to Maintain a High-Signal Codebase with AI"
 subtitle: "How to audit your codebase with AI and turn soft conventions into hard guardrails"
 slug: "a-simple-workflow-to-maintain-a-high-signal-codebase-with-ai"
 date: 2026-05-24T14:00:00+02:00
-draft: false
+draft: true
 tags: ["engineering", "automation", "semgrep", "ruff", "code-quality"]
 categories: ["Workflows"]
 ---
