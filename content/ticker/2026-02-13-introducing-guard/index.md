@@ -5,7 +5,7 @@ draft: false
 description: "Guard is a CLI/TUI tool that uses Unix file permissions and immutable flags to physically protect files from AI coding agents."
 author: "Florian Buetow"
 readTime: "2 min read"
-categories: ["AI Engineering", "Tools", "Guardrails"]
+categories: ["AI Engineering", "Tools", "Guardrails", "Ticker News"]
 tags: ["Open Source"]
 ---
 

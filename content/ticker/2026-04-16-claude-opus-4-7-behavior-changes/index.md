@@ -5,7 +5,7 @@ draft: false
 description: "Anthropic's Opus 4.7 ships calibrated response length, stricter instruction following, leaner agentic defaults, and higher-resolution image support - but a new tokenizer raises effective cost on text-heavy workloads."
 author: "Florian Buetow"
 readTime: "3 min read"
-categories: ["AI Engineering"]
+categories: ["AI Engineering", "Ticker News"]
 tags: ["Claude Code", "Anthropic", "LLM"]
 ---
 

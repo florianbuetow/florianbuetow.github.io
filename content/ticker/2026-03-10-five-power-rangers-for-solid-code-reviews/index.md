@@ -5,7 +5,7 @@ draft: false
 description: "A Claude Code & Codex plugin that audits code against the five SOLID design principles - with severity-rated findings, precise locations, and concrete refactoring suggestions."
 author: "Florian Buetow"
 readTime: "2 min read"
-categories: ["AI Engineering", "Tools"]
+categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source", "Code Quality"]
 ---
 

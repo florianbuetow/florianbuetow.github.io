@@ -6,7 +6,7 @@ draft: false
 description: "A Claude Code plugin that audits how your repository discloses documentation to AI agents, detects anti-patterns, and restructures root configuration files into thematic indexes."
 author: "Florian Buetow"
 readTime: "2 min read"
-categories: ["AI Engineering", "Tools"]
+categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---
 

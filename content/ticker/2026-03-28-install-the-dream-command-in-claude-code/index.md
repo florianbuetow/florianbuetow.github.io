@@ -6,7 +6,7 @@ draft: false
 description: "How to install Anthropic's /dream memory consolidation command in Claude Code before it rolls out natively to all users."
 author: "Florian Buetow"
 readTime: "1 min read"
-categories: ["AI Engineering"]
+categories: ["AI Engineering", "Ticker News"]
 tags: ["Claude Code"]
 ---
 

@@ -5,7 +5,7 @@ draft: false
 description: "Guard, a CLI/TUI tool that protects files from AI coding agents, won 8th place in the international Kiro Hackathon hosted by Dynamous.ai and AWS Kiro."
 author: "Florian Buetow"
 readTime: "1 min read"
-categories: ["AI Engineering", "Tools", "Guardrails"]
+categories: ["AI Engineering", "Tools", "Guardrails", "Ticker News"]
 tags: ["Open Source", "Hackathon"]
 ---
 

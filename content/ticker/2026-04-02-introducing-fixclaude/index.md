@@ -5,7 +5,7 @@ draft: false
 description: "fixclaude installs 279 lines of directives that override seven structural bottlenecks baked into Claude Code, including the employee-only verification gate."
 author: "Florian Buetow"
 readTime: "2 min read"
-categories: ["AI Engineering", "Tools"]
+categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---
 

@@ -6,7 +6,7 @@ draft: false
 description: "Shipping code is no longer a strong signal of expertise. HUMAN.md is a documentation artifact that makes the builder's understanding, judgment, and reasoning visible inside AI-assisted repositories."
 author: "Florian Buetow"
 readTime: "2 min read"
-categories: ["AI Engineering"]
+categories: ["AI Engineering", "Ticker News"]
 tags: ["AI", "Software Engineering", "HUMAN.md"]
 ---
 

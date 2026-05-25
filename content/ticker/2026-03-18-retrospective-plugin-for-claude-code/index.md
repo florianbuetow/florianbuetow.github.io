@@ -5,7 +5,7 @@ draft: false
 description: "A Claude Code plugin that runs retrospectives on your past Claude sessions to surface what's working, where you're losing time, and exactly what to fix."
 author: "Florian Buetow"
 readTime: "2 min read"
-categories: ["AI Engineering", "Tools"]
+categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---
 
