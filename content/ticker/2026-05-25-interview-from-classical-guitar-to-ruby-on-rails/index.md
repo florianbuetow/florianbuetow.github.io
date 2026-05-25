@@ -1,5 +1,5 @@
 ---
-title: "Interview Series — From Classical Guitar to Ruby on Rails"
+title: "Interview Series - From Classical Guitar to Ruby on Rails"
 date: 2026-05-25
 draft: false
 description: "Eike Rackwitz spent years as a professional classical guitarist before pivoting to software engineering. Four years later, he runs an LLM-powered search engine with half a million sheet-music scores."
