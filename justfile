@@ -70,6 +70,8 @@ help:
     @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
     @printf "  %-18s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
     @printf "  %-18s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
+    @printf "  %-18s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
+    @printf "  %-18s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
     @printf "  %-18s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
     @printf "  %-18s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
     @printf "  %-18s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
@@ -404,6 +406,14 @@ dev:
     echo ""
     exec hugo server -D -F -E --bind 127.0.0.1 --port {{port}} --navigateToChanged --disableFastRender
 
+# Fail if the working tree has uncommitted changes
+check-clean-worktree:
+    @echo ""
+    @printf "\033[0;34m=== Checking Working Tree ===\033[0m\n"
+    @bash scripts/check-clean-worktree.sh
+    @printf "\033[0;32m✓ check-clean-worktree passed\033[0m\n"
+    @echo ""
+
 # Run ALL validation checks (verbose)
 ci:
     #!/usr/bin/env bash
@@ -414,6 +424,7 @@ ci:
     just check
     just build
     just validate-pagefind-index
+    just check-clean-worktree
     just _run-lighthouse-checks
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -436,6 +447,9 @@ ci-quiet:
 
     just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
     printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
+
+    just check-clean-worktree > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Working tree clean\033[0m\n"
 
     just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
     printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
