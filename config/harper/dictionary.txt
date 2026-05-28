@@ -10,6 +10,7 @@ Eike
 Eike's
 Florian
 Fröhlich
+GoLang
 Hagen
 Halle
 LeetCode
@@ -25,8 +26,11 @@ Karpathy's
 Rackwitz
 Sigman
 Synchrotron
+Unix
 VPS
 claude
+florianbuetow
 plugin
 re-running
 sidenote
+sudo
