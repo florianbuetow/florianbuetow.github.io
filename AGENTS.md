@@ -23,6 +23,7 @@
 
 ### Development
 - When authoring or editing article content — Mermaid diagrams, Wardley maps, sidenotes, zoomable images, the closing References section — see [`docs/article-formatting.md`](docs/article-formatting.md)
+- For stable pre-publication URLs, fixed slugs, and redirect aliases — see [`docs/stable-urls.md`](docs/stable-urls.md)
 - For autotag-tool technique and research notes (used by the Python sub-project), see [`tools/docs/autotag.md`](tools/docs/autotag.md)
 
 ### Appendix

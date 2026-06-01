@@ -235,7 +235,7 @@ Project-specific words (proper names, technical terms) can be added to `config/h
 
 ### URLs and slugs
 
-By default the URL comes from the filename: `content/blog/my-new-post.md` → `/blog/my-new-post/`. Override by adding `slug: "custom-slug"` or `url: "/custom/path/"` to the front matter.
+By default the URL comes from the filename: `content/blog/my-new-post.md` → `/blog/my-new-post/`. Override by adding `slug: "custom-slug"` or `url: "/custom/path/"` to the front matter. For stable pre-publication URLs and redirect aliases, see [`docs/stable-urls.md`](docs/stable-urls.md).
 
 ## Building the site
 
