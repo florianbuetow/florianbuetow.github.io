@@ -515,6 +515,18 @@ a {
 .prose .post-figure {
     margin: 24px 0;
 }
+.prose .post-figure--right {
+    float: right;
+    clear: right;
+    width: 50%;
+    margin: 0 0 16px 24px;
+}
+.prose .post-figure--left {
+    float: left;
+    clear: left;
+    width: 50%;
+    margin: 0 24px 16px 0;
+}
 .prose .post-figure figcaption {
     margin-top: 8px;
     font-size: 14px;
@@ -549,6 +561,25 @@ a {
 }
 .prose a:hover {
     color: #000;
+}
+.prose table {
+    font-size: 0.82rem;
+    line-height: 1.5;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px dotted #bbb;
+    margin-bottom: 24px;
+}
+.prose th,
+.prose td {
+    padding: 6px 10px;
+    vertical-align: top;
+    text-align: left;
+    border: 1px dotted #bbb;
+}
+.prose th {
+    font-weight: 700;
+    background: #e8e8e8;
 }
 
 /* Right column: author card + side notes */
@@ -731,6 +762,13 @@ a {
         clear: none;
         width: auto;
         margin-right: 0;
+    }
+    .prose .post-figure--right,
+    .prose .post-figure--left {
+        float: none;
+        clear: none;
+        width: 100%;
+        margin: 24px 0;
     }
 }
 @media (max-width: 900px) {
