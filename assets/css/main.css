@@ -860,7 +860,13 @@ a {
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 .project-card-featured {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: flex-start;
     border-left: 2px solid #888;
+}
+.project-card-featured .project-card-image {
+    flex: 2;
 }
 .project-card h2 {
     font-size: 1.15rem;
@@ -918,6 +924,13 @@ a {
 @media (max-width: 600px) {
     .project-grid {
         grid-template-columns: 1fr;
+    }
+    .project-card-featured {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .project-card-featured .project-card-image {
+        flex: none;
     }
 }
 

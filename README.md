@@ -88,7 +88,8 @@ hugo-blog/
 │       ├── _index.md            # Ticker section index
 │       └── <slug>/index.md      # Ticker posts (page bundles with images)
 ├── docs/
-│   └── article-formatting.md    # Authoring guide: sidenotes, images, mermaid
+│   ├── article-formatting.md        # Authoring guide: sidenotes, images, mermaid
+│   └── projects-page-formatting.md  # Projects grid: featuring, sort order, hero card
 ├── layouts/
 │   ├── _default/
 │   │   ├── _markup/

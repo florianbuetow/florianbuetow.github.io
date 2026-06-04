@@ -3,8 +3,8 @@
     <div class="project-grid">
         {{ $all := where .Pages "Type" "!=" "page" }}
         {{ if not $all }}{{ $all = .Pages }}{{ end }}
-        {{ $featured := where $all "Params.featured" true }}
-        {{ $rest := where $all "Params.featured" "!=" true }}
+        {{ $featured := (where $all "Params.featured" true).ByDate.Reverse }}
+        {{ $rest := (where $all "Params.featured" "!=" true).ByDate.Reverse }}
         {{ $posts := $featured | append $rest }}
         {{ range $posts }}
             <article class="post project-card{{ if .Params.featured }} project-card-featured{{ end }}"
@@ -14,12 +14,12 @@
                     {{ with .Params.image }}<img src="{{ . }}" alt="">{{ end }}
                 </a>
                 <div class="project-card-body">
-                    <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+                    <h2>{{ if .Params.featured }}Featured Project: {{ end }}<a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
                     {{ with .Params.subtitle }}<p class="card-subtitle">{{ . }}</p>{{ end }}
                     <div class="card-meta">
                         {{ with .Params.status }}{{ . | title }}<span class="card-meta-sep">&middot;</span>{{ end }}{{ .Date.Format "Jan 2006" }}
                     </div>
-                    {{ with .Params.description }}<p class="card-desc">{{ . }}</p>{{ end }}
+                    {{ if and .Params.featured .Params.long_description }}<p class="card-desc">{{ .Params.long_description }}</p>{{ else }}{{ with .Params.description }}<p class="card-desc">{{ . }}</p>{{ end }}{{ end }}
                     {{ with .Params.tech }}<div class="card-tech">{{ delimit . " · " }}</div>{{ end }}
                 </div>
             </article>
