@@ -37,11 +37,14 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from dataclasses import dataclass
 from enum import Enum
 from pathlib import Path
 from typing import Iterable, Iterator
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 
 # --------------------------------------------------------------------------
@@ -860,10 +863,47 @@ def is_draft(path: Path) -> bool:
     return bool(_DRAFT_RE.search(head))
 
 
+def git_tracked_markdown() -> set[Path] | None:
+    """Resolved paths of git-tracked .md files in the repo, or None on failure."""
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "-z", "--", "*.md"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return {
+        (REPO_ROOT / raw.decode("utf-8")).resolve()
+        for raw in result.stdout.split(b"\x00")
+        if raw
+    }
+
+
+def is_pushable(path: Path, tracked: set[Path] | None) -> bool:
+    """False only for an untracked file that lives inside the repo.
+
+    Files outside the repo (e.g. test fixtures) and the no-git fallback
+    (tracked is None) are always allowed, so a push is never blocked by an
+    untracked file while explicit, out-of-repo scans still work.
+    """
+    if tracked is None:
+        return True
+    resolved = path.resolve()
+    if REPO_ROOT in resolved.parents:
+        return resolved in tracked
+    return True
+
+
 def find_drafts(root: Path) -> list[Path]:
     if not root.exists():
         return []
-    return [p for p in sorted(root.rglob("*.md")) if is_draft(p)]
+    tracked = git_tracked_markdown()
+    return [
+        p for p in sorted(root.rglob("*.md"))
+        if is_draft(p) and is_pushable(p, tracked)
+    ]
 
 
 def collect_files(paths: list[str], files: list[str]) -> list[Path]:

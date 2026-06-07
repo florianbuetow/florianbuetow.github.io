@@ -12,6 +12,7 @@ import datetime as dt
 import html
 import json
 import re
+import subprocess
 import sys
 import threading
 from dataclasses import dataclass
@@ -82,6 +83,44 @@ def iter_markdown_files(content_root: Path) -> list[MarkdownFile]:
         for path in sorted(content_root.rglob("*.md"))
         if path.is_file()
     ]
+
+
+def git_tracked_markdown() -> set[Path] | None:
+    """Resolved paths of git-tracked .md files in the repo, or None on failure.
+
+    Used by the CI validator so a push is never blocked by an untracked file.
+    The local serve/annotate paths intentionally keep scanning the disk, since
+    drafts are annotated before they are added to git.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "ls-files", "-z", "--", "*.md"],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return {
+        (REPO_ROOT / raw.decode("utf-8")).resolve()
+        for raw in result.stdout.split(b"\x00")
+        if raw
+    }
+
+
+def is_pushable(path: Path, tracked: set[Path] | None) -> bool:
+    """False only for an untracked file that lives inside the repo.
+
+    Files outside the repo (e.g. test fixtures) and the no-git fallback
+    (tracked is None) are always allowed, so only real in-repo, untracked
+    content is excluded from CI validation.
+    """
+    if tracked is None:
+        return True
+    resolved = path.resolve()
+    if REPO_ROOT in resolved.parents:
+        return resolved in tracked
+    return True
 
 
 def find_draft_articles(content_root: Path) -> list[MarkdownFile]:
@@ -255,7 +294,11 @@ def annotate_file(
 
 
 def validate_annotations(content_root: Path) -> int:
-    docs = iter_markdown_files(content_root)
+    tracked = git_tracked_markdown()
+    docs = [
+        doc for doc in iter_markdown_files(content_root)
+        if is_pushable(doc.path, tracked)
+    ]
     drafts = [doc for doc in docs if doc.draft]
     published_with_notes = [
         doc.path
