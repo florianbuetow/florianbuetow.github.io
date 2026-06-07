@@ -95,6 +95,15 @@ Hugo renders the definitions as a numbered list under the heading, each with a b
 - The LinkedIn URL must come from the actual LinkedIn post file outside this repo. Don't invent activity IDs.
 - Nothing should follow the reference list. It is the article's footer.
 
+### Ticker cross-post items (teasers)
+
+A ticker item whose only job is to point at a full article (a teaser: an interview write-up, an essay announcement) carries no footnote citations, so it does **not** use the reference list above. Instead:
+
+- **Body link to the article:** use a relative path with the link text `[Continue reading ...](/blog/<slug>/)`. Never write "Visit cracking-ai-engineering.com for the full article" or any wording that tells the reader to visit the site, the reader is already on cracking-ai-engineering.com, so naming it is redundant. For the same reason, never put the domain in link text.
+- **Footer heading:** `## Links`, not `## References`, there are no citations to number, only links.
+- **Two links** under it: the full article (relative path, e.g. `[Article Title](/blog/<slug>/)`) and `[Comment on LinkedIn](url)`.
+- **Before the post is live:** wrap the LinkedIn body line and the LinkedIn `Links` entry in HTML comments with a `TODO`; never invent the activity ID (same rule as above, the URL comes from the post file outside this repo).
+
 ### Alternative: the `resources` shortcode
 
 `{{< resources >}}` renders a two-column source table. It powers the dedicated [resources](/resources/) page and stays valid where a tabular source list reads better than footnotes, but it provides no inline citation markers, which is why footnotes are the default for article references.

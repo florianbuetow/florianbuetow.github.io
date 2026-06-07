@@ -14,7 +14,11 @@
 #    - Setup group: init first (bootstrap), destroy last (nuke). Middle:
 #      check, clean, help.
 #    - Run group: start, stop, status, dev.
-#    - Building group: ci, build.
+#    - Build group: wardley-render, optimize-images, strip-exif, build,
+#      build-pagefind-index.
+#    - CI group: individual validate-*/check-* targets first, aggregate
+#      ci/ci-quiet last.
+#    - Deploy group: deploy.
 #    Group related targets together and separate groups with an empty
 #    `@echo ""` line in the help output.
 #
@@ -43,44 +47,48 @@ help:
     @printf "\033[0;34m=== hugo-blog ===\033[0m\n"
     @echo ""
     @printf "\033[0;33mSetup:\033[0m\n"
-    @printf "  %-18s %s\n" "help" "Show this help message"
-    @printf "  %-18s %s\n" "init" "Initialize the build environment (installs missing deps)"
-    @printf "  %-18s %s\n" "check" "Check prerequisites"
-    @printf "  %-18s %s\n" "clean" "Clean generated files"
-    @printf "  %-18s %s\n" "destroy" "Destroy build artifacts and server state"
+    @printf "  %-28s %s\n" "help" "Show this help message"
+    @printf "  %-28s %s\n" "init" "Initialize the build environment (installs missing deps)"
+    @printf "  %-28s %s\n" "check" "Check prerequisites"
+    @printf "  %-28s %s\n" "clean" "Clean generated files"
+    @printf "  %-28s %s\n" "destroy" "Destroy build artifacts and server state"
     @echo ""
     @printf "\033[0;33mRun:\033[0m\n"
-    @printf "  %-18s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
-    @printf "  %-18s %s\n" "stop" "Stop the Hugo development server and draft annotator"
-    @printf "  %-18s %s\n" "status" "Check if the Hugo server is running"
-    @printf "  %-18s %s\n" "dev" "Run Hugo server in foreground (auto-rebuild + live-reload)"
+    @printf "  %-28s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
+    @printf "  %-28s %s\n" "stop" "Stop the Hugo development server and draft annotator"
+    @printf "  %-28s %s\n" "status" "Check if the Hugo server is running"
+    @printf "  %-28s %s\n" "dev" "Run Hugo server in foreground (auto-rebuild + live-reload)"
     @echo ""
-    @printf "\033[0;33mBuilding:\033[0m\n"
-    @printf "  %-18s %s\n" "ci" "Run ALL validation checks (verbose)"
-    @printf "  %-18s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
-    @printf "  %-18s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
-    @printf "  %-18s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
-    @printf "  %-18s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
-    @printf "  %-18s %s\n" "validate-images" "Check all image references resolve to files"
-    @printf "  %-18s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
-    @printf "  %-18s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
-    @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
-    @printf "  %-18s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
-    @printf "  %-18s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
-    @printf "  %-18s %s\n" "draft-annotator" "Run the local draft annotation helper"
-    @printf "  %-18s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
-    @printf "  %-18s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
-    @printf "  %-18s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
-    @printf "  %-18s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
-    @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
-    @printf "  %-18s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
-    @printf "  %-18s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
-    @printf "  %-18s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
-    @printf "  %-18s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
-    @printf "  %-18s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
-    @printf "  %-18s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
-    @printf "  %-18s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
-    @printf "  %-18s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
+    @printf "\033[0;33mBuild:\033[0m\n"
+    @printf "  %-28s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
+    @printf "  %-28s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
+    @printf "  %-28s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
+    @printf "  %-28s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
+    @printf "  %-28s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
+    @echo ""
+    @printf "\033[0;33mCI:\033[0m\n"
+    @printf "  %-28s %s\n" "ci" "Run ALL validation checks (verbose)"
+    @printf "  %-28s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
+    @printf "  %-28s %s\n" "validate-images" "Check all image references resolve to files"
+    @printf "  %-28s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
+    @printf "  %-28s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
+    @printf "  %-28s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
+    @printf "  %-28s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
+    @printf "  %-28s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
+    @printf "  %-28s %s\n" "draft-annotator" "Run the local draft annotation helper"
+    @printf "  %-28s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
+    @printf "  %-28s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
+    @printf "  %-28s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
+    @printf "  %-28s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
+    @printf "  %-28s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
+    @printf "  %-28s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
+    @printf "  %-28s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
+    @printf "  %-28s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
+    @printf "  %-28s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
+    @printf "  %-28s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
+    @echo ""
+    @printf "\033[0;33mDeploy:\033[0m\n"
+    @printf "  %-28s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
 
 # Initialize the build environment (installs missing deps)
@@ -454,65 +462,13 @@ dev:
     echo ""
     exec hugo server -D -F -E --bind 127.0.0.1 --port {{port}} --navigateToChanged --disableFastRender
 
-# Fail if the working tree has uncommitted changes
-check-clean-worktree:
+# Render Wardley map .wtg2 files to .svg using wtg2svg. Run locally after editing
+# any .wtg2; commit the generated .svg alongside its source.
+wardley-render:
     @echo ""
-    @printf "\033[0;34m=== Checking Working Tree ===\033[0m\n"
-    @bash scripts/check-clean-worktree.sh
-    @printf "\033[0;32m✓ check-clean-worktree passed\033[0m\n"
-    @echo ""
-
-# Run ALL validation checks (verbose)
-ci:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Running CI Checks ===\033[0m\n"
-    echo ""
-    just check
-    just build
-    just validate-pagefind-index
-    just check-clean-worktree
-    just _run-lighthouse-checks
-    echo ""
-    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
-    echo ""
-
-# Run ALL validation checks silently (only show output on errors)
-ci-quiet:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Running CI Checks (Quiet Mode) ===\033[0m\n"
-    TMPFILE=$(mktemp)
-    trap "rm -f $TMPFILE" EXIT
-
-    just check > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Check failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Check passed\033[0m\n"
-
-    just build > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Build passed\033[0m\n"
-
-    just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
-
-    just check-clean-worktree > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Working tree clean\033[0m\n"
-
-    printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
-    just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
-
-    echo ""
-    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
-    echo ""
-
-# Remove EXIF metadata from all images and videos in content/
-strip-exif:
-    @echo ""
-    @printf "\033[0;34m=== Stripping EXIF Metadata ===\033[0m\n"
-    @bash scripts/strip-exif.sh
-    @printf "\033[0;32m✓ strip-exif completed\033[0m\n"
+    @printf "\033[0;34m=== Rendering Wardley Maps → SVG ===\033[0m\n"
+    @bash scripts/wardley-render.sh
+    @printf "\033[0;32m✓ wardley-render completed\033[0m\n"
     @echo ""
 
 # Convert PNG/JPG/JPEG to WebP (max 1440px longest side, quality 99, never upsize).
@@ -525,14 +481,47 @@ optimize-images file="":
     @printf "\033[0;32m✓ optimize-images completed\033[0m\n"
     @echo ""
 
-# Render Wardley map .wtg2 files to .svg using wtg2svg. Run locally after editing
-# any .wtg2; commit the generated .svg alongside its source.
-wardley-render:
+# Remove EXIF metadata from all images and videos in content/
+strip-exif:
     @echo ""
-    @printf "\033[0;34m=== Rendering Wardley Maps → SVG ===\033[0m\n"
-    @bash scripts/wardley-render.sh
-    @printf "\033[0;32m✓ wardley-render completed\033[0m\n"
+    @printf "\033[0;34m=== Stripping EXIF Metadata ===\033[0m\n"
+    @bash scripts/strip-exif.sh
+    @printf "\033[0;32m✓ strip-exif completed\033[0m\n"
     @echo ""
+
+# Build the production site (optimize → validate → hugo)
+build:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Building Production Site ===\033[0m\n"
+    just optimize-images
+    just strip-exif
+    just validate-images
+    just validate-content
+    just validate-draft-annotations
+    just check-code-line-length
+    just validate-md
+    just ai-text-detect
+    hugo --minify --cleanDestinationDir
+    just build-pagefind-index
+    printf "\033[0;32m✓ build completed successfully\033[0m\n"
+    echo ""
+
+# Build the Pagefind search index from public/ (chained by `just build`)
+build-pagefind-index:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Building Pagefind Search Index ===\033[0m\n"
+    if [ ! -d public ]; then
+        printf "\033[0;31m✗ build-pagefind-index failed: public/ does not exist — run 'just build' first\033[0m\n"
+        echo ""
+        exit 1
+    fi
+    npx pagefind --site public
+    printf "\033[0;32m✓ pagefind index built successfully\033[0m\n"
+    echo ""
 
 # Check all image references in non-draft markdown resolve to files
 validate-images:
@@ -540,6 +529,30 @@ validate-images:
     @printf "\033[0;34m=== Validating Image References ===\033[0m\n"
     @bash scripts/validate-images.sh
     @printf "\033[0;32m✓ validate-images passed\033[0m\n"
+    @echo ""
+
+# Check blog markdown for disallowed characters (em dashes)
+validate-md:
+    @echo ""
+    @printf "\033[0;34m=== Validating Markdown (semgrep) ===\033[0m\n"
+    @semgrep --config config/semgrep/no-em-dash.yml --error content
+    @printf "\033[0;32m✓ validate-md passed\033[0m\n"
+    @echo ""
+
+# Fail when any draft article still contains unresolved TODO/placeholder markers
+validate-content:
+    @echo ""
+    @printf "\033[0;34m=== Validating Draft Content ===\033[0m\n"
+    @bash scripts/validate-content.sh
+    @printf "\033[0;32m✓ validate-content passed\033[0m\n"
+    @echo ""
+
+# Check code blocks in draft articles for lines exceeding 76 characters (ignores mermaid/wardley)
+check-code-line-length file='':
+    @echo ""
+    @printf "\033[0;34m=== Checking Code Block Line Lengths ===\033[0m\n"
+    @bash scripts/check-code-line-length.sh {{file}}
+    @printf "\033[0;32m✓ check-code-line-length passed\033[0m\n"
     @echo ""
 
 # Check unique external article links with curl, or a single Markdown file if given
@@ -555,30 +568,6 @@ check-links file='':
     fi
     printf "\033[0;32m✓ check-links passed\033[0m\n"
     echo ""
-
-# Check blog markdown for disallowed characters (em dashes)
-validate-md:
-    @echo ""
-    @printf "\033[0;34m=== Validating Markdown (semgrep) ===\033[0m\n"
-    @semgrep --config config/semgrep/no-em-dash.yml --error content
-    @printf "\033[0;32m✓ validate-md passed\033[0m\n"
-    @echo ""
-
-# Check code blocks in draft articles for lines exceeding 76 characters (ignores mermaid/wardley)
-check-code-line-length file='':
-    @echo ""
-    @printf "\033[0;34m=== Checking Code Block Line Lengths ===\033[0m\n"
-    @bash scripts/check-code-line-length.sh {{file}}
-    @printf "\033[0;32m✓ check-code-line-length passed\033[0m\n"
-    @echo ""
-
-# Fail when any draft article still contains unresolved TODO/placeholder markers
-validate-content:
-    @echo ""
-    @printf "\033[0;34m=== Validating Draft Content ===\033[0m\n"
-    @bash scripts/validate-content.sh
-    @printf "\033[0;32m✓ validate-content passed\033[0m\n"
-    @echo ""
 
 # Spell check all draft articles (draft: true) with harper-cli, or a single file if given
 spell-check file='':
@@ -703,40 +692,6 @@ ai-text-detect-test:
     printf "\033[0;32m✓ ai-text-detect-test passed\033[0m\n"
     echo ""
 
-# Build the production site (optimize → validate → hugo)
-build:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Building Production Site ===\033[0m\n"
-    just optimize-images
-    just strip-exif
-    just validate-images
-    just validate-content
-    just validate-draft-annotations
-    just check-code-line-length
-    just validate-md
-    just ai-text-detect
-    hugo --minify --cleanDestinationDir
-    just build-pagefind-index
-    printf "\033[0;32m✓ build completed successfully\033[0m\n"
-    echo ""
-
-# Build the Pagefind search index from public/ (chained by `just build`)
-build-pagefind-index:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Building Pagefind Search Index ===\033[0m\n"
-    if [ ! -d public ]; then
-        printf "\033[0;31m✗ build-pagefind-index failed: public/ does not exist — run 'just build' first\033[0m\n"
-        echo ""
-        exit 1
-    fi
-    npx pagefind --site public
-    printf "\033[0;32m✓ pagefind index built successfully\033[0m\n"
-    echo ""
-
 # Verify the Pagefind search index exists in public/ (tripwire against silent failures)
 validate-pagefind-index:
     #!/usr/bin/env bash
@@ -751,6 +706,46 @@ validate-pagefind-index:
         exit 1
     fi
     printf "\033[0;32m✓ pagefind index present in public/pagefind/\033[0m\n"
+    echo ""
+
+# Fail if the working tree has uncommitted changes
+check-clean-worktree:
+    @echo ""
+    @printf "\033[0;34m=== Checking Working Tree ===\033[0m\n"
+    @bash scripts/check-clean-worktree.sh
+    @printf "\033[0;32m✓ check-clean-worktree passed\033[0m\n"
+    @echo ""
+
+# Verify all target descriptions in help start at the same column
+check-help-alignment:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Checking Help Alignment ===\033[0m\n"
+    LINES=$(just help 2>/dev/null | grep -E '^  [a-z]')
+    if [ -z "$LINES" ]; then
+        printf "\033[0;31m✗ check-help-alignment failed: no target lines found in help output\033[0m\n"
+        echo ""
+        exit 1
+    fi
+    REF_COL=""
+    FAILED=0
+    while IFS= read -r line; do
+        PREFIX=$(echo "$line" | sed -n 's/^\(  [^ ][^ ]*[[:space:]]*\).*/\1/p')
+        COL=${#PREFIX}
+        if [ -z "$REF_COL" ]; then
+            REF_COL=$COL
+        elif [ "$COL" -ne "$REF_COL" ]; then
+            printf "\033[0;31m  misaligned (col %s, expected %s): %s\033[0m\n" "$COL" "$REF_COL" "$line"
+            FAILED=1
+        fi
+    done <<< "$LINES"
+    if [ "$FAILED" -ne 0 ]; then
+        printf "\033[0;31m✗ check-help-alignment failed\033[0m\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ check-help-alignment passed (descriptions at column %s)\033[0m\n" "$REF_COL"
     echo ""
 
 # Build and run Lighthouse CI against public/ on an LHCI-managed temporary server
@@ -796,27 +791,49 @@ lighthouse-open:
     printf "\033[0;32m✓ lighthouse reports opened\033[0m\n"
     echo ""
 
-# Run Lighthouse CI against an already-built public/ directory
-_run-lighthouse-checks:
+# Run ALL validation checks (verbose)
+ci:
     #!/usr/bin/env bash
     set -e
     echo ""
-    printf "\033[0;34m=== Running Lighthouse CI ===\033[0m\n"
-    if [ ! -f public/index.html ]; then
-        printf "\033[0;31m✗ lighthouse failed: public/index.html not found\033[0m\n"
-        printf "  Run: just build\n"
-        echo ""
-        exit 1
-    fi
-    if [ ! -x node_modules/.bin/lhci ]; then
-        printf "\033[0;31m✗ lighthouse failed: node_modules/.bin/lhci not found\033[0m\n"
-        printf "  Run: just init\n"
-        echo ""
-        exit 1
-    fi
-    rm -rf .lighthouseci reports/lighthouse
-    npx lhci autorun
-    printf "\033[0;32m✓ Lighthouse CI reports written to reports/lighthouse/\033[0m\n"
+    printf "\033[0;34m=== Running CI Checks ===\033[0m\n"
+    echo ""
+    just check
+    just build
+    just validate-pagefind-index
+    just check-clean-worktree
+    just _run-lighthouse-checks
+    echo ""
+    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
+    echo ""
+
+# Run ALL validation checks silently (only show output on errors)
+ci-quiet:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Running CI Checks (Quiet Mode) ===\033[0m\n"
+    TMPFILE=$(mktemp)
+    trap "rm -f $TMPFILE" EXIT
+
+    just check > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Check failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Check passed\033[0m\n"
+
+    just build > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Build passed\033[0m\n"
+
+    just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
+
+    just check-clean-worktree > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Working tree clean\033[0m\n"
+
+    printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
+    just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
+
+    echo ""
+    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
@@ -907,4 +924,27 @@ deploy: ci
     printf "\033[0;32m✓ live site responding (HTTP 200)\033[0m\n"
 
     printf "\033[0;32m✓ deploy completed successfully\033[0m\n"
+    echo ""
+
+# Run Lighthouse CI against an already-built public/ directory
+_run-lighthouse-checks:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Running Lighthouse CI ===\033[0m\n"
+    if [ ! -f public/index.html ]; then
+        printf "\033[0;31m✗ lighthouse failed: public/index.html not found\033[0m\n"
+        printf "  Run: just build\n"
+        echo ""
+        exit 1
+    fi
+    if [ ! -x node_modules/.bin/lhci ]; then
+        printf "\033[0;31m✗ lighthouse failed: node_modules/.bin/lhci not found\033[0m\n"
+        printf "  Run: just init\n"
+        echo ""
+        exit 1
+    fi
+    rm -rf .lighthouseci reports/lighthouse
+    npx lhci autorun
+    printf "\033[0;32m✓ Lighthouse CI reports written to reports/lighthouse/\033[0m\n"
     echo ""

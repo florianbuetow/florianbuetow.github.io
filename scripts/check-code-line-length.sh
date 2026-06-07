@@ -2,7 +2,7 @@
 # Check code blocks in draft articles for lines exceeding MAX_LEN characters.
 # Ignores mermaid and wardley map (wtg2) code blocks.
 # Usage: check-code-line-length.sh [file]
-#   No argument: checks all draft: true files under content/
+#   No argument: checks all git-tracked draft: true files under content/
 #   With argument: checks that specific file
 set -euo pipefail
 
@@ -13,7 +13,10 @@ TARGET="${1:-}"
 if [ -n "$TARGET" ]; then
     DRAFTS="$TARGET"
 else
-    DRAFTS=$(grep -rl "^draft: true" content/ 2>/dev/null || true)
+    # Only consider git-tracked files. Untracked files are not part of the
+    # commit/push, so they must never block it. git grep searches tracked
+    # files in the working tree only (no -r over untracked files on disk).
+    DRAFTS=$(git grep -l "^draft: true" -- content/ 2>/dev/null || true)
 fi
 
 if [ -z "$DRAFTS" ]; then
