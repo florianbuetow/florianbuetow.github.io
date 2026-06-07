@@ -31,7 +31,9 @@ while IFS= read -r -d '' md; do
                 printf "%s → %s\n" "$md" "$ref" >> "$TMPFILE"
             fi
         done
-done < <(find "$CONTENT_DIR" -name '*.md' -type f -print0)
+# Only git-tracked Markdown: untracked files are not part of the commit/push
+# and must never block it. git ls-files restricts the scan to the tracked set.
+done < <(git ls-files -z -- "$CONTENT_DIR/*.md")
 
 ERRORS=$(wc -l < "$TMPFILE" | tr -d ' ')
 if [ "$ERRORS" -gt 0 ]; then

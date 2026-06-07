@@ -533,11 +533,21 @@ validate-images:
 
 # Check blog markdown for disallowed characters (em dashes)
 validate-md:
-    @echo ""
-    @printf "\033[0;34m=== Validating Markdown (semgrep) ===\033[0m\n"
-    @semgrep --config config/semgrep/no-em-dash.yml --error content
-    @printf "\033[0;32m✓ validate-md passed\033[0m\n"
-    @echo ""
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo ""
+    printf "\033[0;34m=== Validating Markdown (semgrep) ===\033[0m\n"
+    # Only git-tracked Markdown: untracked files are not part of the commit/push
+    # and must never block it. Passing an explicit file list (never a bare dir)
+    # is required — semgrep with no target paths scans the whole CWD instead.
+    if [ -n "$(git ls-files -- 'content/*.md')" ]; then
+        git ls-files -z -- 'content/*.md' \
+            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --error
+    else
+        printf "  no tracked markdown files found\n"
+    fi
+    printf "\033[0;32m✓ validate-md passed\033[0m\n"
+    echo ""
 
 # Fail when any draft article still contains unresolved TODO/placeholder markers
 validate-content:

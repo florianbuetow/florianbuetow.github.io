@@ -46,7 +46,7 @@ We will not claim the industry has already made this move. For bespoke software 
 
 Outcome pricing is the destination, but few firms can jump to it cleanly, and few clients will sign a pure outcome contract overnight. A transitional model can carry both sides across, and it starts from the instrument most teams already use: the fixed price.
 
-{{% citenote label="Shared Incentives" %}}Splitting the value of saved hours de-risks the project. The client gets a price ceiling and faster delivery, while the developer avoids the "efficiency penalty" of hourly billing—aligning both to automate and ship faster.{{% /citenote %}}
+{{% citenote label="Shared Incentives" %}}Splitting the value of saved hours de-risks the project. The client gets a price ceiling and faster delivery, while the developer avoids the "efficiency penalty" of hourly billing-aligning both to automate and ship faster.{{% /citenote %}}
 
 Set the fixed price the usual way, from an honest estimate of the hours the work should take. Then add one clause: if the team delivers in fewer hours than estimated, the client and consultant split the value of the hours saved. The consultant is paid more than the time actually worked, rewarded for finishing early rather than penalized for it. The client pays less than the original fixed price and gets the result sooner. Both sides now want the same thing, speed, which is the incentive that time and materials quietly destroy.
 

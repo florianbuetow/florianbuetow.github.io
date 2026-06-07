@@ -101,7 +101,7 @@ A ticker item whose only job is to point at a full article (a teaser: an intervi
 
 - **Body link to the article:** use a relative path with the link text `[Continue reading ...](/blog/<slug>/)`. Never write "Visit cracking-ai-engineering.com for the full article" or any wording that tells the reader to visit the site, the reader is already on cracking-ai-engineering.com, so naming it is redundant. For the same reason, never put the domain in link text.
 - **Footer heading:** `## Links`, not `## References`, there are no citations to number, only links.
-- **Two links** under it: the full article (relative path, e.g. `[Article Title](/blog/<slug>/)`) and `[Comment on LinkedIn](url)`.
+- **Links** under it: the link to the article and the `[Comment on LinkedIn](url)` link are **mandatory** (these two are the default; you may add more). For the article link, use the article's **entire** title as the link text, never a shortened version and no prefix: `[The complete article title goes here](/blog/<slug>/)`.
 - **Before the post is live:** wrap the LinkedIn body line and the LinkedIn `Links` entry in HTML comments with a `TODO`; never invent the activity ID (same rule as above, the URL comes from the post file outside this repo).
 
 ### Alternative: the `resources` shortcode
