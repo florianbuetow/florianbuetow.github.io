@@ -87,6 +87,50 @@ class DraftAnnotatorTest(unittest.TestCase):
 
         self.assertIn("sidenote", match.text)
 
+    def test_sidenote_source_disambiguates_repeated_quote(self):
+        repeated = "Repeated quote appears here."
+        path = self.write_doc(
+            "blog/post/index.md",
+            True,
+            repeated
+            + "\n\n"
+            + f'{{{{< sidenote label="Note" >}}}}{repeated}{{{{< /sidenote >}}}}',
+        )
+        doc = mod.parse_markdown(path)
+
+        with self.assertRaisesRegex(mod.AnnotatorError, "multiple"):
+            mod.find_quote_block(doc, repeated)
+
+        match = mod.find_quote_block(doc, repeated, source="sidenote")
+
+        self.assertEqual(match.source, "sidenote")
+        self.assertIn("sidenote", match.text)
+
+    def test_annotate_can_target_ambiguous_sidenote(self):
+        repeated = "Repeated quote appears here."
+        path = self.write_doc(
+            "blog/post/index.md",
+            True,
+            repeated
+            + "\n\n"
+            + f'{{{{< sidenote label="Note" >}}}}{repeated}{{{{< /sidenote >}}}}\n\n'
+            + "Trailing paragraph.",
+        )
+
+        with mock.patch.object(mod, "CONTENT_ROOT", self.tmp):
+            result = mod.annotate_file(
+                "blog/post/index.md",
+                repeated,
+                "Sidenote only.",
+                created="2026-06-07T00:00:00+00:00",
+                source="sidenote",
+            )
+
+        text = path.read_text(encoding="utf-8")
+        self.assertEqual(result["source"], "sidenote")
+        self.assertLess(text.index("{{< sidenote"), text.index("<!-- DRAFTNOTE"))
+        self.assertLess(text.index("<!-- DRAFTNOTE"), text.index("Trailing paragraph."))
+
     def test_ambiguous_quote_is_rejected(self):
         path = self.write_doc("blog/post/index.md", True, "Same line.\n\nSame line.")
         doc = mod.parse_markdown(path)

@@ -555,6 +555,8 @@ a {
 }
 .draft-annotation-dialog {
     width: min(560px, calc(100vw - 32px));
+    max-height: calc(100vh - 32px);
+    margin: auto;
     border: 1px solid #c9c9c9;
     border-radius: 8px;
     padding: 0;

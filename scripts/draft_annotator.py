@@ -39,6 +39,7 @@ class BlockMatch:
     start: int
     end: int
     text: str
+    source: str
 
 
 class AnnotatorError(Exception):
@@ -146,6 +147,14 @@ def normalize_anchor(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip().casefold()
 
 
+def block_source(text: str) -> str:
+    if "{{< sidenote" in text or "{{% sidenote" in text:
+        return "sidenote"
+    if "{{< sidequote" in text or "{{% sidequote" in text:
+        return "sidequote"
+    return "body"
+
+
 def markdown_blocks(body: str, body_offset: int) -> list[BlockMatch]:
     blocks: list[BlockMatch] = []
     in_fence = False
@@ -169,23 +178,35 @@ def markdown_blocks(body: str, body_offset: int) -> list[BlockMatch]:
                 block_start = line_start
         elif block_start is not None:
             block_text = body[block_start:line_start].strip()
-            blocks.append(BlockMatch(body_offset + block_start, body_offset + line_start, block_text))
+            blocks.append(
+                BlockMatch(
+                    body_offset + block_start,
+                    body_offset + line_start,
+                    block_text,
+                    block_source(block_text),
+                )
+            )
             block_start = None
 
     if block_start is not None:
         block_text = body[block_start:pos].strip()
-        blocks.append(BlockMatch(body_offset + block_start, body_offset + pos, block_text))
+        blocks.append(BlockMatch(body_offset + block_start, body_offset + pos, block_text, block_source(block_text)))
     return blocks
 
 
-def find_quote_block(doc: MarkdownFile, quote: str) -> BlockMatch:
+def find_quote_block(doc: MarkdownFile, quote: str, source: str = "body") -> BlockMatch:
     normalized_quote = normalize_anchor(quote)
     if len(normalized_quote) < 8:
         raise AnnotatorError("Quote is too short to locate safely.")
+    if source not in {"body", "sidenote", "sidequote"}:
+        raise AnnotatorError("Invalid annotation source.")
 
+    blocks = markdown_blocks(doc.body, doc.body_offset)
+    if source != "body":
+        blocks = [block for block in blocks if block.source == source]
     matches = [
         block
-        for block in markdown_blocks(doc.body, doc.body_offset)
+        for block in blocks
         if normalized_quote in normalize_anchor(block.text)
     ]
     if not matches:
@@ -211,7 +232,13 @@ def build_note(quote: str, note: str, created: str | None = None) -> str:
     )
 
 
-def annotate_file(file_path: str, quote: str, note: str, created: str | None = None) -> dict[str, Any]:
+def annotate_file(
+    file_path: str,
+    quote: str,
+    note: str,
+    created: str | None = None,
+    source: str = "body",
+) -> dict[str, Any]:
     target = safe_content_path(file_path, CONTENT_ROOT)
     clean_quote = sanitize_field("quote", quote, MAX_QUOTE_LEN)
     clean_note = sanitize_field("note", note, MAX_NOTE_LEN)
@@ -219,11 +246,11 @@ def annotate_file(file_path: str, quote: str, note: str, created: str | None = N
     if not doc.draft:
         raise AnnotatorError("Annotations are only allowed in draft articles.", 403)
 
-    match = find_quote_block(doc, clean_quote)
+    match = find_quote_block(doc, clean_quote, source)
     text = target.read_text(encoding="utf-8")
     insertion = build_note(clean_quote, clean_note, created)
     target.write_text(text[: match.end].rstrip() + insertion + text[match.end :], encoding="utf-8")
-    return {"ok": True, "filePath": file_path, "insertedAfter": match.text[:120]}
+    return {"ok": True, "filePath": file_path, "source": match.source, "insertedAfter": match.text[:120]}
 
 
 def validate_annotations(content_root: Path) -> int:
@@ -294,6 +321,7 @@ class DraftAnnotationHandler(BaseHTTPRequestHandler):
                 str(payload.get("filePath", "")),
                 payload.get("quote", ""),
                 payload.get("note", ""),
+                source=str(payload.get("source", "body")),
             )
             self._send_json(200, result)
         except AnnotatorError as error:
@@ -326,6 +354,7 @@ def main(argv: list[str] | None = None) -> int:
     annotate_parser.add_argument("--file-path", required=True)
     annotate_parser.add_argument("--quote", required=True)
     annotate_parser.add_argument("--note", required=True)
+    annotate_parser.add_argument("--source", choices=["body", "sidenote", "sidequote"], default="body")
 
     args = parser.parse_args(argv)
     if args.cmd == "serve":
@@ -334,7 +363,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "validate":
         return validate_annotations(Path(args.content_dir))
     if args.cmd == "annotate":
-        print(json.dumps(annotate_file(args.file_path, args.quote, args.note), indent=2))
+        print(json.dumps(annotate_file(args.file_path, args.quote, args.note, source=args.source), indent=2))
         return 0
     return 1
 

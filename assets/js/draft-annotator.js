@@ -93,6 +93,12 @@
     return normalizeText(clone.textContent || "");
   }
 
+  function sourceForBlock(block) {
+    if (block.classList && block.classList.contains("side-note")) return "sidenote";
+    if (block.classList && block.classList.contains("side-quote")) return "sidequote";
+    return "body";
+  }
+
   function quoteForBlock(block) {
     var selected = normalizeText(String(window.getSelection()));
     var blockText = readableBlockText(block);
@@ -141,7 +147,8 @@
         filePath: config.filePath,
         relPermalink: config.relPermalink || window.location.pathname,
         quote: quote,
-        note: note
+        note: note,
+        source: lastBlock ? sourceForBlock(lastBlock) : "body"
       })
     })
       .then(function (response) {
