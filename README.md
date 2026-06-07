@@ -247,7 +247,7 @@ Generate the production site into `public/`:
 just build
 ```
 
-Run the full validation pipeline (`check` + `build` + `validate-pagefind-index`; `build` now chains `build-pagefind-index` internally):
+Run the full validation pipeline — `check`, `build`, `validate-pagefind-index`, `check-clean-worktree`, and Lighthouse CI. `just ci` runs quietly (output only on failure); `just ci-verbose` streams every step:
 
 ```bash
 just ci
@@ -271,10 +271,11 @@ just destroy
 just help
 ```
 
-- **Setup & lifecycle:** `init`, `destroy`, `clean`, `check`, `help`
-- **Run:** `start`, `stop`, `status`
-- **CI & testing:** `build`, `build-pagefind-index`, `validate-pagefind-index`, `ci`, `spell-check`
-- **Deploy:** `deploy`
+- **Setup:** `init`, `check`, `clean`, `destroy`, `help`
+- **Lifecycle:** `start`, `stop`, `status`, `build`, `ci`, `ci-verbose`, `deploy`
+- **Run:** `dev`
+- **Build:** `wardley-render`, `optimize-images`, `strip-exif`, `build-pagefind-index`
+- **CI:** `validate-images`, `validate-md`, `validate-content`, `check-code-line-length`, `check-links`, `spell-check`, `validate-pagefind-index`, `check-clean-worktree`, and more
 
 ## Configuration notes
 

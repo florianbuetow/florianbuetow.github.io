@@ -6,7 +6,7 @@
 - Before editing an article, read the file first to understand its current structure
 - Run `just spell-check <file>` after editing a draft article to catch spelling and grammar issues before publishing; add legitimate false positives (proper names, technical terms) to `config/harper/dictionary.txt`
 - Always run `just spell-check <file>` before flipping `draft: true` to `draft: false` — never publish without a passing spell check
-- After editing any `.wtg2` file, run `just wardley-render` before committing — the generated `.svg` must travel with its source
+- After editing any `.wtg2` file, run `just wardley-render` before committing — the generated `.svg` must travel with its source (`just build` and `just ci` re-render maps, so a stale `.svg` fails the `check-clean-worktree` gate)
 - LinkedIn post URLs live outside this repo — always source URLs from the LinkedIn post files, never guess
 - Never delete content before a replacement is ready and the build succeeds
 - If a ticker article title contains a `/` (e.g. `/dream`, `/fixclaude`), add an explicit `slug` field in the front matter — Hugo treats the slash as a path separator, creating a broken URL
