@@ -599,7 +599,13 @@ spell-check file='':
     ERRORS=0
     while IFS= read -r file; do
         printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
-        harper-cli lint --user-dict-path config/harper/dictionary.txt "$file" || ERRORS=$((ERRORS + 1))
+        if [ -d "$file" ]; then
+            while IFS= read -r md; do
+                harper-cli lint --user-dict-path config/harper/dictionary.txt "$md" || ERRORS=$((ERRORS + 1))
+            done < <(find "$file" -name "*.md" | sort)
+        else
+            harper-cli lint --user-dict-path config/harper/dictionary.txt "$file" || ERRORS=$((ERRORS + 1))
+        fi
         echo ""
     done <<< "$DRAFTS"
     if [ "$ERRORS" -gt 0 ]; then

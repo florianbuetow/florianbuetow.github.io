@@ -222,7 +222,7 @@ Append `?zoom` to any image path to make it clickable. Clicking the image opens 
 ### Syntax
 
 ```markdown
-![Alt text](image.webp?zoom "Optional title shown on hover")
+![Alt text](image.webp?zoom "Optional caption shown below the image")
 ```
 
 ### How it works
@@ -233,7 +233,7 @@ The render hook (`layouts/_default/_markup/render-image.html`) strips `?zoom` fr
 
 - **Always append `?zoom` to images in blog and ticker posts.** This is the default for all content images.
 - Works with page-bundle images (most common) and external URLs alike.
-- The title string becomes the `title` attribute on the `<img>` tag -- it appears as a browser tooltip, not a caption.
+- The title string is rendered as a visible `<figcaption>` below the image -- not a browser tooltip (no `title` attribute is set on the `<img>`). `assets/css/main.css` styles it centered, italic, and gray via `.prose .post-figure figcaption`. Write it as a caption; see the caption style guide in `docs/styleguides/how-to-write-captions.md`. Omit the title string entirely to render no caption.
 - Use for illustrations, screenshots, or any image where detail matters at full size. Skip it for decorative images.
 - One zoom per paragraph is enough; don't stack multiple zoomable images side by side.
 
