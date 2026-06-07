@@ -3,7 +3,7 @@ title: "The Death of the Billable Hour : The Emergence of Software Factories and
 subtitle: "Why AI is pushing software consulting from billing hours to pricing outcomes, and what you'll need to deliver them."
 slug: "death-of-the-billable-hour-software-factories"
 date: 2026-06-07
-draft: true
+draft: false
 description: "As AI automates manual coding, the traditional billable hour is becoming obsolete, forcing software consultancies to rethink how they measure and deliver value. To stay competitive, firms must transition to outcome-based pricing by evolving into software factories where engineers orchestrate AI agents instead of writing lines of code."
 author: "Florian Buetow"
 readTime: "7 min read"

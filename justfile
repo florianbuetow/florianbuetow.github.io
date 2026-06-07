@@ -13,12 +13,13 @@
 # 4. Target ordering in help (and in this file) matters. Semantic order:
 #    - Setup group: init first (bootstrap), destroy last (nuke). Middle:
 #      check, clean, help.
-#    - Run group: start, stop, status, dev.
-#    - Build group: wardley-render, optimize-images, strip-exif, build,
-#      build-pagefind-index.
-#    - CI group: individual validate-*/check-* targets first, aggregate
-#      ci/ci-quiet last.
-#    - Deploy group: deploy.
+#    - Lifecycle group: start, stop, status, build, ci, ci-verbose, deploy
+#      (the everyday run → build → validate → ship flow; ci is quiet,
+#      ci-verbose streams every step).
+#    - Run group: dev.
+#    - Build group: wardley-render, optimize-images, strip-exif,
+#      build-pagefind-index (sub-steps chained by build).
+#    - CI group: individual validate-*/check-* targets (aggregated by ci).
 #    Group related targets together and separate groups with an empty
 #    `@echo ""` line in the help output.
 #
@@ -53,22 +54,25 @@ help:
     @printf "  %-28s %s\n" "clean" "Clean generated files"
     @printf "  %-28s %s\n" "destroy" "Destroy build artifacts and server state"
     @echo ""
-    @printf "\033[0;33mRun:\033[0m\n"
+    @printf "\033[0;33mLifecycle:\033[0m\n"
     @printf "  %-28s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
     @printf "  %-28s %s\n" "stop" "Stop the Hugo development server and draft annotator"
     @printf "  %-28s %s\n" "status" "Check if the Hugo server is running"
+    @printf "  %-28s %s\n" "build" "Build the production site (render → optimize → validate → hugo → pagefind)"
+    @printf "  %-28s %s\n" "ci" "Run ALL validation checks silently (only show output on errors)"
+    @printf "  %-28s %s\n" "ci-verbose" "Run ALL validation checks (verbose)"
+    @printf "  %-28s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
+    @echo ""
+    @printf "\033[0;33mRun:\033[0m\n"
     @printf "  %-28s %s\n" "dev" "Run Hugo server in foreground (auto-rebuild + live-reload)"
     @echo ""
     @printf "\033[0;33mBuild:\033[0m\n"
     @printf "  %-28s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
     @printf "  %-28s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
     @printf "  %-28s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
-    @printf "  %-28s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
     @printf "  %-28s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
     @echo ""
     @printf "\033[0;33mCI:\033[0m\n"
-    @printf "  %-28s %s\n" "ci" "Run ALL validation checks (verbose)"
-    @printf "  %-28s %s\n" "ci-quiet" "Run ALL validation checks silently (only show output on errors)"
     @printf "  %-28s %s\n" "validate-images" "Check all image references resolve to files"
     @printf "  %-28s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
     @printf "  %-28s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
@@ -86,9 +90,6 @@ help:
     @printf "  %-28s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
     @printf "  %-28s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
     @printf "  %-28s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
-    @echo ""
-    @printf "\033[0;33mDeploy:\033[0m\n"
-    @printf "  %-28s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
 
 # Initialize the build environment (installs missing deps)
@@ -178,7 +179,7 @@ init:
     printf "\033[0;32m✓ wtg2svg ready (%s)\033[0m\n" "$(command -v wtg2svg)"
     mkdir -p public
     git config core.hooksPath .githooks
-    printf "\033[0;32m✓ git hooks configured (.githooks/pre-push → just ci-quiet)\033[0m\n"
+    printf "\033[0;32m✓ git hooks configured (.githooks/pre-push → just ci)\033[0m\n"
     printf "\033[0;32m✓ init completed successfully\033[0m\n"
     echo ""
 
@@ -447,6 +448,161 @@ status:
     echo ""
     exit 1
 
+# Build the production site (render → optimize → validate → hugo → pagefind)
+build:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Building Production Site ===\033[0m\n"
+    just wardley-render
+    just optimize-images
+    just strip-exif
+    just validate-images
+    just validate-content
+    just validate-draft-annotations
+    just check-code-line-length
+    just validate-md
+    just ai-text-detect
+    hugo --minify --cleanDestinationDir
+    just build-pagefind-index
+    printf "\033[0;32m✓ build completed successfully\033[0m\n"
+    echo ""
+
+# Run ALL validation checks silently (only show output on errors)
+ci:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Running CI Checks (Quiet Mode) ===\033[0m\n"
+    TMPFILE=$(mktemp)
+    trap "rm -f $TMPFILE" EXIT
+
+    just check > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Check failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Check passed\033[0m\n"
+
+    just build > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Build passed\033[0m\n"
+
+    just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
+
+    just check-clean-worktree > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Working tree clean\033[0m\n"
+
+    printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
+    just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
+
+    echo ""
+    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
+    echo ""
+
+# Run ALL validation checks (verbose)
+ci-verbose:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Running CI Checks ===\033[0m\n"
+    echo ""
+    just check
+    just build
+    just validate-pagefind-index
+    just check-clean-worktree
+    just _run-lighthouse-checks
+    echo ""
+    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
+    echo ""
+
+# Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
+deploy: ci-verbose
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Deploying to GitHub Pages ===\033[0m\n"
+
+    if ! command -v gh >/dev/null 2>&1; then
+        printf "\033[0;31m✗ deploy failed: gh CLI is not installed\033[0m\n"
+        printf "  Install with: brew install gh\n"
+        echo ""
+        exit 1
+    fi
+
+    if ! gh auth status >/dev/null 2>&1; then
+        printf "\033[0;31m✗ deploy failed: gh CLI is not authenticated\033[0m\n"
+        printf "  Run: gh auth login\n"
+        echo ""
+        exit 1
+    fi
+
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    if [ "$BRANCH" != "main" ]; then
+        printf "\033[0;31m✗ deploy failed: not on main (current: %s)\033[0m\n" "$BRANCH"
+        printf "  GitHub Pages deploys from main only. Switch with: git checkout main\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ on branch main\033[0m\n"
+
+    if ! git diff --quiet || ! git diff --cached --quiet; then
+        printf "\033[0;31m✗ deploy failed: working tree is dirty\033[0m\n"
+        printf "  Commit or stash your changes first. Status:\n"
+        git status --short | sed 's/^/    /'
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ working tree clean\033[0m\n"
+
+    git fetch origin main --quiet
+    UNPUSHED=$(git rev-list --count origin/main..main)
+
+    if [ "$UNPUSHED" -gt 0 ]; then
+        printf "\033[0;33m→ %s unpushed commit(s); pushing main...\033[0m\n" "$UNPUSHED"
+        git push origin main
+        printf "\033[0;32m✓ pushed; workflow will be triggered by push\033[0m\n"
+    else
+        printf "\033[0;33m→ nothing to push; triggering workflow_dispatch...\033[0m\n"
+        gh workflow run hugo.yml --ref main
+        printf "\033[0;32m✓ workflow dispatched\033[0m\n"
+    fi
+
+    printf "\033[0;33m→ waiting for run to appear...\033[0m\n"
+    RUN_ID=""
+    for i in $(seq 1 20); do
+        RUN_ID=$(gh run list --workflow=hugo.yml --branch=main --limit=1 --json databaseId,status --jq '.[] | select(.status == "in_progress" or .status == "queued") | .databaseId' | head -1)
+        if [ -n "$RUN_ID" ]; then
+            break
+        fi
+        sleep 1
+    done
+
+    if [ -z "$RUN_ID" ]; then
+        printf "\033[0;31m✗ deploy failed: no in-progress run appeared within 20s\033[0m\n"
+        printf "  Check manually: gh run list --workflow=hugo.yml\n"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ watching run %s\033[0m\n" "$RUN_ID"
+
+    if ! gh run watch "$RUN_ID" --exit-status >/dev/null 2>&1; then
+        printf "\033[0;31m✗ deploy failed: workflow run %s did not succeed\033[0m\n" "$RUN_ID"
+        printf "  Inspect: gh run view %s --log-failed\n" "$RUN_ID"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ workflow succeeded\033[0m\n"
+
+    printf "\033[0;33m→ verifying https://cracking-ai-engineering.com/ ...\033[0m\n"
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://cracking-ai-engineering.com/ || echo "000")
+    if [ "$HTTP_CODE" != "200" ]; then
+        printf "\033[0;31m✗ deploy failed: live site returned HTTP %s\033[0m\n" "$HTTP_CODE"
+        echo ""
+        exit 1
+    fi
+    printf "\033[0;32m✓ live site responding (HTTP 200)\033[0m\n"
+
+    printf "\033[0;32m✓ deploy completed successfully\033[0m\n"
+    echo ""
+
 # Run Hugo server in foreground with auto-rebuild + live-reload
 dev:
     #!/usr/bin/env bash
@@ -488,25 +644,6 @@ strip-exif:
     @bash scripts/strip-exif.sh
     @printf "\033[0;32m✓ strip-exif completed\033[0m\n"
     @echo ""
-
-# Build the production site (optimize → validate → hugo)
-build:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Building Production Site ===\033[0m\n"
-    just optimize-images
-    just strip-exif
-    just validate-images
-    just validate-content
-    just validate-draft-annotations
-    just check-code-line-length
-    just validate-md
-    just ai-text-detect
-    hugo --minify --cleanDestinationDir
-    just build-pagefind-index
-    printf "\033[0;32m✓ build completed successfully\033[0m\n"
-    echo ""
 
 # Build the Pagefind search index from public/ (chained by `just build`)
 build-pagefind-index:
@@ -799,141 +936,6 @@ lighthouse-open:
         open "$report"
     done <<< "$REPORTS"
     printf "\033[0;32m✓ lighthouse reports opened\033[0m\n"
-    echo ""
-
-# Run ALL validation checks (verbose)
-ci:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Running CI Checks ===\033[0m\n"
-    echo ""
-    just check
-    just build
-    just validate-pagefind-index
-    just check-clean-worktree
-    just _run-lighthouse-checks
-    echo ""
-    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
-    echo ""
-
-# Run ALL validation checks silently (only show output on errors)
-ci-quiet:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Running CI Checks (Quiet Mode) ===\033[0m\n"
-    TMPFILE=$(mktemp)
-    trap "rm -f $TMPFILE" EXIT
-
-    just check > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Check failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Check passed\033[0m\n"
-
-    just build > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Build passed\033[0m\n"
-
-    just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
-
-    just check-clean-worktree > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Working tree clean\033[0m\n"
-
-    printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
-    just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
-    printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
-
-    echo ""
-    printf "\033[0;32m✓ All CI checks passed\033[0m\n"
-    echo ""
-
-# Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
-deploy: ci
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Deploying to GitHub Pages ===\033[0m\n"
-
-    if ! command -v gh >/dev/null 2>&1; then
-        printf "\033[0;31m✗ deploy failed: gh CLI is not installed\033[0m\n"
-        printf "  Install with: brew install gh\n"
-        echo ""
-        exit 1
-    fi
-
-    if ! gh auth status >/dev/null 2>&1; then
-        printf "\033[0;31m✗ deploy failed: gh CLI is not authenticated\033[0m\n"
-        printf "  Run: gh auth login\n"
-        echo ""
-        exit 1
-    fi
-
-    BRANCH=$(git rev-parse --abbrev-ref HEAD)
-    if [ "$BRANCH" != "main" ]; then
-        printf "\033[0;31m✗ deploy failed: not on main (current: %s)\033[0m\n" "$BRANCH"
-        printf "  GitHub Pages deploys from main only. Switch with: git checkout main\n"
-        echo ""
-        exit 1
-    fi
-    printf "\033[0;32m✓ on branch main\033[0m\n"
-
-    if ! git diff --quiet || ! git diff --cached --quiet; then
-        printf "\033[0;31m✗ deploy failed: working tree is dirty\033[0m\n"
-        printf "  Commit or stash your changes first. Status:\n"
-        git status --short | sed 's/^/    /'
-        echo ""
-        exit 1
-    fi
-    printf "\033[0;32m✓ working tree clean\033[0m\n"
-
-    git fetch origin main --quiet
-    UNPUSHED=$(git rev-list --count origin/main..main)
-
-    if [ "$UNPUSHED" -gt 0 ]; then
-        printf "\033[0;33m→ %s unpushed commit(s); pushing main...\033[0m\n" "$UNPUSHED"
-        git push origin main
-        printf "\033[0;32m✓ pushed; workflow will be triggered by push\033[0m\n"
-    else
-        printf "\033[0;33m→ nothing to push; triggering workflow_dispatch...\033[0m\n"
-        gh workflow run hugo.yml --ref main
-        printf "\033[0;32m✓ workflow dispatched\033[0m\n"
-    fi
-
-    printf "\033[0;33m→ waiting for run to appear...\033[0m\n"
-    RUN_ID=""
-    for i in $(seq 1 20); do
-        RUN_ID=$(gh run list --workflow=hugo.yml --branch=main --limit=1 --json databaseId,status --jq '.[] | select(.status == "in_progress" or .status == "queued") | .databaseId' | head -1)
-        if [ -n "$RUN_ID" ]; then
-            break
-        fi
-        sleep 1
-    done
-
-    if [ -z "$RUN_ID" ]; then
-        printf "\033[0;31m✗ deploy failed: no in-progress run appeared within 20s\033[0m\n"
-        printf "  Check manually: gh run list --workflow=hugo.yml\n"
-        echo ""
-        exit 1
-    fi
-    printf "\033[0;32m✓ watching run %s\033[0m\n" "$RUN_ID"
-
-    if ! gh run watch "$RUN_ID" --exit-status >/dev/null 2>&1; then
-        printf "\033[0;31m✗ deploy failed: workflow run %s did not succeed\033[0m\n" "$RUN_ID"
-        printf "  Inspect: gh run view %s --log-failed\n" "$RUN_ID"
-        echo ""
-        exit 1
-    fi
-    printf "\033[0;32m✓ workflow succeeded\033[0m\n"
-
-    printf "\033[0;33m→ verifying https://cracking-ai-engineering.com/ ...\033[0m\n"
-    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 https://cracking-ai-engineering.com/ || echo "000")
-    if [ "$HTTP_CODE" != "200" ]; then
-        printf "\033[0;31m✗ deploy failed: live site returned HTTP %s\033[0m\n" "$HTTP_CODE"
-        echo ""
-        exit 1
-    fi
-    printf "\033[0;32m✓ live site responding (HTTP 200)\033[0m\n"
-
-    printf "\033[0;32m✓ deploy completed successfully\033[0m\n"
     echo ""
 
 # Run Lighthouse CI against an already-built public/ directory
