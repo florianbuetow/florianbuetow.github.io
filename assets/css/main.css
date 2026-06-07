@@ -1082,6 +1082,10 @@ a {
     padding-right: 1.5rem;
 }
 
+.footnotes hr {
+    display: none;
+}
+
 .search-result-item span {
     display: block;
     font-size: 0.7rem;
