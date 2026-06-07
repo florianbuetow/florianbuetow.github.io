@@ -1,0 +1,28 @@
+---
+title: "The Death of the Billable Hour: Software Factories and Outcome-Based Pricing"
+slug: "death-of-the-billable-hour-software-factories"
+date: 2026-06-07
+draft: true
+description: "As AI automates manual coding, the traditional billable hour is becoming obsolete, pushing software consultancies toward outcome-based pricing and software factories where engineers orchestrate AI agents."
+author: "Florian Buetow"
+readTime: "1 min read"
+categories: ["AI Engineering", "Consulting", "Software Factory", "Ticker News"]
+tags: ["Outcome-Based Pricing", "Software Factory", "Agent Orchestration", "Consulting"]
+---
+
+![The Death of the Billable Hour: the shift to software factories and outcome-based pricing](the-death-of-the-billable-hour.webp?zoom)
+
+As AI automates manual coding, the traditional billable hour is becoming obsolete, forcing software consultancies to start to rethink how they measure and deliver value. I argue that to not be priced out of the market, firms will eventually transition to outcome-based pricing enabled by engineers orchestrating agents and building software factories to scale automation.
+
+[Continue reading ...](/blog/death-of-the-billable-hour-software-factories/)
+
+<!-- TODO: add the LinkedIn post URL once published (source it from the post file, do not invent the activity ID).
+To comment or share please head on over to [LinkedIn](LINKEDIN_POST_URL)
+-->
+
+## Links
+
+- [The Death of the Billable Hour : The Emergence of Software Factories and Outcome-Based Pricing](/blog/death-of-the-billable-hour-software-factories/)
+<!-- TODO: add the LinkedIn post URL once published (source it from the post file, do not invent the activity ID).
+- [Comment on LinkedIn](LINKEDIN_POST_URL)
+-->
