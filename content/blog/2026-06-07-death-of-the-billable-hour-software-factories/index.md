@@ -102,8 +102,6 @@ Today, agents are already writing and checking code inside real factories, while
 
 So far the change shows up on one side more than the other: among the firms that build software, not the clients who buy it. Accenture is selling an agent factory to clients,[^refinery] StrongDM runs one internally where no human writes or reviews the code,[^strongdm] and practitioners are publishing blueprints for AI-native delivery.[^recinq] The pricing side still lags a bit behind: outcome-based contracts for bespoke software remain rare, and whether they scale beyond productized AI is genuinely open. Which leaves the question: when AI has absorbed the construction, where do you stand? Are you still selling the hours? Are your customers slow and sticky enough so you can afford not changing, or are you already feeling the pressure to change your pricing model and upskill your workforce to build the ability and capacity to run a software factory?
 
-<!-- [Comment on LinkedIn](LINK_TO_BE_ADDED) -->
-
 ## References
 
 [^dx]: DX, "AI-Assisted Engineering" research hub, on how much hands-on coding AI assistants now take on. https://getdx.com/blog/ai-assisted-engineering-hub/

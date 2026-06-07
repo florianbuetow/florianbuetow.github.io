@@ -16,13 +16,6 @@ As AI automates manual coding, the traditional billable hour is becoming obsolet
 
 [Continue reading ...](/blog/death-of-the-billable-hour-software-factories/)
 
-<!-- TODO: add the LinkedIn post URL once published (source it from the post file, do not invent the activity ID).
-To comment or share please head on over to [LinkedIn](LINKEDIN_POST_URL)
--->
-
 ## Links
 
 - [The Death of the Billable Hour : The Emergence of Software Factories and Outcome-Based Pricing](/blog/death-of-the-billable-hour-software-factories/)
-<!-- TODO: add the LinkedIn post URL once published (source it from the post file, do not invent the activity ID).
-- [Comment on LinkedIn](LINKEDIN_POST_URL)
--->
