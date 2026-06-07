@@ -4,10 +4,20 @@
   {{- $src = replace $src "?zoom" "" -}}
   {{- $zoom = true -}}
 {{- end -}}
+{{- $right := false -}}
+{{- if strings.Contains $src "?right" -}}
+  {{- $src = replace $src "?right" "" -}}
+  {{- $right = true -}}
+{{- end -}}
+{{- $left := false -}}
+{{- if strings.Contains $src "?left" -}}
+  {{- $src = replace $src "?left" "" -}}
+  {{- $left = true -}}
+{{- end -}}
 {{- $alt := .PlainText -}}
 {{- $title := .Title -}}
 {{- $res := and .Page .Page.Resources (.Page.Resources.GetMatch $src) -}}
-<figure class="post-figure">
+<figure class="post-figure{{ if $right }} post-figure--right{{ end }}{{ if $left }} post-figure--left{{ end }}">
   {{- if $res -}}
     {{- if hasSuffix $src ".svg" -}}
       {{- /* SVG resources lack Width/Height/Resize; emit raw, browser scales via viewBox. */ -}}

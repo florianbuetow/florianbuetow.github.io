@@ -12,7 +12,7 @@ status: "active"
 repo: "https://github.com/florianbuetow/x-rag"
 demo: ""
 video: ""
-featured: true
+featured: false
 ---
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/x-rag" target="_blank" rel="noopener">https://github.com/florianbuetow/x-rag</a>{{< /sidenote >}}

@@ -211,7 +211,31 @@ The render hook (`layouts/_default/_markup/render-image.html`) strips `?zoom` fr
 
 ---
 
-## 7. Links that open in a new tab
+## 7. Floated images
+
+Append `?right` or `?left` to an image path to float it to that side at 50% width, with prose flowing around it. Combine with `?zoom` for a zoomable floated image.
+
+### Syntax
+
+```markdown
+![Alt text](image.webp?zoom?right "Optional title")
+![Alt text](image.webp?zoom?left "Optional title")
+```
+
+### How it works
+
+The render hook detects `?right` and `?left`, strips them from the src, and adds `post-figure--right` or `post-figure--left` to the `<figure>` element. The CSS floats the figure at 50% width with a margin on the opposite side so text flows around it. On viewports narrower than 960px both floats collapse to full width.
+
+### Notes
+
+- Combine with `?zoom` by writing both params: `?zoom?right` or `?zoom?left`. Order does not matter.
+- Place the image on its own line immediately before the paragraph it should sit beside.
+- Use for book covers, portraits, or any image where wrapping text improves the layout. For diagrams and full-bleed illustrations, stick with the default (no float param).
+- One floated image per section is enough; stacking two floats in close proximity will collide visually.
+
+---
+
+## 8. Links that open in a new tab
 
 Markdown's `[text](url)` syntax has no way to set `target="_blank"`. Use a raw HTML anchor instead. This works because `markup.goldmark.renderer.unsafe = true` is set in `hugo.toml`.
 

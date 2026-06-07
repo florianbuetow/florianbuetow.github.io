@@ -12,7 +12,7 @@ status: "active"
 repo: "https://github.com/florianbuetow/mini-rag"
 demo: ""
 video: ""
-featured: true
+featured: false
 image: "/projects/open-source-images/mini-rag.webp"
 ---
 
