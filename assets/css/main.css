@@ -744,10 +744,12 @@ a {
     color: #999;
     margin-bottom: 4px;
 }
-/* The {{% citenote %}} shortcode renders its body through the page's main
-   markdown pass (so footnote citations resolve), which wraps it in a <p>.
-   Neutralise .prose p here so a citenote looks identical to a plain sidenote. */
-.side-note p {
+/* The {{% citenote %}} / {{% citequote %}} shortcodes render their body through
+   the page's main markdown pass (so footnote citations resolve), which wraps it
+   in a <p>. Neutralise .prose p here so they look identical to a plain
+   sidenote / sidequote. */
+.side-note p,
+.side-quote p {
     font-size: inherit;
     color: inherit;
     line-height: inherit;

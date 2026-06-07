@@ -1,0 +1,592 @@
+<svg width="100%" height="100%" viewBox="0 0 1320 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+    <defs>
+        <linearGradient id="wardleyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgb(236,237,243)"></stop>
+            <stop offset="30%" stop-color="rgb(255,255,255)"></stop>
+            <stop offset="70%" stop-color="rgb(255,255,255)"></stop>
+            <stop offset="100%" stop-color="rgb(236,237,243)"></stop>
+        </linearGradient>
+        <linearGradient id="pipelineTubeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgb(180,195,225)"></stop>
+            <stop offset="25%" stop-color="rgb(220,230,248)"></stop>
+            <stop offset="50%" stop-color="rgb(205,218,242)"></stop>
+            <stop offset="80%" stop-color="rgb(185,200,230)"></stop>
+            <stop offset="100%" stop-color="rgb(160,175,210)"></stop>
+        </linearGradient>
+        <marker id="arrow" refX="15" refY="0" markerWidth="12" markerHeight="12" viewBox="0 -5 10 10">
+            <path d="M0,-5L10,0L0,5" fill="rgb(255,0,0)"></path>
+        </marker>
+        <marker id="graphArrow" refX="9" refY="0" markerWidth="12" markerHeight="12" viewBox="0 -5 10 10">
+            <path d="M0,-5L10,0L0,5" fill="rgb(0,0,0)"></path>
+        </marker>
+    </defs>
+    <rect x="30" y="50" width="1040" height="785" fill="#ffffff"></rect>
+    <g transform=" translate(30,835) rotate(270)">
+        <line x1="0" y1="0" x2="785" y2="0" stroke-width="1" marker-end="url(#graphArrow)" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <line x1="0" y1="260" x2="785" y2="260" stroke-width="1" stroke-dasharray="2 2" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <line x1="0" y1="520" x2="785" y2="520" stroke-width="1" stroke-dasharray="2 2" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <line x1="0" y1="780" x2="785" y2="780" stroke-width="1" stroke-dasharray="2 2" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+            <tspan x="5" dy="-10">Invisible</tspan>
+        </text>
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+            <tspan x="780" dy="-10">Visible</tspan>
+        </text>
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="middle">
+            <tspan x="392" dy="-10">Value Chain</tspan>
+        </text>
+    </g>
+    <line x1="30" y1="835" x2="1070" y2="835" marker-end="url(#graphArrow)" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+        <tspan x="37" dy="65">Uncharted</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="end">
+        <tspan x="1065" dy="65">Industrialised</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="start">
+        <tspan x="30" dy="855">I</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="middle">
+        <tspan x="290" dy="855">II</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="middle">
+        <tspan x="550" dy="855">III</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="middle">
+        <tspan x="810" dy="855">IV</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="160" dy="855">Genesis</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="420" dy="855">Custom</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="680" dy="855">Product</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="940" dy="855">Commodity</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+        <tspan x="1070" dy="855">Evolution</tspan>
+    </text>
+    <rect x="1090" y="50" width="220" height="800" fill="#f8f8f8" fill-opacity="1.0" stroke="#000000" stroke-opacity="1.0" stroke-width="1" ry="6" rx="6"></rect>
+    <g transform=" translate(1200,79)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="middle">
+            <tspan x="0" dy="6">Legend</tspan>
+        </text>
+    </g>
+    <line x1="1100" y1="87" x2="1300" y2="87" stroke-width="1" stroke="rgb(200,200,210)" stroke-opacity="1.0"></line>
+    <g transform=" translate(1105,123)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Components</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="147" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <g transform=" translate(1125,145)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Component</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="171" r="7" fill="rgb(142,68,173)" fill-opacity="1.0" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <circle cx="1103" cy="168" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <path d="M 1100,171 L 1100,176 L 1105,176 L 1105,171 Q 1103,169 1100,171 Z" fill="rgb(255,255,255)"></path>
+    <circle cx="1107" cy="168" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <path d="M 1105,171 L 1105,176 L 1110,176 L 1110,171 Q 1107,169 1105,171 Z" fill="rgb(255,255,255)"></path>
+    <g transform=" translate(1125,169)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Outsource</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="195" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1.5"></circle>
+    <g transform=" translate(1125,193)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Evolved</tspan>
+        </text>
+    </g>
+    <path d="M 1091,219 A 4,5 0 1,0 1099,219 A 4,5 0 1,0 1091,219 Z" fill="rgb(130,145,180)"></path>
+    <path d="M 1095,214 L 1115,214 A 4,5 0 0 1 1115,224 L 1095,224 A 4,5 0 0 1 1095,214 Z" style="fill:url(#pipelineTubeGradient)" stroke="rgb(90,110,160)" stroke-width="1"></path>
+    <g transform=" translate(1125,217)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Pipeline</tspan>
+        </text>
+    </g>
+    <g transform=" translate(1105,243)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Edges</tspan>
+        </text>
+    </g>
+    <line x1="1095" y1="267" x2="1115" y2="267" stroke-width="1" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+    <g transform=" translate(1125,265)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Dependency</tspan>
+        </text>
+    </g>
+    <line x1="1095" y1="291" x2="1115" y2="291" stroke-width="1" stroke-dasharray="3 3" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+    <g transform=" translate(1125,289)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Evolution</tspan>
+        </text>
+    </g>
+    <g transform=" translate(1105,315)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Groups</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="339" r="7" fill="rgb(52,152,219)" fill-opacity="0.2" stroke="rgb(52,152,219)" stroke-opacity="1.0" stroke-width="1.5"></circle>
+    <g transform=" translate(1125,337)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">The New Craft</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="363" r="7" fill="rgb(46,204,113)" fill-opacity="0.2" stroke="rgb(46,204,113)" stroke-opacity="1.0" stroke-width="1.5"></circle>
+    <g transform=" translate(1125,361)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Industrialized Layer</tspan>
+        </text>
+    </g>
+    <g transform=" translate(1105,387)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Signals</tspan>
+        </text>
+    </g>
+    <path d="M 1098,404 l 11,8 l -5,0 M 1098,404 l 11,8 l 0,-5" fill="none" stroke="rgb(52,73,94)" stroke-opacity="1.0" stroke-width="2"></path>
+    <g transform=" translate(1125,409)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Commoditization</tspan>
+        </text>
+    </g>
+    <path d="M 1098,428 q 4,-7 8,0 q 4,7 8,0" fill="none" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="2"></path>
+    <g transform=" translate(1125,433)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Co-evolution</tspan>
+        </text>
+    </g>
+    <g transform=" translate(1105,459)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Gameplays</tspan>
+        </text>
+    </g>
+    <rect x="1097" y="478" width="16" height="10" fill="rgb(155,89,182)" fill-opacity="1.0" stroke="rgb(155,89,182)" stroke-opacity="1.0" stroke-width="1" ry="3" rx="3"></rect>
+    <g transform=" translate(1125,481)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Gameplay</tspan>
+        </text>
+    </g>
+    <g transform=" translate(1105,507)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Other</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="531" r="6" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <g transform=" translate(1125,529)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Annotation</tspan>
+        </text>
+    </g>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="16px" text-anchor="middle">
+        <tspan x="550" dy="35">When Code Gets Cheap, What Do You Sell?</tspan>
+    </text>
+    <g id="layer_0">
+        <g id="edge_0_1" class="visibility0">
+            <line x1="550" y1="73" x2="414" y2="230" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_0_3" class="visibility0">
+            <line x1="550" y1="73" x2="550" y2="191" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_1_2" class="visibility0">
+            <line x1="414" y1="230" x2="602" y2="230" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_1_4" class="visibility0">
+            <line x1="414" y1="230" x2="466" y2="324" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_4_5" class="visibility0">
+            <line x1="466" y1="324" x2="570" y2="324" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_4_6" class="visibility0">
+            <line x1="466" y1="324" x2="238" y2="442" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_6_7" class="visibility0">
+            <line x1="238" y1="442" x2="446" y2="442" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_6_8" class="visibility0">
+            <path d="M 238,442 Q 193,514 186,599" fill="none" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></path>
+        </g>
+        <g id="edge_6_10" class="visibility0">
+            <path d="M 238,442 Q 241,509 206,568" fill="none" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></path>
+        </g>
+        <g id="edge_6_14" class="visibility0">
+            <line x1="238" y1="442" x2="674" y2="528" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_8_9" class="visibility0">
+            <line x1="186" y1="599" x2="446" y2="599" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_8_12" class="visibility0">
+            <path d="M 186,599 Q 222,674 290,725" fill="none" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></path>
+        </g>
+        <g id="edge_10_11" class="visibility0">
+            <line x1="206" y1="568" x2="466" y2="568" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_10_12" class="visibility0">
+            <path d="M 206,568 Q 265,637 290,725" fill="none" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></path>
+        </g>
+        <g id="edge_12_13" class="visibility0">
+            <line x1="290" y1="725" x2="394" y2="725" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_14_15" class="visibility0">
+            <line x1="674" y1="528" x2="810" y2="528" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_14_16" class="visibility0">
+            <line x1="674" y1="528" x2="758" y2="654" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_16_17" class="visibility0">
+            <line x1="758" y1="654" x2="882" y2="654" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_16_18" class="visibility0">
+            <line x1="758" y1="654" x2="966" y2="803" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="element_0">
+            <g transform=" translate(550,73)">
+                <circle cx="0" cy="-10" r="5" fill="rgb(51,51,51)" fill-opacity="1.0" stroke="rgb(51,51,51)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <path d="M -8,-4 C -8,6 8,6 8,-4 Z" fill="rgb(51,51,51)"></path>
+                <text font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="start">
+                    <tspan x="25" dy="6">Client</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+    <g id="layer_1">
+        <g id="element_23">
+            <path d="M 151.6,551.9 L 172.4,489.1 Q 188.0,442.0 192.4,431.4 L 198.3,417.3 Q 202.6,406.6 213.3,402.3 L 227.4,396.4 Q 238.0,392.0 248.6,396.4 L 262.7,402.3 Q 273.4,406.6 277.7,417.3 L 283.6,431.4 Q 288.0,442.0 303.6,526.9 L 324.4,640.1 Q 340.0,725.0 335.6,735.6 L 329.7,749.7 Q 325.4,760.4 314.7,764.7 L 300.6,770.6 Q 290.0,775.0 279.4,770.6 L 265.3,764.7 Q 254.6,760.4 223.4,722.6 L 181.8,672.2 Q 150.6,634.4 146.3,623.7 L 140.4,609.6 Q 136.0,599.0 151.6,551.9 Z" fill="rgb(52,152,219)" fill-opacity="0.2" stroke="none"></path>
+            <path d="M 151.6,551.9 L 172.4,489.1 Q 188.0,442.0 192.4,431.4 L 198.3,417.3 Q 202.6,406.6 213.3,402.3 L 227.4,396.4 Q 238.0,392.0 248.6,396.4 L 262.7,402.3 Q 273.4,406.6 277.7,417.3 L 283.6,431.4 Q 288.0,442.0 303.6,526.9 L 324.4,640.1 Q 340.0,725.0 335.6,735.6 L 329.7,749.7 Q 325.4,760.4 314.7,764.7 L 300.6,770.6 Q 290.0,775.0 279.4,770.6 L 265.3,764.7 Q 254.6,760.4 223.4,722.6 L 181.8,672.2 Q 150.6,634.4 146.3,623.7 L 140.4,609.6 Q 136.0,599.0 151.6,551.9 Z" fill="none" stroke-width="2" stroke="rgb(52,152,219)" stroke-opacity="0.6" stroke-dasharray="8,4"></path>
+        </g>
+        <g id="element_24">
+            <path d="M 628.4,517.4 L 634.3,503.3 Q 638.6,492.6 649.3,488.3 L 663.4,482.4 Q 674.0,478.0 684.6,482.4 L 698.7,488.3 Q 709.4,492.6 797.0,575.1 L 913.8,685.1 Q 1001.4,767.6 1005.7,778.3 L 1011.6,792.4 Q 1016.0,803.0 1011.6,813.6 L 1005.7,827.7 Q 1001.4,838.4 990.7,842.7 L 976.6,848.6 Q 966.0,853.0 955.4,848.6 L 941.3,842.7 Q 930.6,838.4 868.2,793.7 L 785.0,734.1 Q 722.6,689.4 697.4,651.6 L 663.8,601.2 Q 638.6,563.4 634.3,552.7 L 628.4,538.6 Q 624.0,528.0 628.4,517.4 Z" fill="rgb(46,204,113)" fill-opacity="0.2" stroke="none"></path>
+            <path d="M 628.4,517.4 L 634.3,503.3 Q 638.6,492.6 649.3,488.3 L 663.4,482.4 Q 674.0,478.0 684.6,482.4 L 698.7,488.3 Q 709.4,492.6 797.0,575.1 L 913.8,685.1 Q 1001.4,767.6 1005.7,778.3 L 1011.6,792.4 Q 1016.0,803.0 1011.6,813.6 L 1005.7,827.7 Q 1001.4,838.4 990.7,842.7 L 976.6,848.6 Q 966.0,853.0 955.4,848.6 L 941.3,842.7 Q 930.6,838.4 868.2,793.7 L 785.0,734.1 Q 722.6,689.4 697.4,651.6 L 663.8,601.2 Q 638.6,563.4 634.3,552.7 L 628.4,538.6 Q 624.0,528.0 628.4,517.4 Z" fill="none" stroke-width="4" stroke="rgb(46,204,113)" stroke-opacity="0.6"></path>
+            <path d="M 628.4,517.4 L 634.3,503.3 Q 638.6,492.6 649.3,488.3 L 663.4,482.4 Q 674.0,478.0 684.6,482.4 L 698.7,488.3 Q 709.4,492.6 797.0,575.1 L 913.8,685.1 Q 1001.4,767.6 1005.7,778.3 L 1011.6,792.4 Q 1016.0,803.0 1011.6,813.6 L 1005.7,827.7 Q 1001.4,838.4 990.7,842.7 L 976.6,848.6 Q 966.0,853.0 955.4,848.6 L 941.3,842.7 Q 930.6,838.4 868.2,793.7 L 785.0,734.1 Q 722.6,689.4 697.4,651.6 L 663.8,601.2 Q 638.6,563.4 634.3,552.7 L 628.4,538.6 Q 624.0,528.0 628.4,517.4 Z" fill="none" stroke-width="1" stroke="rgb(46,204,113)" stroke-opacity="0.6"></path>
+        </g>
+    </g>
+    <g id="layer_10">
+        <g id="element_1" class="visibility0">
+            <g transform=" translate(414,230)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="0">Verified</tspan>
+                    <tspan x="-25" dy="18">Outcome</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_2" class="visibility0">
+            <g transform=" translate(602,230)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_3" class="visibility0">
+            <g opacity="0.75">
+                <g transform=" translate(238,191)">
+                    <g class="has-note">
+                        <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    </g>
+                    <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                        <tspan x="-25" dy="6">Outcome-Based</tspan>
+                    </text>
+                    <desc></desc>
+                    <g data-type="note">
+                        <circle cx="10" cy="-10" r="4" fill="rgb(52,152,219)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                        <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="7px" text-anchor="middle">
+                            <tspan x="10" dy="-7">i</tspan>
+                        </text>
+                        <desc>For bespoke software, paying on a verified result is the rare, novel end, not yet the norm</desc>
+                    </g>
+                </g>
+                <g transform=" translate(394,191)">
+                    <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                        <tspan x="25" dy="0">Shared-Savings</tspan>
+                        <tspan x="25" dy="18">Bridge</tspan>
+                    </text>
+                    <desc></desc>
+                </g>
+                <g transform=" translate(674,191)">
+                    <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                        <tspan x="25" dy="6">Fixed Price</tspan>
+                    </text>
+                    <desc></desc>
+                </g>
+                <g transform=" translate(862,191)">
+                    <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                        <tspan x="25" dy="0">Billable</tspan>
+                        <tspan x="25" dy="18">Hour</tspan>
+                    </text>
+                    <desc></desc>
+                    <g data-type="gameplay">
+                        <rect x="-43" y="12" width="86" height="12" fill="rgb(22,160,133)" fill-opacity="1.0" stroke="rgb(22,160,133)" stroke-opacity="1.0" stroke-width="1" ry="3" rx="3"></rect>
+                        <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="8px" text-anchor="middle">
+                            <tspan x="0" dy="22">strangler-fig</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <path d="M 228,191 A 10,16 0 1,0 248,191 A 10,16 0 1,0 228,191 Z" fill="rgb(130,145,180)"></path>
+            <path d="M 238,175 L 862,175 A 10,16 0 0 1 862,207 L 238,207 A 10,16 0 0 1 238,175 Z" style="fill:url(#pipelineTubeGradient);opacity:0.7" stroke="rgb(140,155,190)" stroke-width="1.5"></path>
+            <path d="M 238,175 L 862,175 A 10,6 0 0 1 862,181 L 238,181 Z" fill="white" opacity="0.4"></path>
+            <path d="M 238,175 A 10,16 0 0 0 238,207" fill="none" stroke="rgb(140,155,190)" stroke-width="2"></path>
+            <g transform=" translate(550,191)">
+                <rect x="-5" y="-15" width="10" height="10" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="3"></rect>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="0">Commercial</tspan>
+                    <tspan x="25" dy="18">Model</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="element_4" class="visibility0">
+            <g transform=" translate(466,324)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6">Working Software</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_5" class="visibility0">
+            <g transform=" translate(570,324)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_6" class="visibility0">
+            <g transform=" translate(238,442)">
+                <g class="has-note">
+                    <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                </g>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="0">Software</tspan>
+                    <tspan x="-25" dy="18">Factory</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="signal" class="signal-animated">
+                    <path d="M 20,-20 q 6,-10 12,0 q 6,10 12,0" fill="none" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="3" class=" signal-co-evolution"></path>
+                </g>
+                <g data-type="gameplay">
+                    <rect x="-13" y="12" width="26" height="12" fill="rgb(142,68,173)" fill-opacity="1.0" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="1" ry="3" rx="3"></rect>
+                    <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="8px" text-anchor="middle">
+                        <tspan x="0" dy="22">ILC</tspan>
+                    </text>
+                </g>
+                <g data-type="note">
+                    <circle cx="10" cy="-10" r="4" fill="rgb(52,152,219)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="7px" text-anchor="middle">
+                        <tspan x="10" dy="-7">i</tspan>
+                    </text>
+                    <desc>Not something you buy: a lifecycle rewrite where agents construct and humans design what they operate within</desc>
+                </g>
+            </g>
+        </g>
+        <g id="element_7" class="visibility0">
+            <g transform=" translate(446,442)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_8" class="visibility0">
+            <g transform=" translate(186,599)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6">Orchestration</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="signal" class="signal-animated">
+                    <path d="M 20,-20 q 6,-10 12,0 q 6,10 12,0" fill="none" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="3" class=" signal-co-evolution"></path>
+                </g>
+            </g>
+        </g>
+        <g id="element_9" class="visibility0">
+            <g transform=" translate(446,599)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_10" class="visibility0">
+            <g transform=" translate(206,568)">
+                <g class="has-note">
+                    <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                </g>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="0">Automated</tspan>
+                    <tspan x="-25" dy="18">Evals</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="note">
+                    <circle cx="10" cy="-10" r="4" fill="rgb(52,152,219)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="7px" text-anchor="middle">
+                        <tspan x="10" dy="-7">i</tspan>
+                    </text>
+                    <desc>Boolean pass/fail gives way to scoring the fraction of runs that satisfy intent</desc>
+                </g>
+            </g>
+        </g>
+        <g id="element_11" class="visibility0">
+            <g transform=" translate(466,568)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_12" class="visibility0">
+            <g transform=" translate(290,725)">
+                <g class="has-note">
+                    <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                </g>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6">Senior Judgment</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="note">
+                    <circle cx="10" cy="-10" r="4" fill="rgb(52,152,219)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="7px" text-anchor="middle">
+                        <tspan x="10" dy="-7">i</tspan>
+                    </text>
+                    <desc>Stays scarce: deciding what to build and proving it was built right; only the codifiable parts drift right</desc>
+                </g>
+            </g>
+        </g>
+        <g id="element_13" class="visibility0">
+            <g transform=" translate(394,725)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_14" class="visibility0">
+            <g transform=" translate(674,528)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="0">AI Coding</tspan>
+                    <tspan x="25" dy="18">Agents</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="signal" class="signal-animated">
+                    <path d="M 20,-20 l 16,12 l -8,0 M 20,-20 l 16,12 l 0,-8" fill="none" stroke="rgb(52,73,94)" stroke-opacity="1.0" stroke-width="3" class=" signal-commoditization"></path>
+                </g>
+            </g>
+        </g>
+        <g id="element_15" class="visibility0">
+            <g transform=" translate(810,528)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_16" class="visibility0">
+            <g transform=" translate(758,654)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="0">Foundation</tspan>
+                    <tspan x="25" dy="18">Models</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="signal" class="signal-animated">
+                    <path d="M 20,-20 l 16,12 l -8,0 M 20,-20 l 16,12 l 0,-8" fill="none" stroke="rgb(52,73,94)" stroke-opacity="1.0" stroke-width="3" class=" signal-commoditization"></path>
+                </g>
+            </g>
+        </g>
+        <g id="element_17" class="visibility0">
+            <g transform=" translate(882,654)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_18" class="visibility0">
+            <g transform=" translate(966,803)">
+                <circle cx="0" cy="0" r="8" fill="rgb(142,68,173)" fill-opacity="1.0" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <circle cx="-3" cy="-3" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <path d="M -6,0 L -6,6 L 0,6 L 0,0 Q -3,-2 -6,0 Z" fill="rgb(255,255,255)"></path>
+                <circle cx="3" cy="-3" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <path d="M 0,0 L 0,6 L 6,6 L 6,0 Q 3,-2 0,0 Z" fill="rgb(255,255,255)"></path>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6">Cloud Compute</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_19" class="visibility0">
+            <g transform=" translate(238,191)">
+                <g class="has-note">
+                    <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                </g>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6">Outcome-Based</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="note">
+                    <circle cx="10" cy="-10" r="4" fill="rgb(52,152,219)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="7px" text-anchor="middle">
+                        <tspan x="10" dy="-7">i</tspan>
+                    </text>
+                    <desc>For bespoke software, paying on a verified result is the rare, novel end, not yet the norm</desc>
+                </g>
+            </g>
+        </g>
+        <g id="element_20" class="visibility0">
+            <g transform=" translate(394,191)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="0">Shared-Savings</tspan>
+                    <tspan x="25" dy="18">Bridge</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_21" class="visibility0">
+            <g transform=" translate(674,191)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6">Fixed Price</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_22" class="visibility0">
+            <g transform=" translate(862,191)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="0">Billable</tspan>
+                    <tspan x="25" dy="18">Hour</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="gameplay">
+                    <rect x="-43" y="12" width="86" height="12" fill="rgb(22,160,133)" fill-opacity="1.0" stroke="rgb(22,160,133)" stroke-opacity="1.0" stroke-width="1" ry="3" rx="3"></rect>
+                    <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="8px" text-anchor="middle">
+                        <tspan x="0" dy="22">strangler-fig</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+    <g id="tooltip-layer"></g>
+</svg>

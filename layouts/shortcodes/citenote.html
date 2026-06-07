@@ -1,0 +1,11 @@
+{{- /* Usage: {{% citenote label="Note" %}}Body text with a citation [^ref]{{% /citenote %}}
+
+   Like {{% sidenote %}} but MUST be called with the {{%/%}} (markdown) notation.
+   The blank lines around .Inner make Hugo render the body through the page's main
+   markdown pass, so footnote citations ([^ref]) resolve against the page's
+   References section exactly as they do in the main article text. */ -}}
+<div class="side-note">
+
+{{ with .Get "label" }}<strong>{{ . }}</strong> {{ end }}{{ .Inner }}
+
+</div>

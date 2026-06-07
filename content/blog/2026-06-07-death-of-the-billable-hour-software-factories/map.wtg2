@@ -1,0 +1,81 @@
+title: When Code Gets Cheap, What Do You Sell?
+date: 2026-06-07
+author: Florian Buetow
+scope: Software-delivery consultancies in the age of AI-assisted construction
+question: "As construction commoditizes, where does a consultancy's scarce value sit?"
+
+stages: Genesis, Custom, Product, Commodity
+legend
+
+// Who we serve
+anchor Client
+
+// What the client buys, and how they pay
+Verified Outcome : II.5 >> III.2
+Commercial Model : III.0
+Working Software : II.7 >> III.1
+
+// The scarce, still-novel value: the new craft lives on the LEFT
+Software Factory : I.8 >> II.6
+Orchestration : I.6 >> II.6
+Automated Evals : I.7 >> II.7
+Senior Judgment : II.0 >> II.4
+
+// The industrialized, commoditizing layer the factory runs on lives on the RIGHT
+AI Coding Agents : III.5 >> IV.0
+Foundation Models : III.8 >> IV.3
+Cloud Compute : IV.6 (outsource)
+
+// Value chain
+Client -> Verified Outcome
+Client -> Commercial Model
+Verified Outcome -> Working Software
+Working Software -> Software Factory
+Software Factory -> Orchestration
+Software Factory -> Automated Evals
+Software Factory -> AI Coding Agents
+Orchestration -> Senior Judgment
+Automated Evals -> Senior Judgment
+AI Coding Agents -> Foundation Models
+Foundation Models -> Cloud Compute
+
+// Pricing mechanisms placed by their CURRENT maturity, not by where strategy wants to go:
+// the billable hour is the commodity; bespoke outcome pricing is the novel, risky one.
+pipeline Commercial Model {
+  Outcome-Based : I.8
+  Shared-Savings Bridge : II.4
+  Fixed Price : III.5
+  Billable Hour : IV.2
+}
+
+// Team alignment to evolution phase
+group The New Craft {
+  team: pioneer
+  Software Factory
+  Orchestration
+  Automated Evals
+  Senior Judgment
+}
+
+group Industrialized Layer {
+  team: town-planner
+  AI Coding Agents
+  Foundation Models
+  Cloud Compute
+}
+
+// Climate
+signal commoditization on AI Coding Agents
+signal commoditization on Foundation Models
+signal co-evolution on Software Factory
+signal co-evolution on Orchestration
+
+// Manoeuvres: strategic intent climbs LEFT, toward the scarce value
+gameplay ILC "Build the software factory once, reuse it across clients" on Software Factory
+gameplay strangler-fig "Progressively replaced by outcome pricing: a bridge, not a big bang" on Billable Hour
+
+// Strategic notes
+note "Not something you buy: a lifecycle rewrite where agents construct and humans design what they operate within" on Software Factory
+note "Stays scarce: deciding what to build and proving it was built right; only the codifiable parts drift right" on Senior Judgment
+note "Boolean pass/fail gives way to scoring the fraction of runs that satisfy intent" on Automated Evals
+note "For bespoke software, paying on a verified result is the rare, novel end, not yet the norm" on Outcome-Based
