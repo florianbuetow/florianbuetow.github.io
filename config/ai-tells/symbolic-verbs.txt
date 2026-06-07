@@ -1,0 +1,14 @@
+# "Symbolic" verbs (severity: WARN).
+# AI loves to tell you what things *represent* instead of stating facts.
+# Replace with what happened or what you learned. Common verbs, so WARN.
+# Companion: symbolic-phrases.txt (symbolic multi-word phrases).
+# Format: word [=> replacement hint]. # comments and blank lines ignored.
+
+symbolizes
+symbolises
+signifies
+signify
+embodies
+exemplifies
+epitomizes
+underscores

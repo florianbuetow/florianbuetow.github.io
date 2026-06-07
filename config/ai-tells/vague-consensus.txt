@@ -1,0 +1,18 @@
+# Vague appeals to consensus (severity: ERROR).
+# "Experts agree", "many believe" with nobody named. Name them or cut it.
+# Companion: vague-research.txt (vague research/data attributions).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+experts say
+experts agree
+experts believe
+many believe
+many argue
+some say
+some argue
+it is widely known
+it's widely known
+it is widely believed
+it's widely believed
+it is generally accepted
+it is well established

@@ -1,0 +1,14 @@
+# Soft-claim qualifiers (severity: ERROR).
+# Hedged non-statements that dodge committing to a point.
+# Companion: glazing-openers.txt (throat-clearing openers).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+needless to say
+it goes without saying
+one might argue
+one could argue
+it could be argued
+it's no secret that
+it is no secret that
+when it comes down to it
+at its core

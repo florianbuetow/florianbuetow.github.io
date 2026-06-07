@@ -1,0 +1,15 @@
+# Formal quantifiers and connectors (severity: WARN).
+# Inflated stand-ins for plain words. WARN -- some have legitimate uses.
+# Companion: formal-verbs.txt (formality-first verbs).
+# Format: word => plain replacement. # comments and blank lines ignored.
+
+plethora => plenty
+myriad => many
+numerous => many
+a multitude of => many
+aforementioned => this
+subsequently => then
+synergy => working together
+synergies => working together
+in order to => to
+prior to => before

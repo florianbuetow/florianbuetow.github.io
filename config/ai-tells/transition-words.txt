@@ -1,0 +1,23 @@
+# Formal transition words (severity: WARN).
+# A few are fine; clusters and sentence-initial overuse are the tell. The
+# density/sentence-initial signal is computed structurally; this list flags
+# the heavier-handed connectors. # comments and blank lines ignored.
+
+moreover
+furthermore
+additionally
+consequently
+nevertheless
+nonetheless
+notwithstanding
+hence
+thereby
+thus
+therefore
+accordingly
+in addition
+that being said
+with that being said
+on the other hand
+in contrast
+by the same token

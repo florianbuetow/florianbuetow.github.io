@@ -1,0 +1,11 @@
+# AI-tell allowlist -- suppress known false positives.
+# One phrase per line, matched case-insensitively against the flagged text.
+# If a finding's matched text equals an entry here, it is dropped.
+# Same escape-hatch pattern as config/harper/dictionary.txt.
+#
+# Example: if you legitimately cite a real person named "David Kim",
+# add the line:  david kim
+
+# Deliberate literary use in the cyborg book review closing line
+# ("a testament to being human").
+testament to

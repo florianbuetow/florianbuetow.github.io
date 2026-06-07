@@ -1,0 +1,15 @@
+# Marketing puffery -- empty adjectives (severity: WARN).
+# Vague praise that carries no information. Back the claim with a detail.
+# Companion: puffery-compounds.txt (hyphenated hype + hype verbs).
+# Format: word [=> replacement hint]. # comments and blank lines ignored.
+
+revolutionary
+groundbreaking
+ground-breaking
+transformative
+unparalleled
+unprecedented
+robust
+powerful
+comprehensive
+innovative

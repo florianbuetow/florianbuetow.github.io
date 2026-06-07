@@ -1,0 +1,17 @@
+# Formulaic "despite challenges" hand-waving (severity: ERROR).
+# The canned "despite the obstacles..." concession. Be specific about what
+# was hard and what actually happened.
+# Companion: rosy-future.txt (canned optimistic closers).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+despite these challenges
+despite the challenges
+despite the obstacles
+despite these obstacles
+despite its limitations
+despite the difficulties
+despite the complexity
+while there are challenges
+while challenges remain
+challenges notwithstanding
+in spite of these challenges

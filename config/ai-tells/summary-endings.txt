@@ -1,0 +1,18 @@
+# Formulaic summary endings (severity: ERROR).
+# Canned wrap-up openers. End on a concrete point, not a recap.
+# A trailing "Conclusion"/"Summary" heading is flagged separately as WARN.
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+in conclusion
+in summary
+to summarize
+to sum up
+all in all
+in closing
+to wrap up
+to wrap things up
+when all is said and done
+the bottom line is
+in a nutshell
+to put it simply
+ultimately, the

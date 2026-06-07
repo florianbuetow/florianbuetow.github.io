@@ -1,0 +1,18 @@
+# Formality-first verbs (severity: WARN).
+# Write like you talk. These have legitimate technical uses, so WARN only.
+# Companion: formal-quantifiers.txt (formal quantifiers & connectors).
+# Format: word => plain replacement. # comments and blank lines ignored.
+
+utilize => use
+utilizes => uses
+utilizing => using
+utilization => use
+utilise => use
+facilitate => help
+facilitates => helps
+expedite => speed up
+commence => start
+endeavor => try
+ascertain => find out
+leverage => use
+leverages => uses

@@ -1,0 +1,19 @@
+# Throat-clearing openers (severity: ERROR).
+# Filler that announces an opinion instead of stating it. Just say the thing.
+# Companion: glazing-qualifiers.txt (soft-claim hedges).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+it's worth noting => (just say it)
+it is worth noting => (just say it)
+it's worth mentioning
+it is worth mentioning
+it's worth considering
+it is worth considering
+it's worth remembering
+it's important to note
+it is important to note
+it's important to remember
+it is important to remember
+it's important to understand
+it should be noted
+it should be emphasized

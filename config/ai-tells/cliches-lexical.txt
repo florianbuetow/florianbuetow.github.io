@@ -1,0 +1,14 @@
+# LLM lexical clichés -- single words / short tells (severity: ERROR).
+# Companion: cliches-phrase.txt (multi-word clichés & metaphors).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+delve => dig into
+tapestry
+ever-evolving
+ever-changing
+game-changer
+game changer
+buckle up
+last but not least
+testament to => proof of
+stands as a testament

@@ -1,0 +1,17 @@
+# Hedging phrases (severity: WARN).
+# Multi-word qualifiers and disclaimers that weaken the point.
+# Companion: hedging-adverbs.txt (single-word hedges).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+in general
+more or less
+to some extent
+to a certain extent
+it could be argued
+it might be said
+some would say
+it depends
+your mileage may vary
+at least to some degree
+in many ways
+in a sense

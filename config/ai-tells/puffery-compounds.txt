@@ -1,0 +1,18 @@
+# Marketing puffery -- hyphenated hype and hype verbs (severity: WARN).
+# The brochure vocabulary. Show the thing instead of branding it.
+# Companion: puffery-adjectives.txt (empty praise adjectives).
+# Format: word [=> replacement hint]. # comments and blank lines ignored.
+
+world-class
+state-of-the-art
+best-in-class
+next-generation
+next-gen
+game-changing
+cutting-edge
+bleeding-edge
+seamless => smooth
+seamlessly
+paradigm shift
+supercharge
+turbocharge

@@ -1,0 +1,14 @@
+# Canned optimistic closers (severity: ERROR).
+# The "the future is bright, only time will tell" sign-off. Land on a
+# concrete prediction or takeaway instead.
+# Companion: despite-challenges.txt (formulaic concessions).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+the road ahead
+the future looks bright
+the future is bright
+only time will tell
+the possibilities are endless
+the sky is the limit
+exciting times ahead
+the journey is just beginning

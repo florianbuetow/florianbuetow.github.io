@@ -1,0 +1,25 @@
+# Corporate posturing -ing verbs (severity: WARN).
+# "...highlighting key benefits...", "...facilitating collaboration...".
+# Especially suspicious after a comma (caught with higher signal structurally).
+# Swap for a simple active verb. # comments and blank lines ignored.
+
+highlighting => shows
+emphasizing => stresses
+facilitating => helps
+leveraging => uses
+showcasing => shows
+underscoring
+fostering
+streamlining
+empowering
+enabling
+ensuring
+enhancing
+unlocking
+elevating
+spearheading
+harnessing
+revolutionizing
+optimizing
+maximizing
+prioritizing

@@ -1,0 +1,15 @@
+# Vague research attributions (severity: ERROR).
+# "Studies show" with no citation. Name the study/data or cut it.
+# Companion: vague-consensus.txt (vague appeals to consensus).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+studies show => cite the study
+studies have shown
+research shows
+research has shown
+research suggests
+research indicates
+data shows => cite the data
+science says
+scientists say
+scientists believe

@@ -75,6 +75,20 @@
 <script src="{{ $toc.RelPermalink }}" integrity="{{ $toc.Data.Integrity }}" defer></script>
 {{ $lightbox := resources.Get "js/lightbox.js" | js.Build | minify | fingerprint }}
 <script src="{{ $lightbox.RelPermalink }}" integrity="{{ $lightbox.Data.Integrity }}" defer></script>
+{{ if and hugo.IsServer .Draft }}
+{{ with .File }}
+<script>
+window.__draftAnnotator = {
+  enabled: true,
+  filePath: {{ .Path | jsonify | safeJS }},
+  relPermalink: {{ $.RelPermalink | jsonify | safeJS }},
+  endpoint: "http://127.0.0.1:8787/draft-annotation"
+};
+</script>
+{{ $draftAnnotator := resources.Get "js/draft-annotator.js" | js.Build | minify | fingerprint }}
+<script src="{{ $draftAnnotator.RelPermalink }}" integrity="{{ $draftAnnotator.Data.Integrity }}" defer></script>
+{{ end }}
+{{ end }}
 {{ if .Store.Get "hasMermaid" }}
 {{ $opts := dict "targetPath" "js/mermaid.js" "format" "esm" "minify" hugo.IsProduction }}
 {{ $js := resources.Get "js/mermaid-init.js" | js.Build $opts | fingerprint }}

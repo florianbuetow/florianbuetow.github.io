@@ -1,0 +1,12 @@
+# "Symbolic" phrases (severity: WARN).
+# Multi-word constructions that gesture at meaning instead of stating it.
+# Companion: symbolic-verbs.txt (single symbolic verbs).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+serves as a reminder
+stands for
+represents a shift
+reflects a broader
+speaks to the
+is emblematic of
+is a microcosm

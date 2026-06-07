@@ -553,6 +553,90 @@ a {
     display: block;
     cursor: zoom-out;
 }
+.draft-annotation-dialog {
+    width: min(560px, calc(100vw - 32px));
+    border: 1px solid #c9c9c9;
+    border-radius: 8px;
+    padding: 0;
+    color: #222;
+    background: #fff;
+}
+.draft-annotation-dialog::backdrop {
+    background: rgba(15, 15, 15, 0.34);
+}
+.draft-annotation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px;
+}
+.draft-annotation-form h2 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
+}
+.draft-annotation-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #333;
+}
+.draft-annotation-form textarea {
+    width: 100%;
+    resize: vertical;
+    border: 1px solid #bdbdbd;
+    border-radius: 6px;
+    padding: 9px 10px;
+    font: inherit;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: #222;
+    background: #fafafa;
+}
+.draft-annotation-form textarea:focus {
+    outline: 2px solid #444;
+    outline-offset: 2px;
+}
+.draft-annotation-status {
+    min-height: 1.2em;
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    color: #555;
+}
+.draft-annotation-status[data-state="error"] {
+    color: #9f1d1d;
+}
+.draft-annotation-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+.draft-annotation-actions button {
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font: inherit;
+    font-size: 0.86rem;
+    cursor: pointer;
+    color: #222;
+    background: #f4f4f4;
+}
+.draft-annotation-actions button[type="submit"] {
+    border-color: #222;
+    color: #fff;
+    background: #222;
+}
+.draft-annotation-actions button:disabled {
+    cursor: wait;
+    opacity: 0.65;
+}
+.draft-annotation-saved {
+    outline: 2px solid #9ac58c;
+    outline-offset: 4px;
+}
 .prose a {
     color: #333;
     text-decoration: underline;

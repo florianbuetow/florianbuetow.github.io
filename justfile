@@ -67,6 +67,11 @@ help:
     @printf "  %-18s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-18s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
     @printf "  %-18s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
+    @printf "  %-18s %s\n" "draft-annotator" "Run the local draft annotation helper"
+    @printf "  %-18s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
+    @printf "  %-18s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
+    @printf "  %-18s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
+    @printf "  %-18s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
     @printf "  %-18s %s\n" "build" "Build the production site (optimize → validate → hugo → pagefind)"
     @printf "  %-18s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
     @printf "  %-18s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
@@ -562,6 +567,60 @@ spell-check file='':
     printf "\033[0;32m✓ spell-check passed\033[0m\n"
     echo ""
 
+# Run the local draft annotation helper
+draft-annotator:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Running Draft Annotator ===\033[0m\n"
+    printf "\033[0;32m→ listening on http://127.0.0.1:8787/draft-annotation\033[0m\n"
+    echo ""
+    exec python3 scripts/draft_annotator.py serve
+
+# Fail if draft annotation blocks remain in published articles
+validate-draft-annotations:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Validating Draft Annotations ===\033[0m\n"
+    python3 scripts/draft_annotator.py validate
+    printf "\033[0;32m✓ validate-draft-annotations passed\033[0m\n"
+    echo ""
+
+# Run the draft annotator unit tests
+draft-annotator-test:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Testing Draft Annotator ===\033[0m\n"
+    python3 scripts/test_draft_annotator.py
+    printf "\033[0;32m✓ draft-annotator-test passed\033[0m\n"
+    echo ""
+
+# Detect AI-generated-text tells in draft articles (draft: true), or a single file if given
+ai-text-detect file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Detecting AI-Generated-Text Tells ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        python3 scripts/ai-text-detector.py --file "{{file}}"
+    else
+        python3 scripts/ai-text-detector.py
+    fi
+    printf "\033[0;32m✓ ai-text-detect passed\033[0m\n"
+    echo ""
+
+# Run the ai-text-detector unit tests
+ai-text-detect-test:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Testing AI-Text Detector ===\033[0m\n"
+    python3 scripts/test_ai_text_detector.py
+    printf "\033[0;32m✓ ai-text-detect-test passed\033[0m\n"
+    echo ""
+
 # Build the production site (optimize → validate → hugo)
 build:
     #!/usr/bin/env bash
@@ -572,8 +631,10 @@ build:
     just strip-exif
     just validate-images
     just validate-content
+    just validate-draft-annotations
     just check-code-line-length
     just validate-md
+    just ai-text-detect
     hugo --minify --cleanDestinationDir
     just build-pagefind-index
     printf "\033[0;32m✓ build completed successfully\033[0m\n"

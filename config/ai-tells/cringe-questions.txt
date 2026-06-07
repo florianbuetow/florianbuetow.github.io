@@ -1,0 +1,27 @@
+# Cringe transition questions (severity: ERROR).
+# Infomercial-style rhetorical fragments. If you wouldn't say it out loud,
+# don't write it. The short "The ___?" pattern is also caught structurally.
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+the catch?
+the kicker?
+the brutal truth?
+the result?
+the problem?
+the best part?
+the takeaway?
+the bottom line?
+the reality?
+the twist?
+the secret?
+the upshot?
+the payoff?
+the gotcha?
+here's the kicker
+here's the catch
+here's the thing
+but here's the thing
+here's the best part
+and the best part?
+plot twist
+but wait, there's more

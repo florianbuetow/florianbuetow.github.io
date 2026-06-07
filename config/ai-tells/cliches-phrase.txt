@@ -1,0 +1,21 @@
+# LLM clichés -- multi-word phrases, metaphors, zeitgeist (severity: ERROR).
+# Companion: cliches-lexical.txt (single-word tells).
+# Format: phrase [=> replacement hint]. # comments and blank lines ignored.
+
+in today's fast-paced world
+in today's digital age
+in the digital age
+treasure trove
+embark on a journey
+embark on this journey
+navigating the complexities
+navigate the complexities
+in the realm of
+unlock the power
+unlock the potential
+unleash the power
+harness the power
+needle in a haystack
+a deep dive into
+let's dive in
+let's dive into

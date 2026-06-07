@@ -1,0 +1,18 @@
+# Fabricated example people (severity: ERROR).
+# When AI lacks a real case study it invents a person -- classically
+# "Sarah Chen". Replace with a real story, case study, or named source.
+# If one of these is a genuine real person you cite, add them to allowlist.txt.
+# Format: name [=> replacement hint]. # comments and blank lines ignored.
+
+sarah chen => a real, named example
+dr. sarah chen
+john doe
+jane doe
+john smith
+jane smith
+sarah johnson
+michael chen
+emily carter
+david kim
+maria garcia
+alex rivera

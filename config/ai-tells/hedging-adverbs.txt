@@ -1,0 +1,12 @@
+# Hedging adverbs (severity: WARN).
+# Single-word qualifiers that soften a claim. Bare may/might/could are
+# excluded on purpose -- too common and often legitimate.
+# Companion: hedging-phrases.txt (multi-word hedges).
+# Format: word [=> replacement hint]. # comments and blank lines ignored.
+
+arguably
+perhaps
+somewhat
+relatively speaking
+generally speaking
+broadly speaking
