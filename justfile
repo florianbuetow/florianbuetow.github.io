@@ -50,8 +50,8 @@ help:
     @printf "  %-18s %s\n" "destroy" "Destroy build artifacts and server state"
     @echo ""
     @printf "\033[0;33mRun:\033[0m\n"
-    @printf "  %-18s %s\n" "start" "Start the Hugo development server (background)"
-    @printf "  %-18s %s\n" "stop" "Stop the Hugo development server"
+    @printf "  %-18s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
+    @printf "  %-18s %s\n" "stop" "Stop the Hugo development server and draft annotator"
     @printf "  %-18s %s\n" "status" "Check if the Hugo server is running"
     @printf "  %-18s %s\n" "dev" "Run Hugo server in foreground (auto-rebuild + live-reload)"
     @echo ""
@@ -274,11 +274,39 @@ destroy:
     @printf "\033[0;32m✓ destroy completed successfully\033[0m\n"
     @echo ""
 
-# Start the Hugo development server
+# Start the draft annotator and Hugo development server
 start:
     #!/usr/bin/env bash
     echo ""
     printf "\033[0;34m=== Starting Hugo Development Server ===\033[0m\n"
+    if curl -fsS --max-time 2 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
+        printf "\033[0;32m✓ Draft annotator already running at http://127.0.0.1:8787/draft-annotation\033[0m\n"
+    else
+        rm -f .draft-annotator.pid .draft-annotator.log
+        nohup python3 scripts/draft_annotator.py serve > .draft-annotator.log 2>&1 &
+        echo $! > .draft-annotator.pid
+        ANNOTATOR_PID=$(cat .draft-annotator.pid)
+        for i in $(seq 1 20); do
+            if curl -fsS --max-time 2 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
+                printf "\033[0;32m✓ Draft annotator started (PID %s) at http://127.0.0.1:8787/draft-annotation\033[0m\n" "$ANNOTATOR_PID"
+                break
+            fi
+            if ! kill -0 "$ANNOTATOR_PID" 2>/dev/null; then
+                printf "\033[0;31m✗ draft annotator failed: process died (see .draft-annotator.log)\033[0m\n"
+                rm -f .draft-annotator.pid
+                echo ""
+                exit 1
+            fi
+            sleep 0.2
+        done
+        if ! curl -fsS --max-time 2 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
+            printf "\033[0;31m✗ draft annotator failed: did not respond on http://127.0.0.1:8787 within 4s\033[0m\n"
+            kill "$ANNOTATOR_PID" 2>/dev/null || true
+            rm -f .draft-annotator.pid
+            echo ""
+            exit 1
+        fi
+    fi
     if [ -f .hugo-server.pid ] && kill -0 "$(cat .hugo-server.pid)" 2>/dev/null; then
         printf "\033[0;31m✗ start failed: server already running (PID %s)\033[0m\n" "$(cat .hugo-server.pid)"
         echo ""
@@ -314,7 +342,7 @@ start:
     echo ""
     exit 1
 
-# Stop the Hugo development server
+# Stop the Hugo development server and draft annotator
 stop:
     #!/usr/bin/env bash
     echo ""
@@ -337,27 +365,42 @@ stop:
         fi
     fi
     if [ -z "$PID" ]; then
-        printf "\033[0;31m✗ stop failed: no hugo server running on port {{port}}\033[0m\n"
-        echo ""
-        exit 1
-    fi
-    kill "$PID" 2>/dev/null || true
-    for i in $(seq 1 20); do
-        if ! kill -0 "$PID" 2>/dev/null; then
-            break
+        printf "\033[0;33m→ no Hugo server running on port {{port}}\033[0m\n"
+    else
+        kill "$PID" 2>/dev/null || true
+        for i in $(seq 1 20); do
+            if ! kill -0 "$PID" 2>/dev/null; then
+                break
+            fi
+            sleep 0.5
+        done
+        if kill -0 "$PID" 2>/dev/null; then
+            kill -9 "$PID" 2>/dev/null || true
+            sleep 0.5
         fi
-        sleep 0.5
-    done
-    if kill -0 "$PID" 2>/dev/null; then
-        kill -9 "$PID" 2>/dev/null || true
-        sleep 0.5
+        if curl -s -o /dev/null --max-time 2 http://127.0.0.1:{{port}}/ 2>/dev/null; then
+            printf "\033[0;31m✗ stop failed: http://127.0.0.1:{{port}} still responding (PID %s, via %s)\033[0m\n" "$PID" "$SOURCE"
+            echo ""
+            exit 1
+        fi
+        printf "\033[0;32m✓ Server stopped (PID %s, via %s)\033[0m\n" "$PID" "$SOURCE"
     fi
-    if curl -s -o /dev/null --max-time 2 http://127.0.0.1:{{port}}/ 2>/dev/null; then
-        printf "\033[0;31m✗ stop failed: http://127.0.0.1:{{port}} still responding (PID %s, via %s)\033[0m\n" "$PID" "$SOURCE"
+    if curl -fsS --max-time 2 -X POST http://127.0.0.1:8787/draft-annotation/shutdown >/dev/null 2>&1; then
+        for i in $(seq 1 20); do
+            if ! curl -fsS --max-time 2 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
+                rm -f .draft-annotator.pid
+                printf "\033[0;32m✓ Draft annotator stopped\033[0m\n"
+                echo ""
+                exit 0
+            fi
+            sleep 0.2
+        done
+        printf "\033[0;31m✗ stop failed: draft annotator did not shut down\033[0m\n"
         echo ""
         exit 1
     fi
-    printf "\033[0;32m✓ Server stopped (PID %s, via %s)\033[0m\n" "$PID" "$SOURCE"
+    rm -f .draft-annotator.pid
+    printf "\033[0;32m✓ Draft annotator was not running\033[0m\n"
     echo ""
 
 # Check if the Hugo server is running
@@ -567,12 +610,45 @@ spell-check file='':
     printf "\033[0;32m✓ spell-check passed\033[0m\n"
     echo ""
 
-# Run the local draft annotation helper
-draft-annotator:
+# Run, restart, or cooperatively stop the local draft annotation helper
+draft-annotator action='start':
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Running Draft Annotator ===\033[0m\n"
+    if [ "{{action}}" = "stop" ]; then
+        if curl -fsS --max-time 1 -X POST http://127.0.0.1:8787/draft-annotation/shutdown >/dev/null 2>&1; then
+            printf "\033[0;33m→ requested cooperative shutdown\033[0m\n"
+            for i in $(seq 1 20); do
+                if ! curl -fsS --max-time 1 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
+                    printf "\033[0;32m✓ draft annotator stopped\033[0m\n"
+                    echo ""
+                    exit 0
+                fi
+                sleep 0.2
+            done
+            printf "\033[0;31m✗ draft-annotator stop failed: helper did not shut down\033[0m\n"
+            echo ""
+            exit 1
+        fi
+        printf "\033[0;32m✓ draft annotator is not running\033[0m\n"
+        echo ""
+        exit 0
+    fi
+    if curl -fsS --max-time 1 -X POST http://127.0.0.1:8787/draft-annotation/shutdown >/dev/null 2>&1; then
+        printf "\033[0;33m→ existing draft annotator found; requested cooperative shutdown\033[0m\n"
+        for i in $(seq 1 20); do
+            if ! curl -fsS --max-time 1 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
+                break
+            fi
+            sleep 0.2
+        done
+        if curl -fsS --max-time 1 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
+            printf "\033[0;31m✗ draft-annotator failed: existing helper did not shut down\033[0m\n"
+            echo ""
+            exit 1
+        fi
+    fi
     printf "\033[0;32m→ listening on http://127.0.0.1:8787/draft-annotation\033[0m\n"
     echo ""
     exec python3 scripts/draft_annotator.py serve

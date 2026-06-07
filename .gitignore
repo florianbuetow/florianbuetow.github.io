@@ -34,6 +34,9 @@
 .hugo-server.pid
 .hugo-server.log
 
+# Draft annotator state
+.draft-annotator.*
+
 # Python tooling (tools/)
 **/.venv/
 **/__pycache__/

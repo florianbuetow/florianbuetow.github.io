@@ -13,6 +13,7 @@ import html
 import json
 import re
 import sys
+import threading
 from dataclasses import dataclass
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -308,7 +309,17 @@ class DraftAnnotationHandler(BaseHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
+    def do_GET(self) -> None:
+        if self.path == "/draft-annotation/health":
+            self._send_json(200, {"ok": True})
+            return
+        self._send_json(404, {"ok": False, "error": "Not found."})
+
     def do_POST(self) -> None:
+        if self.path == "/draft-annotation/shutdown":
+            self._send_json(200, {"ok": True, "message": "Shutting down draft annotator."})
+            threading.Thread(target=self.server.shutdown, daemon=True).start()
+            return
         if self.path != "/draft-annotation":
             self._send_json(404, {"ok": False, "error": "Not found."})
             return
@@ -336,7 +347,10 @@ class DraftAnnotationHandler(BaseHTTPRequestHandler):
 def serve(host: str, port: int) -> None:
     server = ThreadingHTTPServer((host, port), DraftAnnotationHandler)
     print(f"draft-annotator: listening on http://{host}:{port}/draft-annotation")
-    server.serve_forever()
+    try:
+        server.serve_forever()
+    finally:
+        server.server_close()
 
 
 def main(argv: list[str] | None = None) -> int:
