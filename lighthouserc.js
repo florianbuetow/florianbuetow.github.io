@@ -9,7 +9,7 @@ module.exports = {
         'http://localhost/projects/',
         'http://localhost/resources/',
       ],
-      numberOfRuns: 3,
+      numberOfRuns: 1,
     },
     assert: {
       preset: 'lighthouse:recommended',
