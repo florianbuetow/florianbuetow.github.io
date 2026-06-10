@@ -63,3 +63,5 @@ OMG's
 lifecycle
 sidequote
 buyable
+launchd
+pid
