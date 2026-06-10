@@ -26,7 +26,6 @@ Four skills drive it:
 - `/terminator:install` - set up single-kill and/or double-kill, each bound to its own phrase.
 - `/terminator:update` - change a phrase or toggle case sensitivity, live, with no restart.
 - `/terminator:remove` - uninstall cleanly, leaving any other Stop hooks intact.
-- `/terminator:whendone` - arm the current session to self-terminate once all work is finished.
 
 ```
 claude plugin marketplace add florianbuetow/claude-code
