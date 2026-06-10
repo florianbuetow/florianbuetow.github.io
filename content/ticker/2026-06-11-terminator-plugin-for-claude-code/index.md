@@ -21,11 +21,12 @@ You choose what gets terminated by installing one or both of two scripts:
 - **single-kill** - terminates Claude and leaves the terminal open.
 - **double-kill** - terminates Claude, then the terminal shell that launched it.
 
-Four skills drive it:
+Three skills to configure it:
 
 - `/terminator:install` - set up single-kill and/or double-kill, each bound to its own phrase.
 - `/terminator:update` - change a phrase or toggle case sensitivity, live, with no restart.
 - `/terminator:remove` - uninstall cleanly, leaving any other Stop hooks intact.
+- `/terminator:info` - show configuration and catchphrase.
 
 ```
 claude plugin marketplace add florianbuetow/claude-code
