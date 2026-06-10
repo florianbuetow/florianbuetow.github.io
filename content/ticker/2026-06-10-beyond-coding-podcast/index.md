@@ -2,7 +2,7 @@
 title: "I Joined Patrick Akil on the Beyond Coding Podcast"
 date: 2026-06-10
 draft: false
-description: "I was a guest on Patrick Akil's Beyond Coding podcast. We talked about [TODO: fill in topics once the episode airs]. Thanks to Patrick for having me."
+description: "I was a guest on Patrick Akil's Beyond Coding podcast. We discussed the review bottleneck in software engineering and how to solve it. Thanks to Patrick for having me."
 author: "Florian Buetow"
 readTime: "1 min read"
 categories: ["Interviews", "AI Engineering", "Ticker News"]
