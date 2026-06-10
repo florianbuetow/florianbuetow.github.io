@@ -1,6 +1,7 @@
 baseURL = 'https://cracking-ai-engineering.com/'
 locale = 'en-us'
 title = "Florian's Blog"
+timeZone = 'Europe/Berlin'
 [pagination]
   pagerSize = 4
 
