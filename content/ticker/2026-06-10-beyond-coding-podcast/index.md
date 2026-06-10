@@ -22,6 +22,10 @@ We talked about why code review is becoming the bottleneck in AI-assisted softwa
 - [On Spotify](https://open.spotify.com/episode/3ro3ArGRgPh9PQ8Xt8caGU?si=183dcd46fb6b4848)
 - [On Apple Podcasts](https://podcasts.apple.com/us/podcast/how-top-engineers-are-solving-the-code-review-bottleneck/id1572440477?i=1000772025902)
 
+
+To comment or share please head on over to [LinkedIn](https://www.linkedin.com/posts/fbuetow_i-recently-joined-patrick-akil-on-the-beyond-share-7470498139343396864-tEYO/)
+
+
 ## References
 
 - [Beyond Coding on Spotify](https://open.spotify.com/show/7asIKIPU3N6n0SNWHxwMnQ)
