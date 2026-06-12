@@ -21,7 +21,7 @@ During the livestream a judge said "I genuinely consider using this myself."
 
 Many thanks to the Dynamous.ai team and AWS Kiro for putting this together!
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7428498053860515840/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7428498053860515840/)
 
 ## References
 

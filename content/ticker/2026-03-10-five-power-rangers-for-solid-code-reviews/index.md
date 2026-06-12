@@ -40,7 +40,7 @@ claude plugin install solid-principles
 
 Restart Claude CLI and type `/solid`.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7437006835532054528/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7437006835532054528/)
 
 ## References
 

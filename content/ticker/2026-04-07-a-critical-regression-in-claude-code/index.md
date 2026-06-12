@@ -26,7 +26,7 @@ Her data from over 234,000 tool calls across nearly 7,000 session files indicate
 
 Reasoning depth is a core structural requirement for complex agentic coding, and the thinking token regression eliminates that advantage entirely. With deep reasoning degraded, the 2x+ price premium is no longer justified for many use cases over models that have not exhibited this regression and deliver stronger autonomous performance at a lower cost without requiring constant human supervision to compensate for the observed regressions.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7447253977718550528/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7447253977718550528/)
 
 ## References
 

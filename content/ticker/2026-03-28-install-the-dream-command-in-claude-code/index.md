@@ -18,7 +18,7 @@ If you do not have native access yet, you can use the public Dream prompt today 
 
 After that, simply type `/dream` to consolidate your project's memory.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7443552472767434752/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7443552472767434752/)
 
 ## References
 

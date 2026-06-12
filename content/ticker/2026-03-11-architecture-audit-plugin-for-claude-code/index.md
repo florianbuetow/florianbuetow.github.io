@@ -37,7 +37,7 @@ claude plugin marketplace add florianbuetow/claude-code
 claude plugin install beyond-solid-principles
 ```
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7437423642940080128/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7437423642940080128/)
 
 ## References
 

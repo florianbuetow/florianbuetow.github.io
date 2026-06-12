@@ -26,7 +26,7 @@ claude plugin marketplace add florianbuetow/claude-code
 claude plugin install retrospective
 ```
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7439943755094237184/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7439943755094237184/)
 
 ## References
 

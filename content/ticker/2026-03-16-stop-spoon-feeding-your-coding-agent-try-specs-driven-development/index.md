@@ -37,7 +37,7 @@ claude plugin marketplace add florianbuetow/claude-code
 claude plugin install spec-dd
 ```
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7439196260852453376/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7439196260852453376/)
 
 ## References
 

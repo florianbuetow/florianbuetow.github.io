@@ -31,7 +31,7 @@ Guard is a CLI/TUI tool that protects your files from AI coding agents. It uses 
 
 **Requirements:** Go, a UNIX filesystem with immutable flag support (Linux/Mac: ext*, Btrfs, XFS, HFS+, APFS), run with `sudo guard`, AI without sudo access.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7428093313297113088/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7428093313297113088/)
 
 ## References
 

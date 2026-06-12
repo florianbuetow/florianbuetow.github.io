@@ -233,7 +233,9 @@ The second thread is the shape of a career that has been AI-native from day one:
 
 ## Leave a comment
 
-If you enjoyed reading this article, Eike and I would love to hear from you in the comment section of our [Linkedin Post](https://www.linkedin.com/posts/fbuetow_eike-rackwitz-spent-years-as-a-professional-share-7464665765586104320-7Y8h). 
+If you enjoyed reading this article, Eike and I would love to hear from you.
+
+Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_eike-rackwitz-spent-years-as-a-professional-share-7464665765586104320-7Y8h) 
 
 ## References
 

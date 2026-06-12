@@ -1,0 +1,13 @@
+rules:
+  - id: content.linkedin-comment-format
+    languages: [generic]
+    message: >
+      malformed linkedin comment link, please use the following format instead:
+      Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_last-night-i-played-around-a-bit-with-claude-share-7470843456207265794-3DnU/)
+    severity: ERROR
+    paths:
+      include:
+        - "**/*.md"
+    patterns:
+      - pattern-regex: '(?im)^(?=.*comment)(?=.*www\.linkedin\.com).*$'
+      - pattern-not-regex: '(?m)^Comment on \[LinkedIn\]\(https://www\.linkedin\.com/\S+\)\s*$'

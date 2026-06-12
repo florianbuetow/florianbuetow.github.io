@@ -17,7 +17,7 @@ Four years later, he's a senior software engineer who runs an LLM-powered search
 
 The full interview is available on [cracking-ai-engineering.com](/blog/interview-from-classical-guitar-to-ruby-on-rails/)
 
-To comment or share please head on over to [LinkedIn](https://www.linkedin.com/posts/fbuetow_eike-rackwitz-spent-years-as-a-professional-share-7464665765586104320-7Y8h)
+Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_eike-rackwitz-spent-years-as-a-professional-share-7464665765586104320-7Y8h)
 
 ## References
 

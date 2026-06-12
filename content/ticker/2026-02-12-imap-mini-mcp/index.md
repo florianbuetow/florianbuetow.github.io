@@ -28,7 +28,7 @@ Agents can read, search, organize, and compose drafts - but they cannot send any
 
 With this and speech-to-text, I now ask Claude each morning to fetch the last 24 hours of email and generate a complete overview of what's new and what matters. I can then instruct the AI verbally on what replies to write, links to open, and emails to archive.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7427765798993309696/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7427765798993309696/)
 
 ## References
 

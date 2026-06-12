@@ -42,7 +42,7 @@ claude plugin install changelog
 /reload-plugins
 ```
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7444246959869087744/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7444246959869087744/)
 
 ## References
 

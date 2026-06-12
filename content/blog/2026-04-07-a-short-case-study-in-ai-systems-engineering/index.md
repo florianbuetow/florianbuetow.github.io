@@ -5,7 +5,7 @@ draft: false
 description: "Milla Jovovich's MemPalace turned familiar retrieval ideas into a memory-palace metaphor for LLMs. A short case study in AI engineering and marketing."
 author: "Florian Buetow"
 readTime: "5 min read"
-categories: ["AI Engineering", "Case Study"]
+categories: ["AI Engineering"]
 tags: ["Memory", "Retrieval", "Knowledge Graph"]
 ---
 
@@ -41,7 +41,7 @@ Why am I writing about this? Not because AI engineers can copy Hollywood fame an
 
 Someone who can build with AI still needs strong ideas. Someone with a strong idea still needs someone who can build. And there are still a surprising amount of unexplored ideas in AI, especially when it comes to translating techniques humans already use. Milla's story is about memory, navigation, and compression into systems that work well with LLM constraints. MemPalace is interesting not because of its individual components, but because it turned familiar building blocks into an AI-native workflow with a compelling origin story attached to it.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7447355918377398273/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7447355918377398273/)
 
 ## Sources
 

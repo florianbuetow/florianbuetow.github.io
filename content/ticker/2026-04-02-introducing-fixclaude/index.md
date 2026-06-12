@@ -40,7 +40,7 @@ fixclaude installs 279 lines of directives that override seven structural bottle
 
 While a bandage like this isn't a perfect substitute for source-level changes, it is far better than leaving an "open wound" in your development workflow.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7445334252608606208/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7445334252608606208/)
 
 ## References
 

@@ -1,0 +1,11 @@
+rules:
+  - id: content.no-linkedin-url-params
+    languages: [generic]
+    message: >
+      LinkedIn URL contains parameters. Remove everything from the "?" onward so
+      the link ends at the post path.
+    severity: ERROR
+    paths:
+      include:
+        - "**/*.md"
+    pattern-regex: 'www\.linkedin\.com/[^\s)\]]*\?'

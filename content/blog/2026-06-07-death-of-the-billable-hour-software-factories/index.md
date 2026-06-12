@@ -7,7 +7,7 @@ draft: false
 description: "As AI automates manual coding, the traditional billable hour is becoming obsolete, forcing software consultancies to rethink how they measure and deliver value. To stay competitive, firms must transition to outcome-based pricing by evolving into software factories where engineers orchestrate AI agents instead of writing lines of code."
 author: "Florian Buetow"
 readTime: "7 min read"
-categories: ["AI Engineering", "Consulting", "Software Factory"]
+categories: ["Software Factory", "Consulting"]
 tags: ["Outcome-Based Pricing", "Software Factory", "Agent Orchestration", "Consulting", "AI Agents", "Developer Productivity"]
 ---
 
@@ -102,7 +102,7 @@ Today, agents are already writing and checking code inside real factories, while
 
 So far the change shows up on one side more than the other: among the firms that build software, not the clients who buy it. Accenture is selling an agent factory to clients,[^refinery] StrongDM runs one internally where no human writes or reviews the code,[^strongdm] and practitioners are publishing blueprints for AI-native delivery.[^recinq] The pricing side still lags a bit behind: outcome-based contracts for bespoke software remain rare, and whether they scale beyond productized AI is genuinely open. Which leaves the question: when AI has absorbed the construction, where do you stand? Are you still selling the hours? Are your customers slow and sticky enough so you can afford not changing, or are you already feeling the pressure to change your pricing model and upskill your workforce to build the ability and capacity to run a software factory?
 
-[Comment on LinkedIn](https://www.linkedin.com/posts/fbuetow_as-ai-automates-manual-coding-the-traditional-share-7469433967449014272-mYqG)
+Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_as-ai-automates-manual-coding-the-traditional-share-7469433967449014272-mYqG)
 
 ## References
 

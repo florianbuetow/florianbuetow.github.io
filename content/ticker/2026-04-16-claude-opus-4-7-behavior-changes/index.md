@@ -29,7 +29,7 @@ The literalism change also means a prompt that was slightly underspecified on 4.
 
 But there is also a downside of the upgrade: Opus 4.7 ships a new tokenizer that uses roughly 1x–1.35x as many tokens per text as 4.6, depending on the task. Although pricing remains at $5/$25 per MTok, the effective cost per task is expected to rise on text-heavy workloads.
 
-[Comment on LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7450575161302458368/)
+Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7450575161302458368/)
 
 ## References
 
