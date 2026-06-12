@@ -34,6 +34,11 @@ claude plugin install terminator
 /reload-plugins
 ```
 
+Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_terminator-plugin-for-claude-code-a-killswitch-share-7470606487094968321-kef_)
+
+## Links
+
+
 ## References
 
 - [Terminator plugin on GitHub](https://github.com/florianbuetow/claude-code/tree/main/plugins/terminator)

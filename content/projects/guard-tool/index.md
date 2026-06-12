@@ -6,7 +6,7 @@ date: 2026-03-06
 draft: false
 slug: "guard-tool"
 tech: ["Go", "CLI", "Unix permissions"]
-categories: ["AI Safety"]
+categories: ["Guardrails"]
 tags: ["ai-agents", "guardrails", "safety"]
 status: "active"
 repo: "https://github.com/florianbuetow/guard"

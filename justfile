@@ -296,7 +296,7 @@ start:
         printf "\033[0;32m✓ Draft annotator already running at http://127.0.0.1:8787/draft-annotation\033[0m\n"
     else
         rm -f .draft-annotator.pid .draft-annotator.log
-        nohup python3 scripts/draft_annotator.py serve > .draft-annotator.log 2>&1 &
+        nohup uv run scripts/draft_annotator.py serve > .draft-annotator.log 2>&1 &
         echo $! > .draft-annotator.pid
         ANNOTATOR_PID=$(cat .draft-annotator.pid)
         for i in $(seq 1 20); do
@@ -713,9 +713,9 @@ check-links file='':
     echo ""
     printf "\033[0;34m=== Checking External Links ===\033[0m\n"
     if [ -n "{{file}}" ]; then
-        python3 scripts/check-links.py --file "{{file}}"
+        uv run scripts/check-links.py --file "{{file}}"
     else
-        python3 scripts/check-links.py content
+        uv run scripts/check-links.py content
     fi
     printf "\033[0;32m✓ check-links passed\033[0m\n"
     echo ""
@@ -797,7 +797,7 @@ draft-annotator action='start':
     fi
     printf "\033[0;32m→ listening on http://127.0.0.1:8787/draft-annotation\033[0m\n"
     echo ""
-    exec python3 scripts/draft_annotator.py serve
+    exec uv run scripts/draft_annotator.py serve
 
 # Fail if draft annotation blocks remain in published articles
 validate-draft-annotations:
@@ -805,7 +805,7 @@ validate-draft-annotations:
     set -e
     echo ""
     printf "\033[0;34m=== Validating Draft Annotations ===\033[0m\n"
-    python3 scripts/draft_annotator.py validate
+    uv run scripts/draft_annotator.py validate
     printf "\033[0;32m✓ validate-draft-annotations passed\033[0m\n"
     echo ""
 
@@ -815,7 +815,7 @@ draft-annotator-test:
     set -e
     echo ""
     printf "\033[0;34m=== Testing Draft Annotator ===\033[0m\n"
-    python3 scripts/test_draft_annotator.py
+    uv run scripts/test_draft_annotator.py
     printf "\033[0;32m✓ draft-annotator-test passed\033[0m\n"
     echo ""
 
@@ -826,9 +826,9 @@ ai-text-detect file='':
     echo ""
     printf "\033[0;34m=== Detecting AI-Generated-Text Tells ===\033[0m\n"
     if [ -n "{{file}}" ]; then
-        python3 scripts/ai-text-detector.py --file "{{file}}"
+        uv run scripts/ai-text-detector.py --file "{{file}}"
     else
-        python3 scripts/ai-text-detector.py
+        uv run scripts/ai-text-detector.py
     fi
     printf "\033[0;32m✓ ai-text-detect passed\033[0m\n"
     echo ""
@@ -839,7 +839,7 @@ ai-text-detect-test:
     set -e
     echo ""
     printf "\033[0;34m=== Testing AI-Text Detector ===\033[0m\n"
-    python3 scripts/test_ai_text_detector.py
+    uv run scripts/test_ai_text_detector.py
     printf "\033[0;32m✓ ai-text-detect-test passed\033[0m\n"
     echo ""
 
@@ -946,7 +946,7 @@ lighthouse-open:
 show-image-links:
     @echo ""
     @printf "\033[0;34m=== Image Links Table ===\033[0m\n"
-    @python3 scripts/show-image-links.py
+    @uv run scripts/show-image-links.py
     @printf "\033[0;32m✓ show-image-links completed\033[0m\n"
     @echo ""
 

@@ -6,7 +6,7 @@ slug: basellm-vs-instruction-tuned-llm
 description: "The difference between a BaseLLM and an Instruction-Tuned LLM, illustrated with Python code examples."
 author: "Florian Buetow"
 readTime: "9 min read"
-categories: ["Applied AI"]
+categories: ["AI Engineering"]
 tags: ["LLM", "SmolLM", "Base LLM", "Instruction Tuning", "Hugging Face", "Prompt Engineering", "Fine-tuning", "DPO"]
 ---
 

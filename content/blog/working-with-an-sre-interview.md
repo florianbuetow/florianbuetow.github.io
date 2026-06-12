@@ -7,7 +7,7 @@ aliases:
   - /writing/2025/01/12/working-with-an-sre-interview/
 description: "Explore insights from Paul Bütow, a Principal SRE at Mimecast, on collaboration, automation, and effective incident management in SRE."
 author: "Florian Buetow & Paul Bütow"
-categories: ["Interviews", "Collaboration"]
+categories: ["Interviews"]
 tags: ["SRE", "DevOps", "Automation", "Incident Management", "Observability"]
 ---
 

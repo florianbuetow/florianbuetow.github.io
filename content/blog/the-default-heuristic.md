@@ -7,7 +7,7 @@ aliases:
   - /writing/2025/02/01/the-default-heuristic/
 description: "Explore the Default Heuristic to choose proven tech for production systems, enhancing stability and minimizing risks in development."
 author: "Florian Buetow"
-categories: ["Software Engineering"]
+categories: ["AI Engineering"]
 tags: ["Tech Selection", "Production Systems", "Architecture"]
 ---
 

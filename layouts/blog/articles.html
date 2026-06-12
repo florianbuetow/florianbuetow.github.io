@@ -39,5 +39,23 @@
         </nav>
         {{ end }}
     </div>
+    <aside class="filter-sidebar">
+        {{ with site.Taxonomies.categories }}
+        <div class="filter-section">
+            <h4>Categories</h4>
+            <div class="filter-pills">
+                {{ range .Alphabetical }}<a class="pill" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>{{ end }}
+            </div>
+        </div>
+        {{ end }}
+        {{ with site.Taxonomies.tags }}
+        <div class="filter-section">
+            <h4>Tags</h4>
+            <div class="filter-pills">
+                {{ range .Alphabetical }}<a class="pill" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>{{ end }}
+            </div>
+        </div>
+        {{ end }}
+    </aside>
 </div>
 {{ end }}

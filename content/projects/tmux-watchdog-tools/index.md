@@ -6,7 +6,7 @@ date: 2026-05-16
 draft: false
 slug: "tmux-auto-attach"
 tech: ["Bash", "zsh", "Just", "tmux", "flock"]
-categories: ["Developer Tooling"]
+categories: ["Tools"]
 tags: ["tmux", "ai-agents", "automation", "shell-scripts"]
 status: "active"
 repo: "https://github.com/florianbuetow/tmux-auto-attach"

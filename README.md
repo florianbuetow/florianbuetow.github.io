@@ -276,6 +276,7 @@ just help
 - **Run:** `dev`
 - **Build:** `wardley-render`, `optimize-images`, `strip-exif`, `build-pagefind-index`
 - **CI:** `validate-images`, `validate-md`, `validate-content`, `check-code-line-length`, `check-links`, `spell-check`, `validate-pagefind-index`, `check-clean-worktree`, and more
+- **Analytics:** `show-image-links`, `show-tags`
 
 ## Configuration notes
 

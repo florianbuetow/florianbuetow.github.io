@@ -6,7 +6,7 @@ slug: moores-law-for-ai
 description: "An exploration of how AI is moving beyond monolithic models, mirroring the CPU's shift from single-core to multi-core, and what the future of multi-agent AI systems looks like."
 author: "Florian Buetow"
 readTime: "12 min read"
-categories: ["Scaling", "Multi-Agent Systems"]
+categories: ["AI Engineering"]
 tags: ["AI", "LLM", "Scaling", "Multi-Agent Systems", "Moore's Law", "Dennard Scaling", "Mixture of Experts", "AI Architecture", "Agents"]
 ---
 

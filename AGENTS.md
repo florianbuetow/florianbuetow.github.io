@@ -10,6 +10,7 @@
 - LinkedIn post URLs live outside this repo — always source URLs from the LinkedIn post files, never guess
 - Never delete content before a replacement is ready and the build succeeds
 - If a ticker article title contains a `/` (e.g. `/dream`, `/fixclaude`), add an explicit `slug` field in the front matter — Hugo treats the slash as a path separator, creating a broken URL
+- To inspect image links across the blog (which images are referenced and by which articles), run `just show-image-links`; to inspect tags and categories, run `just show-tags` — use these before making structural changes to content
 
 <!-- progressive-disclosure:index:start -->
 ## Documentation Index

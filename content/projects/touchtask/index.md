@@ -7,7 +7,7 @@ date: 2026-04-09
 draft: false
 slug: "touchtask"
 tech: ["React", "Vite", "localStorage"]
-categories: ["Productivity"]
+categories: ["Tools"]
 tags: ["productivity", "task-management", "habit-tracking"]
 status: "active"
 repo: "https://github.com/florianbuetow/touchtask"

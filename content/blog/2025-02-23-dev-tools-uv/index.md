@@ -6,7 +6,7 @@ slug: dev-tools-uv
 description: "Discover uv, an ultra fast package manager for Python that simplifies dependency management and enhances project setup efficiency."
 author: "Florian Buetow"
 readTime: "5 min read"
-categories: ["Developer Tools"]
+categories: ["Tools"]
 tags: ["Python", "uv", "Rust", "Package Manager", "pip", "virtualenv", "Astral", "Docker"]
 ---
 

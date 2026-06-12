@@ -6,7 +6,7 @@ slug: four-prompting-paradigms
 description: "A deep dive into the four prompting paradigms used in LLMs - Instruction, Completion, Scenario, and Demonstration - and how they shape model behavior."
 author: "Florian Buetow"
 readTime: "7 min read"
-categories: ["Prompt Engineering"]
+categories: ["AI Engineering"]
 tags: ["LLM", "Prompt Engineering", "Instruction Prompting", "Completion Prompting", "Scenario Prompting", "Few-Shot Learning", "Demonstration Prompting"]
 ---
 
