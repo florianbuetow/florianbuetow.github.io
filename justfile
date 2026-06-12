@@ -91,6 +91,10 @@ help:
     @printf "  %-28s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
     @printf "  %-28s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
     @echo ""
+    @printf "\033[0;33mAnalytics:\033[0m\n"
+    @printf "  %-28s %s\n" "show-image-links" "Show all image links in content/ as a table"
+    @printf "  %-28s %s\n" "show-tags" "Show categories and tags across blog and ticker articles"
+    @echo ""
 
 # Initialize the build environment (installs missing deps)
 init:
@@ -937,6 +941,22 @@ lighthouse-open:
     done <<< "$REPORTS"
     printf "\033[0;32m✓ lighthouse reports opened\033[0m\n"
     echo ""
+
+# Show all image links in content/ markdown files as an ASCII table
+show-image-links:
+    @echo ""
+    @printf "\033[0;34m=== Image Links Table ===\033[0m\n"
+    @python3 scripts/show-image-links.py
+    @printf "\033[0;32m✓ show-image-links completed\033[0m\n"
+    @echo ""
+
+# Show a summary of categories and tags across blog and ticker articles
+show-tags:
+    @echo ""
+    @printf "\033[0;34m=== Tag Overview ===\033[0m\n"
+    @uv run scripts/show-tag-overview.py
+    @printf "\033[0;32m✓ show-tags completed\033[0m\n"
+    @echo ""
 
 # Run Lighthouse CI against an already-built public/ directory
 _run-lighthouse-checks:
