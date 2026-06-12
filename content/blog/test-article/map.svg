@@ -1,0 +1,281 @@
+<svg width="100%" height="100%" viewBox="0 0 1320 900" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet"><rect x="0" y="0" width="100%" height="100%" rx="10" ry="10" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+    <defs>
+        <linearGradient id="wardleyGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgb(236,237,243)"></stop>
+            <stop offset="30%" stop-color="rgb(255,255,255)"></stop>
+            <stop offset="70%" stop-color="rgb(255,255,255)"></stop>
+            <stop offset="100%" stop-color="rgb(236,237,243)"></stop>
+        </linearGradient>
+        <linearGradient id="pipelineTubeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgb(180,195,225)"></stop>
+            <stop offset="25%" stop-color="rgb(220,230,248)"></stop>
+            <stop offset="50%" stop-color="rgb(205,218,242)"></stop>
+            <stop offset="80%" stop-color="rgb(185,200,230)"></stop>
+            <stop offset="100%" stop-color="rgb(160,175,210)"></stop>
+        </linearGradient>
+        <marker id="arrow" refX="15" refY="0" markerWidth="12" markerHeight="12" viewBox="0 -5 10 10">
+            <path d="M0,-5L10,0L0,5" fill="rgb(255,0,0)"></path>
+        </marker>
+        <marker id="graphArrow" refX="9" refY="0" markerWidth="12" markerHeight="12" viewBox="0 -5 10 10">
+            <path d="M0,-5L10,0L0,5" fill="rgb(0,0,0)"></path>
+        </marker>
+    </defs>
+    <rect x="30" y="50" width="1040" height="785" fill="#ffffff"></rect>
+    <g transform=" translate(30,835) rotate(270)">
+        <line x1="0" y1="0" x2="785" y2="0" stroke-width="1" marker-end="url(#graphArrow)" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <line x1="0" y1="260" x2="785" y2="260" stroke-width="1" stroke-dasharray="2 2" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <line x1="0" y1="520" x2="785" y2="520" stroke-width="1" stroke-dasharray="2 2" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <line x1="0" y1="780" x2="785" y2="780" stroke-width="1" stroke-dasharray="2 2" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+            <tspan x="5" dy="-10">Invisible</tspan>
+        </text>
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+            <tspan x="780" dy="-10">Visible</tspan>
+        </text>
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="middle">
+            <tspan x="392" dy="-10">Value Chain</tspan>
+        </text>
+    </g>
+    <line x1="30" y1="835" x2="1070" y2="835" marker-end="url(#graphArrow)" stroke="rgb(19,36,84)" stroke-opacity="1.0"></line>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+        <tspan x="37" dy="65">Uncharted</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="end">
+        <tspan x="1065" dy="65">Industrialised</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="start">
+        <tspan x="30" dy="855">I</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="middle">
+        <tspan x="290" dy="855">II</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="middle">
+        <tspan x="550" dy="855">III</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="middle">
+        <tspan x="810" dy="855">IV</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="160" dy="855">Genesis</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="420" dy="855">Custom-Built</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="680" dy="855">Product</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="0.7" font-family="&#39;Outfit&#39;, sans-serif" font-size="12px" text-anchor="middle">
+        <tspan x="940" dy="855">Commodity</tspan>
+    </text>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="500" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+        <tspan x="1070" dy="855">Evolution</tspan>
+    </text>
+    <rect x="1090" y="50" width="220" height="800" fill="#f8f8f8" fill-opacity="1.0" stroke="#000000" stroke-opacity="1.0" stroke-width="1" ry="6" rx="6"></rect>
+    <g transform=" translate(1200,79)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="middle">
+            <tspan x="0" dy="6">Legend</tspan>
+        </text>
+    </g>
+    <line x1="1100" y1="87" x2="1300" y2="87" stroke-width="1" stroke="rgb(200,200,210)" stroke-opacity="1.0"></line>
+    <g transform=" translate(1105,123)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Components</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="147" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <g transform=" translate(1125,145)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Component</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="171" r="7" fill="rgb(41,128,185)" fill-opacity="1.0" stroke="rgb(41,128,185)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <path d="M 1104,176 L 1104,172 L 1102,172 L 1101,170 L 1102,168 L 1104,168 L 1104,170 L 1106,170 L 1106,168 L 1108,168 L 1109,170 L 1108,172 L 1106,172 L 1106,176 Z" fill="rgb(255,255,255)"></path>
+    <g transform=" translate(1125,169)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Build</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="195" r="7" fill="rgb(142,68,173)" fill-opacity="1.0" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <circle cx="1103" cy="192" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <path d="M 1100,195 L 1100,200 L 1105,200 L 1105,195 Q 1103,193 1100,195 Z" fill="rgb(255,255,255)"></path>
+    <circle cx="1107" cy="192" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <path d="M 1105,195 L 1105,200 L 1110,200 L 1110,195 Q 1107,193 1105,195 Z" fill="rgb(255,255,255)"></path>
+    <g transform=" translate(1125,193)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Outsource</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="219" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1.5"></circle>
+    <g transform=" translate(1125,217)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Evolved</tspan>
+        </text>
+    </g>
+    <g transform=" translate(1105,243)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Edges</tspan>
+        </text>
+    </g>
+    <line x1="1095" y1="267" x2="1115" y2="267" stroke-width="1" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+    <g transform=" translate(1125,265)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Dependency</tspan>
+        </text>
+    </g>
+    <line x1="1095" y1="291" x2="1115" y2="291" stroke-width="1" stroke-dasharray="3 3" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+    <g transform=" translate(1125,289)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Evolution</tspan>
+        </text>
+    </g>
+    <path d="M 1101,310 L 1109,310 L 1109,320 L 1101,320 Z" style="fill:rgba(41,128,185,0.5)" stroke="rgba(40,40,60,0.6)" stroke-width="0.5"></path>
+    <path d="M 1109,310 L 1111,308 L 1111,318 L 1109,320 Z" style="fill:rgba(40,40,60,0.5)" stroke="rgba(30,30,50,0.6)" stroke-width="0.5"></path>
+    <path d="M 1101,310 L 1109,310 L 1111,308 L 1103,308 Z" style="fill:rgba(100,100,130,0.4)" stroke="rgba(80,80,110,0.5)" stroke-width="0.5"></path>
+    <g transform=" translate(1125,313)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Inertia (Tech)</tspan>
+        </text>
+    </g>
+    <g transform=" translate(1105,339)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="13px" text-anchor="start">
+            <tspan x="0" dy="6">Other</tspan>
+        </text>
+    </g>
+    <circle cx="1105" cy="363" r="6" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></circle>
+    <g transform=" translate(1125,361)">
+        <text fill="rgb(19,36,84)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" font-size="11px" text-anchor="start">
+            <tspan x="0" dy="6">Annotation</tspan>
+        </text>
+    </g>
+    <text fill="rgb(19,36,84)" fill-opacity="1.0" font-weight="600" font-family="&#39;Outfit&#39;, sans-serif" font-size="16px" text-anchor="middle">
+        <tspan x="550" dy="35">Tea Shop</tspan>
+    </text>
+    <g id="layer_0">
+        <g id="edge_0_1" class="visibility0">
+            <line x1="550" y1="73" x2="674" y2="261" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_1_2" class="visibility0">
+            <path d="M 674,261 Q 808,383 966,473" fill="none" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></path>
+        </g>
+        <g id="edge_1_3" class="visibility0">
+            <path d="M 674,261 Q 781,337 862,442" fill="none" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></path>
+        </g>
+        <g id="edge_1_8" class="visibility0">
+            <path d="M 674,261 Q 853,317 1018,411" fill="none" stroke="rgb(128,128,128)" stroke-opacity="1.0" stroke-width="1"></path>
+        </g>
+        <g id="edge_3_4" class="visibility0">
+            <line x1="862" y1="442" x2="966" y2="654" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_3_5" class="visibility0">
+            <line x1="862" y1="442" x2="446" y2="607" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_5_6" class="visibility0">
+            <line x1="446" y1="607" x2="585" y2="607" stroke-width="1" stroke-dasharray="5 5" class=" evolutionEdge" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+            <path d="M 585,589 L 597,589 L 597,625 L 585,625 Z" style="fill:rgba(41,128,185,0.5)" stroke="rgba(41,128,185,0.6)" stroke-width="0.5"></path>
+            <path d="M 597,589 L 609,579 L 609,615 L 597,625 Z" style="fill:rgba(40,40,60,0.5)" stroke="rgba(30,30,50,0.6)" stroke-width="0.5"></path>
+            <path d="M 585,589 L 597,589 L 609,579 L 597,579 Z" style="fill:rgba(100,100,130,0.4)" stroke="rgba(80,80,110,0.5)" stroke-width="0.5"></path>
+            <line x1="597" y1="607" x2="882" y2="607" stroke-width="1" stroke-dasharray="5 5" marker-end="url(#arrow)" class=" evolutionEdge evolutionEdgeFaded" stroke="rgb(255,0,0)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="edge_5_7" class="visibility0">
+            <line x1="446" y1="607" x2="986" y2="803" stroke-width="1" class="" stroke="rgb(128,128,128)" stroke-opacity="1.0"></line>
+        </g>
+        <g id="element_0">
+            <g transform=" translate(550,73)">
+                <circle cx="0" cy="-10" r="5" fill="rgb(51,51,51)" fill-opacity="1.0" stroke="rgb(51,51,51)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <path d="M -8,-4 C -8,6 8,6 8,-4 Z" fill="rgb(51,51,51)"></path>
+                <text font-family="&#39;Outfit&#39;, sans-serif" font-size="14px" text-anchor="start">
+                    <tspan x="25" dy="6">Customer</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+    <g id="layer_10">
+        <g id="element_1" class="visibility0">
+            <g transform=" translate(674,261)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6">Cup of Tea</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_2" class="visibility0">
+            <g transform=" translate(966,473)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6">Tea</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_3" class="visibility0">
+            <g transform=" translate(862,442)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6">Hot Water</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_4" class="visibility0">
+            <g transform=" translate(966,654)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6">Water</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_5" class="visibility0">
+            <g transform=" translate(446,607)">
+                <g class="has-note">
+                    <circle cx="0" cy="0" r="8" fill="rgb(41,128,185)" fill-opacity="1.0" stroke="rgb(41,128,185)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <path d="M -1.5,6 L -1.5,1 L -4,1 L -5,-1 L -4,-4 L -1.5,-4 L -1.5,-1.5 L 1.5,-1.5 L 1.5,-4 L 4,-4 L 5,-1 L 4,1 L 1.5,1 L 1.5,6 Z" fill="rgb(255,255,255)"></path>
+                </g>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="end">
+                    <tspan x="-25" dy="6">Kettle</tspan>
+                </text>
+                <desc></desc>
+                <g data-type="note">
+                    <circle cx="10" cy="-10" r="4" fill="rgb(52,152,219)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                    <text fill="rgb(255,255,255)" fill-opacity="1.0" font-weight="bold" font-family="&#39;Outfit&#39;, sans-serif" font-size="7px" text-anchor="middle">
+                        <tspan x="10" dy="-7">i</tspan>
+                    </text>
+                    <desc>Considering outsourcing</desc>
+                </g>
+            </g>
+        </g>
+        <g id="element_6" class="visibility0">
+            <g transform=" translate(882,607)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(255,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6"></tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_7" class="visibility0">
+            <g transform=" translate(986,803)">
+                <circle cx="0" cy="0" r="8" fill="rgb(142,68,173)" fill-opacity="1.0" stroke="rgb(142,68,173)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <circle cx="-3" cy="-3" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <path d="M -6,0 L -6,6 L 0,6 L 0,0 Q -3,-2 -6,0 Z" fill="rgb(255,255,255)"></path>
+                <circle cx="3" cy="-3" r="2" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(255,255,255)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <path d="M 0,0 L 0,6 L 6,6 L 6,0 Q 3,-2 0,0 Z" fill="rgb(255,255,255)"></path>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="25" dy="6">Power</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+        <g id="element_8" class="visibility0">
+            <g transform=" translate(1018,411)">
+                <circle cx="0" cy="0" r="5" fill="rgb(255,255,255)" fill-opacity="1.0" stroke="rgb(0,0,0)" stroke-opacity="1.0" stroke-width="1"></circle>
+                <text fill="rgb(0,0,0)" fill-opacity="1.0" font-family="&#39;Outfit&#39;, sans-serif" text-anchor="start">
+                    <tspan x="12" dy="-20">Cup</tspan>
+                </text>
+                <desc></desc>
+            </g>
+        </g>
+    </g>
+    <g id="tooltip-layer"></g>
+</svg>

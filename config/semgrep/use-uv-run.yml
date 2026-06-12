@@ -1,0 +1,15 @@
+rules:
+  - id: build.use-uv-run
+    languages: [generic]
+    message: >
+      Use `uv run` when starting Python scripts, not bare `python3`.
+    severity: ERROR
+    paths:
+      include:
+        - "justfile"
+        - "**/justfile"
+        - "**/*.justfile"
+        - "**/*.sh"
+    patterns:
+      - pattern-regex: '(?m)^.*python3.*$'
+      - pattern-not-regex: '(?m)^.*uv run.*$'
