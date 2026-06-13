@@ -830,6 +830,17 @@ a {
 /* === RESPONSIVE === */
 
 @media (max-width: 960px) {
+    .header-inner,
+    .footer-inner {
+        grid-template-columns: 1fr;
+        row-gap: 16px;
+    }
+    .main-nav {
+        flex-wrap: wrap;
+    }
+    .footer-socials {
+        grid-column: 1;
+    }
     .article-layout {
         grid-template-columns: 1fr;
     }
