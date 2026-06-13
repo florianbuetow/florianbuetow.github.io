@@ -12,7 +12,7 @@ status: "active"
 repo: "https://github.com/florianbuetow/tts-mcp"
 demo: ""
 video: ""
-featured: false
+featured: true
 image: "/projects/open-source-images/tts-mcp.webp"
 ---
 
