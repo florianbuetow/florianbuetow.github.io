@@ -2,7 +2,7 @@
 title: "TTS-MCP With Local Models"
 slug: "tts-mcp-with-local-models"
 date: 2026-06-13
-draft: true
+draft: false
 description: "A local, open-source MCP server that lets your AI agents speak their status out loud with Mistral's Voxtral text-to-speech models, so you can step away from the terminal and still know what they are doing."
 author: "Florian Buetow"
 readTime: "2 min read"
@@ -48,5 +48,5 @@ If you want to run TTS-MCP yourself, the setup instructions are provided in the 
 
 ## Links
 
-- [TTS-MCP project page](/projects/tts-mcp/)
+- TTS-MCP [project page](/projects/tts-mcp/)
 - TTS-MCP source on [GitHub](https://github.com/florianbuetow/tts-mcp)
