@@ -111,7 +111,7 @@ The effect is agents controlling other agents. Unlike the built-in sub-agent or 
 
 The manual `tmux attach -t <session>` step at the end is a bit clunky, but it works. I have since found a better way: automatically attach to the sessions Claude Code spawns. I turned this into an open source tool you can grab on GitHub here:
 
-[https://github.com/florianbuetow/tmux-auto-attach](https://github.com/florianbuetow/tmux-auto-attach)
+[github.com/florianbuetow/tmux-auto-attach](https://github.com/florianbuetow/tmux-auto-attach)
 
 All you need to do is install it, open one or more terminals, and run the tool in each of them:
 

@@ -1,0 +1,17 @@
+rules:
+  - id: content.github-link-no-scheme
+    languages: [generic]
+    message: >
+      Drop the scheme from GitHub link text to keep the description readable:
+      when a link's visible text contains "github.com" it must not include an
+      http:// or https:// prefix. For example, write
+      [github.com/owner/repo](https://github.com/owner/repo).
+    severity: ERROR
+    paths:
+      include:
+        - "**/*.md"
+    patterns:
+      # A markdown link whose visible text carries an http(s):// scheme in front
+      # of a github.com URL. The scheme is noise in the description -- the bare
+      # github.com URL reads more cleanly (the destination keeps its scheme).
+      - pattern-regex: '(?i)\[[^\]]*https?://[^\]]*github\.com[^\]]*\]\([^)]*\)'

@@ -2,8 +2,9 @@ rules:
   - id: content.github-link-format
     languages: [generic]
     message: >
-      Github links must either have the exact text "GitHub" or when they contain
-      the github.com url they must contain the complete github url.
+      Github links must have, as their visible text, either the exact text
+      "GitHub", the complete github.com URL, or that URL without the "https://"
+      prefix.
     severity: ERROR
     paths:
       include:
@@ -16,3 +17,9 @@ rules:
       - pattern-not-regex: '\[GitHub\]\([^)]*github\.com[^)]*\)'
       # Allowed form 2: the text is a complete github.com URL.
       - pattern-not-regex: '(?i)\[https?://[^\]]*github\.com[^\]]*\]\([^)]*github\.com[^)]*\)'
+      # Allowed form 3: the text is the github.com URL with the https:// prefix
+      # dropped -- a bare github.com URL token only, with no surrounding prose.
+      # github.com must end the text or be followed by a path/query/fragment, so
+      # prose ("github.com is great") and other domains ("github.community") that
+      # merely start with these characters stay flagged.
+      - pattern-not-regex: '(?i)\[github\.com(?:[/#?][^\]\s]*)?\]\([^)]*github\.com[^)]*\)'

@@ -78,6 +78,8 @@ help:
     @printf "  %-28s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-28s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
     @printf "  %-28s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
+    @printf "  %-28s %s\n" "validate-references" "Check links used in articles are listed in their references section (optional: just validate-references <file>)"
+    @printf "  %-28s %s\n" "validate-references-test" "Run the link-reference validator unit tests"
     @printf "  %-28s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
     @printf "  %-28s %s\n" "draft-annotator" "Run the local draft annotation helper"
     @printf "  %-28s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
@@ -466,6 +468,7 @@ build:
     just validate-draft-annotations
     just check-code-line-length
     just validate-md
+    just validate-references
     just ai-text-detect
     hugo --minify --cleanDestinationDir
     just build-pagefind-index
@@ -683,7 +686,7 @@ validate-md:
     # is required — semgrep with no target paths scans the whole CWD instead.
     if [ -n "$(git ls-files -- 'content/*.md')" ]; then
         git ls-files -z -- 'content/*.md' \
-            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/github-link-format.yml --error
+            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/github-link-format.yml --config config/semgrep/github-link-no-scheme.yml --error
     else
         printf "  no tracked markdown files found\n"
     fi
@@ -718,6 +721,30 @@ check-links file='':
         uv run scripts/check-links.py content
     fi
     printf "\033[0;32m✓ check-links passed\033[0m\n"
+    echo ""
+
+# Check that links used in articles are listed in their references section, or a single file if given
+validate-references file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Validating Link References ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        uv run scripts/validate-link-references.py --file "{{file}}"
+    else
+        uv run scripts/validate-link-references.py content
+    fi
+    printf "\033[0;32m✓ validate-references passed\033[0m\n"
+    echo ""
+
+# Run the link-reference validator unit tests
+validate-references-test:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Testing Link Reference Validator ===\033[0m\n"
+    uv run scripts/test_validate_link_references.py
+    printf "\033[0;32m✓ validate-references-test passed\033[0m\n"
     echo ""
 
 # Spell check all draft articles (draft: true) with harper-cli, or a single file if given

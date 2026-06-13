@@ -33,7 +33,7 @@ The guard plugin allows you to ask Claude to "guard my test files," "remove the 
 
 ## Security Built In: Agent Can't Actually Lock Anything
 
-{{< sidenote label="Download Guard" >}}[https://github.com/florianbuetow/guard](https://github.com/florianbuetow/guard){{< /sidenote >}}
+{{< sidenote label="Download Guard" >}}[github.com/florianbuetow/guard](https://github.com/florianbuetow/guard){{< /sidenote >}}
 
 Guard's whole security model depends on the AI running *without* sudo. So the plugin leans into that. Any operation that changes a file's guard state - `enable`, `disable`, `reset` - requires root to clear the immutable flag, which means the agent physically cannot perform it. Instead, it composes the exact command and prints it for you to run. Super convenient:
 
@@ -65,5 +65,7 @@ claude plugin install guard
 ## References
 
 - Guard CLI on [GitHub](https://github.com/florianbuetow/guard)
+- Article [Yes, You Are Absolutely Right!](/blog/yes-you-are-absolutely-right/)
+- Guard Tool [project page](/projects/guard-tool/)
 - Guard Plugin on [GitHub](https://github.com/florianbuetow/claude-code/tree/main/plugins/guard)
 - [My (free) Plugin Marketplace](https://github.com/florianbuetow/claude-code)

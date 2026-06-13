@@ -10,7 +10,7 @@ categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---
 
-{{< sidenote label="Download" >}}[https://github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code){{< /sidenote >}}
+{{< sidenote label="Download" >}}[github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code){{< /sidenote >}}
 
 ![From context rot to progressive disclosure](from-context-rot-to-progressive-disclosure.webp?zoom)
 
@@ -34,5 +34,5 @@ claude plugin install progressive-disclosure
 
 ## Links
 
-- Source: [https://github.com/florianbuetow/claude-code/tree/main/plugins/progressive-disclosure](https://github.com/florianbuetow/claude-code/tree/main/plugins/progressive-disclosure)
-- My (free) marketplace: [https://github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code)
+- Source: [github.com/florianbuetow/claude-code/tree/main/plugins/progressive-disclosure](https://github.com/florianbuetow/claude-code/tree/main/plugins/progressive-disclosure)
+- My (free) marketplace: [github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code)
