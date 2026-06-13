@@ -244,5 +244,6 @@ From a systems design perspective, these methods are often composable. For examp
 
 ## References
 
-\[1\] OpenAI Cookbook. *How to work with large language models.*  
-<https://cookbook.openai.com/articles/how_to_work_with_large_language_models>
+- OpenAI Cookbook [How to work with large language models](https://cookbook.openai.com/articles/how_to_work_with_large_language_models)
+- Google Research [FLAN](https://github.com/google-research/FLAN)
+- OpenAI [InstructGPT](https://openai.com/index/instruction-following/)

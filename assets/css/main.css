@@ -534,6 +534,10 @@ a {
     text-align: center;
     font-style: italic;
 }
+.prose .post-audio audio {
+    width: 100%;
+    display: block;
+}
 .prose img.zoomable {
     cursor: zoom-in;
 }

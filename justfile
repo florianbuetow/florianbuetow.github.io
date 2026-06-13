@@ -48,55 +48,55 @@ help:
     @printf "\033[0;34m=== hugo-blog ===\033[0m\n"
     @echo ""
     @printf "\033[0;33mSetup:\033[0m\n"
-    @printf "  %-28s %s\n" "help" "Show this help message"
-    @printf "  %-28s %s\n" "init" "Initialize the build environment (installs missing deps)"
-    @printf "  %-28s %s\n" "check" "Check prerequisites"
-    @printf "  %-28s %s\n" "clean" "Clean generated files"
-    @printf "  %-28s %s\n" "destroy" "Destroy build artifacts and server state"
+    @printf "  %-36s %s\n" "help" "Show this help message"
+    @printf "  %-36s %s\n" "init" "Initialize the build environment (installs missing deps)"
+    @printf "  %-36s %s\n" "check" "Check prerequisites"
+    @printf "  %-36s %s\n" "clean" "Clean generated files"
+    @printf "  %-36s %s\n" "destroy" "Destroy build artifacts and server state"
     @echo ""
     @printf "\033[0;33mLifecycle:\033[0m\n"
-    @printf "  %-28s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
-    @printf "  %-28s %s\n" "stop" "Stop the Hugo development server and draft annotator"
-    @printf "  %-28s %s\n" "status" "Check if the Hugo server is running"
-    @printf "  %-28s %s\n" "build" "Build the production site (render → optimize → validate → hugo → pagefind)"
-    @printf "  %-28s %s\n" "ci" "Run ALL validation checks silently (only show output on errors)"
-    @printf "  %-28s %s\n" "ci-verbose" "Run ALL validation checks (verbose)"
-    @printf "  %-28s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
+    @printf "  %-36s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
+    @printf "  %-36s %s\n" "stop" "Stop the Hugo development server and draft annotator"
+    @printf "  %-36s %s\n" "status" "Check if the Hugo server is running"
+    @printf "  %-36s %s\n" "build" "Build the production site (render → optimize → validate → hugo → pagefind)"
+    @printf "  %-36s %s\n" "ci" "Run ALL validation checks silently (only show output on errors)"
+    @printf "  %-36s %s\n" "ci-verbose" "Run ALL validation checks (verbose)"
+    @printf "  %-36s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
     @printf "\033[0;33mRun:\033[0m\n"
-    @printf "  %-28s %s\n" "dev" "Run Hugo server in foreground (auto-rebuild + live-reload)"
+    @printf "  %-36s %s\n" "dev" "Run Hugo server in foreground (auto-rebuild + live-reload)"
     @echo ""
     @printf "\033[0;33mBuild:\033[0m\n"
-    @printf "  %-28s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
-    @printf "  %-28s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
-    @printf "  %-28s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
-    @printf "  %-28s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
+    @printf "  %-36s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
+    @printf "  %-36s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
+    @printf "  %-36s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
+    @printf "  %-36s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
     @echo ""
     @printf "\033[0;33mCI:\033[0m\n"
-    @printf "  %-28s %s\n" "validate-images" "Check all image references resolve to files"
-    @printf "  %-28s %s\n" "validate-md" "Check markdown for em dashes and malformed GitHub/LinkedIn links"
-    @printf "  %-28s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
-    @printf "  %-28s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
-    @printf "  %-28s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
-    @printf "  %-28s %s\n" "validate-references" "Check links used in articles are listed in their references section (optional: just validate-references <file>)"
-    @printf "  %-28s %s\n" "validate-references-test" "Run the link-reference validator unit tests"
-    @printf "  %-28s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
-    @printf "  %-28s %s\n" "draft-annotator" "Run the local draft annotation helper"
-    @printf "  %-28s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
-    @printf "  %-28s %s\n" "validate-drafts-must-not-be-in-git" "Fail if any git-tracked Markdown file has draft: true"
-    @printf "  %-28s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
-    @printf "  %-28s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
-    @printf "  %-28s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
-    @printf "  %-28s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
-    @printf "  %-28s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
-    @printf "  %-28s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
-    @printf "  %-28s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
-    @printf "  %-28s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
-    @printf "  %-28s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
+    @printf "  %-36s %s\n" "validate-images" "Check all image references resolve to files"
+    @printf "  %-36s %s\n" "validate-md" "Check markdown for em dashes and malformed GitHub/LinkedIn links"
+    @printf "  %-36s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
+    @printf "  %-36s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
+    @printf "  %-36s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
+    @printf "  %-36s %s\n" "validate-references" "Check links used in articles are listed in their references section (optional: just validate-references <file>)"
+    @printf "  %-36s %s\n" "validate-references-test" "Run the link-reference validator unit tests"
+    @printf "  %-36s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
+    @printf "  %-36s %s\n" "draft-annotator" "Run the local draft annotation helper"
+    @printf "  %-36s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
+    @printf "  %-36s %s\n" "validate-drafts-must-not-be-in-git" "Fail if any git-tracked Markdown file has draft: true"
+    @printf "  %-36s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
+    @printf "  %-36s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
+    @printf "  %-36s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
+    @printf "  %-36s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
+    @printf "  %-36s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
+    @printf "  %-36s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
+    @printf "  %-36s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
+    @printf "  %-36s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
+    @printf "  %-36s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
     @echo ""
     @printf "\033[0;33mAnalytics:\033[0m\n"
-    @printf "  %-28s %s\n" "show-image-links" "Show all image links in content/ as a table"
-    @printf "  %-28s %s\n" "show-tags" "Show categories and tags across blog and ticker articles"
+    @printf "  %-36s %s\n" "show-image-links" "Show all image links in content/ as a table"
+    @printf "  %-36s %s\n" "show-tags" "Show categories and tags across blog and ticker articles"
     @echo ""
 
 # Initialize the build environment (installs missing deps)
@@ -461,33 +461,24 @@ build:
     set -e
     echo ""
     printf "\033[0;34m=== Building Production Site ===\033[0m\n"
-    _ts() { python3 -c "import time; print(int(time.time()*1000))"; }
-    _timed() {
-        local label="$1"; shift
-        local t0 t1 rc=0 elapsed_s mm ss
-        t0=$(_ts)
-        "$@" || rc=$?
-        t1=$(_ts)
-        if [ -n "${CI_PIPELINE_LOG:-}" ]; then
-            elapsed_s=$(( (t1-t0) / 1000 ))
-            mm=$((elapsed_s/60)); ss=$((elapsed_s%60))
-            printf "[%02d:%02d] (%d seconds) [%s]\n" "$mm" "$ss" "$elapsed_s" "$label" >> "$CI_PIPELINE_LOG"
-        fi
-        return $rc
+    _log() {
+        [ -n "${CI_PIPELINE_LOG:-}" ] || return 0
+        local label=$1 d=$2
+        printf "[%02d:%02d] (%d seconds) [%s]\n" $((d/60)) $((d%60)) "$d" "$label" >> "$CI_PIPELINE_LOG"
     }
-    _timed wardley-render                    just wardley-render
-    _timed optimize-images                   just optimize-images
-    _timed strip-exif                        just strip-exif
-    _timed validate-images                   just validate-images
-    _timed validate-content                  just validate-content
-    _timed validate-draft-annotations        just validate-draft-annotations
-    _timed validate-drafts-must-not-be-in-git just validate-drafts-must-not-be-in-git
-    _timed check-code-line-length            just check-code-line-length
-    _timed validate-md                       just validate-md
-    _timed validate-references               just validate-references
-    _timed ai-text-detect                    just ai-text-detect
-    _timed "hugo (build)"                    hugo --minify --cleanDestinationDir
-    _timed build-pagefind-index              just build-pagefind-index
+    T=$(date +%s); just wardley-render;                     _log wardley-render                    $(( $(date +%s) - T ))
+    T=$(date +%s); just optimize-images;                    _log optimize-images                   $(( $(date +%s) - T ))
+    T=$(date +%s); just strip-exif;                         _log strip-exif                        $(( $(date +%s) - T ))
+    T=$(date +%s); just validate-images;                    _log validate-images                   $(( $(date +%s) - T ))
+    T=$(date +%s); just validate-content;                   _log validate-content                  $(( $(date +%s) - T ))
+    T=$(date +%s); just validate-draft-annotations;         _log validate-draft-annotations        $(( $(date +%s) - T ))
+    T=$(date +%s); just validate-drafts-must-not-be-in-git; _log validate-drafts-must-not-be-in-git $(( $(date +%s) - T ))
+    T=$(date +%s); just check-code-line-length;             _log check-code-line-length            $(( $(date +%s) - T ))
+    T=$(date +%s); just validate-md;                        _log validate-md                       $(( $(date +%s) - T ))
+    T=$(date +%s); just validate-references;                _log validate-references               $(( $(date +%s) - T ))
+    T=$(date +%s); just ai-text-detect;                     _log ai-text-detect                    $(( $(date +%s) - T ))
+    T=$(date +%s); hugo --minify --cleanDestinationDir;     _log "hugo (build)"                    $(( $(date +%s) - T ))
+    T=$(date +%s); just build-pagefind-index;               _log build-pagefind-index              $(( $(date +%s) - T ))
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
 
@@ -502,47 +493,66 @@ ci:
 
     LOG="reports/pipeline-duration.log"
     mkdir -p reports
+    rm -f "$LOG"
     printf "CI Pipeline Run: %s\n" "$(date)" > "$LOG"
     printf "=====================================\n" >> "$LOG"
     export CI_PIPELINE_LOG="$LOG"
 
-    _ts() { python3 -c "import time; print(int(time.time()*1000))"; }
-    _timed() {
-        local label="$1"; shift
-        local t0 t1 rc=0 elapsed_s mm ss
-        t0=$(_ts)
-        "$@" || rc=$?
-        t1=$(_ts)
-        elapsed_s=$(( (t1-t0) / 1000 ))
-        mm=$((elapsed_s/60)); ss=$((elapsed_s%60))
-        printf "[%02d:%02d] (%d seconds) [%s]\n" "$mm" "$ss" "$elapsed_s" "$label" >> "$LOG"
-        return $rc
+    _log() {
+        local label=$1 d=$2
+        printf "[%02d:%02d] (%d seconds) [%s]\n" $((d/60)) $((d%60)) "$d" "$label" >> "$LOG"
     }
 
-    CI_START=$(_ts)
+    CI_START=$(date +%s)
 
-    _timed check just check > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
-    printf "\033[0;32m✓ Check passed\033[0m\n"
+    printf "%s\n" "--- phase 1: fast checks ---" >> "$LOG"
+    T=$(date +%s); just check > "$TMPFILE" 2>&1                             || { printf "\033[0;31m✗ check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check\033[0m\n"
+    T=$(date +%s); just check-help-alignment > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-help-alignment failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-help-alignment $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-help-alignment\033[0m\n"
+    T=$(date +%s); just validate-drafts-must-not-be-in-git > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ validate-drafts-must-not-be-in-git failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-drafts-must-not-be-in-git $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-drafts-must-not-be-in-git\033[0m\n"
+    T=$(date +%s); just validate-content > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ validate-content failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-content $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-content\033[0m\n"
+    T=$(date +%s); just validate-draft-annotations > "$TMPFILE" 2>&1        || { printf "\033[0;31m✗ validate-draft-annotations failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-draft-annotations $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-draft-annotations\033[0m\n"
+    T=$(date +%s); just validate-images > "$TMPFILE" 2>&1                   || { printf "\033[0;31m✗ validate-images failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-images $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-images\033[0m\n"
+    T=$(date +%s); just check-code-line-length > "$TMPFILE" 2>&1            || { printf "\033[0;31m✗ check-code-line-length failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-code-line-length $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-code-line-length\033[0m\n"
+    T=$(date +%s); just validate-md > "$TMPFILE" 2>&1                       || { printf "\033[0;31m✗ validate-md failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-md $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-md\033[0m\n"
+    T=$(date +%s); just validate-references > "$TMPFILE" 2>&1               || { printf "\033[0;31m✗ validate-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-references $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-references\033[0m\n"
+    T=$(date +%s); just ai-text-detect > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ ai-text-detect failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log ai-text-detect $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ ai-text-detect\033[0m\n"
 
-    printf "--- build ---\n" >> "$LOG"
-    _timed "build (total)" just build > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
-    printf "\033[0;32m✓ Build passed\033[0m\n"
+    printf "%s\n" "--- phase 2: build prep ---" >> "$LOG"
+    T=$(date +%s); just wardley-render > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ wardley-render failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log wardley-render $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ wardley-render\033[0m\n"
+    T=$(date +%s); just optimize-images > "$TMPFILE" 2>&1                   || { printf "\033[0;31m✗ optimize-images failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log optimize-images $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ optimize-images\033[0m\n"
+    T=$(date +%s); just strip-exif > "$TMPFILE" 2>&1                        || { printf "\033[0;31m✗ strip-exif failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log strip-exif $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ strip-exif\033[0m\n"
+    T=$(date +%s); just check-clean-worktree > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-clean-worktree failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-clean-worktree $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-clean-worktree\033[0m\n"
 
-    _timed validate-pagefind-index just validate-pagefind-index > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
-    printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
+    printf "%s\n" "--- phase 3: build ---" >> "$LOG"
+    T=$(date +%s); hugo --minify --cleanDestinationDir > "$TMPFILE" 2>&1    || { printf "\033[0;31m✗ hugo build failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log "hugo (build)" $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ hugo build\033[0m\n"
+    T=$(date +%s); just build-pagefind-index > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ build-pagefind-index failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log build-pagefind-index $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ build-pagefind-index\033[0m\n"
+    T=$(date +%s); just validate-pagefind-index > "$TMPFILE" 2>&1           || { printf "\033[0;31m✗ validate-pagefind-index failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-pagefind-index $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-pagefind-index\033[0m\n"
 
-    _timed check-clean-worktree just check-clean-worktree > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
-    printf "\033[0;32m✓ Working tree clean\033[0m\n"
-
+    printf "%s\n" "--- phase 4: slow ---" >> "$LOG"
     printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
-    _timed _run-lighthouse-checks just _run-lighthouse-checks > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
-    printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
+    T=$(date +%s); just _run-lighthouse-checks > "$TMPFILE" 2>&1            || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log _run-lighthouse-checks $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ Lighthouse CI\033[0m\n"
 
-    CI_END=$(_ts)
-    CI_ELAPSED_S=$(( (CI_END-CI_START) / 1000 ))
-    CI_MM=$((CI_ELAPSED_S/60)); CI_SS=$((CI_ELAPSED_S%60))
+    CI_D=$(( $(date +%s) - CI_START ))
     printf "=====================================\n" >> "$LOG"
-    printf "[%02d:%02d] (%d seconds) [TOTAL]\n" "$CI_MM" "$CI_SS" "$CI_ELAPSED_S" >> "$LOG"
+    printf "[%02d:%02d] (%d seconds) [TOTAL]\n" $((CI_D/60)) $((CI_D%60)) "$CI_D" >> "$LOG"
 
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -555,10 +565,27 @@ ci-verbose:
     echo ""
     printf "\033[0;34m=== Running CI Checks ===\033[0m\n"
     echo ""
+    printf "\033[0;33m--- Phase 1: fast checks ---\033[0m\n"
     just check
-    just build
-    just validate-pagefind-index
+    just check-help-alignment
+    just validate-drafts-must-not-be-in-git
+    just validate-content
+    just validate-draft-annotations
+    just validate-images
+    just check-code-line-length
+    just validate-md
+    just validate-references
+    just ai-text-detect
+    printf "\033[0;33m--- Phase 2: build prep ---\033[0m\n"
+    just wardley-render
+    just optimize-images
+    just strip-exif
     just check-clean-worktree
+    printf "\033[0;33m--- Phase 3: build ---\033[0m\n"
+    hugo --minify --cleanDestinationDir
+    just build-pagefind-index
+    just validate-pagefind-index
+    printf "\033[0;33m--- Phase 4: slow ---\033[0m\n"
     just _run-lighthouse-checks
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -733,6 +760,10 @@ validate-md:
             | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/github-link-format.yml --config config/semgrep/github-link-no-scheme.yml --config config/semgrep/linkedin-comment-format.yml --config config/semgrep/no-linkedin-url-params.yml --error
     else
         printf "  no tracked markdown files found\n"
+    fi
+    if [ -n "$(git ls-files -- 'justfile' 'scripts/*.sh')" ]; then
+        git ls-files -z -- 'justfile' 'scripts/*.sh' \
+            | xargs -0 semgrep --config config/semgrep/use-uv-run.yml --error
     fi
     printf "\033[0;32m✓ validate-md passed\033[0m\n"
     echo ""
@@ -968,7 +999,12 @@ check-help-alignment:
         if [ -z "$REF_COL" ]; then
             REF_COL=$COL
         elif [ "$COL" -ne "$REF_COL" ]; then
-            printf "\033[0;31m  misaligned (col %s, expected %s): %s\033[0m\n" "$COL" "$REF_COL" "$line"
+            TARGET=$(echo "$line" | sed -n 's/^  \([^ ]*\).*/\1/p')
+            NAME_LEN=${#TARGET}
+            printf "\033[0;31m  The help entry for target '%s' has its description starting at column %s,\033[0m\n" "$TARGET" "$COL"
+            printf "\033[0;31m  but all other entries start at column %s.\033[0m\n" "$REF_COL"
+            printf "\033[0;31m  The target name is %s chars long and overflows the current printf field width.\033[0m\n" "$NAME_LEN"
+            printf "\033[0;31m  Fix: widen the format field in every help printf line so it is at least %s chars wide.\033[0m\n" "$NAME_LEN"
             FAILED=1
         fi
     done <<< "$LINES"

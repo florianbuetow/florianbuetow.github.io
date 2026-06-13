@@ -1,6 +1,6 @@
 # Ticker News Article Formatting Guide
 
-How to format ticker news items (`content/ticker/<YYYY-MM-DD>-<slug>/index.md`). For the general article rules that also apply here (dashes, sidenotes, zoomable images), see [`article-formatting.md`](article-formatting.md).
+How to format ticker news items (`content/ticker/<YYYY-MM-DD>-<slug>/index.md`). For the general article rules that also apply here (dashes, sidenotes, zoomable images), see [`article-formatting.md`](article-formatting.md). For link, citation, and reference-list formatting (footnotes, the references/sources list, plain-list links, links that open in a new tab), see the [URL and References Formatting Guide](url-and-references-formatting-guide.md).
 
 ## Cross-post items (teasers)
 

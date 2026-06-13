@@ -28,6 +28,6 @@ Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_i-recently-joined-p
 
 ## References
 
-- [Beyond Coding on Spotify](https://open.spotify.com/show/7asIKIPU3N6n0SNWHxwMnQ)
-- [Beyond Coding on Apple Podcasts](https://podcasts.apple.com/us/podcast/beyond-coding/id1572440477)
-- [Beyond Coding on YouTube](https://www.youtube.com/@BeyondCoding)
+- Beyond Coding [Podcast on Spotify](https://open.spotify.com/show/7asIKIPU3N6n0SNWHxwMnQ)
+- Beyond Coding [Episode on Spotify](https://open.spotify.com/episode/3ro3ArGRgPh9PQ8Xt8caGU?si=183dcd46fb6b4848)
+- Beyond Coding [Episode on Apple Podcasts](https://podcasts.apple.com/us/podcast/how-top-engineers-are-solving-the-code-review-bottleneck/id1572440477?i=1000772025902)

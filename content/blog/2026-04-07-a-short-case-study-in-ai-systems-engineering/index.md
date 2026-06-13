@@ -43,7 +43,7 @@ Someone who can build with AI still needs strong ideas. Someone with a strong id
 
 Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:7447355918377398273/)
 
-## Sources
+## References
 
 - [Milla's announcement video on Instagram](https://www.instagram.com/p/DWzNnqwD2Lu/)
 - MemPalace [GitHub](https://github.com/milla-jovovich/mempalace) repository

@@ -2,7 +2,7 @@
 
 How the Open Source / Projects grid page (`/projects/`) renders project cards. Covers: where the pieces live, the front-matter fields that drive a grid card, sort order, how to feature a project (the full-width hero), and the extended `long_description` field.
 
-This guide is about the **grid/listing page** (`layouts/projects/articles.html`), not the individual project page (`layouts/projects/single.html`). For article content conventions (sidenotes, images, Mermaid, the references section), see [`article-formatting.md`](article-formatting.md). For broader conventions (build commands, `slug`), see `CLAUDE.md`.
+This guide is about the **grid/listing page** (`layouts/projects/articles.html`), not the individual project page (`layouts/projects/single.html`). For article content conventions (sidenotes, images, Mermaid), see [`article-formatting.md`](article-formatting.md); for links, citations, and reference lists, see the [URL and References Formatting Guide](url-and-references-formatting-guide.md). For broader conventions (build commands, `slug`), see `CLAUDE.md`.
 
 ---
 

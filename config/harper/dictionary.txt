@@ -65,3 +65,13 @@ sidequote
 buyable
 launchd
 pid
+FastAPI
+Voxtral
+RTF
+uv
+src
+tts
+mcp
+WAV
+ESC
+TLDR

@@ -1,0 +1,28 @@
+{{- /* Usage:
+  {{< audio src="welcome.mp3" caption="Voxtral, MLX 4-bit" >}}   file beside index.md (page bundle)
+  {{< audio src="/audio/demo.mp3" >}}                            file in static/audio/
+  {{< audio src="https://example.com/clip.mp3" >}}               remote URL
+
+  Params:
+    src      (required) page-bundle filename, site path, or remote URL
+    caption  (optional) caption shown under the player
+    preload  (optional) browser preload hint; default "metadata"
+
+  Resolution order: page-bundle resource -> assets/ resource -> raw src (relURL).
+  Reuses the existing .post-figure / figcaption styling, so no extra CSS is needed.
+*/ -}}
+{{- $src := .Get "src" -}}
+{{- if not $src -}}
+  {{- errorf "audio shortcode: missing required `src` parameter (%s)" .Position -}}
+{{- end -}}
+{{- $res := or (.Page.Resources.GetMatch $src) (resources.GetMatch $src) -}}
+{{- $url := $src | relURL -}}
+{{- with $res }}{{ $url = .RelPermalink }}{{ end -}}
+<figure class="post-figure post-audio">
+  <audio controls preload="{{ .Get "preload" | default "metadata" }}" src="{{ $url }}">
+    Your browser does not support the audio element.
+  </audio>
+  {{- with .Get "caption" }}
+  <figcaption>{{ . }}</figcaption>
+  {{- end }}
+</figure>

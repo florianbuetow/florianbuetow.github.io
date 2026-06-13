@@ -21,4 +21,4 @@ Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_eike-rackwitz-spent
 
 ## References
 
-- [Full interview on cracking-ai-engineering.com](https://cracking-ai-engineering.com/blog/interview-from-classical-guitar-to-ruby-on-rails/)
+- Article: [From Classical Guitar to Ruby on Rails](/blog/interview-from-classical-guitar-to-ruby-on-rails/)

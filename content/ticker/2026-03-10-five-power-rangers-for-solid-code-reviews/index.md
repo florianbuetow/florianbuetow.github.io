@@ -45,3 +45,6 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74370
 ## References
 
 - solid-principles plugin on [GitHub](https://github.com/florianbuetow/claude-code)
+- Paul Buetow [on LinkedIn](https://www.linkedin.com/in/paul-buetow-b4857270/)
+- Vlad-Marian MARIAN [on LinkedIn](https://www.linkedin.com/in/transilvlad/)
+- Jimmy Liikala [on LinkedIn](https://www.linkedin.com/in/jimmy-liikala/)

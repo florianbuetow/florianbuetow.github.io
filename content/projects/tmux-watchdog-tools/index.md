@@ -61,9 +61,10 @@ In any terminal, to start watching for new sessions.
 
 ## References
 
-- **GitHub** - [tmux-auto-attach](https://github.com/florianbuetow/tmux-auto-attach)
-- **Article** - [Auto-attach to tmux Sessions Spawned by AI Agents](/blog/tmux-auto-attach/) 
-- **tmux** - [the terminal multiplexer](https://github.com/tmux/tmux)
-- **flock** - [the file locking utility used for mutual exclusion](https://linux.die.net/man/1/flock)
-- **just** - [justfile command runner](https://github.com/casey/just)
+- GitHub [tmux-auto-attach](https://github.com/florianbuetow/tmux-auto-attach)
+- Install Guide [GitHub](https://github.com/florianbuetow/tmux-auto-attach#install)
+- Article: [Auto-attach to tmux Sessions Spawned by AI Agents](/blog/tmux-auto-attach/)
+- tmux [the terminal multiplexer](https://github.com/tmux/tmux)
+- flock [the file locking utility used for mutual exclusion](https://linux.die.net/man/1/flock)
+- just [justfile command runner](https://github.com/casey/just)
 
