@@ -44,4 +44,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74453
 
 ## References
 
-- [fixclaude plugin on GitHub](https://github.com/florianbuetow/claude-code/)
+- fixclaude plugin on [GitHub](https://github.com/florianbuetow/claude-code/)

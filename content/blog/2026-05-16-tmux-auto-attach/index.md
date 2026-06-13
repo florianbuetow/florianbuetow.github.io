@@ -111,7 +111,7 @@ The effect is agents controlling other agents. Unlike the built-in sub-agent or 
 
 The manual `tmux attach -t <session>` step at the end is a bit clunky, but it works. I have since found a better way: automatically attach to the sessions Claude Code spawns. I turned this into an open source tool you can grab on GitHub here:
 
-[github.com/florianbuetow/tmux-auto-attach](https://github.com/florianbuetow/tmux-auto-attach)
+[https://github.com/florianbuetow/tmux-auto-attach](https://github.com/florianbuetow/tmux-auto-attach)
 
 All you need to do is install it, open one or more terminals, and run the tool in each of them:
 
@@ -204,7 +204,7 @@ The watcher and `wrap` are two halves of the same idea: make tmux sessions disco
 
 ## References
 
-- [tmux-auto-attach on GitHub](https://github.com/florianbuetow/tmux-auto-attach) - the repo with the watcher and `wrap`.
+- tmux-auto-attach on [GitHub](https://github.com/florianbuetow/tmux-auto-attach) - the repo with the watcher and `wrap`.
 - [tmux](https://github.com/tmux/tmux) - the terminal multiplexer everything here is built on.
 - [flock](https://linux.die.net/man/1/flock) - the file locking utility used for mutual exclusion. On macOS: `brew install flock`.
 - [just](https://github.com/casey/just) - the command runner used for the `just init`, `just attach`, etc. interface.

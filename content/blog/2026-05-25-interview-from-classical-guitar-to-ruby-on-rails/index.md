@@ -240,7 +240,7 @@ Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_eike-rackwitz-spent
 ## References
 
 * [Eike on LinkedIn](https://www.linkedin.com/in/eike-rackwitz) - Eike's LinkedIn profile.
-* [Eike on GitHub (moguls753)](https://github.com/moguls753) - Eike's GitHub profile, including the ScoreBase and UUID benchmark repositories.
+* Eike on [GitHub](https://github.com/moguls753) (moguls753) - Eike's GitHub profile, including the ScoreBase and UUID benchmark repositories.
 * [Cortex - A self-hosted personal memory assistant](https://moguls753.github.io/cortex/) - Eike's self-hosted personal memory assistant with MCP server integration, discussed in the side projects section.
 * [ScoreBase - Sheet Music Search](https://scorebase.org/) - Sheet music search engine with semantic and multilingual search, built by Eike and referenced throughout the interview.
 * [Music21 - A toolkit for computer-aided musicology](https://www.music21.org/) - Python library used in ScoreBase for MusicXML feature extraction, central to the polyphony detection example in the interview.

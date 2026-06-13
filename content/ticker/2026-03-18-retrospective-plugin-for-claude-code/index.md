@@ -30,4 +30,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74399
 
 ## References
 
-- [retrospective plugin on GitHub](https://github.com/florianbuetow/claude-code)
+- retrospective plugin on [GitHub](https://github.com/florianbuetow/claude-code)

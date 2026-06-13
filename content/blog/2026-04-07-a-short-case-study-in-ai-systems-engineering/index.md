@@ -46,7 +46,7 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74473
 ## Sources
 
 - [Milla's announcement video on Instagram](https://www.instagram.com/p/DWzNnqwD2Lu/)
-- [MemPalace GitHub repository](https://github.com/milla-jovovich/mempalace)
+- MemPalace [GitHub](https://github.com/milla-jovovich/mempalace) repository
 - [MemPalace benchmarks](https://github.com/milla-jovovich/mempalace/blob/main/benchmarks/BENCHMARKS.md)
 - [Karpathy's LLM Wiki / knowledge structuring post](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f)
 - [Memory Palace Technique](https://artofmemory.com/blog/how-to-build-a-memory-palace/)

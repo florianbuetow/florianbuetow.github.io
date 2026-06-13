@@ -154,13 +154,13 @@ Moore's Law didn't end-it evolved. The exponential curve lived on through archit
 3.  [Adaptive Mixture of Local Experts (Jacobs, R. A., et al., 1991)](https://www.cs.toronto.edu/~hinton/absps/amle.pdf)
 4.  [Pathways: A next-generation AI architecture](https://blog.google/technology/ai/pathways-next-generation-ai-architecture/)
 5.  [Anthropic | Claude](https://www.anthropic.com/claude)
-6.  [Hugging Face Transformers GitHub Repository](https://github.com/huggingface/transformers)
+6.  Hugging Face Transformers [GitHub](https://github.com/huggingface/transformers) Repository
 7.  [DeepSparse (Note: Deprecated by Neural Magic post-Red Hat acquisition)](https://pypi.org/project/deepsparse/)
 8.  [NVIDIA Megatron-LM](https://nvidia.github.io/Megatron-LM/index.html)
 9.  [xAI | Grok](https://x.ai/grok)
 10. [LangGraph: Multi-Agent Workflows](https://www.langchain.com/langgraph)
-11. [Microsoft AutoGen GitHub Repository](https://github.com/microsoft/autogen)
-12. [CrewAI GitHub Repository](https://github.com/joaomdmoura/crewAI)
+11. Microsoft AutoGen [GitHub](https://github.com/microsoft/autogen) Repository
+12. CrewAI [GitHub](https://github.com/joaomdmoura/crewAI) Repository
 13. [OmniNova: A Generalist World Model for Tool-Augmented Agent](https://arxiv.org/abs/2406.06834)
 14. [What are Large Agentic Models (LAMs)?](https://www.tech4future.com/en/large-agentic-models-lams/)
 15. [What is Ray? - Anyscale](https://www.anyscale.com/ray-overview/what-is-ray)
@@ -175,8 +175,8 @@ Moore's Law didn't end-it evolved. The exponential curve lived on through archit
 24. [Gymnasium - An API for Reinforcement Learning (Farama Foundation)](https://gymnasium.farama.org/)
 25. [LangChain Documentation](https://www.langchain.com/docs)
 26. [Stable Baselines3 - Docs](https://stable-baselines3.readthedocs.io/en/master/)
-27. [SparseML GitHub Repository (Note: Deprecated by Neural Magic post-Red Hat acquisition)](https://github.com/neuralmagic/sparseml)
-28. [Mem0 - The Memory Layer for Language Models GitHub Repository](https://github.com/mem0ai/mem0)
+27. SparseML [GitHub](https://github.com/neuralmagic/sparseml) Repository (Note: Deprecated by Neural Magic post-Red Hat acquisition)
+28. Mem0 - The Memory Layer for Language Models [GitHub](https://github.com/mem0ai/mem0) Repository
 29. [Position: Enough of Scaling LLMs! Let's Focus on Downscaling – arXiv (Sengupta, A., Goel, Y., & Chakraborty, T., 2025)](https://arxiv.org/abs/2505.00985)
 30. [Scaling Laws of Synthetic Data for Language Models – arXiv (Zhu, Z. et al., 2025)](https://arxiv.org/abs/2503.19551)
 31. [AI Large Language Models: new report shows small changes can reduce energy use by 90% – UNESCO (2025)](https://www.unesco.org/en/articles/ai-large-language-models-new-report-shows-small-changes-can-reduce-energy-use-90)

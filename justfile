@@ -672,7 +672,7 @@ validate-images:
     @printf "\033[0;32m✓ validate-images passed\033[0m\n"
     @echo ""
 
-# Check blog markdown for disallowed characters (em dashes)
+# Check blog markdown for disallowed characters (em dashes) and link formatting
 validate-md:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -683,7 +683,7 @@ validate-md:
     # is required — semgrep with no target paths scans the whole CWD instead.
     if [ -n "$(git ls-files -- 'content/*.md')" ]; then
         git ls-files -z -- 'content/*.md' \
-            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --error
+            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/github-link-format.yml --error
     else
         printf "  no tracked markdown files found\n"
     fi

@@ -17,4 +17,4 @@ featured: false
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/imap-mini-mcp" target="_blank" rel="noopener">https://github.com/florianbuetow/imap-mini-mcp</a>{{< /sidenote >}}
 
-Visit the [GitHub repository](https://github.com/florianbuetow/imap-mini-mcp).
+Visit the [GitHub](https://github.com/florianbuetow/imap-mini-mcp) repository.

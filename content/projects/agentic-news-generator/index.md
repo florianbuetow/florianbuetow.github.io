@@ -20,4 +20,4 @@ image: "/projects/open-source-images/agentic-news-generator.webp"
 
 ![Agentic News Generator architecture blueprint](illustration-agentic-news-generator.webp?zoom)
 
-Visit the [GitHub repository](https://github.com/florianbuetow/agentic-news-generator).
+Visit the [GitHub](https://github.com/florianbuetow/agentic-news-generator) repository.

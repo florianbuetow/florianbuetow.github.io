@@ -22,4 +22,4 @@ image: "/projects/open-source-images/kamino451.webp"
 
 Kamino451 is an agent factory: it turns declarative agent specifications into tested, versioned, production-ready agents. Internally it behaves like an agent compiler, evaluation harness, and optimizer.
 
-A detailed case study is on the way. In the meantime, visit the [GitHub repository](https://github.com/florianbuetow/kamino451).
+A detailed case study is on the way. In the meantime, visit the [GitHub](https://github.com/florianbuetow/kamino451) repository.

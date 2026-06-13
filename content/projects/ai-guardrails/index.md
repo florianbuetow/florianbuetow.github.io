@@ -17,4 +17,4 @@ featured: false
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/ai-guardrails" target="_blank" rel="noopener">https://github.com/florianbuetow/ai-guardrails</a>{{< /sidenote >}}
 
-Visit the [GitHub repository](https://github.com/florianbuetow/ai-guardrails).
+Visit the [GitHub](https://github.com/florianbuetow/ai-guardrails) repository.

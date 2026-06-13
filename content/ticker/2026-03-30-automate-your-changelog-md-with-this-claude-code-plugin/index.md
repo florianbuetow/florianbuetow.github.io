@@ -46,6 +46,6 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74442
 
 ## References
 
-- [changelog plugin on GitHub](https://github.com/florianbuetow/claude-code)
+- changelog plugin on [GitHub](https://github.com/florianbuetow/claude-code)
 - [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 - [Semantic Versioning](https://semver.org/spec/v2.0.0.html)

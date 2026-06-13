@@ -276,7 +276,7 @@ For users and developers, the implication is clear: if you want control over how
 
 ## Resources
 
-- [Demo Code on GitHub](https://github.com/florianbuetow/demo_base_llm_vs_instruction_tuned_llm)
+- Demo Code on [GitHub](https://github.com/florianbuetow/demo_base_llm_vs_instruction_tuned_llm)
 - [SmolLM on Hugging Face](https://huggingface.co/HuggingFaceTB/SmolLM-360M)
 - [SmolLM-Instruct on Hugging Face](https://huggingface.co/HuggingFaceTB/SmolLM-360M-Instruct)
 - [Smol (Large) Language Model family](https://huggingface.co/blog/smollm)

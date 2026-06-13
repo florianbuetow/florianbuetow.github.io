@@ -41,4 +41,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74391
 
 ## References
 
-- [spec-dd plugin on GitHub](https://github.com/florianbuetow/claude-code)
+- spec-dd plugin on [GitHub](https://github.com/florianbuetow/claude-code)

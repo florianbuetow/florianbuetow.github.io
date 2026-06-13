@@ -25,6 +25,6 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74284
 
 ## References
 
-- [Guard on GitHub](https://github.com/florianbuetow/guard)
+- Guard on [GitHub](https://github.com/florianbuetow/guard)
 - [Kiro Hackathon by Dynamous.ai](https://dynamous.ai/#/kiro-hackathon)
 - [Winners livestream on YouTube](https://www.youtube.com/watch?v=-4U_SbjS41M)

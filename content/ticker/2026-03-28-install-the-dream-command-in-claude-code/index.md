@@ -22,4 +22,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74435
 
 ## References
 
-- [Dream memory consolidation prompt on GitHub](https://github.com/Piebald-AI/claude-code-system-prompts)
+- Dream memory consolidation prompt on [GitHub](https://github.com/Piebald-AI/claude-code-system-prompts)

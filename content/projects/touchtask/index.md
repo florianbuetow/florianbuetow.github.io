@@ -21,4 +21,4 @@ image: "/projects/open-source-images/touchtask.webp"
 
 ![TouchTask screenshot](screenshot.webp?zoom)
 
-Visit the [GitHub repository](https://github.com/florianbuetow/touchtask).
+Visit the [GitHub](https://github.com/florianbuetow/touchtask) repository.

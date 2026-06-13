@@ -44,4 +44,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74370
 
 ## References
 
-- [solid-principles plugin on GitHub](https://github.com/florianbuetow/claude-code)
+- solid-principles plugin on [GitHub](https://github.com/florianbuetow/claude-code)

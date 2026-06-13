@@ -35,4 +35,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74280
 
 ## References
 
-- [Guard on GitHub](https://github.com/florianbuetow/guard)
+- Guard on [GitHub](https://github.com/florianbuetow/guard)

@@ -1,0 +1,18 @@
+rules:
+  - id: content.github-link-format
+    languages: [generic]
+    message: >
+      Github links must either have the exact text "GitHub" or when they contain
+      the github.com url they must contain the complete github url.
+    severity: ERROR
+    paths:
+      include:
+        - "**/*.md"
+    patterns:
+      # A markdown link whose visible text contains "github" (any case) and whose
+      # target is a github.com URL.
+      - pattern-regex: '(?i)\[[^\]]*github[^\]]*\]\([^)]*github\.com[^)]*\)'
+      # Allowed form 1: the text is exactly "GitHub" (case-sensitive).
+      - pattern-not-regex: '\[GitHub\]\([^)]*github\.com[^)]*\)'
+      # Allowed form 2: the text is a complete github.com URL.
+      - pattern-not-regex: '(?i)\[https?://[^\]]*github\.com[^\]]*\]\([^)]*github\.com[^)]*\)'

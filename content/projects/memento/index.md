@@ -23,4 +23,4 @@ image: "/projects/open-source-images/memento.webp"
 
 Memento is a filesystem-backed library of small, reusable skills for AI agents and human operators. Each skill is a self-contained directory holding its instructions and an optional set of helper scripts, organized into categories so agents can discover and invoke exactly the recipe they need.
 
-A detailed case study is on the way. In the meantime, visit the [GitHub repository](https://github.com/florianbuetow/memento).
+A detailed case study is on the way. In the meantime, visit the [GitHub](https://github.com/florianbuetow/memento) repository.

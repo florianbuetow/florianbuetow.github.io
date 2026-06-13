@@ -30,4 +30,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74472
 
 ## References
 
-- [Full analysis on GitHub](https://github.com/anthropics/claude-code/issues/42796)
+- Full analysis on [GitHub](https://github.com/anthropics/claude-code/issues/42796)

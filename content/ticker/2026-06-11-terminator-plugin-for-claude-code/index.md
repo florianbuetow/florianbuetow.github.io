@@ -10,7 +10,7 @@ categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---
 
-{{< sidenote label="Download" >}}[github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code){{< /sidenote >}}
+{{< sidenote label="Download" >}}[https://github.com/florianbuetow/claude-code](https://github.com/florianbuetow/claude-code){{< /sidenote >}}
 
 Sometimes I just want to fire a prompt and forget: send Claude Code a prompt from CLI (or inside a session) and have the session close itself when the job is done. This is exactly what the Terminator plugin enables you to do. All you need to do is define a catchphrase and tell the model to utter that exact catchphrase at the end of its task. A hook ensures that when Claude stops and the catchphrase is present in the last message, it will terminate your Claude session and, if configured, the shell that you launched Claude Code from as well.
 
@@ -41,5 +41,5 @@ Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_terminator-plugin-f
 
 ## References
 
-- [Terminator plugin on GitHub](https://github.com/florianbuetow/claude-code/tree/main/plugins/terminator)
+- Terminator plugin on [GitHub](https://github.com/florianbuetow/claude-code/tree/main/plugins/terminator)
 - [My (free) plugin marketplace](https://github.com/florianbuetow/claude-code)

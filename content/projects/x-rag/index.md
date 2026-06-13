@@ -17,4 +17,4 @@ featured: false
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/x-rag" target="_blank" rel="noopener">https://github.com/florianbuetow/x-rag</a>{{< /sidenote >}}
 
-Visit the [GitHub repository](https://github.com/florianbuetow/x-rag).
+Visit the [GitHub](https://github.com/florianbuetow/x-rag) repository.

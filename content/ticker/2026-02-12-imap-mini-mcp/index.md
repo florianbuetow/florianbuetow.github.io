@@ -32,4 +32,4 @@ Comment on [LinkedIn](https://www.linkedin.com/feed/update/urn:li:activity:74277
 
 ## References
 
-- [imap-mini-mcp on GitHub](https://github.com/florianbuetow/imap-mini-mcp)
+- imap-mini-mcp on [GitHub](https://github.com/florianbuetow/imap-mini-mcp)

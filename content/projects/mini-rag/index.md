@@ -20,4 +20,4 @@ image: "/projects/open-source-images/mini-rag.webp"
 
 ![MiniRAG + MCP architecture blueprint](minirag-illustration.webp?zoom)
 
-Visit the [GitHub repository](https://github.com/florianbuetow/mini-rag).
+Visit the [GitHub](https://github.com/florianbuetow/mini-rag) repository.
