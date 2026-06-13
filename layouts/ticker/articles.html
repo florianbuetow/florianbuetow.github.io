@@ -22,5 +22,37 @@
             {{ if lt (add $i 1) (len $posts) }}<hr class="divider">{{ end }}
         {{ end }}
     </div>
+    <aside class="filter-sidebar">
+        {{ $ticker := where site.RegularPages "Section" "ticker" }}
+        {{ $tickerCats := slice }}
+        {{ $tickerTags := slice }}
+        {{ range $ticker }}
+            {{ range .GetTerms "categories" }}{{ $tickerCats = $tickerCats | append .RelPermalink }}{{ end }}
+            {{ range .GetTerms "tags" }}{{ $tickerTags = $tickerTags | append .RelPermalink }}{{ end }}
+        {{ end }}
+        {{ $tickerCats = $tickerCats | uniq }}
+        {{ $tickerTags = $tickerTags | uniq }}
+        {{ with site.Taxonomies.categories }}
+        <div class="filter-section">
+            <h4>Categories</h4>
+            <div class="filter-pills">
+                {{ range .Alphabetical }}{{ if in $tickerCats .Page.RelPermalink }}<a class="pill" href="{{ .Page.RelPermalink }}" data-kind="category" data-term="{{ .Page.LinkTitle }}">{{ .Page.LinkTitle }}</a>{{ end }}{{ end }}
+            </div>
+        </div>
+        {{ end }}
+        {{ with site.Taxonomies.tags }}
+        <div class="filter-section">
+            <h4>Tags</h4>
+            <div class="filter-pills">
+                {{ range .Alphabetical }}{{ if in $tickerTags .Page.RelPermalink }}<a class="pill" href="{{ .Page.RelPermalink }}" data-kind="tag" data-term="{{ .Page.LinkTitle }}">{{ .Page.LinkTitle }}</a>{{ end }}{{ end }}
+            </div>
+        </div>
+        {{ end }}
+        <button type="button" class="filter-clear">Clear filters</button>
+    </aside>
 </div>
+{{ end }}
+{{ define "scripts" }}
+{{ $filter := resources.Get "js/article-filter.js" | js.Build | minify | fingerprint }}
+<script src="{{ $filter.RelPermalink }}" integrity="{{ $filter.Data.Integrity }}" defer></script>
 {{ end }}

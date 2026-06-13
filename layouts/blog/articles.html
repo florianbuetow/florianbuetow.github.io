@@ -1,10 +1,9 @@
 {{ define "main" }}
 <div class="main-layout">
-    <div class="post-list">
+    <div class="post-list" data-page-size="4">
         {{ $posts := where .Pages "Type" "!=" "page" }}
         {{ if not $posts }}{{ $posts = .Pages }}{{ end }}
-        {{ $paginator := .Paginate $posts }}
-        {{ range $i, $p := $paginator.Pages }}
+        {{ range $i, $p := $posts }}
             <article class="post"
                      data-categories="{{ delimit ($p.Params.categories | default slice) "," }}"
                      data-tags="{{ delimit ($p.Params.tags | default slice) "," }}">
@@ -20,31 +19,26 @@
                     <p>{{ $p.Summary | plainify | truncate 280 }}</p>
                 </div>
             </article>
-            {{ if lt (add $i 1) (len $paginator.Pages) }}<hr class="divider">{{ end }}
+            {{ if lt (add $i 1) (len $posts) }}<hr class="divider">{{ end }}
         {{ end }}
-        {{ if gt $paginator.TotalPages 1 }}
-        <hr class="divider">
-        <nav class="pagination">
-            {{ if $paginator.HasPrev }}
-            <a href="{{ $paginator.Prev.URL }}" class="pagination-link">&#8592; Newer</a>
-            {{ else }}
-            <span class="pagination-link pagination-disabled">&#8592; Newer</span>
-            {{ end }}
-            <span class="pagination-info">Page {{ $paginator.PageNumber }} of {{ $paginator.TotalPages }}</span>
-            {{ if $paginator.HasNext }}
-            <a href="{{ $paginator.Next.URL }}" class="pagination-link">Older &#8594;</a>
-            {{ else }}
-            <span class="pagination-link pagination-disabled">Older &#8594;</span>
-            {{ end }}
-        </nav>
-        {{ end }}
+        <hr class="divider hidden" data-pagination-divider>
+        <nav class="pagination hidden" data-pagination></nav>
     </div>
     <aside class="filter-sidebar">
+        {{ $blog := where site.RegularPages "Section" "blog" }}
+        {{ $blogCats := slice }}
+        {{ $blogTags := slice }}
+        {{ range $blog }}
+            {{ range .GetTerms "categories" }}{{ $blogCats = $blogCats | append .RelPermalink }}{{ end }}
+            {{ range .GetTerms "tags" }}{{ $blogTags = $blogTags | append .RelPermalink }}{{ end }}
+        {{ end }}
+        {{ $blogCats = $blogCats | uniq }}
+        {{ $blogTags = $blogTags | uniq }}
         {{ with site.Taxonomies.categories }}
         <div class="filter-section">
             <h4>Categories</h4>
             <div class="filter-pills">
-                {{ range .Alphabetical }}<a class="pill" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>{{ end }}
+                {{ range .Alphabetical }}{{ if in $blogCats .Page.RelPermalink }}<a class="pill" href="{{ .Page.RelPermalink }}" data-kind="category" data-term="{{ .Page.LinkTitle }}">{{ .Page.LinkTitle }}</a>{{ end }}{{ end }}
             </div>
         </div>
         {{ end }}
@@ -52,10 +46,15 @@
         <div class="filter-section">
             <h4>Tags</h4>
             <div class="filter-pills">
-                {{ range .Alphabetical }}<a class="pill" href="{{ .Page.RelPermalink }}">{{ .Page.LinkTitle }}</a>{{ end }}
+                {{ range .Alphabetical }}{{ if in $blogTags .Page.RelPermalink }}<a class="pill" href="{{ .Page.RelPermalink }}" data-kind="tag" data-term="{{ .Page.LinkTitle }}">{{ .Page.LinkTitle }}</a>{{ end }}{{ end }}
             </div>
         </div>
         {{ end }}
+        <button type="button" class="filter-clear">Clear filters</button>
     </aside>
 </div>
+{{ end }}
+{{ define "scripts" }}
+{{ $filter := resources.Get "js/article-filter.js" | js.Build | minify | fingerprint }}
+<script src="{{ $filter.RelPermalink }}" integrity="{{ $filter.Data.Integrity }}" defer></script>
 {{ end }}
