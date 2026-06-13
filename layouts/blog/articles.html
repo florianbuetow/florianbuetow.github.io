@@ -42,6 +42,8 @@
             </div>
         </div>
         {{ end }}
+        {{/* Tags are dev-only for now: hidden in production builds, Categories still ship */}}
+        {{ if hugo.IsServer }}
         {{ with site.Taxonomies.tags }}
         <div class="filter-section">
             <h4>Tags</h4>
@@ -49,6 +51,7 @@
                 {{ range .Alphabetical }}{{ if in $blogTags .Page.RelPermalink }}<a class="pill" href="{{ .Page.RelPermalink }}" data-kind="tag" data-term="{{ .Page.LinkTitle }}">{{ .Page.LinkTitle }}</a>{{ end }}{{ end }}
             </div>
         </div>
+        {{ end }}
         {{ end }}
         <button type="button" class="filter-clear">Clear filters</button>
     </aside>
