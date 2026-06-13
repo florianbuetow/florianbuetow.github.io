@@ -46,6 +46,8 @@ The system coordinates a few distinct pieces to make the interaction seamless:
 
 If you want to run TTS-MCP yourself, the setup instructions are provided in the links below.
 
+Comment on [LinkedIn](https://www.linkedin.com/posts/fbuetow_when-you-kick-off-a-long-running-task-with-share-7471632174904057856-_r4t)
+
 ## Links
 
 - TTS-MCP [project page](/projects/tts-mcp/)
