@@ -6,6 +6,10 @@
 
 # Local scratch
 /scratch/
+
+# Internal docs (local only)
+/docs/superpowers/
+/docs/plans/
 /.cache/
 
 # Node
@@ -16,9 +20,9 @@
 /resources/
 .hugo_build.lock
 
-# Lighthouse CI reports
+# Reports
+/reports/
 /.lighthouseci/
-/reports/lighthouse/
 
 # Original images (backed up by just optimize-images)
 /data/assets/

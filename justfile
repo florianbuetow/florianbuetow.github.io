@@ -184,7 +184,7 @@ init:
         go install github.com/owulveryck/wardleyToGo/cmd/wtg2svg@a31d299ed0100ace9c7ab9513a6b87b10bfc4ea3
     fi
     printf "\033[0;32m✓ wtg2svg ready (%s)\033[0m\n" "$(command -v wtg2svg)"
-    mkdir -p public
+    mkdir -p public reports scratch
     git config core.hooksPath .githooks
     printf "\033[0;32m✓ git hooks configured (.githooks/pre-push → just ci)\033[0m\n"
     printf "\033[0;32m✓ init completed successfully\033[0m\n"
