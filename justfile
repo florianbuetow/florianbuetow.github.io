@@ -74,7 +74,7 @@ help:
     @echo ""
     @printf "\033[0;33mCI:\033[0m\n"
     @printf "  %-28s %s\n" "validate-images" "Check all image references resolve to files"
-    @printf "  %-28s %s\n" "validate-md" "Check blog markdown for disallowed characters (em dashes)"
+    @printf "  %-28s %s\n" "validate-md" "Check markdown for em dashes and malformed GitHub/LinkedIn links"
     @printf "  %-28s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-28s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
     @printf "  %-28s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
@@ -83,6 +83,7 @@ help:
     @printf "  %-28s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
     @printf "  %-28s %s\n" "draft-annotator" "Run the local draft annotation helper"
     @printf "  %-28s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
+    @printf "  %-28s %s\n" "validate-drafts-must-not-be-in-git" "Fail if any git-tracked Markdown file has draft: true"
     @printf "  %-28s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
     @printf "  %-28s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
     @printf "  %-28s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
@@ -460,18 +461,33 @@ build:
     set -e
     echo ""
     printf "\033[0;34m=== Building Production Site ===\033[0m\n"
-    just wardley-render
-    just optimize-images
-    just strip-exif
-    just validate-images
-    just validate-content
-    just validate-draft-annotations
-    just check-code-line-length
-    just validate-md
-    just validate-references
-    just ai-text-detect
-    hugo --minify --cleanDestinationDir
-    just build-pagefind-index
+    _ts() { python3 -c "import time; print(int(time.time()*1000))"; }
+    _timed() {
+        local label="$1"; shift
+        local t0 t1 rc=0 elapsed_s mm ss
+        t0=$(_ts)
+        "$@" || rc=$?
+        t1=$(_ts)
+        if [ -n "${CI_PIPELINE_LOG:-}" ]; then
+            elapsed_s=$(( (t1-t0) / 1000 ))
+            mm=$((elapsed_s/60)); ss=$((elapsed_s%60))
+            printf "[%02d:%02d] (%d seconds) [%s]\n" "$mm" "$ss" "$elapsed_s" "$label" >> "$CI_PIPELINE_LOG"
+        fi
+        return $rc
+    }
+    _timed wardley-render                    just wardley-render
+    _timed optimize-images                   just optimize-images
+    _timed strip-exif                        just strip-exif
+    _timed validate-images                   just validate-images
+    _timed validate-content                  just validate-content
+    _timed validate-draft-annotations        just validate-draft-annotations
+    _timed validate-drafts-must-not-be-in-git just validate-drafts-must-not-be-in-git
+    _timed check-code-line-length            just check-code-line-length
+    _timed validate-md                       just validate-md
+    _timed validate-references               just validate-references
+    _timed ai-text-detect                    just ai-text-detect
+    _timed "hugo (build)"                    hugo --minify --cleanDestinationDir
+    _timed build-pagefind-index              just build-pagefind-index
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
 
@@ -484,21 +500,49 @@ ci:
     TMPFILE=$(mktemp)
     trap "rm -f $TMPFILE" EXIT
 
-    just check > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Check failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    LOG="reports/pipeline-duration.log"
+    mkdir -p reports
+    printf "CI Pipeline Run: %s\n" "$(date)" > "$LOG"
+    printf "=====================================\n" >> "$LOG"
+    export CI_PIPELINE_LOG="$LOG"
+
+    _ts() { python3 -c "import time; print(int(time.time()*1000))"; }
+    _timed() {
+        local label="$1"; shift
+        local t0 t1 rc=0 elapsed_s mm ss
+        t0=$(_ts)
+        "$@" || rc=$?
+        t1=$(_ts)
+        elapsed_s=$(( (t1-t0) / 1000 ))
+        mm=$((elapsed_s/60)); ss=$((elapsed_s%60))
+        printf "[%02d:%02d] (%d seconds) [%s]\n" "$mm" "$ss" "$elapsed_s" "$label" >> "$LOG"
+        return $rc
+    }
+
+    CI_START=$(_ts)
+
+    _timed check just check > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
     printf "\033[0;32m✓ Check passed\033[0m\n"
 
-    just build > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    printf "--- build ---\n" >> "$LOG"
+    _timed "build (total)" just build > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Build failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
     printf "\033[0;32m✓ Build passed\033[0m\n"
 
-    just validate-pagefind-index > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    _timed validate-pagefind-index just validate-pagefind-index > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Pagefind validation failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
     printf "\033[0;32m✓ Pagefind index valid\033[0m\n"
 
-    just check-clean-worktree > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    _timed check-clean-worktree just check-clean-worktree > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Clean worktree check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
     printf "\033[0;32m✓ Working tree clean\033[0m\n"
 
     printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
-    just _run-lighthouse-checks > $TMPFILE 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat $TMPFILE; exit 1; }
+    _timed _run-lighthouse-checks just _run-lighthouse-checks > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat "$TMPFILE"; exit 1; }
     printf "\033[0;32m✓ Lighthouse CI passed\033[0m\n"
+
+    CI_END=$(_ts)
+    CI_ELAPSED_S=$(( (CI_END-CI_START) / 1000 ))
+    CI_MM=$((CI_ELAPSED_S/60)); CI_SS=$((CI_ELAPSED_S%60))
+    printf "=====================================\n" >> "$LOG"
+    printf "[%02d:%02d] (%d seconds) [TOTAL]\n" "$CI_MM" "$CI_SS" "$CI_ELAPSED_S" >> "$LOG"
 
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -686,7 +730,7 @@ validate-md:
     # is required — semgrep with no target paths scans the whole CWD instead.
     if [ -n "$(git ls-files -- 'content/*.md')" ]; then
         git ls-files -z -- 'content/*.md' \
-            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/github-link-format.yml --config config/semgrep/github-link-no-scheme.yml --error
+            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/github-link-format.yml --config config/semgrep/github-link-no-scheme.yml --config config/semgrep/linkedin-comment-format.yml --config config/semgrep/no-linkedin-url-params.yml --error
     else
         printf "  no tracked markdown files found\n"
     fi
@@ -834,6 +878,16 @@ validate-draft-annotations:
     printf "\033[0;34m=== Validating Draft Annotations ===\033[0m\n"
     uv run scripts/draft_annotator.py validate
     printf "\033[0;32m✓ validate-draft-annotations passed\033[0m\n"
+    echo ""
+
+# Fail if any git-tracked Markdown file has draft: true in its front matter
+validate-drafts-must-not-be-in-git:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Checking for Tracked Draft Files ===\033[0m\n"
+    uv run scripts/validate-drafts-must-not-be-in-git.py
+    printf "\033[0;32m✓ validate-drafts-must-not-be-in-git passed\033[0m\n"
     echo ""
 
 # Run the draft annotator unit tests
