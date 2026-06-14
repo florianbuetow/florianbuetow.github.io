@@ -58,9 +58,9 @@ help:
     @printf "  %-36s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
     @printf "  %-36s %s\n" "stop" "Stop the Hugo development server and draft annotator"
     @printf "  %-36s %s\n" "status" "Check if the Hugo server is running"
-    @printf "  %-36s %s\n" "build" "Build the production site (render → optimize → validate → hugo → pagefind)"
-    @printf "  %-36s %s\n" "ci" "Run ALL validation checks silently (only show output on errors)"
-    @printf "  %-36s %s\n" "ci-verbose" "Run ALL validation checks (verbose)"
+    @printf "  %-36s %s\n" "build" "Run CI checks (quiet), then Lighthouse; produces production public/"
+    @printf "  %-36s %s\n" "ci" "Run validation checks silently, no Lighthouse (output on errors)"
+    @printf "  %-36s %s\n" "ci-verbose" "Run ALL validation checks + Lighthouse (verbose)"
     @printf "  %-36s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
     @printf "\033[0;33mRun:\033[0m\n"
@@ -90,7 +90,7 @@ help:
     @printf "  %-36s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
     @printf "  %-36s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
     @printf "  %-36s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
-    @printf "  %-36s %s\n" "run-lighthouse-checks" "Build and audit public/ with Lighthouse CI on a temporary local server"
+    @printf "  %-36s %s\n" "run-lighthouse-checks" "Audit the existing public/ with Lighthouse CI (build the site first)"
     @printf "  %-36s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
     @printf "  %-36s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
     @echo ""
@@ -455,30 +455,13 @@ status:
     echo ""
     exit 1
 
-# Build the production site (render → optimize → validate → hugo → pagefind)
-build:
+# Build the production site: run all CI checks (quiet), then Lighthouse
+build: ci
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Building Production Site ===\033[0m\n"
-    _log() {
-        [ -n "${CI_PIPELINE_LOG:-}" ] || return 0
-        local label=$1 d=$2
-        printf "[%02d:%02d] (%d seconds) [%s]\n" $((d/60)) $((d%60)) "$d" "$label" >> "$CI_PIPELINE_LOG"
-    }
-    T=$(date +%s); just wardley-render;                     _log wardley-render                    $(( $(date +%s) - T ))
-    T=$(date +%s); just optimize-images;                    _log optimize-images                   $(( $(date +%s) - T ))
-    T=$(date +%s); just strip-exif;                         _log strip-exif                        $(( $(date +%s) - T ))
-    T=$(date +%s); just validate-images;                    _log validate-images                   $(( $(date +%s) - T ))
-    T=$(date +%s); just validate-content;                   _log validate-content                  $(( $(date +%s) - T ))
-    T=$(date +%s); just validate-draft-annotations;         _log validate-draft-annotations        $(( $(date +%s) - T ))
-    T=$(date +%s); just validate-drafts-must-not-be-in-git; _log validate-drafts-must-not-be-in-git $(( $(date +%s) - T ))
-    T=$(date +%s); just check-code-line-length;             _log check-code-line-length            $(( $(date +%s) - T ))
-    T=$(date +%s); just validate-md;                        _log validate-md                       $(( $(date +%s) - T ))
-    T=$(date +%s); just validate-references;                _log validate-references               $(( $(date +%s) - T ))
-    T=$(date +%s); just ai-text-detect;                     _log ai-text-detect                    $(( $(date +%s) - T ))
-    T=$(date +%s); hugo --minify --cleanDestinationDir;     _log "hugo (build)"                    $(( $(date +%s) - T ))
-    T=$(date +%s); just build-pagefind-index;               _log build-pagefind-index              $(( $(date +%s) - T ))
+    just _run-lighthouse-checks
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
 
@@ -545,11 +528,6 @@ ci:
     T=$(date +%s); just validate-pagefind-index > "$TMPFILE" 2>&1           || { printf "\033[0;31m✗ validate-pagefind-index failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-pagefind-index $(( $(date +%s) - T ))
     printf "\033[0;32m✓ validate-pagefind-index\033[0m\n"
 
-    printf "%s\n" "--- phase 4: slow ---" >> "$LOG"
-    printf "\033[0;33m→ Running Lighthouse CI checks (this may take a while)...\033[0m\n"
-    T=$(date +%s); just _run-lighthouse-checks > "$TMPFILE" 2>&1            || { printf "\033[0;31m✗ Lighthouse CI failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log _run-lighthouse-checks $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ Lighthouse CI\033[0m\n"
-
     CI_D=$(( $(date +%s) - CI_START ))
     printf "=====================================\n" >> "$LOG"
     printf "[%02d:%02d] (%d seconds) [TOTAL]\n" $((CI_D/60)) $((CI_D%60)) "$CI_D" >> "$LOG"
@@ -592,7 +570,7 @@ ci-verbose:
     echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
-deploy: ci-verbose
+deploy: build
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -1016,13 +994,12 @@ check-help-alignment:
     printf "\033[0;32m✓ check-help-alignment passed (descriptions at column %s)\033[0m\n" "$REF_COL"
     echo ""
 
-# Build and run Lighthouse CI against public/ on an LHCI-managed temporary server
+# Run Lighthouse CI against the existing public/ (does not build; run 'just build' first)
 run-lighthouse-checks:
     #!/usr/bin/env bash
     set -e
     echo ""
-    printf "\033[0;34m=== Building and Running Lighthouse CI ===\033[0m\n"
-    just build
+    printf "\033[0;34m=== Running Lighthouse CI ===\033[0m\n"
     just _run-lighthouse-checks
     printf "\033[0;32m✓ run-lighthouse-checks completed successfully\033[0m\n"
     echo ""
