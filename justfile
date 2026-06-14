@@ -455,12 +455,14 @@ status:
     echo ""
     exit 1
 
-# Build the production site: run all CI checks (quiet), then Lighthouse
+# Build the production site: CI checks (quiet), then the minified build + Lighthouse
 build: ci
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Building Production Site ===\033[0m\n"
+    hugo --minify --cleanDestinationDir
+    just build-pagefind-index
     just _run-lighthouse-checks
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
@@ -521,7 +523,7 @@ ci:
     printf "\033[0;32m✓ check-clean-worktree\033[0m\n"
 
     printf "%s\n" "--- phase 3: build ---" >> "$LOG"
-    T=$(date +%s); hugo --minify --cleanDestinationDir > "$TMPFILE" 2>&1    || { printf "\033[0;31m✗ hugo build failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log "hugo (build)" $(( $(date +%s) - T ))
+    T=$(date +%s); hugo --cleanDestinationDir > "$TMPFILE" 2>&1             || { printf "\033[0;31m✗ hugo build failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log "hugo (build)" $(( $(date +%s) - T ))
     printf "\033[0;32m✓ hugo build\033[0m\n"
     T=$(date +%s); just build-pagefind-index > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ build-pagefind-index failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log build-pagefind-index $(( $(date +%s) - T ))
     printf "\033[0;32m✓ build-pagefind-index\033[0m\n"
@@ -560,7 +562,7 @@ ci-verbose:
     just strip-exif
     just check-clean-worktree
     printf "\033[0;33m--- Phase 3: build ---\033[0m\n"
-    hugo --minify --cleanDestinationDir
+    hugo --cleanDestinationDir
     just build-pagefind-index
     just validate-pagefind-index
     printf "\033[0;33m--- Phase 4: slow ---\033[0m\n"

@@ -241,13 +241,41 @@ By default the URL comes from the filename: `content/blog/my-new-post.md` → `/
 
 ## Building the site
 
-Generate the production site into `public/`:
+The build and CI commands layer on top of each other: `build` depends on `ci`, and `deploy` depends on `build`. They share one set of checks; the differences are verbosity, whether Lighthouse runs, whether the build is minified, and (for `deploy`) the actual publish.
+
+### Which command to use
+
+- **`just ci`** — Run during development for a fast, quiet check of your changes. Output appears only on failure; Lighthouse is skipped.
+- **`just ci-verbose`** — The same checks, streamed step by step, **plus the Lighthouse audit**. Recommended when working on UI or layout changes so you also get the Lighthouse checks.
+- **`just build`** — Use when you also want to build the application: it runs all CI checks, then the **minified** production build + Lighthouse, leaving the deployable site in `public/`.
+- **`just deploy`** — Use to publish: it builds, pushes `main` to GitHub (which triggers the deployment), then verifies the live site URL.
+
+### What each command runs
+
+| Step | `ci` | `ci-verbose` | `build` | `deploy` |
+|---|:---:|:---:|:---:|:---:|
+| 12 build+validate steps (render → … → pagefind) | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| `hugo --cleanDestinationDir` (plain build → `public/`, drafts excluded; feeds the pagefind checks) | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| `hugo --minify --cleanDestinationDir` (minified production build) | — | — | ✓ | ✓ via `build` |
+| `check` (prereqs) | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| `check-help-alignment` | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| `check-clean-worktree` | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| `validate-pagefind-index` | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| Lighthouse CI (stubbed, `exit 0`) | — | ✓ | ✓ | ✓ via `build` |
+| Push to GitHub + watch run | — | — | — | ✓ |
+| Verify live site URL | — | — | — | ✓ |
+
+`just build` (and therefore `just deploy`) inherits `check-clean-worktree` from `ci`, so both require a clean, committed working tree.
+
+### Common commands
+
+Build the production site into `public/`:
 
 ```bash
 just build
 ```
 
-Run the full validation pipeline — `check`, `build`, `validate-pagefind-index`, `check-clean-worktree`, and Lighthouse CI. `just ci` runs quietly (output only on failure); `just ci-verbose` streams every step:
+Run the quiet validation pipeline:
 
 ```bash
 just ci
@@ -293,4 +321,4 @@ Deploy to GitHub Pages and verify the live site in one step:
 just deploy
 ```
 
-This pushes `main` if needed, triggers the GitHub Pages workflow, waits for it to succeed, and confirms the live site returns HTTP 200. Requires the `gh` CLI to be installed and authenticated.
+This runs the full build first (all CI checks, then Lighthouse), then pushes `main` if needed, triggers the GitHub Pages workflow, waits for it to succeed, and confirms the live site returns HTTP 200. Requires the `gh` CLI to be installed and authenticated.
