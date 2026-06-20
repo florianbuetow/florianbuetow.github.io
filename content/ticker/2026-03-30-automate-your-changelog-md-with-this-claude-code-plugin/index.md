@@ -5,7 +5,7 @@ date: 2026-03-30
 draft: false
 description: "A Claude Code plugin that reads your Git history and writes a proper CHANGELOG.md following Keep a Changelog format - one command, no config, no templates."
 author: "Florian Buetow"
-readTime: "3 min read"
+readTime: "2 min read"
 categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---

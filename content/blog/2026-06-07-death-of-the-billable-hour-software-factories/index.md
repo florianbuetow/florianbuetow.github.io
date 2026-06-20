@@ -6,7 +6,7 @@ date: 2026-06-07
 draft: false
 description: "As AI automates manual coding, the traditional billable hour is becoming obsolete, forcing software consultancies to rethink how they measure and deliver value. To stay competitive, firms must transition to outcome-based pricing by evolving into software factories where engineers orchestrate AI agents instead of writing lines of code."
 author: "Florian Buetow"
-readTime: "7 min read"
+readTime: "14 min read"
 categories: ["Software Factory", "Consulting"]
 tags: ["Outcome-Based Pricing", "Software Factory", "Agent Orchestration", "Consulting", "AI Agents", "Developer Productivity"]
 ---

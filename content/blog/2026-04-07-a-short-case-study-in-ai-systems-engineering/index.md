@@ -4,7 +4,7 @@ date: 2026-04-07
 draft: false
 description: "Milla Jovovich's MemPalace turned familiar retrieval ideas into a memory-palace metaphor for LLMs. A short case study in AI engineering and marketing."
 author: "Florian Buetow"
-readTime: "5 min read"
+readTime: "4 min read"
 categories: ["AI Engineering"]
 tags: ["Memory", "Retrieval", "Knowledge Graph"]
 ---

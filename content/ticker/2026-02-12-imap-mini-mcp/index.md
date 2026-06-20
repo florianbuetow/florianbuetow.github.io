@@ -4,7 +4,7 @@ date: 2026-02-12
 draft: false
 description: "A lightweight MCP server that connects to any IMAP provider and gives AI agents read access to your inbox - but no sending."
 author: "Florian Buetow"
-readTime: "2 min read"
+readTime: "1 min read"
 categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["MCP", "Email", "Open Source"]
 ---

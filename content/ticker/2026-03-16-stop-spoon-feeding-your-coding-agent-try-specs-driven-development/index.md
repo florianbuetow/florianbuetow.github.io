@@ -4,7 +4,7 @@ date: 2026-03-16
 draft: false
 description: "spec-dd is a specification-driven development workflow for Claude Code that captures behavioral intent before coding, with traceability from acceptance criteria to tests."
 author: "Florian Buetow"
-readTime: "3 min read"
+readTime: "2 min read"
 categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---

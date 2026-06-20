@@ -9,6 +9,7 @@ description: "Explore the Default Heuristic to choose proven tech for production
 author: "Florian Buetow"
 categories: ["AI Engineering"]
 tags: ["Tech Selection", "Production Systems", "Architecture"]
+readTime: "5 min read"
 ---
 
 ## Introduction

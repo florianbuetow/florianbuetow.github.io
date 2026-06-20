@@ -5,7 +5,7 @@ date: 2026-05-28
 draft: false
 description: "A Claude Code plugin that wraps the guard CLI - it composes the right guard commands for you and prints the sudo line whenever a file actually needs locking."
 author: "Florian Buetow"
-readTime: "2 min read"
+readTime: "3 min read"
 categories: ["AI Engineering", "Tools", "Guardrails", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source"]
 ---

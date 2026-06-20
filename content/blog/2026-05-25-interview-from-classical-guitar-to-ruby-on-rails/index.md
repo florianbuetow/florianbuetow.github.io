@@ -8,6 +8,7 @@ description: "Eike Rackwitz trained as a classical guitarist before transitionin
 author: "Florian Buetow & Eike Rackwitz"
 categories: ["Interviews", "AI Engineering"]
 tags: ["Interview", "Career Pivot", "Ruby on Rails", "Semantic Search", "MCP", "Claude Code", "Codex", "Junior Developers"]
+readTime: "20 min read"
 ---
 
 ## Preamble

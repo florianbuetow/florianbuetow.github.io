@@ -4,7 +4,7 @@ date: 2026-03-11
 draft: false
 description: "beyond-solid-principles audits your codebase at the architecture level across ten system-level design principles - from separation of concerns to YAGNI."
 author: "Florian Buetow"
-readTime: "2 min read"
+readTime: "1 min read"
 categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Plugin", "Open Source", "Architecture"]
 ---

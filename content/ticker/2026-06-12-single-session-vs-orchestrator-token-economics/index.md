@@ -5,7 +5,7 @@ date: 2026-06-12
 draft: false
 description: "An interactive playground that shows, qualitatively, when an orchestrator session dispatching tasks to subagents becomes cheaper than running everything in a single session."
 author: "Florian Buetow"
-readTime: "2 min read"
+readTime: "1 min read"
 categories: ["AI Engineering", "Tools", "Ticker News"]
 tags: ["Claude Code", "Agent Orchestration", "LLM"]
 ---

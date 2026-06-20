@@ -9,6 +9,7 @@ description: "Explore insights from Paul Bütow, a Principal SRE at Mimecast, on
 author: "Florian Buetow & Paul Bütow"
 categories: ["Interviews"]
 tags: ["SRE", "DevOps", "Automation", "Incident Management", "Observability"]
+readTime: "10 min read"
 ---
 
 ## Preamble 

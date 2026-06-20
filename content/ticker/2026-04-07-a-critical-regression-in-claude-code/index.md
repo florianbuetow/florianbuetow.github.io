@@ -4,7 +4,7 @@ date: 2026-04-07
 draft: false
 description: "Stella Laurenzo's analysis of 234,000 tool calls reveals how redacting thinking tokens collapsed Claude Code's reasoning quality and autonomous performance."
 author: "Florian Buetow"
-readTime: "3 min read"
+readTime: "2 min read"
 categories: ["AI Engineering", "Ticker News"]
 tags: ["Claude Code"]
 ---
