@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""Validate that every link used in a Markdown file is listed in its
-references section.
+"""Validate that Markdown article links and references stay in sync.
 
 Some articles close with a "links section": a heading titled Links,
 References, Resources, or Sources, followed by the catalogue of sources the
@@ -11,6 +10,10 @@ heading:
   2. Nothing comes after it (no heading may follow the links section).
   3. Every link that appears in the body above the section is also listed
      inside the section.
+
+It also warns when the section contains an inline link or footnote definition
+that is not cited from the body. These reverse-direction checks are advisory:
+they point out likely stale references without failing CI.
 
 A "link" is an inline Markdown link ``[text](url)`` or an HTML ``href``.
 Images, bare URLs (so Markdown footnote definitions are ignored), footnote
@@ -51,6 +54,8 @@ ATX_HEADING_RE = re.compile(r"^(#{1,6})\s+(.*)$")
 MARKDOWN_LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]*)\)")
 # HTML anchors written as raw HTML (href only; src points at images/media).
 HTML_HREF_RE = re.compile(r"""(?i)\bhref\s*=\s*["']([^"']+)["']""")
+FOOTNOTE_MARKER_RE = re.compile(r"\[\^([^\]\n]+)\]")
+FOOTNOTE_DEFINITION_RE = re.compile(r"^\s*\[\^([^\]\n]+)\]:")
 
 FRONT_MATTER_DELIMITERS = ("---", "+++")
 
@@ -71,8 +76,9 @@ class Heading:
 
 @dataclass(frozen=True)
 class Violation:
-    kind: str  # "multiple-sections" | "heading-after-section" | "missing-link"
+    kind: str
     message: str
+    severity: str = "error"  # "error" | "warning"
 
 
 def parse_args() -> argparse.Namespace:
@@ -196,6 +202,36 @@ def extract_links(text: str) -> list[str]:
     return urls
 
 
+def extract_footnote_markers(text: str) -> list[str]:
+    """Return inline footnote marker labels, deduped in first-appearance order."""
+    labels: list[str] = []
+    seen: set[str] = set()
+    for _, line in _code_aware_lines(text.split("\n")):
+        if FOOTNOTE_DEFINITION_RE.match(line):
+            continue
+        for match in FOOTNOTE_MARKER_RE.finditer(line):
+            label = match.group(1).strip()
+            if label and label not in seen:
+                seen.add(label)
+                labels.append(label)
+    return labels
+
+
+def extract_footnote_definitions(text: str) -> list[str]:
+    """Return footnote definition labels, deduped in first-appearance order."""
+    labels: list[str] = []
+    seen: set[str] = set()
+    for _, line in _code_aware_lines(text.split("\n")):
+        match = FOOTNOTE_DEFINITION_RE.match(line)
+        if not match:
+            continue
+        label = match.group(1).strip()
+        if label and label not in seen:
+            seen.add(label)
+            labels.append(label)
+    return labels
+
+
 # ---------------------------------------------------------------------------
 # Structure analysis
 # ---------------------------------------------------------------------------
@@ -282,21 +318,50 @@ def analyze_text(text: str) -> list[Violation]:
             for h in trailing
         ]
 
+    body_text = "\n".join(lines[content_start : section.index])
+    section_text = "\n".join(lines[section.index :])
+
     # Rule 3: every body link is listed in the section. Links are compared by
     # canonical form so an internal link written relative in the body matches
     # its absolute own-domain entry in the section (and vice versa).
-    body_links = extract_links("\n".join(lines[content_start : section.index]))
-    section_links = {
-        canonical_link(url) for url in extract_links("\n".join(lines[section.index :]))
-    }
-    return [
+    body_links = extract_links(body_text)
+    body_link_keys = {canonical_link(url) for url in body_links}
+    section_links = extract_links(section_text)
+    section_link_keys = {canonical_link(url) for url in section_links}
+    violations = [
         Violation(
             "missing-link",
             f'link missing from "{section.title}" section: {url}',
         )
         for url in body_links
-        if canonical_link(url) not in section_links
+        if canonical_link(url) not in section_link_keys
     ]
+
+    # Advisory reverse-direction checks: section entries that are never cited
+    # from the body usually mean the footer has gone stale. These stay warnings
+    # so they do not block publishing.
+    violations.extend(
+        Violation(
+            "unused-reference-link",
+            f'link in "{section.title}" section is not referenced from the body: {url}',
+            "warning",
+        )
+        for url in section_links
+        if canonical_link(url) not in body_link_keys
+    )
+
+    body_footnotes = set(extract_footnote_markers(body_text))
+    violations.extend(
+        Violation(
+            "unused-footnote-definition",
+            f'footnote definition in "{section.title}" section is not cited from the body: [^{label}]',
+            "warning",
+        )
+        for label in extract_footnote_definitions(section_text)
+        if label not in body_footnotes
+    )
+
+    return violations
 
 
 # ---------------------------------------------------------------------------
@@ -361,8 +426,8 @@ def main() -> int:
         print(f"{ANSI_GREEN}  no markdown files found{ANSI_RESET}")
         return 0
 
-    # Violations in published articles are errors (they fail CI); violations in
-    # drafts are warnings (shown, but never affect the exit code).
+    # Error-severity violations in published articles fail CI. Draft violations
+    # and advisory reverse-reference findings are warnings.
     errors: list[tuple[Path, list[Violation]]] = []
     warnings: list[tuple[Path, list[Violation]]] = []
     for path in files:
@@ -370,7 +435,19 @@ def main() -> int:
         violations = analyze_text(text)
         if not violations:
             continue
-        (warnings if is_draft(text) else errors).append((path, violations))
+        draft = is_draft(text)
+        error_violations = [
+            violation
+            for violation in violations
+            if violation.severity == "error" and not draft
+        ]
+        warning_violations = [
+            violation for violation in violations if violation.severity == "warning" or draft
+        ]
+        if error_violations:
+            errors.append((path, error_violations))
+        if warning_violations:
+            warnings.append((path, warning_violations))
 
     def emit(groups: list[tuple[Path, list[Violation]]], color: str, header: str) -> None:
         print(f"{color}{header}{ANSI_RESET}")
@@ -382,13 +459,11 @@ def main() -> int:
     if errors:
         emit(errors, ANSI_RED, "Link reference errors (published articles):")
     if warnings:
-        emit(warnings, ANSI_YELLOW, "Link reference warnings (drafts, non-blocking):")
+        emit(warnings, ANSI_YELLOW, "Link reference warnings (non-blocking):")
 
     error_count = sum(len(v) for _, v in errors)
     warning_count = sum(len(v) for _, v in warnings)
-    warning_tail = (
-        f"; {warning_count} warning(s) in {len(warnings)} draft(s)" if warning_count else ""
-    )
+    warning_tail = f"; {warning_count} warning(s) in {len(warnings)} file(s)" if warning_count else ""
 
     if error_count:
         print(

@@ -3,7 +3,7 @@
 
 Stdlib unittest only -- no third-party dependency. Run with:
 
-    python3 scripts/test_validate_link_references.py   # or: just validate-link-references-test
+    uv run scripts/test_validate_link_references.py   # or: just pytest-validate-references
 
 The checker lives at a hyphenated path (not importable normally), so it is
 loaded via importlib.
@@ -35,6 +35,10 @@ def kinds(text: str) -> list[str]:
 
 def messages(text: str) -> list[str]:
     return [v.message for v in mod.analyze_text(text)]
+
+
+def severities(text: str) -> list[str]:
+    return [v.severity for v in mod.analyze_text(text)]
 
 
 # --------------------------------------------------------------------------
@@ -111,6 +115,18 @@ class TestExtractLinks(unittest.TestCase):
             ["https://github.com/a/b#install"],
         )
 
+    def test_footnote_markers_deduped(self):
+        text = "Claim.[^a] More.[^b] Again.[^a]\n[^def]: ignored"
+        self.assertEqual(mod.extract_footnote_markers(text), ["a", "b"])
+
+    def test_footnote_markers_in_code_fence_ignored(self):
+        text = "```\n[^code]\n```\nReal.[^real]\n"
+        self.assertEqual(mod.extract_footnote_markers(text), ["real"])
+
+    def test_footnote_definitions_deduped(self):
+        text = "[^a]: Source A\n[^b]: Source B\n[^a]: Duplicate\n"
+        self.assertEqual(mod.extract_footnote_definitions(text), ["a", "b"])
+
 
 # --------------------------------------------------------------------------
 # analyze_text: structural rules + precedence
@@ -137,12 +153,14 @@ class TestAnalyzeText(unittest.TestCase):
         self.assertEqual(kinds(text), ["missing-link"])
         self.assertIn("https://o.example", messages(text)[0])
 
-    def test_extra_section_links_are_allowed(self):
+    def test_extra_section_links_warn_without_error(self):
         text = (
             "Body [t](https://t.example).\n\n"
             "## References\n\n- [t](https://t.example)\n- [bonus](https://bonus.example)\n"
         )
-        self.assertEqual(kinds(text), [])
+        self.assertEqual(kinds(text), ["unused-reference-link"])
+        self.assertEqual(severities(text), ["warning"])
+        self.assertIn("https://bonus.example", messages(text)[0])
 
     def test_multiple_sections_flagged(self):
         text = (
@@ -177,6 +195,17 @@ class TestAnalyzeText(unittest.TestCase):
         )
         self.assertEqual(kinds(text), [])
 
+    def test_unused_footnote_definition_warns_without_error(self):
+        text = (
+            "Claim one.[^a]\n\n"
+            "## References\n\n"
+            "[^a]: Source A. https://a.example\n"
+            "[^b]: Source B. https://b.example\n"
+        )
+        self.assertEqual(kinds(text), ["unused-footnote-definition"])
+        self.assertEqual(severities(text), ["warning"])
+        self.assertIn("[^b]", messages(text)[0])
+
     def test_sources_heading_is_a_reference_section(self):
         text = (
             "Body [a](https://a.example) and [b](https://b.example).\n\n"
@@ -208,6 +237,14 @@ class TestAnalyzeText(unittest.TestCase):
             "Read [interview](/blog/x/).\n\n"
             "## References\n\n"
             "- [interview](https://cracking-ai-engineering.com/blog/x/)\n"
+        )
+        self.assertEqual(kinds(text), [])
+
+    def test_internal_absolute_body_link_matches_relative_reference_for_warning_check(self):
+        text = (
+            "Read [interview](https://cracking-ai-engineering.com/blog/x/).\n\n"
+            "## References\n\n"
+            "- [interview](/blog/x/)\n"
         )
         self.assertEqual(kinds(text), [])
 
@@ -267,6 +304,15 @@ class TestCli(unittest.TestCase):
         result = self._run_files([("a.md", "---\ndraft: true\n---\n\n" + self.VIOLATION)])
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("https://o.example", result.stdout)
+        self.assertIn("warning", result.stdout.lower())
+
+    def test_cli_unused_reference_warning_does_not_fail_published_file(self):
+        result = self._run(
+            "Body [t](https://t.example).\n\n"
+            "## References\n\n- [t](https://t.example)\n- [x](https://x.example)\n"
+        )
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("https://x.example", result.stdout)
         self.assertIn("warning", result.stdout.lower())
 
     def test_cli_published_violation_is_an_error(self):

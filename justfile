@@ -19,7 +19,10 @@
 #    - Run group: dev.
 #    - Build group: wardley-render, optimize-images, strip-exif,
 #      build-pagefind-index (sub-steps chained by build).
-#    - CI group: individual validate-*/check-* targets (aggregated by ci).
+#    - Content-Checks group: article/content validators and prose analyzers.
+#    - Tests group: unit-style script tests, generated-output checks, and
+#      Lighthouse audits.
+#    - Utilities group: local helpers and repository housekeeping.
 #    Group related targets together and separate groups with an empty
 #    `@echo ""` line in the help output.
 #
@@ -73,7 +76,7 @@ help:
     @printf "  %-36s %s\n" "update-read-times" "Compute and write readTime front matter (ceil(words/225)); optional: just update-read-times <file>"
     @printf "  %-36s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
     @echo ""
-    @printf "\033[0;33mCI:\033[0m\n"
+    @printf "\033[0;33mContent-Checks:\033[0m\n"
     @printf "  %-36s %s\n" "validate-images" "Check all image references resolve to files"
     @printf "  %-36s %s\n" "validate-read-times" "Fail if any published article is missing readTime (optional: just validate-read-times <file>)"
     @printf "  %-36s %s\n" "validate-md" "Check markdown for em dashes and malformed GitHub/LinkedIn links"
@@ -81,24 +84,28 @@ help:
     @printf "  %-36s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
     @printf "  %-36s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
     @printf "  %-36s %s\n" "validate-references" "Check links used in articles are listed in their references section (optional: just validate-references <file>)"
-    @printf "  %-36s %s\n" "validate-references-test" "Run the link-reference validator unit tests"
     @printf "  %-36s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
-    @printf "  %-36s %s\n" "draft-annotator" "Run the local draft annotation helper"
     @printf "  %-36s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
     @printf "  %-36s %s\n" "validate-drafts-must-not-be-in-git" "Fail if any git-tracked Markdown file has draft: true"
-    @printf "  %-36s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
     @printf "  %-36s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
-    @printf "  %-36s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
     @printf "  %-36s %s\n" "pos-tag" "Replace article prose with POS tags into reports/pos-tagged/ (optional: just pos-tag <file>)"
-    @printf "  %-36s %s\n" "pos-tag-test" "Run the pos-tagger unit tests"
     @printf "  %-36s %s\n" "fingerprint-check" "Flag draft passages whose grammar matches AI-voice fingerprints (optional: just fingerprint-check <file>)"
-    @printf "  %-36s %s\n" "fingerprint-check-test" "Run the fingerprint-detector unit tests"
+    @echo ""
+    @printf "\033[0;33mTests:\033[0m\n"
+    @printf "  %-36s %s\n" "pytest-validate-references" "Run the link-reference validator Python tests"
+    @printf "  %-36s %s\n" "pytest-draft-annotator" "Run draft annotator Python tests"
+    @printf "  %-36s %s\n" "pytest-ai-text-detect" "Run the ai-text-detector Python tests"
+    @printf "  %-36s %s\n" "pytest-pos-tag" "Run the pos-tagger Python tests"
+    @printf "  %-36s %s\n" "pytest-fingerprint-check" "Run the fingerprint-detector Python tests"
     @printf "  %-36s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
-    @printf "  %-36s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
-    @printf "  %-36s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
     @printf "  %-36s %s\n" "run-lighthouse-checks" "Audit the existing public/ with Lighthouse CI (build the site first)"
     @printf "  %-36s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
     @printf "  %-36s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
+    @echo ""
+    @printf "\033[0;33mUtilities:\033[0m\n"
+    @printf "  %-36s %s\n" "draft-annotator" "Run the local draft annotation helper"
+    @printf "  %-36s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
+    @printf "  %-36s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
     @echo ""
     @printf "\033[0;33mAnalytics:\033[0m\n"
     @printf "  %-36s %s\n" "show-image-links" "Show all image links in content/ as a table"
@@ -832,14 +839,14 @@ validate-references file='':
     printf "\033[0;32m✓ validate-references passed\033[0m\n"
     echo ""
 
-# Run the link-reference validator unit tests
-validate-references-test:
+# Run the link-reference validator Python tests
+pytest-validate-references:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Testing Link Reference Validator ===\033[0m\n"
     uv run scripts/test_validate_link_references.py
-    printf "\033[0;32m✓ validate-references-test passed\033[0m\n"
+    printf "\033[0;32m✓ pytest-validate-references passed\033[0m\n"
     echo ""
 
 # Spell check all draft articles (draft: true) with harper-cli, or a single file if given
@@ -941,14 +948,14 @@ validate-drafts-must-not-be-in-git:
     printf "\033[0;32m✓ validate-drafts-must-not-be-in-git passed\033[0m\n"
     echo ""
 
-# Run the draft annotator unit tests
-draft-annotator-test:
+# Run the draft annotator Python tests
+pytest-draft-annotator:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Testing Draft Annotator ===\033[0m\n"
     uv run scripts/test_draft_annotator.py
-    printf "\033[0;32m✓ draft-annotator-test passed\033[0m\n"
+    printf "\033[0;32m✓ pytest-draft-annotator passed\033[0m\n"
     echo ""
 
 # Detect AI-generated-text tells in draft articles (draft: true), or a single file if given
@@ -965,14 +972,14 @@ ai-text-detect file='':
     printf "\033[0;32m✓ ai-text-detect passed\033[0m\n"
     echo ""
 
-# Run the ai-text-detector unit tests
-ai-text-detect-test:
+# Run the ai-text-detector Python tests
+pytest-ai-text-detect:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Testing AI-Text Detector ===\033[0m\n"
     uv run scripts/test_ai_text_detector.py
-    printf "\033[0;32m✓ ai-text-detect-test passed\033[0m\n"
+    printf "\033[0;32m✓ pytest-ai-text-detect passed\033[0m\n"
     echo ""
 
 # Replace article prose with POS tags (NOUN VERB ...) into reports/pos-tagged/, or a single file if given
@@ -989,14 +996,14 @@ pos-tag file='':
     printf "\033[0;32m✓ pos-tag passed\033[0m\n"
     echo ""
 
-# Run the pos-tagger unit tests
-pos-tag-test:
+# Run the pos-tagger Python tests
+pytest-pos-tag:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Testing POS Tagger ===\033[0m\n"
     uv run scripts/test_pos_tagger.py
-    printf "\033[0;32m✓ pos-tag-test passed\033[0m\n"
+    printf "\033[0;32m✓ pytest-pos-tag passed\033[0m\n"
     echo ""
 
 # Flag draft passages whose grammar matches AI-voice fingerprints, or a single file if given
@@ -1013,14 +1020,14 @@ fingerprint-check file='':
     printf "\033[0;32m✓ fingerprint-check passed\033[0m\n"
     echo ""
 
-# Run the fingerprint-detector unit tests
-fingerprint-check-test:
+# Run the fingerprint-detector Python tests
+pytest-fingerprint-check:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Testing Fingerprint Detector ===\033[0m\n"
     uv run scripts/test_fingerprint_detector.py
-    printf "\033[0;32m✓ fingerprint-check-test passed\033[0m\n"
+    printf "\033[0;32m✓ pytest-fingerprint-check passed\033[0m\n"
     echo ""
 
 # Verify the Pagefind search index exists in public/ (tripwire against silent failures)

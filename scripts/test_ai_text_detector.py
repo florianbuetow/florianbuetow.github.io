@@ -3,7 +3,7 @@
 
 Stdlib unittest only -- no third-party dependency. Run with:
 
-    python3 scripts/test_ai_text_detector.py        # or: just ai-text-detect-test
+    uv run scripts/test_ai_text_detector.py        # or: just pytest-ai-text-detect
 
 The detector lives at a hyphenated path (not importable normally), so it is
 loaded via importlib. Suite-level tests use the real config/ai-tells/*.txt
