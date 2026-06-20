@@ -29,7 +29,7 @@ The pressure does not depend on AI actually being faster, which the evidence say
 Close the article with this block, in this order:
 
 1. A `[Comment on LinkedIn](url)` link.
-2. A `## References` (or `## Sources`) heading.
+2. A `## References` heading.
 3. One footnote definition per source, each on its own line: `[^label]: Description. URL`.
 
 ```markdown
@@ -47,7 +47,7 @@ Hugo renders the definitions as a numbered list under the heading, each with a b
 
 - Write each definition as a phrase naming the publisher and title, then why it is cited, then the bare URL last. Use a bare URL, not a `[label](url)` link, inside footnote definitions; this matches the existing articles.
 - The divider line Hugo (Goldmark) inserts above the footnote list is hidden site-wide by a `.footnotes hr { display: none; }` rule in `assets/css/main.css`, so the heading sits directly above the list. Do not add it back per article.
-- Use `## References` for ticker articles and `## Sources` for longer essays. Both are accepted; pick one and stay consistent within the article.
+- Use `## References` for all articles, both ticker items and longer essays.
 - The LinkedIn URL must come from the actual LinkedIn post file outside this repo. Don't invent activity IDs.
 - Nothing should follow the reference list. It is the article's footer.
 
@@ -82,7 +82,7 @@ Description [Page](url)
 `{{< resources >}}` renders a two-column source table. It powers the dedicated [resources](/resources/) page and stays valid where a tabular source list reads better than footnotes, but it provides no inline citation markers, which is why footnotes are the default for article references.
 
 ```markdown
-## Sources
+## References
 
 {{< resources >}}
 [Descriptive label for the source](https://example.com/path) | What this source is and why it is cited.

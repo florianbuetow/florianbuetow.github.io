@@ -70,10 +70,12 @@ help:
     @printf "  %-36s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
     @printf "  %-36s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
     @printf "  %-36s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
+    @printf "  %-36s %s\n" "update-read-times" "Compute and write readTime front matter (ceil(words/225)); optional: just update-read-times <file>"
     @printf "  %-36s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
     @echo ""
     @printf "\033[0;33mCI:\033[0m\n"
     @printf "  %-36s %s\n" "validate-images" "Check all image references resolve to files"
+    @printf "  %-36s %s\n" "validate-read-times" "Fail if any published article is missing readTime (optional: just validate-read-times <file>)"
     @printf "  %-36s %s\n" "validate-md" "Check markdown for em dashes and malformed GitHub/LinkedIn links"
     @printf "  %-36s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-36s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
@@ -87,6 +89,10 @@ help:
     @printf "  %-36s %s\n" "draft-annotator-test" "Run draft annotator unit tests"
     @printf "  %-36s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
     @printf "  %-36s %s\n" "ai-text-detect-test" "Run the ai-text-detector unit tests"
+    @printf "  %-36s %s\n" "pos-tag" "Replace article prose with POS tags into reports/pos-tagged/ (optional: just pos-tag <file>)"
+    @printf "  %-36s %s\n" "pos-tag-test" "Run the pos-tagger unit tests"
+    @printf "  %-36s %s\n" "fingerprint-check" "Flag draft passages whose grammar matches AI-voice fingerprints (optional: just fingerprint-check <file>)"
+    @printf "  %-36s %s\n" "fingerprint-check-test" "Run the fingerprint-detector unit tests"
     @printf "  %-36s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
     @printf "  %-36s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
     @printf "  %-36s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
@@ -511,6 +517,8 @@ ci:
     printf "\033[0;32m✓ validate-references\033[0m\n"
     T=$(date +%s); just ai-text-detect > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ ai-text-detect failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log ai-text-detect $(( $(date +%s) - T ))
     printf "\033[0;32m✓ ai-text-detect\033[0m\n"
+    T=$(date +%s); just validate-read-times > "$TMPFILE" 2>&1               || { printf "\033[0;31m✗ validate-read-times failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-read-times $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ validate-read-times\033[0m\n"
 
     printf "%s\n" "--- phase 2: build prep ---" >> "$LOG"
     T=$(date +%s); just wardley-render > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ wardley-render failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log wardley-render $(( $(date +%s) - T ))
@@ -519,6 +527,8 @@ ci:
     printf "\033[0;32m✓ optimize-images\033[0m\n"
     T=$(date +%s); just strip-exif > "$TMPFILE" 2>&1                        || { printf "\033[0;31m✗ strip-exif failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log strip-exif $(( $(date +%s) - T ))
     printf "\033[0;32m✓ strip-exif\033[0m\n"
+    T=$(date +%s); just update-read-times > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ update-read-times failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log update-read-times $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ update-read-times\033[0m\n"
     T=$(date +%s); just check-clean-worktree > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-clean-worktree failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-clean-worktree $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-clean-worktree\033[0m\n"
 
@@ -556,10 +566,12 @@ ci-verbose:
     just validate-md
     just validate-references
     just ai-text-detect
+    just validate-read-times
     printf "\033[0;33m--- Phase 2: build prep ---\033[0m\n"
     just wardley-render
     just optimize-images
     just strip-exif
+    just update-read-times
     just check-clean-worktree
     printf "\033[0;33m--- Phase 3: build ---\033[0m\n"
     hugo --cleanDestinationDir
@@ -703,6 +715,20 @@ strip-exif:
     @printf "\033[0;32m✓ strip-exif completed\033[0m\n"
     @echo ""
 
+# Compute and write readTime front matter for all content, or a single file if given
+update-read-times file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Setting readTime Front Matter ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        uv run scripts/update-read-times.py --file "{{file}}"
+    else
+        uv run scripts/update-read-times.py
+    fi
+    printf "\033[0;32m✓ update-read-times completed\033[0m\n"
+    echo ""
+
 # Build the Pagefind search index from public/ (chained by `just build`)
 build-pagefind-index:
     #!/usr/bin/env bash
@@ -725,6 +751,20 @@ validate-images:
     @bash scripts/validate-images.sh
     @printf "\033[0;32m✓ validate-images passed\033[0m\n"
     @echo ""
+
+# Fail if any git-tracked published article is missing a readTime front matter field
+validate-read-times file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Validating readTime Front Matter ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        uv run scripts/validate-read-times.py --file "{{file}}"
+    else
+        uv run scripts/validate-read-times.py --dir content/blog --dir content/ticker
+    fi
+    printf "\033[0;32m✓ validate-read-times passed\033[0m\n"
+    echo ""
 
 # Check blog markdown for disallowed characters (em dashes) and link formatting
 validate-md:
@@ -933,6 +973,54 @@ ai-text-detect-test:
     printf "\033[0;34m=== Testing AI-Text Detector ===\033[0m\n"
     uv run scripts/test_ai_text_detector.py
     printf "\033[0;32m✓ ai-text-detect-test passed\033[0m\n"
+    echo ""
+
+# Replace article prose with POS tags (NOUN VERB ...) into reports/pos-tagged/, or a single file if given
+pos-tag file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== POS-Tagging Article Prose ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        uv run scripts/pos-tagger.py "{{file}}"
+    else
+        uv run scripts/pos-tagger.py
+    fi
+    printf "\033[0;32m✓ pos-tag passed\033[0m\n"
+    echo ""
+
+# Run the pos-tagger unit tests
+pos-tag-test:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Testing POS Tagger ===\033[0m\n"
+    uv run scripts/test_pos_tagger.py
+    printf "\033[0;32m✓ pos-tag-test passed\033[0m\n"
+    echo ""
+
+# Flag draft passages whose grammar matches AI-voice fingerprints, or a single file if given
+fingerprint-check file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Checking Drafts for AI-Voice Fingerprints ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        uv run scripts/fingerprint-detector.py "{{file}}"
+    else
+        uv run scripts/fingerprint-detector.py
+    fi
+    printf "\033[0;32m✓ fingerprint-check passed\033[0m\n"
+    echo ""
+
+# Run the fingerprint-detector unit tests
+fingerprint-check-test:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Testing Fingerprint Detector ===\033[0m\n"
+    uv run scripts/test_fingerprint_detector.py
+    printf "\033[0;32m✓ fingerprint-check-test passed\033[0m\n"
     echo ""
 
 # Verify the Pagefind search index exists in public/ (tripwire against silent failures)
