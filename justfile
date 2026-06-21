@@ -93,6 +93,7 @@ help:
     @printf "  %-36s %s\n" "check-detect-ai-voice-fingerprints" "Flag draft passages whose grammar matches AI-voice fingerprints (optional: just check-detect-ai-voice-fingerprints <file>)"
     @echo ""
     @printf "\033[0;33mTests:\033[0m\n"
+    @printf "  %-36s %s\n" "check-ci-pipeline-targets" "Fail if any Content-Checks/Tests target is not called by ci and ci-verbose"
     @printf "  %-36s %s\n" "pytest-validate-references" "Run the link-reference validator Python tests"
     @printf "  %-36s %s\n" "pytest-draft-annotator" "Run draft annotator Python tests"
     @printf "  %-36s %s\n" "pytest-check-detect-ai-voice" "Run the ai-text-detector Python tests"
@@ -505,8 +506,8 @@ ci:
     CI_START=$(date +%s)
 
     printf "%s\n" "--- phase 1: fast checks ---" >> "$LOG"
-    T=$(date +%s); just check > "$TMPFILE" 2>&1                             || { printf "\033[0;31m✗ check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check\033[0m\n"
+    T=$(date +%s); just check > "$TMPFILE" 2>&1                             || { printf "\033[0;31m✗ check (tooling prerequisites) failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check (tooling prerequisites)\033[0m\n"
     T=$(date +%s); just check-help-alignment > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-help-alignment failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-help-alignment $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-help-alignment\033[0m\n"
     T=$(date +%s); just check-no-drafts-in-git > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-no-drafts-in-git failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-no-drafts-in-git $(( $(date +%s) - T ))
@@ -541,6 +542,8 @@ ci:
     printf "\033[0;32m✓ check-external-links\033[0m\n"
 
     printf "%s\n" "--- phase 4: tests ---" >> "$LOG"
+    T=$(date +%s); just check-ci-pipeline-targets > "$TMPFILE" 2>&1       || { printf "\033[0;31m✗ check-ci-pipeline-targets failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-ci-pipeline-targets $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-ci-pipeline-targets\033[0m\n"
     T=$(date +%s); just pytest-validate-references > "$TMPFILE" 2>&1     || { printf "\033[0;31m✗ pytest-validate-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-validate-references $(( $(date +%s) - T ))
     printf "\033[0;32m✓ pytest-validate-references\033[0m\n"
     T=$(date +%s); just pytest-draft-annotator > "$TMPFILE" 2>&1         || { printf "\033[0;31m✗ pytest-draft-annotator failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-draft-annotator $(( $(date +%s) - T ))
@@ -588,6 +591,7 @@ ci-verbose:
     printf "\033[0;33m--- Phase 3: slow checks ---\033[0m\n"
     just check-external-links
     printf "\033[0;33m--- Phase 4: tests ---\033[0m\n"
+    just check-ci-pipeline-targets
     just pytest-validate-references
     just pytest-draft-annotator
     just pytest-check-detect-ai-voice
@@ -847,6 +851,16 @@ check-references file='':
     printf "\033[0;32m✓ check-references passed\033[0m\n"
     echo ""
 
+# Fail if any Content-Checks or Tests target is not called by ci and ci-verbose
+check-ci-pipeline-targets:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Checking CI Pipeline Targets ===\033[0m\n"
+    uv run scripts/check-ci-pipeline-targets.py
+    printf "\033[0;32m✓ check-ci-pipeline-targets passed\033[0m\n"
+    echo ""
+
 # Run the link-reference validator Python tests
 pytest-validate-references:
     #!/usr/bin/env bash
@@ -952,7 +966,7 @@ check-no-drafts-in-git:
     set -e
     echo ""
     printf "\033[0;34m=== Checking for Tracked Draft Files ===\033[0m\n"
-    uv run scripts/check-no-drafts-in-git.py
+    uv run scripts/validate-drafts-must-not-be-in-git.py
     printf "\033[0;32m✓ check-no-drafts-in-git passed\033[0m\n"
     echo ""
 
