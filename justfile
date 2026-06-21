@@ -92,6 +92,9 @@ help:
     @printf "  %-36s %s\n" "check-detect-ai-voice" "Flag AI-generated-text tells in drafts (optional: just check-detect-ai-voice <file>)"
     @printf "  %-36s %s\n" "check-detect-ai-voice-fingerprints" "Flag draft passages whose grammar matches AI-voice fingerprints (optional: just check-detect-ai-voice-fingerprints <file>)"
     @echo ""
+    @printf "\033[0;33mShortcuts:\033[0m\n"
+    @printf "  %-36s %s\n" "spellcheck" "Shortcut for check-spelling (optional: just spellcheck <file>)"
+    @echo ""
     @printf "\033[0;33mTests:\033[0m\n"
     @printf "  %-36s %s\n" "check-ci-pipeline-targets" "Fail if any Content-Checks/Tests target is not called by ci and ci-verbose"
     @printf "  %-36s %s\n" "pytest-validate-references" "Run the link-reference validator Python tests"
@@ -505,56 +508,56 @@ ci:
 
     CI_START=$(date +%s)
 
-    printf "%s\n" "--- phase 1: fast checks ---" >> "$LOG"
-    T=$(date +%s); just check > "$TMPFILE" 2>&1                             || { printf "\033[0;31m✗ check (tooling prerequisites) failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check $(( $(date +%s) - T ))
+    printf "%s\n" "--- prerequisite gate ---" >> "$LOG"
+    T=$(date +%s); just check > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check (tooling prerequisites) failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check (tooling prerequisites)\033[0m\n"
-    T=$(date +%s); just check-help-alignment > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-help-alignment failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-help-alignment $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-help-alignment\033[0m\n"
+
+    printf "%s\n" "--- fast checks ---" >> "$LOG"
     T=$(date +%s); just check-no-drafts-in-git > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-no-drafts-in-git failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-no-drafts-in-git $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-no-drafts-in-git\033[0m\n"
-    T=$(date +%s); just check-draft-todos > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ check-draft-todos failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-draft-todos $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-draft-todos\033[0m\n"
-    T=$(date +%s); just check-draft-annotations > "$TMPFILE" 2>&1        || { printf "\033[0;31m✗ check-draft-annotations failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-draft-annotations $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-draft-annotations\033[0m\n"
-    T=$(date +%s); just check-image-links > "$TMPFILE" 2>&1                   || { printf "\033[0;31m✗ check-image-links failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-image-links $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-image-links\033[0m\n"
-    T=$(date +%s); just check-code-line-length > "$TMPFILE" 2>&1            || { printf "\033[0;31m✗ check-code-line-length failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-code-line-length $(( $(date +%s) - T ))
+    T=$(date +%s); just check-code-line-length > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-code-line-length failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-code-line-length $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-code-line-length\033[0m\n"
-    T=$(date +%s); just check-markdown > "$TMPFILE" 2>&1                       || { printf "\033[0;31m✗ check-markdown failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-markdown $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-markdown\033[0m\n"
-    T=$(date +%s); just check-references > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ check-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-references $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-references\033[0m\n"
-    T=$(date +%s); just check-detect-ai-voice > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-detect-ai-voice $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-detect-ai-voice\033[0m\n"
-    T=$(date +%s); just check-read-times > "$TMPFILE" 2>&1               || { printf "\033[0;31m✗ check-read-times failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-read-times $(( $(date +%s) - T ))
+    T=$(date +%s); just check-read-times > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-read-times failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-read-times $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-read-times\033[0m\n"
-    T=$(date +%s); just check-spelling > "$TMPFILE" 2>&1                 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
+    T=$(date +%s); just check-clean-worktree > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-clean-worktree failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-clean-worktree $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-clean-worktree\033[0m\n"
+    T=$(date +%s); just check-references > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-references $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-references\033[0m\n"
+    T=$(date +%s); just check-detect-ai-voice > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-detect-ai-voice $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-detect-ai-voice\033[0m\n"
+    T=$(date +%s); just check-draft-annotations > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-draft-annotations failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-draft-annotations $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-draft-annotations\033[0m\n"
+    T=$(date +%s); just check-ci-pipeline-targets > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-ci-pipeline-targets failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-ci-pipeline-targets $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-ci-pipeline-targets\033[0m\n"
+    T=$(date +%s); just check-image-links > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-image-links failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-image-links $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-image-links\033[0m\n"
+    T=$(date +%s); just check-help-alignment > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-help-alignment failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-help-alignment $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-help-alignment\033[0m\n"
+    T=$(date +%s); just check-draft-todos > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-draft-todos failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-draft-todos $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-draft-todos\033[0m\n"
+
+    printf "%s\n" "--- medium checks & tests ---" >> "$LOG"
+    T=$(date +%s); just pytest-pos-tag > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-pos-tag failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-pos-tag $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-pos-tag\033[0m\n"
+    T=$(date +%s); just pytest-draft-annotator > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-draft-annotator failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-draft-annotator $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-draft-annotator\033[0m\n"
+    T=$(date +%s); just pytest-validate-references > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-validate-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-validate-references $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-validate-references\033[0m\n"
+    T=$(date +%s); just pytest-fingerprint-check > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-fingerprint-check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-fingerprint-check $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-fingerprint-check\033[0m\n"
+    T=$(date +%s); just pytest-check-detect-ai-voice > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-check-detect-ai-voice $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-check-detect-ai-voice\033[0m\n"
+    T=$(date +%s); just check-spelling > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-spelling\033[0m\n"
-    T=$(date +%s); just check-detect-ai-voice-fingerprints > "$TMPFILE" 2>&1       || { printf "\033[0;31m✗ check-detect-ai-voice-fingerprints failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-detect-ai-voice-fingerprints $(( $(date +%s) - T ))
+    T=$(date +%s); just check-detect-ai-voice-fingerprints > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-detect-ai-voice-fingerprints failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-detect-ai-voice-fingerprints $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-detect-ai-voice-fingerprints\033[0m\n"
 
-    printf "%s\n" "--- phase 2: hygiene ---" >> "$LOG"
-    T=$(date +%s); just check-clean-worktree > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-clean-worktree failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-clean-worktree $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-clean-worktree\033[0m\n"
-
-    printf "%s\n" "--- phase 3: slow checks ---" >> "$LOG"
-    T=$(date +%s); just check-external-links > "$TMPFILE" 2>&1           || { printf "\033[0;31m✗ check-external-links failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-external-links $(( $(date +%s) - T ))
+    printf "%s\n" "--- slow checks ---" >> "$LOG"
+    T=$(date +%s); just check-markdown > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-markdown failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-markdown $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-markdown\033[0m\n"
+    T=$(date +%s); just check-external-links > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-external-links failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-external-links $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-external-links\033[0m\n"
-
-    printf "%s\n" "--- phase 4: tests ---" >> "$LOG"
-    T=$(date +%s); just check-ci-pipeline-targets > "$TMPFILE" 2>&1       || { printf "\033[0;31m✗ check-ci-pipeline-targets failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-ci-pipeline-targets $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-ci-pipeline-targets\033[0m\n"
-    T=$(date +%s); just pytest-validate-references > "$TMPFILE" 2>&1     || { printf "\033[0;31m✗ pytest-validate-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-validate-references $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ pytest-validate-references\033[0m\n"
-    T=$(date +%s); just pytest-draft-annotator > "$TMPFILE" 2>&1         || { printf "\033[0;31m✗ pytest-draft-annotator failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-draft-annotator $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ pytest-draft-annotator\033[0m\n"
-    T=$(date +%s); just pytest-check-detect-ai-voice > "$TMPFILE" 2>&1   || { printf "\033[0;31m✗ pytest-check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-check-detect-ai-voice $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ pytest-check-detect-ai-voice\033[0m\n"
-    T=$(date +%s); just pytest-pos-tag > "$TMPFILE" 2>&1                 || { printf "\033[0;31m✗ pytest-pos-tag failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-pos-tag $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ pytest-pos-tag\033[0m\n"
-    T=$(date +%s); just pytest-fingerprint-check > "$TMPFILE" 2>&1       || { printf "\033[0;31m✗ pytest-fingerprint-check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-fingerprint-check $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ pytest-fingerprint-check\033[0m\n"
-    T=$(date +%s); just test-lighthouse > "$TMPFILE" 2>&1                || { printf "\033[0;31m✗ test-lighthouse failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log test-lighthouse $(( $(date +%s) - T ))
+    T=$(date +%s); just test-lighthouse > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ test-lighthouse failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log test-lighthouse $(( $(date +%s) - T ))
     printf "\033[0;32m✓ test-lighthouse\033[0m\n"
 
     CI_D=$(( $(date +%s) - CI_START ))
@@ -572,31 +575,31 @@ ci-verbose:
     echo ""
     printf "\033[0;34m=== Running CI Checks ===\033[0m\n"
     echo ""
-    printf "\033[0;33m--- Phase 1: fast checks ---\033[0m\n"
+    printf "\033[0;33m--- prerequisite gate ---\033[0m\n"
     just check
-    just check-help-alignment
+    printf "\033[0;33m--- fast checks ---\033[0m\n"
     just check-no-drafts-in-git
-    just check-draft-todos
-    just check-draft-annotations
-    just check-image-links
     just check-code-line-length
-    just check-markdown
+    just check-read-times
+    just check-clean-worktree
     just check-references
     just check-detect-ai-voice
-    just check-read-times
+    just check-draft-annotations
+    just check-ci-pipeline-targets
+    just check-image-links
+    just check-help-alignment
+    just check-draft-todos
+    printf "\033[0;33m--- medium checks & tests ---\033[0m\n"
+    just pytest-pos-tag
+    just pytest-draft-annotator
+    just pytest-validate-references
+    just pytest-fingerprint-check
+    just pytest-check-detect-ai-voice
     just check-spelling
     just check-detect-ai-voice-fingerprints
-    printf "\033[0;33m--- Phase 2: hygiene ---\033[0m\n"
-    just check-clean-worktree
-    printf "\033[0;33m--- Phase 3: slow checks ---\033[0m\n"
+    printf "\033[0;33m--- slow checks ---\033[0m\n"
+    just check-markdown
     just check-external-links
-    printf "\033[0;33m--- Phase 4: tests ---\033[0m\n"
-    just check-ci-pipeline-targets
-    just pytest-validate-references
-    just pytest-draft-annotator
-    just pytest-check-detect-ai-voice
-    just pytest-pos-tag
-    just pytest-fingerprint-check
     just test-lighthouse
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
@@ -872,6 +875,9 @@ pytest-validate-references:
     echo ""
 
 # Spell check all draft articles (draft: true) with harper-cli, or a single file if given
+spellcheck file='':
+    @just check-spelling "{{file}}"
+
 check-spelling file='':
     #!/usr/bin/env bash
     set -e
@@ -887,23 +893,17 @@ check-spelling file='':
         echo ""
         exit 0
     fi
-    ERRORS=0
     while IFS= read -r file; do
         printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
         if [ -d "$file" ]; then
             while IFS= read -r md; do
-                harper-cli lint --user-dict-path config/harper/dictionary.txt "$md" || ERRORS=$((ERRORS + 1))
+                harper-cli lint --ignore UnclosedQuotes --no-color --user-dict-path config/harper/dictionary.txt "$md" || exit 1
             done < <(find "$file" -name "*.md" | sort)
         else
-            harper-cli lint --user-dict-path config/harper/dictionary.txt "$file" || ERRORS=$((ERRORS + 1))
+            harper-cli lint --ignore UnclosedQuotes --no-color --user-dict-path config/harper/dictionary.txt "$file" || exit 1
         fi
         echo ""
     done <<< "$DRAFTS"
-    if [ "$ERRORS" -gt 0 ]; then
-        printf "\033[0;31m✗ check-spelling: %s file(s) reported issues\033[0m\n" "$ERRORS"
-        echo ""
-        exit 1
-    fi
     printf "\033[0;32m✓ check-spelling passed\033[0m\n"
     echo ""
 

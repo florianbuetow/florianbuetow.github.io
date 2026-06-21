@@ -40,7 +40,8 @@ _spec.loader.exec_module(fd)
 class FingerprintTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.nlp = fd.pt.load_nlp()
+        cls.nlp = fd.ptag.load_nlp()
+        cls.tagger = fd.ptag.ProseTagger(cls.nlp)
 
     # --- pure matching -------------------------------------------------------
 
@@ -50,20 +51,20 @@ class FingerprintTest(unittest.TestCase):
 
     def test_match_token_keeps_punctuation(self):
         toks = list(self.nlp("Cats, dogs."))
-        by_text = {t.text: fd._match_token(t) for t in toks}
+        by_text = {t.text: self.tagger.match_token(t) for t in toks}
         self.assertEqual(by_text[","], ",")   # punctuation kept literally
         self.assertEqual(by_text["."], ".")
         self.assertEqual(by_text["Cats"], "NOUN")  # words -> POS
 
     def test_pattern_includes_punctuation_tokens(self):
-        pat = fd.pattern_for("the data is mixed, but real.", self.nlp)
+        pat = self.tagger.pattern("the data is mixed, but real.")
         self.assertIn(",", pat)
         self.assertIn(".", pat)
 
     # --- markdown / code exclusion ------------------------------------------
 
     def test_markdown_and_code_excluded(self):
-        prose = fd.extract_prose(
+        prose = self.tagger.extract_prose(
             "Real prose here.\n```\nsecret_code_token\n```\n"
             "See [the link words](http://example.com/x).\n"
         )
@@ -76,20 +77,20 @@ class FingerprintTest(unittest.TestCase):
 
     def test_short_fingerprint_never_fires(self):
         short = [{"text": "x", "pattern": ["DET", "NOUN"]}]  # len 2 < K
-        self.assertEqual(fd.find_passages("The cat. The dog.", short, self.nlp), [])
+        self.assertEqual(fd.find_passages("The cat. The dog.", short, self.tagger), [])
 
     def test_kgram_match_fires(self):
         sentence = "This is the shape of the moment."
-        fp = [{"text": "ORIGINAL FP", "pattern": fd.pattern_for(sentence, self.nlp)}]
-        passages = fd.find_passages(sentence, fp, self.nlp)
+        fp = [{"text": "ORIGINAL FP", "pattern": self.tagger.pattern(sentence)}]
+        passages = fd.find_passages(sentence, fp, self.tagger)
         self.assertEqual(len(passages), 1)
         self.assertEqual(passages[0]["similar"], ["ORIGINAL FP"])
         self.assertIn("shape", passages[0]["text"])  # the offending words are shown
 
     def test_span_words_handles_line_break(self):
         # A matched span that straddles a hard line break must not jam words.
-        fp = [{"text": "FP", "pattern": fd.pattern_for("This is the shape of the moment.", self.nlp)}]
-        passages = fd.find_passages("This is the shape\nof the moment.", fp, self.nlp)
+        fp = [{"text": "FP", "pattern": self.tagger.pattern("This is the shape of the moment.")}]
+        passages = fd.find_passages("This is the shape\nof the moment.", fp, self.tagger)
         self.assertEqual(len(passages), 1)
         self.assertIn("shape of", passages[0]["text"])
         self.assertNotIn("shapeof", passages[0]["text"])
@@ -97,20 +98,20 @@ class FingerprintTest(unittest.TestCase):
     def test_multiple_examples_same_pattern_all_listed(self):
         # THE requirement: when several flagged phrases share one pattern, the
         # detected passage lists ALL of them, not just one.
-        pattern = fd.pattern_for("This is the shape of the moment.", self.nlp)
+        pattern = self.tagger.pattern("This is the shape of the moment.")
         fps = [{"text": "Read it as a serious signal, not a law.", "pattern": pattern},
                {"text": "And the data is mixed but real.", "pattern": pattern}]
-        passages = fd.find_passages("This is the shape of the moment.", fps, self.nlp)
+        passages = fd.find_passages("This is the shape of the moment.", fps, self.tagger)
         self.assertEqual(len(passages), 1)                 # one detected passage
         self.assertEqual(len(passages[0]["similar"]), 2)   # BOTH examples listed
         self.assertIn("Read it as a serious signal, not a law.", passages[0]["similar"])
         self.assertIn("And the data is mixed but real.", passages[0]["similar"])
 
     def test_overlapping_matches_grouped_into_one_passage(self):
-        full = fd.pattern_for("This is the shape of the moment.", self.nlp)
+        full = self.tagger.pattern("This is the shape of the moment.")
         fps = [{"text": "LONG", "pattern": full},
                {"text": "SHORT", "pattern": full[:6]}]  # sub-run, overlaps LONG
-        passages = fd.find_passages("This is the shape of the moment.", fps, self.nlp)
+        passages = fd.find_passages("This is the shape of the moment.", fps, self.tagger)
         self.assertEqual(len(passages), 1)                  # grouped, not duplicated
         self.assertIn("LONG", passages[0]["similar"])
         self.assertIn("SHORT", passages[0]["similar"])      # both listed under the span
@@ -123,12 +124,12 @@ class FingerprintTest(unittest.TestCase):
             p.write_text(prose, encoding="utf-8")
             buf = io.StringIO()
             with contextlib.redirect_stdout(buf):
-                n = fd.check_draft(p, fingerprints, self.nlp)
+                n = fd.check_draft(p, fingerprints, self.tagger)
             return buf.getvalue(), n, p
 
     def test_output_format_exact(self):
         sentence = "This is the shape of the moment."
-        fp = [{"text": "ORIGINAL FP", "pattern": fd.pattern_for(sentence, self.nlp)}]
+        fp = [{"text": "ORIGINAL FP", "pattern": self.tagger.pattern(sentence)}]
         out, n, p = self._check(sentence + "\n", fp)
         lines = out.split("\n")
         self.assertEqual(lines[0], f"Checking draft document: {p}")
@@ -148,7 +149,7 @@ class FingerprintTest(unittest.TestCase):
     # --- fingerprints file generation ---------------------------------------
 
     def test_fingerprints_file_generated(self):
-        fps = fd.build_fingerprints(self.nlp)
+        fps = fd.build_fingerprints(self.tagger)
         expected = sum(1 for ln in fd.SRC.read_text(encoding="utf-8").splitlines() if ln.strip())
         self.assertEqual(len(fps), expected)
         self.assertTrue(fd.FP_OUT.is_file())
@@ -160,7 +161,7 @@ class FingerprintTest(unittest.TestCase):
             self.assertTrue(e["pattern"])  # non-empty pattern string
 
     def test_load_fingerprints_reads_file(self):
-        fd.build_fingerprints(self.nlp)
+        fd.build_fingerprints(self.tagger)
         loaded = fd.load_fingerprints()  # AC-1.3: patterns come from the yaml file
         self.assertTrue(loaded)
         self.assertIsInstance(loaded[0]["pattern"], list)  # split back into tokens
