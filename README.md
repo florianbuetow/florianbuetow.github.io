@@ -221,16 +221,16 @@ An inline pull quote.
 
 1. Create the file with `draft: true`.
 2. Run `just start` and preview at `http://127.0.0.1:1313/blog/`.
-3. Run `just spell-check <file>` and resolve any issues.
+3. Run `just check-spelling <file>` and resolve any issues.
 4. When ready, set `draft: false` — never flip this before spell check passes.
 5. Run `just build` to generate the production site into `public/`.
 
 ### Spell checking
 
-`just spell-check` lints all draft articles (`draft: true`) with [harper-cli](https://writewithharper.com/). To check a single file regardless of draft status:
+`just check-spelling` lints all draft articles (`draft: true`) with [harper-cli](https://writewithharper.com/). To check a single file regardless of draft status:
 
 ```bash
-just spell-check content/blog/my-post/index.md
+just check-spelling content/blog/my-post/index.md
 ```
 
 Project-specific words (proper names, technical terms) can be added to `config/harper/dictionary.txt`, one word per line, to suppress false positives.
@@ -241,27 +241,28 @@ By default the URL comes from the filename: `content/blog/my-new-post.md` → `/
 
 ## Building the site
 
-The build and CI commands layer on top of each other: `build` depends on `ci`, and `deploy` depends on `build`. They share one set of checks; the differences are verbosity, whether Lighthouse runs, whether the build is minified, and (for `deploy`) the actual publish.
+The build and CI commands layer on top of each other: `build` depends on `ci`, and `deploy` depends on `build`. `ci` is validation only; generated assets and site output are owned by `build`.
 
 ### Which command to use
 
-- **`just ci`** — Run during development for a fast, quiet check of your changes. Output appears only on failure; Lighthouse is skipped.
-- **`just ci-verbose`** — The same checks, streamed step by step, **plus the Lighthouse audit**. Recommended when working on UI or layout changes so you also get the Lighthouse checks.
-- **`just build`** — Use when you also want to build the application: it runs all CI checks, then the **minified** production build + Lighthouse, leaving the deployable site in `public/`.
+- **`just ci`** — Run during development for a fast, quiet validation pass. Output appears only on failure; it does not build or write generated assets.
+- **`just ci-verbose`** — The same validation checks, streamed step by step.
+- **`just build`** — Use when you also want to generate assets and build the site: it runs CI, normalizes generated assets, then creates the **minified** production build + Pagefind + Lighthouse, leaving the deployable site in `public/`.
+- **`just test-lighthouse`** — Re-run Lighthouse against an existing `public/` build without rebuilding. Reports are written under `reports/lighthouse/`; open the generated `.html` report files directly from there.
 - **`just deploy`** — Use to publish: it builds, pushes `main` to GitHub (which triggers the deployment), then verifies the live site URL.
 
 ### What each command runs
 
 | Step | `ci` | `ci-verbose` | `build` | `deploy` |
 |---|:---:|:---:|:---:|:---:|
-| 12 build+validate steps (render → … → pagefind) | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
-| `hugo --cleanDestinationDir` (plain build → `public/`, drafts excluded; feeds the pagefind checks) | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| Content and repository validation checks | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
+| Generated asset normalization (`render-wardley-maps`, images, EXIF, read times) | — | — | ✓ | ✓ via `build` |
 | `hugo --minify --cleanDestinationDir` (minified production build) | — | — | ✓ | ✓ via `build` |
 | `check` (prereqs) | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
 | `check-help-alignment` | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
 | `check-clean-worktree` | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
-| `validate-pagefind-index` | ✓ | ✓ | ✓ via `ci` | ✓ via `build` → `ci` |
-| Lighthouse CI (stubbed, `exit 0`) | — | ✓ | ✓ | ✓ via `build` |
+| Pagefind index build + validation | — | — | ✓ | ✓ via `build` |
+| Lighthouse CI | — | — | ✓ | ✓ via `build` |
 | Push to GitHub + watch run | — | — | — | ✓ |
 | Verify live site URL | — | — | — | ✓ |
 
@@ -301,10 +302,11 @@ just help
 
 - **Setup:** `init`, `check`, `clean`, `destroy`, `help`
 - **Lifecycle:** `start`, `stop`, `status`, `build`, `ci`, `ci-verbose`, `deploy`
-- **Run:** `dev`
-- **Build:** `wardley-render`, `optimize-images`, `strip-exif`, `build-pagefind-index`
-- **CI:** `validate-images`, `validate-md`, `validate-content`, `check-code-line-length`, `check-links`, `spell-check`, `validate-pagefind-index`, `check-clean-worktree`, and more
-- **Analytics:** `show-image-links`, `show-tags`
+- **Run:** `serve`, `serve-annotator`
+- **Build:** `render-wardley-maps`, `optimize-images`, `remove-exif-data`, `update-read-times`, `build-pagefind-index`, `validate-pagefind-index`
+- **Content-Checks:** `validate-images`, `validate-md`, `validate-content`, `check-code-line-length`, `check-external-links`, `check-spelling`, `check-help-alignment`, `check-clean-worktree`, and more
+- **Tests:** `pytest-*`, `test-lighthouse`
+- **Analytics:** `show-image-links`, `show-cat-tags`
 
 ## Configuration notes
 

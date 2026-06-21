@@ -79,7 +79,7 @@ flowchart LR
 
 - Any Mermaid diagram type works (`flowchart`, `sequenceDiagram`, `classDiagram`, `stateDiagram`, `gantt`, etc.). The renderer is the upstream Mermaid package.
 - Use `<br/>` inside node labels for line breaks. Quote labels that contain spaces or special characters: `A["Some label<br/>with two lines"]`.
-- Preview locally with `just dev`. Mermaid renders in-browser, so a saved file should refresh and show the diagram immediately.
+- Preview locally with `just serve`. Mermaid renders in-browser, so a saved file should refresh and show the diagram immediately.
 - Don't paste an SVG export. The whole point of writing the diagram source is that it stays diffable.
 
 ---
@@ -91,7 +91,7 @@ Wardley maps are rendered at build time from a `.wtg2` source file (the [wardley
 ### How to write one
 
 1. Inside the article's page-bundle directory, create the DSL source as `map.wtg2`. For multiple maps in the same article, use descriptive basenames (e.g., `auth-evolution.wtg2`, `data-platform.wtg2`).
-2. Run `just wardley-render`. This walks `content/**/*.wtg` and produces a `.svg` of the same basename next to each `.wtg2`, using `wtg2svg -static`.
+2. Run `just render-wardley-maps`. This walks `content/**/*.wtg` and produces a `.svg` of the same basename next to each `.wtg2`, using `wtg2svg -static`.
 3. Reference the generated SVG with standard Markdown image syntax:
 
    ```markdown
@@ -104,7 +104,7 @@ Wardley maps are rendered at build time from a `.wtg2` source file (the [wardley
 
 - The `?zoom` lightbox documented in section 6 works for SVG too: `![...](map.svg?zoom "...")`.
 - The render hook (`layouts/_default/_markup/render-image.html`) detects `.svg` files by suffix and emits them without explicit `width`/`height`. The browser uses the SVG's intrinsic `viewBox` for sizing.
-- After editing any `.wtg2`, re-run `just wardley-render` before committing. The generated `.svg` must travel with its source.
+- After editing any `.wtg2`, re-run `just render-wardley-maps` before committing. The generated `.svg` must travel with its source.
 - `validate-images` enforces that any non-draft article referencing a `.svg` has the file present, so a forgotten render is caught by CI.
 - The renderer (`wtg2svg`) is installed by `just init` at a pinned commit SHA; see the install block in the justfile for the rationale.
 - DSL reference and examples: see the [wardleyToGo](https://github.com/owulveryck/wardleyToGo) repository (`sample.wtg` in the repo root is a good starting point).

@@ -13,16 +13,14 @@
 # 4. Target ordering in help (and in this file) matters. Semantic order:
 #    - Setup group: init first (bootstrap), destroy last (nuke). Middle:
 #      check, clean, help.
-#    - Lifecycle group: start, stop, status, build, ci, ci-verbose, deploy
+#    - Lifecycle group: start, stop, status, ci, ci-verbose, build, deploy
 #      (the everyday run → build → validate → ship flow; ci is quiet,
 #      ci-verbose streams every step).
-#    - Run group: dev.
-#    - Build group: wardley-render, optimize-images, strip-exif,
+#    - Run group: serve, serve-annotator.
+#    - Build group: render-wardley-maps, optimize-images, remove-exif-data,
 #      build-pagefind-index (sub-steps chained by build).
 #    - Content-Checks group: article/content validators and prose analyzers.
-#    - Tests group: unit-style script tests, generated-output checks, and
-#      Lighthouse audits.
-#    - Utilities group: local helpers and repository housekeeping.
+#    - Tests group: unit-style script tests and Lighthouse audits.
 #    Group related targets together and separate groups with an empty
 #    `@echo ""` line in the help output.
 #
@@ -61,55 +59,51 @@ help:
     @printf "  %-36s %s\n" "start" "Start the draft annotator and Hugo development server (background)"
     @printf "  %-36s %s\n" "stop" "Stop the Hugo development server and draft annotator"
     @printf "  %-36s %s\n" "status" "Check if the Hugo server is running"
-    @printf "  %-36s %s\n" "build" "Run CI checks (quiet), then Lighthouse; produces production public/"
-    @printf "  %-36s %s\n" "ci" "Run validation checks silently, no Lighthouse (output on errors)"
-    @printf "  %-36s %s\n" "ci-verbose" "Run ALL validation checks + Lighthouse (verbose)"
+    @printf "  %-36s %s\n" "ci" "Run validation checks silently; no build or generated-asset writes"
+    @printf "  %-36s %s\n" "ci-verbose" "Run validation checks verbosely; no build or generated-asset writes"
+    @printf "  %-36s %s\n" "build" "Run CI, normalize generated assets, build public/, Pagefind, and Lighthouse"
     @printf "  %-36s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
     @printf "\033[0;33mRun:\033[0m\n"
-    @printf "  %-36s %s\n" "dev" "Run Hugo server in foreground (auto-rebuild + live-reload)"
+    @printf "  %-36s %s\n" "serve" "Run Hugo server in foreground (auto-rebuild + live-reload)"
+    @printf "  %-36s %s\n" "serve-annotator" "Run the local draft annotation helper in foreground"
     @echo ""
     @printf "\033[0;33mBuild:\033[0m\n"
-    @printf "  %-36s %s\n" "wardley-render" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
+    @printf "  %-36s %s\n" "render-wardley-maps" "Render Wardley map .wtg2 files to .svg via wtg2svg (commit both)"
     @printf "  %-36s %s\n" "optimize-images" "Convert PNG/JPG/JPEG to WebP (max 1440px, q99); optional: just optimize-images static/logo2.png"
-    @printf "  %-36s %s\n" "strip-exif" "Remove EXIF metadata from all images and videos"
+    @printf "  %-36s %s\n" "remove-exif-data" "Remove EXIF metadata from all images and videos"
     @printf "  %-36s %s\n" "update-read-times" "Compute and write readTime front matter (ceil(words/225)); optional: just update-read-times <file>"
     @printf "  %-36s %s\n" "build-pagefind-index" "Build the Pagefind search index from public/ (called by 'just build')"
+    @printf "  %-36s %s\n" "check-pagefind-index" "Verify pagefind/ index exists in public/ (called by 'just build')"
     @echo ""
     @printf "\033[0;33mContent-Checks:\033[0m\n"
-    @printf "  %-36s %s\n" "validate-images" "Check all image references resolve to files"
-    @printf "  %-36s %s\n" "validate-read-times" "Fail if any published article is missing readTime (optional: just validate-read-times <file>)"
-    @printf "  %-36s %s\n" "validate-md" "Check markdown for em dashes and malformed GitHub/LinkedIn links"
-    @printf "  %-36s %s\n" "validate-content" "Fail when draft articles still contain TODO/placeholder markers"
+    @printf "  %-36s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
+    @printf "  %-36s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
+    @printf "  %-36s %s\n" "check-image-links" "Check all image references resolve to files"
+    @printf "  %-36s %s\n" "check-read-times" "Fail if any published article is missing readTime (optional: just check-read-times <file>)"
+    @printf "  %-36s %s\n" "check-markdown" "Check markdown for em dashes and malformed GitHub/LinkedIn links"
+    @printf "  %-36s %s\n" "check-draft-todos" "Fail when draft articles still contain TODO/placeholder markers"
     @printf "  %-36s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
-    @printf "  %-36s %s\n" "check-links" "Check unique external article links with curl (optional: just check-links <file>)"
-    @printf "  %-36s %s\n" "validate-references" "Check links used in articles are listed in their references section (optional: just validate-references <file>)"
-    @printf "  %-36s %s\n" "spell-check" "Spell check all drafts with harper-cli (optional: just spell-check <file>)"
-    @printf "  %-36s %s\n" "validate-draft-annotations" "Fail if draft notes remain in published articles"
-    @printf "  %-36s %s\n" "validate-drafts-must-not-be-in-git" "Fail if any git-tracked Markdown file has draft: true"
-    @printf "  %-36s %s\n" "ai-text-detect" "Flag AI-generated-text tells in drafts (optional: just ai-text-detect <file>)"
-    @printf "  %-36s %s\n" "pos-tag" "Replace article prose with POS tags into reports/pos-tagged/ (optional: just pos-tag <file>)"
-    @printf "  %-36s %s\n" "fingerprint-check" "Flag draft passages whose grammar matches AI-voice fingerprints (optional: just fingerprint-check <file>)"
+    @printf "  %-36s %s\n" "check-external-links" "Check unique external article links with curl (optional: just check-external-links <file>)"
+    @printf "  %-36s %s\n" "check-references" "Check links used in articles are listed in their references section (optional: just check-references <file>)"
+    @printf "  %-36s %s\n" "check-spelling" "Spell check all drafts with harper-cli (optional: just check-spelling <file>)"
+    @printf "  %-36s %s\n" "check-draft-annotations" "Fail if draft notes remain in published articles"
+    @printf "  %-36s %s\n" "check-no-drafts-in-git" "Fail if any git-tracked Markdown file has draft: true"
+    @printf "  %-36s %s\n" "check-detect-ai-voice" "Flag AI-generated-text tells in drafts (optional: just check-detect-ai-voice <file>)"
+    @printf "  %-36s %s\n" "check-detect-ai-voice-fingerprints" "Flag draft passages whose grammar matches AI-voice fingerprints (optional: just check-detect-ai-voice-fingerprints <file>)"
     @echo ""
     @printf "\033[0;33mTests:\033[0m\n"
     @printf "  %-36s %s\n" "pytest-validate-references" "Run the link-reference validator Python tests"
     @printf "  %-36s %s\n" "pytest-draft-annotator" "Run draft annotator Python tests"
-    @printf "  %-36s %s\n" "pytest-ai-text-detect" "Run the ai-text-detector Python tests"
+    @printf "  %-36s %s\n" "pytest-check-detect-ai-voice" "Run the ai-text-detector Python tests"
     @printf "  %-36s %s\n" "pytest-pos-tag" "Run the pos-tagger Python tests"
     @printf "  %-36s %s\n" "pytest-fingerprint-check" "Run the fingerprint-detector Python tests"
-    @printf "  %-36s %s\n" "validate-pagefind-index" "Verify pagefind/ index exists in public/ (tripwire against silent failures)"
-    @printf "  %-36s %s\n" "run-lighthouse-checks" "Audit the existing public/ with Lighthouse CI (build the site first)"
-    @printf "  %-36s %s\n" "lighthouse-clean" "Remove generated Lighthouse CI reports"
-    @printf "  %-36s %s\n" "lighthouse-open" "Open representative Lighthouse HTML reports"
-    @echo ""
-    @printf "\033[0;33mUtilities:\033[0m\n"
-    @printf "  %-36s %s\n" "draft-annotator" "Run the local draft annotation helper"
-    @printf "  %-36s %s\n" "check-clean-worktree" "Fail if the working tree has uncommitted changes"
-    @printf "  %-36s %s\n" "check-help-alignment" "Verify all help descriptions are aligned to the same column"
+    @printf "  %-36s %s\n" "test-lighthouse" "Audit an existing public/ build with Lighthouse CI"
     @echo ""
     @printf "\033[0;33mAnalytics:\033[0m\n"
     @printf "  %-36s %s\n" "show-image-links" "Show all image links in content/ as a table"
-    @printf "  %-36s %s\n" "show-tags" "Show categories and tags across blog and ticker articles"
+    @printf "  %-36s %s\n" "show-cat-tags" "Show categories and tags across blog and ticker articles"
+    @printf "  %-36s %s\n" "analyze-pos-tagging" "Replace article prose with POS tags into reports/pos-tagged/ (optional: just analyze-pos-tagging <file>)"
     @echo ""
 
 # Initialize the build environment (installs missing deps)
@@ -291,7 +285,8 @@ check:
 clean:
     @echo ""
     @printf "\033[0;34m=== Cleaning Generated Files ===\033[0m\n"
-    @rm -rf public resources .hugo_build.lock .lighthouseci reports/lighthouse
+    @rm -rf public resources .hugo_build.lock
+    @just lighthouse-clean
     @printf "\033[0;32m✓ clean completed successfully\033[0m\n"
     @echo ""
 
@@ -445,7 +440,7 @@ status:
         PORT_PID=$(lsof -ti tcp:{{port}} -sTCP:LISTEN 2>/dev/null | head -1)
         if [ -n "$PORT_PID" ] && ps -p "$PORT_PID" -o command= 2>/dev/null | grep -q hugo; then
             PID="$PORT_PID"
-            SOURCE="just dev"
+            SOURCE="just serve"
         fi
     fi
     HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 3 http://127.0.0.1:{{port}}/ 2>/dev/null || echo "000")
@@ -468,19 +463,25 @@ status:
     echo ""
     exit 1
 
-# Build the production site: CI checks (quiet), then the minified build + Lighthouse
+# Build the production site: CI checks, generated asset normalization, minified build, Pagefind, and Lighthouse
 build: ci
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Building Production Site ===\033[0m\n"
+    just render-wardley-maps
+    just optimize-images
+    just remove-exif-data
+    just update-read-times
+    just check-clean-worktree
     hugo --minify --cleanDestinationDir
     just build-pagefind-index
+    just check-pagefind-index
     just _run-lighthouse-checks
     printf "\033[0;32m✓ build completed successfully\033[0m\n"
     echo ""
 
-# Run ALL validation checks silently (only show output on errors)
+# Run ALL validation checks silently, without building or writing generated assets
 ci:
     #!/usr/bin/env bash
     set -e
@@ -508,44 +509,50 @@ ci:
     printf "\033[0;32m✓ check\033[0m\n"
     T=$(date +%s); just check-help-alignment > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-help-alignment failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-help-alignment $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-help-alignment\033[0m\n"
-    T=$(date +%s); just validate-drafts-must-not-be-in-git > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ validate-drafts-must-not-be-in-git failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-drafts-must-not-be-in-git $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-drafts-must-not-be-in-git\033[0m\n"
-    T=$(date +%s); just validate-content > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ validate-content failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-content $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-content\033[0m\n"
-    T=$(date +%s); just validate-draft-annotations > "$TMPFILE" 2>&1        || { printf "\033[0;31m✗ validate-draft-annotations failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-draft-annotations $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-draft-annotations\033[0m\n"
-    T=$(date +%s); just validate-images > "$TMPFILE" 2>&1                   || { printf "\033[0;31m✗ validate-images failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-images $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-images\033[0m\n"
+    T=$(date +%s); just check-no-drafts-in-git > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-no-drafts-in-git failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-no-drafts-in-git $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-no-drafts-in-git\033[0m\n"
+    T=$(date +%s); just check-draft-todos > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ check-draft-todos failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-draft-todos $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-draft-todos\033[0m\n"
+    T=$(date +%s); just check-draft-annotations > "$TMPFILE" 2>&1        || { printf "\033[0;31m✗ check-draft-annotations failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-draft-annotations $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-draft-annotations\033[0m\n"
+    T=$(date +%s); just check-image-links > "$TMPFILE" 2>&1                   || { printf "\033[0;31m✗ check-image-links failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-image-links $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-image-links\033[0m\n"
     T=$(date +%s); just check-code-line-length > "$TMPFILE" 2>&1            || { printf "\033[0;31m✗ check-code-line-length failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-code-line-length $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-code-line-length\033[0m\n"
-    T=$(date +%s); just validate-md > "$TMPFILE" 2>&1                       || { printf "\033[0;31m✗ validate-md failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-md $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-md\033[0m\n"
-    T=$(date +%s); just validate-references > "$TMPFILE" 2>&1               || { printf "\033[0;31m✗ validate-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-references $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-references\033[0m\n"
-    T=$(date +%s); just ai-text-detect > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ ai-text-detect failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log ai-text-detect $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ ai-text-detect\033[0m\n"
-    T=$(date +%s); just validate-read-times > "$TMPFILE" 2>&1               || { printf "\033[0;31m✗ validate-read-times failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-read-times $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-read-times\033[0m\n"
+    T=$(date +%s); just check-markdown > "$TMPFILE" 2>&1                       || { printf "\033[0;31m✗ check-markdown failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-markdown $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-markdown\033[0m\n"
+    T=$(date +%s); just check-references > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ check-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-references $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-references\033[0m\n"
+    T=$(date +%s); just check-detect-ai-voice > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-detect-ai-voice $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-detect-ai-voice\033[0m\n"
+    T=$(date +%s); just check-read-times > "$TMPFILE" 2>&1               || { printf "\033[0;31m✗ check-read-times failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-read-times $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-read-times\033[0m\n"
+    T=$(date +%s); just check-spelling > "$TMPFILE" 2>&1                 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-spelling\033[0m\n"
+    T=$(date +%s); just check-detect-ai-voice-fingerprints > "$TMPFILE" 2>&1       || { printf "\033[0;31m✗ check-detect-ai-voice-fingerprints failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-detect-ai-voice-fingerprints $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-detect-ai-voice-fingerprints\033[0m\n"
 
-    printf "%s\n" "--- phase 2: build prep ---" >> "$LOG"
-    T=$(date +%s); just wardley-render > "$TMPFILE" 2>&1                    || { printf "\033[0;31m✗ wardley-render failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log wardley-render $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ wardley-render\033[0m\n"
-    T=$(date +%s); just optimize-images > "$TMPFILE" 2>&1                   || { printf "\033[0;31m✗ optimize-images failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log optimize-images $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ optimize-images\033[0m\n"
-    T=$(date +%s); just strip-exif > "$TMPFILE" 2>&1                        || { printf "\033[0;31m✗ strip-exif failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log strip-exif $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ strip-exif\033[0m\n"
-    T=$(date +%s); just update-read-times > "$TMPFILE" 2>&1                  || { printf "\033[0;31m✗ update-read-times failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log update-read-times $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ update-read-times\033[0m\n"
+    printf "%s\n" "--- phase 2: hygiene ---" >> "$LOG"
     T=$(date +%s); just check-clean-worktree > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ check-clean-worktree failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-clean-worktree $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-clean-worktree\033[0m\n"
 
-    printf "%s\n" "--- phase 3: build ---" >> "$LOG"
-    T=$(date +%s); hugo --cleanDestinationDir > "$TMPFILE" 2>&1             || { printf "\033[0;31m✗ hugo build failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log "hugo (build)" $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ hugo build\033[0m\n"
-    T=$(date +%s); just build-pagefind-index > "$TMPFILE" 2>&1              || { printf "\033[0;31m✗ build-pagefind-index failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log build-pagefind-index $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ build-pagefind-index\033[0m\n"
-    T=$(date +%s); just validate-pagefind-index > "$TMPFILE" 2>&1           || { printf "\033[0;31m✗ validate-pagefind-index failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log validate-pagefind-index $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ validate-pagefind-index\033[0m\n"
+    printf "%s\n" "--- phase 3: slow checks ---" >> "$LOG"
+    T=$(date +%s); just check-external-links > "$TMPFILE" 2>&1           || { printf "\033[0;31m✗ check-external-links failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-external-links $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-external-links\033[0m\n"
+
+    printf "%s\n" "--- phase 4: tests ---" >> "$LOG"
+    T=$(date +%s); just pytest-validate-references > "$TMPFILE" 2>&1     || { printf "\033[0;31m✗ pytest-validate-references failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-validate-references $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-validate-references\033[0m\n"
+    T=$(date +%s); just pytest-draft-annotator > "$TMPFILE" 2>&1         || { printf "\033[0;31m✗ pytest-draft-annotator failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-draft-annotator $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-draft-annotator\033[0m\n"
+    T=$(date +%s); just pytest-check-detect-ai-voice > "$TMPFILE" 2>&1   || { printf "\033[0;31m✗ pytest-check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-check-detect-ai-voice $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-check-detect-ai-voice\033[0m\n"
+    T=$(date +%s); just pytest-pos-tag > "$TMPFILE" 2>&1                 || { printf "\033[0;31m✗ pytest-pos-tag failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-pos-tag $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-pos-tag\033[0m\n"
+    T=$(date +%s); just pytest-fingerprint-check > "$TMPFILE" 2>&1       || { printf "\033[0;31m✗ pytest-fingerprint-check failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-fingerprint-check $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-fingerprint-check\033[0m\n"
+    T=$(date +%s); just test-lighthouse > "$TMPFILE" 2>&1                || { printf "\033[0;31m✗ test-lighthouse failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log test-lighthouse $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ test-lighthouse\033[0m\n"
 
     CI_D=$(( $(date +%s) - CI_START ))
     printf "=====================================\n" >> "$LOG"
@@ -555,7 +562,7 @@ ci:
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
 
-# Run ALL validation checks (verbose)
+# Run ALL validation checks verbosely, without building or writing generated assets
 ci-verbose:
     #!/usr/bin/env bash
     set -e
@@ -565,27 +572,28 @@ ci-verbose:
     printf "\033[0;33m--- Phase 1: fast checks ---\033[0m\n"
     just check
     just check-help-alignment
-    just validate-drafts-must-not-be-in-git
-    just validate-content
-    just validate-draft-annotations
-    just validate-images
+    just check-no-drafts-in-git
+    just check-draft-todos
+    just check-draft-annotations
+    just check-image-links
     just check-code-line-length
-    just validate-md
-    just validate-references
-    just ai-text-detect
-    just validate-read-times
-    printf "\033[0;33m--- Phase 2: build prep ---\033[0m\n"
-    just wardley-render
-    just optimize-images
-    just strip-exif
-    just update-read-times
+    just check-markdown
+    just check-references
+    just check-detect-ai-voice
+    just check-read-times
+    just check-spelling
+    just check-detect-ai-voice-fingerprints
+    printf "\033[0;33m--- Phase 2: hygiene ---\033[0m\n"
     just check-clean-worktree
-    printf "\033[0;33m--- Phase 3: build ---\033[0m\n"
-    hugo --cleanDestinationDir
-    just build-pagefind-index
-    just validate-pagefind-index
-    printf "\033[0;33m--- Phase 4: slow ---\033[0m\n"
-    just _run-lighthouse-checks
+    printf "\033[0;33m--- Phase 3: slow checks ---\033[0m\n"
+    just check-external-links
+    printf "\033[0;33m--- Phase 4: tests ---\033[0m\n"
+    just pytest-validate-references
+    just pytest-draft-annotator
+    just pytest-check-detect-ai-voice
+    just pytest-pos-tag
+    just pytest-fingerprint-check
+    just test-lighthouse
     echo ""
     printf "\033[0;32m✓ All CI checks passed\033[0m\n"
     echo ""
@@ -681,13 +689,13 @@ deploy: build
     echo ""
 
 # Run Hugo server in foreground with auto-rebuild + live-reload
-dev:
+serve:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Hugo Dev Server (foreground, auto-rebuild + LiveReload) ===\033[0m\n"
     if [ -f .hugo-server.pid ] && kill -0 "$(cat .hugo-server.pid)" 2>/dev/null; then
-        printf "\033[0;31m✗ dev failed: background server already running (PID %s). Run 'just stop' first.\033[0m\n" "$(cat .hugo-server.pid)"
+        printf "\033[0;31m✗ serve failed: background server already running (PID %s). Run 'just stop' first.\033[0m\n" "$(cat .hugo-server.pid)"
         echo ""
         exit 1
     fi
@@ -697,11 +705,11 @@ dev:
 
 # Render Wardley map .wtg2 files to .svg using wtg2svg. Run locally after editing
 # any .wtg2; commit the generated .svg alongside its source.
-wardley-render:
+render-wardley-maps:
     @echo ""
     @printf "\033[0;34m=== Rendering Wardley Maps → SVG ===\033[0m\n"
     @bash scripts/wardley-render.sh
-    @printf "\033[0;32m✓ wardley-render completed\033[0m\n"
+    @printf "\033[0;32m✓ render-wardley-maps completed\033[0m\n"
     @echo ""
 
 # Convert PNG/JPG/JPEG to WebP (max 1440px longest side, quality 99, never upsize).
@@ -715,11 +723,11 @@ optimize-images file="":
     @echo ""
 
 # Remove EXIF metadata from all images and videos in content/
-strip-exif:
+remove-exif-data:
     @echo ""
     @printf "\033[0;34m=== Stripping EXIF Metadata ===\033[0m\n"
     @bash scripts/strip-exif.sh
-    @printf "\033[0;32m✓ strip-exif completed\033[0m\n"
+    @printf "\033[0;32m✓ remove-exif-data completed\033[0m\n"
     @echo ""
 
 # Compute and write readTime front matter for all content, or a single file if given
@@ -752,15 +760,15 @@ build-pagefind-index:
     echo ""
 
 # Check all image references in non-draft markdown resolve to files
-validate-images:
+check-image-links:
     @echo ""
     @printf "\033[0;34m=== Validating Image References ===\033[0m\n"
     @bash scripts/validate-images.sh
-    @printf "\033[0;32m✓ validate-images passed\033[0m\n"
+    @printf "\033[0;32m✓ check-image-links passed\033[0m\n"
     @echo ""
 
 # Fail if any git-tracked published article is missing a readTime front matter field
-validate-read-times file='':
+check-read-times file='':
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -770,11 +778,11 @@ validate-read-times file='':
     else
         uv run scripts/validate-read-times.py --dir content/blog --dir content/ticker
     fi
-    printf "\033[0;32m✓ validate-read-times passed\033[0m\n"
+    printf "\033[0;32m✓ check-read-times passed\033[0m\n"
     echo ""
 
 # Check blog markdown for disallowed characters (em dashes) and link formatting
-validate-md:
+check-markdown:
     #!/usr/bin/env bash
     set -euo pipefail
     echo ""
@@ -792,15 +800,15 @@ validate-md:
         git ls-files -z -- 'justfile' 'scripts/*.sh' \
             | xargs -0 semgrep --config config/semgrep/use-uv-run.yml --error
     fi
-    printf "\033[0;32m✓ validate-md passed\033[0m\n"
+    printf "\033[0;32m✓ check-markdown passed\033[0m\n"
     echo ""
 
 # Fail when any draft article still contains unresolved TODO/placeholder markers
-validate-content:
+check-draft-todos:
     @echo ""
     @printf "\033[0;34m=== Validating Draft Content ===\033[0m\n"
     @bash scripts/validate-content.sh
-    @printf "\033[0;32m✓ validate-content passed\033[0m\n"
+    @printf "\033[0;32m✓ check-draft-todos passed\033[0m\n"
     @echo ""
 
 # Check code blocks in draft articles for lines exceeding 76 characters (ignores mermaid/wardley)
@@ -812,7 +820,7 @@ check-code-line-length file='':
     @echo ""
 
 # Check unique external article links with curl, or a single Markdown file if given
-check-links file='':
+check-external-links file='':
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -822,21 +830,21 @@ check-links file='':
     else
         uv run scripts/check-links.py content
     fi
-    printf "\033[0;32m✓ check-links passed\033[0m\n"
+    printf "\033[0;32m✓ check-external-links passed\033[0m\n"
     echo ""
 
 # Check that links used in articles are listed in their references section, or a single file if given
-validate-references file='':
+check-references file='':
     #!/usr/bin/env bash
     set -e
     echo ""
-    printf "\033[0;34m=== Validating Link References ===\033[0m\n"
+    printf "\033[0;34m=== Checking Link References ===\033[0m\n"
     if [ -n "{{file}}" ]; then
         uv run scripts/validate-link-references.py --file "{{file}}"
     else
         uv run scripts/validate-link-references.py content
     fi
-    printf "\033[0;32m✓ validate-references passed\033[0m\n"
+    printf "\033[0;32m✓ check-references passed\033[0m\n"
     echo ""
 
 # Run the link-reference validator Python tests
@@ -850,7 +858,7 @@ pytest-validate-references:
     echo ""
 
 # Spell check all draft articles (draft: true) with harper-cli, or a single file if given
-spell-check file='':
+check-spelling file='':
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -878,15 +886,15 @@ spell-check file='':
         echo ""
     done <<< "$DRAFTS"
     if [ "$ERRORS" -gt 0 ]; then
-        printf "\033[0;31m✗ spell-check: %s file(s) reported issues\033[0m\n" "$ERRORS"
+        printf "\033[0;31m✗ check-spelling: %s file(s) reported issues\033[0m\n" "$ERRORS"
         echo ""
         exit 1
     fi
-    printf "\033[0;32m✓ spell-check passed\033[0m\n"
+    printf "\033[0;32m✓ check-spelling passed\033[0m\n"
     echo ""
 
 # Run, restart, or cooperatively stop the local draft annotation helper
-draft-annotator action='start':
+serve-annotator action='start':
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -902,7 +910,7 @@ draft-annotator action='start':
                 fi
                 sleep 0.2
             done
-            printf "\033[0;31m✗ draft-annotator stop failed: helper did not shut down\033[0m\n"
+            printf "\033[0;31m✗ serve-annotator stop failed: helper did not shut down\033[0m\n"
             echo ""
             exit 1
         fi
@@ -919,7 +927,7 @@ draft-annotator action='start':
             sleep 0.2
         done
         if curl -fsS --max-time 1 http://127.0.0.1:8787/draft-annotation/health >/dev/null 2>&1; then
-            printf "\033[0;31m✗ draft-annotator failed: existing helper did not shut down\033[0m\n"
+            printf "\033[0;31m✗ serve-annotator failed: existing helper did not shut down\033[0m\n"
             echo ""
             exit 1
         fi
@@ -929,23 +937,23 @@ draft-annotator action='start':
     exec uv run scripts/draft_annotator.py serve
 
 # Fail if draft annotation blocks remain in published articles
-validate-draft-annotations:
+check-draft-annotations:
     #!/usr/bin/env bash
     set -e
     echo ""
-    printf "\033[0;34m=== Validating Draft Annotations ===\033[0m\n"
+    printf "\033[0;34m=== Checking Draft Annotations ===\033[0m\n"
     uv run scripts/draft_annotator.py validate
-    printf "\033[0;32m✓ validate-draft-annotations passed\033[0m\n"
+    printf "\033[0;32m✓ check-draft-annotations passed\033[0m\n"
     echo ""
 
 # Fail if any git-tracked Markdown file has draft: true in its front matter
-validate-drafts-must-not-be-in-git:
+check-no-drafts-in-git:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Checking for Tracked Draft Files ===\033[0m\n"
-    uv run scripts/validate-drafts-must-not-be-in-git.py
-    printf "\033[0;32m✓ validate-drafts-must-not-be-in-git passed\033[0m\n"
+    uv run scripts/check-no-drafts-in-git.py
+    printf "\033[0;32m✓ check-no-drafts-in-git passed\033[0m\n"
     echo ""
 
 # Run the draft annotator Python tests
@@ -959,7 +967,7 @@ pytest-draft-annotator:
     echo ""
 
 # Detect AI-generated-text tells in draft articles (draft: true), or a single file if given
-ai-text-detect file='':
+check-detect-ai-voice file='':
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -969,21 +977,21 @@ ai-text-detect file='':
     else
         uv run scripts/ai-text-detector.py
     fi
-    printf "\033[0;32m✓ ai-text-detect passed\033[0m\n"
+    printf "\033[0;32m✓ check-detect-ai-voice passed\033[0m\n"
     echo ""
 
 # Run the ai-text-detector Python tests
-pytest-ai-text-detect:
+pytest-check-detect-ai-voice:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Testing AI-Text Detector ===\033[0m\n"
     uv run scripts/test_ai_text_detector.py
-    printf "\033[0;32m✓ pytest-ai-text-detect passed\033[0m\n"
+    printf "\033[0;32m✓ pytest-check-detect-ai-voice passed\033[0m\n"
     echo ""
 
 # Replace article prose with POS tags (NOUN VERB ...) into reports/pos-tagged/, or a single file if given
-pos-tag file='':
+analyze-pos-tagging file='':
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -993,7 +1001,7 @@ pos-tag file='':
     else
         uv run scripts/pos-tagger.py
     fi
-    printf "\033[0;32m✓ pos-tag passed\033[0m\n"
+    printf "\033[0;32m✓ analyze-pos-tagging passed\033[0m\n"
     echo ""
 
 # Run the pos-tagger Python tests
@@ -1007,17 +1015,18 @@ pytest-pos-tag:
     echo ""
 
 # Flag draft passages whose grammar matches AI-voice fingerprints, or a single file if given
-fingerprint-check file='':
+check-detect-ai-voice-fingerprints file='':
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Checking Drafts for AI-Voice Fingerprints ===\033[0m\n"
+    just analyze-pos-tagging {{file}}
     if [ -n "{{file}}" ]; then
         uv run scripts/fingerprint-detector.py "{{file}}"
     else
         uv run scripts/fingerprint-detector.py
     fi
-    printf "\033[0;32m✓ fingerprint-check passed\033[0m\n"
+    printf "\033[0;32m✓ check-detect-ai-voice-fingerprints passed\033[0m\n"
     echo ""
 
 # Run the fingerprint-detector Python tests
@@ -1031,13 +1040,13 @@ pytest-fingerprint-check:
     echo ""
 
 # Verify the Pagefind search index exists in public/ (tripwire against silent failures)
-validate-pagefind-index:
+check-pagefind-index:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Validating Pagefind Search Index ===\033[0m\n"
     if [ ! -f public/pagefind/pagefind.js ] || [ ! -f public/pagefind/pagefind-entry.json ]; then
-        printf "\033[0;31m✗ validate-pagefind-index failed: pagefind/ index missing or incomplete in public/\033[0m\n"
+        printf "\033[0;31m✗ check-pagefind-index failed: pagefind/ index missing or incomplete in public/\033[0m\n"
         printf "  Expected: public/pagefind/pagefind.js and public/pagefind/pagefind-entry.json\n"
         printf "  Fix: re-run 'just build' (or 'just build-pagefind-index' if public/ already exists)\n"
         echo ""
@@ -1091,14 +1100,15 @@ check-help-alignment:
     printf "\033[0;32m✓ check-help-alignment passed (descriptions at column %s)\033[0m\n" "$REF_COL"
     echo ""
 
-# Run Lighthouse CI against the existing public/ (does not build; run 'just build' first)
-run-lighthouse-checks:
+# Run Lighthouse CI against the existing public/ without rebuilding
+test-lighthouse:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Running Lighthouse CI ===\033[0m\n"
+    just lighthouse-clean
     just _run-lighthouse-checks
-    printf "\033[0;32m✓ run-lighthouse-checks completed successfully\033[0m\n"
+    printf "\033[0;32m✓ test-lighthouse completed successfully\033[0m\n"
     echo ""
 
 # Remove generated Lighthouse CI reports
@@ -1109,30 +1119,6 @@ lighthouse-clean:
     @printf "\033[0;32m✓ lighthouse-clean completed successfully\033[0m\n"
     @echo ""
 
-# Open representative Lighthouse HTML reports
-lighthouse-open:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Opening Lighthouse CI Reports ===\033[0m\n"
-    if [ ! -f reports/lighthouse/manifest.json ]; then
-        printf "\033[0;31m✗ lighthouse-open failed: reports/lighthouse/manifest.json not found\033[0m\n"
-        printf "  Run: just run-lighthouse-checks\n"
-        echo ""
-        exit 1
-    fi
-    REPORTS=$(node -e "const m=require('./reports/lighthouse/manifest.json'); console.log(m.filter(r=>r.isRepresentativeRun).map(r=>r.htmlPath).join('\n'))")
-    if [ -z "$REPORTS" ]; then
-        printf "\033[0;31m✗ lighthouse-open failed: no representative reports found\033[0m\n"
-        echo ""
-        exit 1
-    fi
-    while IFS= read -r report; do
-        open "$report"
-    done <<< "$REPORTS"
-    printf "\033[0;32m✓ lighthouse reports opened\033[0m\n"
-    echo ""
-
 # Show all image links in content/ markdown files as an ASCII table
 show-image-links:
     @echo ""
@@ -1142,11 +1128,11 @@ show-image-links:
     @echo ""
 
 # Show a summary of categories and tags across blog and ticker articles
-show-tags:
+show-cat-tags:
     @echo ""
     @printf "\033[0;34m=== Tag Overview ===\033[0m\n"
     @uv run scripts/show-tag-overview.py
-    @printf "\033[0;32m✓ show-tags completed\033[0m\n"
+    @printf "\033[0;32m✓ show-cat-tags completed\033[0m\n"
     @echo ""
 
 # Run Lighthouse CI against an already-built public/ directory
