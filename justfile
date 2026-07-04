@@ -108,6 +108,7 @@ help:
     @printf "  %-36s %s\n" "show-image-links" "Show all image links in content/ as a table"
     @printf "  %-36s %s\n" "show-cat-tags" "Show categories and tags across blog and ticker articles"
     @printf "  %-36s %s\n" "analyze-pos-tagging" "Replace article prose with POS tags into reports/pos-tagged/ (optional: just analyze-pos-tagging <file>)"
+    @printf "  %-36s %s\n" "analyze-stylometry" "Extract stylometric features from published articles, PCA-reduce, and t-SNE plot into reports/stylometry/ (optional: just analyze-stylometry --variance 0.9)"
     @echo ""
 
 # Initialize the build environment (installs missing deps)
@@ -1148,6 +1149,16 @@ show-cat-tags:
     @uv run scripts/show-tag-overview.py
     @printf "\033[0;32m✓ show-cat-tags completed\033[0m\n"
     @echo ""
+
+# Extract stylometric features from published articles, PCA-reduce, and t-SNE plot
+analyze-stylometry *args:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Stylometric Feature Analysis ===\033[0m\n"
+    uv run scripts/analyze-stylometry.py {{args}}
+    printf "\033[0;32m✓ analyze-stylometry completed\033[0m\n"
+    echo ""
 
 # Run Lighthouse CI against an already-built public/ directory
 _run-lighthouse-checks:
