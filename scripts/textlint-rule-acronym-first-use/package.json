@@ -1,0 +1,14 @@
+{
+  "name": "textlint-rule-acronym-first-use",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Require acronyms to be expanded immediately on first use.",
+  "main": "index.js",
+  "keywords": [
+    "textlint",
+    "textlintrule"
+  ],
+  "peerDependencies": {
+    "textlint": ">=15.0.0"
+  }
+}
