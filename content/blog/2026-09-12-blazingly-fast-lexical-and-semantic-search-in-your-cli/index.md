@@ -335,7 +335,7 @@ Building a surprisingly capable local search engine for your own documents does 
 
 A relatively small shell script can then orchestrate these tools as a cascade. This is what `qsearch` is. It starts with the fastest and cheapest search, measures whether its results are convincing, and only escalates when necessary. The result is fast for easy queries, considerably smarter for difficult ones, completely local, inspectable, and requires little or no index maintenance.
 
-That is what `qsearch` does. You can get it from GitHub here.[^qsearch]
+That is what `qsearch` does. You can get it from GitHub [here](https://github.com/florianbuetow/qsearch-bash).[^qsearch]
 
 ---
 

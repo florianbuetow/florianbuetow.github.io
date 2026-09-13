@@ -849,11 +849,11 @@ check-external-links file='':
     set -e
     echo ""
     printf "\033[0;34m=== Checking External Links ===\033[0m\n"    
-    # if [ -n "{{file}}" ]; then
-    #     uv run scripts/check-links.py --file "{{file}}"
-    # else
-    #     uv run scripts/check-links.py content
-    # fi
+    if [ -n "{{file}}" ]; then
+        uv run scripts/check-links.py --file "{{file}}"
+    else
+        uv run scripts/check-links.py content
+    fi
     printf "\033[0;32m✓ check-external-links passed\033[0m\n"
     echo ""
 
