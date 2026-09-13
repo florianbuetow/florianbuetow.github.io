@@ -1,3 +1,7 @@
 # Domains that block automated curl link checks or otherwise cannot be
 # verified reliably in CI. One domain per line; subdomains are skipped too.
 linkedin.com
+# Vercel bot challenge blocks curl before short-link redirects are returned.
+dub.sh
+# Cloudflare bot challenge blocks automated curl checks.
+openai.com

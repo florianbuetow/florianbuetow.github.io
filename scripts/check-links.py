@@ -6,16 +6,18 @@ from __future__ import annotations
 import argparse
 import concurrent.futures
 import html
+import json
 import os
 import re
 import shutil
 import subprocess
 import sys
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from urllib.parse import urldefrag, urlparse
 
+from git_tracked_files import GitTrackedFiles
 
 ANSI_RED = "\033[0;31m"
 ANSI_GREEN = "\033[0;32m"
@@ -41,6 +43,8 @@ class LinkCheckResult:
     ok: bool
     status: str
     detail: str
+    outcome: str
+    final_url: str
 
 
 def parse_args() -> argparse.Namespace:
@@ -82,6 +86,11 @@ def parse_args() -> argparse.Namespace:
         help="Only print the unique URLs that would be checked.",
     )
     parser.add_argument(
+        "--report-json",
+        type=Path,
+        help="Write all results, final URLs, skipped links, and source locations to JSON.",
+    )
+    parser.add_argument(
         "--skip-domains-file",
         default=str(DEFAULT_SKIP_DOMAINS_FILE),
         help="File containing domains to skip. Defaults to config/link-check/skip-domains.txt.",
@@ -90,6 +99,10 @@ def parse_args() -> argparse.Namespace:
 
 
 def markdown_files(paths: list[str]) -> list[Path]:
+    tracked = {
+        path.parent.resolve() / path.name
+        for path in GitTrackedFiles(Path.cwd()).markdown_under(".", drafts_only=False)
+    }
     files: list[Path] = []
     for raw in paths:
         path = Path(raw)
@@ -97,7 +110,7 @@ def markdown_files(paths: list[str]) -> list[Path]:
             files.append(path)
         elif path.is_dir():
             files.extend(sorted(path.rglob("*.md")))
-    return sorted(set(files))
+    return sorted({path for path in files if path.parent.resolve() / path.name in tracked})
 
 
 def strip_trailing_markdown_punctuation(raw_url: str) -> str:
@@ -222,16 +235,20 @@ def curl_status(
     timeout: int,
     connect_timeout: int,
     method: str,
-) -> tuple[int, str]:
+) -> tuple[int, str, int, str]:
     args = [
         "curl",
         "--location",
+        "--max-redirs",
+        "10",
+        "--proto-redir",
+        "=http,https",
         "--silent",
         "--show-error",
         "--output",
         os.devnull,
         "--write-out",
-        "%{http_code}",
+        "%{http_code}\n%{url_effective}",
         "--max-time",
         str(timeout),
         "--connect-timeout",
@@ -241,8 +258,9 @@ def curl_status(
     ]
     if method == "HEAD":
         args.append("--head")
-    elif method == "RANGE_GET":
-        args.extend(["--range", "0-0"])
+    elif method == "GET":
+        # Retry with an ordinary GET; some hosts reject HEAD or range requests.
+        args.append("--http1.1")
     else:
         raise ValueError(f"unknown curl method: {method}")
 
@@ -253,17 +271,17 @@ def curl_status(
         stderr=subprocess.PIPE,
         text=True,
     )
-    status_text = completed.stdout.strip() or "000"
+    status_text, _, final_url = completed.stdout.strip().partition("\n")
     try:
-        status = int(status_text[-3:])
+        status = int(status_text)
     except ValueError:
         status = 0
     detail = completed.stderr.strip()
-    return status, detail
+    return status, detail, completed.returncode, final_url or url
 
 
 def check_url(url: str, timeout: int, connect_timeout: int) -> LinkCheckResult:
-    status, detail = curl_status(
+    status, detail, returncode, final_url = curl_status(
         url,
         timeout=timeout,
         connect_timeout=connect_timeout,
@@ -271,23 +289,31 @@ def check_url(url: str, timeout: int, connect_timeout: int) -> LinkCheckResult:
     )
     method = "HEAD"
 
-    if status in {403, 405, 406, 501}:
-        status, detail = curl_status(
+    if returncode or not 200 <= status < 300:
+        status, detail, returncode, final_url = curl_status(
             url,
             timeout=timeout,
             connect_timeout=connect_timeout,
-            method="RANGE_GET",
+            method="GET",
         )
-        method = "ranged GET"
+        method = "GET"
 
-    if 200 <= status < 400:
-        return LinkCheckResult(url=url, ok=True, status=str(status), detail=method)
-
-    if status == 0:
-        message = detail or "curl did not return an HTTP status"
-    else:
+    if returncode or status == 0:
+        outcome = "unverified"
+        message = detail or f"curl failed (exit {returncode}, HTTP {status})"
+    elif 200 <= status < 300:
+        outcome = "reachable"
         message = f"HTTP {status} via {method}"
-    return LinkCheckResult(url=url, ok=False, status=str(status), detail=message)
+    else:
+        # Denials, rate limits, and server errors do not establish a dead URL.
+        outcome = "broken" if status in {404, 410} else "unverified"
+        message = f"HTTP {status} via {method}"
+    if final_url != url:
+        message += f"; final URL: {final_url}"
+    return LinkCheckResult(
+        url=url, ok=outcome == "reachable", status=str(status), detail=message,
+        outcome=outcome, final_url=final_url,
+    )
 
 
 def check_links(
@@ -354,7 +380,7 @@ def main() -> int:
     paths = args.file or args.paths or ["content"]
     files = markdown_files(paths)
     if not files:
-        print(f"{ANSI_GREEN}  no markdown files found{ANSI_RESET}")
+        print(f"{ANSI_GREEN}  no Git-tracked markdown files found{ANSI_RESET}")
         return 0
 
     links = collect_links(files)
@@ -388,7 +414,24 @@ def main() -> int:
         connect_timeout=args.connect_timeout,
         workers=args.workers,
     )
-    failures = [result for result in results if not result.ok]
+    failures = [result for result in results if result.outcome == "broken"]
+    unverified = [result for result in results if result.outcome == "unverified"]
+    if args.report_json:
+        args.report_json.write_text(json.dumps({
+            "results": [dict(asdict(result), sources=checkable_links[result.url])
+                        for result in results],
+            "skipped": skipped_links,
+        }, indent=2) + "\n", encoding="utf-8")
+
+    print(
+        f"  {sum(result.ok for result in results)} reachable, "
+        f"{len(failures)} broken (404/410), {len(unverified)} unverified, "
+        f"{len(skipped_links)} skipped"
+    )
+    for result in unverified:
+        print(f"{ANSI_BLUE}  ? {result.url} ({result.detail}){ANSI_RESET}")
+        for source in checkable_links[result.url]:
+            print(f"    {source}")
 
     if failures:
         for failure in failures:
@@ -402,6 +445,11 @@ def main() -> int:
         print("")
         print_failures_by_file(failures, checkable_links)
         return 1
+
+    if unverified:
+        print("check-links incomplete: blocked or failed checks need verification; "
+              "these URLs are not confirmed broken")
+        return 2
 
     print(f"{ANSI_GREEN}  all {len(urls)} external link target(s) reachable{ANSI_RESET}")
     return 0

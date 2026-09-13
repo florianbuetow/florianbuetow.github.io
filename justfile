@@ -843,7 +843,7 @@ check-code-line-length file='':
     @printf "\033[0;32m✓ check-code-line-length passed\033[0m\n"
     @echo ""
 
-# Check unique external article links with curl, or a single Markdown file if given
+# Check unique external links in Git-tracked Markdown files, optionally a single file
 check-external-links file='':
     #!/usr/bin/env bash
     set -e
@@ -888,6 +888,7 @@ pytest-validate-references:
     echo ""
     printf "\033[0;34m=== Testing Link Reference Validator ===\033[0m\n"
     uv run scripts/test_validate_link_references.py
+    uv run scripts/test_check_links.py
     printf "\033[0;32m✓ pytest-validate-references passed\033[0m\n"
     echo ""
 
