@@ -61,7 +61,7 @@ help:
     @printf "  %-36s %s\n" "status" "Check if the Hugo server is running"
     @printf "  %-36s %s\n" "ci" "Run validation checks silently; no build or generated-asset writes"
     @printf "  %-36s %s\n" "ci-verbose" "Run validation checks verbosely; no build or generated-asset writes"
-    @printf "  %-36s %s\n" "build" "Run CI, normalize generated assets, build public/, Pagefind, and Lighthouse (optional: just build --ignore-drafts-spelling)"
+    @printf "  %-36s %s\n" "build" "Run CI, normalize generated assets, build public/, Pagefind, and Lighthouse"
     @printf "  %-36s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
     @printf "\033[0;33mRun:\033[0m\n"
@@ -86,7 +86,7 @@ help:
     @printf "  %-36s %s\n" "check-code-line-length" "Fail when any code block line in a draft exceeds 76 chars (optional: just check-code-line-length <file>)"
     @printf "  %-36s %s\n" "check-external-links" "Check unique external article links with curl (optional: just check-external-links <file>)"
     @printf "  %-36s %s\n" "check-references" "Check links used in articles are listed in their references section (optional: just check-references <file>)"
-    @printf "  %-36s %s\n" "check-spelling" "Spell check all drafts with harper-cli (optional: just check-spelling <file>)"
+    @printf "  %-36s %s\n" "check-spelling" "Spell check git-tracked drafts with harper-cli (optional: just check-spelling <path>)"
     @printf "  %-36s %s\n" "check-textlint" "Textlint all drafts (optional: just check-textlint <file>)"
     @printf "  %-36s %s\n" "check-draft-annotations" "Fail if draft notes remain in published articles"
     @printf "  %-36s %s\n" "check-no-drafts-in-git" "Fail if any git-tracked Markdown file has draft: true"
@@ -94,7 +94,7 @@ help:
     @printf "  %-36s %s\n" "check-detect-ai-voice-fingerprints" "Flag draft passages whose grammar matches AI-voice fingerprints (optional: just check-detect-ai-voice-fingerprints <file>)"
     @echo ""
     @printf "\033[0;33mShortcuts:\033[0m\n"
-    @printf "  %-36s %s\n" "spellcheck" "Shortcut for check-spelling (optional: just spellcheck <file>)"
+    @printf "  %-36s %s\n" "spellcheck" "Shortcut for check-spelling (optional: just spellcheck <path>)"
     @printf "  %-36s %s\n" "textlint" "Shortcut for check-textlint (optional: just textlint <file>)"
     @echo ""
     @printf "\033[0;33mTests:\033[0m\n"
@@ -102,6 +102,7 @@ help:
     @printf "  %-36s %s\n" "pytest-validate-references" "Run the link-reference validator Python tests"
     @printf "  %-36s %s\n" "pytest-draft-annotator" "Run draft annotator Python tests"
     @printf "  %-36s %s\n" "pytest-check-detect-ai-voice" "Run the ai-text-detector Python tests"
+    @printf "  %-36s %s\n" "pytest-spellcheck" "Verify spellcheck only lints git-tracked draft Markdown files"
     @printf "  %-36s %s\n" "pytest-pos-tag" "Run the pos-tagger Python tests"
     @printf "  %-36s %s\n" "pytest-fingerprint-check" "Run the fingerprint-detector Python tests"
     @printf "  %-36s %s\n" "test-textlint" "Run the custom textlint rule tests"
@@ -205,7 +206,7 @@ init:
     printf "\033[0;32m✓ wtg2svg ready (%s)\033[0m\n" "$(command -v wtg2svg)"
     mkdir -p public reports scratch
     git config core.hooksPath .githooks
-    printf "\033[0;32m✓ git hooks configured (.githooks/pre-push → just ci)\033[0m\n"
+    printf "\033[0;32m✓ git hooks configured (.githooks/pre-push → just build)\033[0m\n"
     printf "\033[0;32m✓ init completed successfully\033[0m\n"
     echo ""
 
@@ -476,7 +477,7 @@ status:
     exit 1
 
 # Build the production site: CI checks, generated asset normalization, minified build, Pagefind, and Lighthouse
-build ignore-drafts-spelling='': (ci ignore-drafts-spelling)
+build: ci
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -494,20 +495,11 @@ build ignore-drafts-spelling='': (ci ignore-drafts-spelling)
     echo ""
 
 # Run ALL validation checks silently, without building or writing generated assets
-ci ignore-drafts-spelling='':
+ci:
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Running CI Checks (Quiet Mode) ===\033[0m\n"
-    if [ -n "{{ignore-drafts-spelling}}" ] && [ "{{ignore-drafts-spelling}}" != "--ignore-drafts-spelling" ]; then
-        printf "\033[0;31m✗ ci failed: unsupported flag '%s' (supported: --ignore-drafts-spelling)\033[0m\n" "{{ignore-drafts-spelling}}"
-        echo ""
-        exit 1
-    fi
-    SPELLING_FLAG=""
-    if [ "{{ignore-drafts-spelling}}" = "--ignore-drafts-spelling" ]; then
-        SPELLING_FLAG="--ignore-drafts"
-    fi
     TMPFILE=$(mktemp)
     trap "rm -f $TMPFILE" EXIT
 
@@ -528,6 +520,12 @@ ci ignore-drafts-spelling='':
     printf "%s\n" "--- prerequisite gate ---" >> "$LOG"
     T=$(date +%s); just check > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check (tooling prerequisites) failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check (tooling prerequisites)\033[0m\n"
+
+    printf "%s\n" "--- spelling gate ---" >> "$LOG"
+    T=$(date +%s); just pytest-spellcheck > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-spellcheck failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-spellcheck $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ pytest-spellcheck\033[0m\n"
+    T=$(date +%s); just check-spelling > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-spelling\033[0m\n"
 
     printf "%s\n" "--- fast checks ---" >> "$LOG"
     T=$(date +%s); just check-no-drafts-in-git > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-no-drafts-in-git failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-no-drafts-in-git $(( $(date +%s) - T ))
@@ -564,8 +562,6 @@ ci ignore-drafts-spelling='':
     printf "\033[0;32m✓ pytest-fingerprint-check\033[0m\n"
     T=$(date +%s); just pytest-check-detect-ai-voice > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-check-detect-ai-voice $(( $(date +%s) - T ))
     printf "\033[0;32m✓ pytest-check-detect-ai-voice\033[0m\n"
-    T=$(date +%s); just check-spelling $SPELLING_FLAG > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ check-spelling\033[0m\n"
     T=$(date +%s); just check-textlint > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-textlint failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-textlint $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-textlint\033[0m\n"
     T=$(date +%s); just test-textlint > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ test-textlint failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log test-textlint $(( $(date +%s) - T ))
@@ -598,6 +594,9 @@ ci-verbose:
     echo ""
     printf "\033[0;33m--- prerequisite gate ---\033[0m\n"
     just check
+    printf "\033[0;33m--- spelling gate ---\033[0m\n"
+    just pytest-spellcheck
+    just check-spelling
     printf "\033[0;33m--- fast checks ---\033[0m\n"
     just check-no-drafts-in-git
     just check-code-line-length
@@ -616,7 +615,6 @@ ci-verbose:
     just pytest-validate-references
     just pytest-fingerprint-check
     just pytest-check-detect-ai-voice
-    just check-spelling
     just check-textlint
     just test-textlint
     just check-detect-ai-voice-fingerprints
@@ -629,7 +627,7 @@ ci-verbose:
     echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
-deploy: (build '--ignore-drafts-spelling')
+deploy: build
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -897,7 +895,17 @@ pytest-validate-references:
     printf "\033[0;32m✓ pytest-validate-references passed\033[0m\n"
     echo ""
 
-# Spell check all draft articles (draft: true) with harper-cli, or a single file if given
+# Verify spellcheck only sends git-tracked draft Markdown files to Harper
+pytest-spellcheck:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Testing Spellcheck File Selection ===\033[0m\n"
+    uv run scripts/test_spellcheck_tracked_drafts.py
+    printf "\033[0;32m✓ pytest-spellcheck passed\033[0m\n"
+    echo ""
+
+# Spell check git-tracked draft articles (draft: true), optionally under one path
 spellcheck file='':
     @just check-spelling "{{file}}"
 
@@ -906,27 +914,30 @@ check-spelling file='':
     set -e
     echo ""
     printf "\033[0;34m=== Spell Checking Draft Articles ===\033[0m\n"
-    if [ "{{file}}" = "--ignore-drafts" ]; then
-        DRAFTS=$(grep -rL "^draft: true" --include='*.md' content/ 2>/dev/null || true)
-    elif [ -n "{{file}}" ]; then
-        DRAFTS="{{file}}"
-    else
-        DRAFTS=$(grep -rl "^draft: true" content/ 2>/dev/null || true)
+    if [[ "{{file}}" = --* ]]; then
+        printf "\033[0;31m✗ check-spelling failed: unsupported option '%s'\033[0m\n" "{{file}}"
+        echo ""
+        exit 1
     fi
+    if [ -n "{{file}}" ]; then
+        TRACKED=$(git ls-files -- "{{file}}")
+    else
+        TRACKED=$(git ls-files -- content/)
+    fi
+    DRAFTS=$(while IFS= read -r candidate; do
+        [ -n "$candidate" ] || continue
+        if [[ "$candidate" = *.md ]] && grep -q "^draft: true" "$candidate" 2>/dev/null; then
+            printf "%s\n" "$candidate"
+        fi
+    done <<< "$TRACKED")
     if [ -z "$DRAFTS" ]; then
-        printf "\033[0;32m✓ no draft articles found\033[0m\n"
+        printf "\033[0;32m✓ no git-tracked draft articles found\033[0m\n"
         echo ""
         exit 0
     fi
     while IFS= read -r file; do
         printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
-        if [ -d "$file" ]; then
-            while IFS= read -r md; do
-                harper-cli lint --ignore UnclosedQuotes --no-color --user-dict-path config/harper/dictionary.txt "$md" || exit 1
-            done < <(find "$file" -name "*.md" | sort)
-        else
-            harper-cli lint --ignore UnclosedQuotes --no-color --user-dict-path config/harper/dictionary.txt "$file" || exit 1
-        fi
+        harper-cli lint --ignore UnclosedQuotes --no-color --user-dict-path config/harper/dictionary.txt "$file" || exit 1
         echo ""
     done <<< "$DRAFTS"
     printf "\033[0;32m✓ check-spelling passed\033[0m\n"

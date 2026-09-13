@@ -221,13 +221,14 @@ An inline pull quote.
 
 1. Create the file with `draft: true`.
 2. Run `just start` and preview at `http://127.0.0.1:1313/blog/`.
-3. Run `just check-spelling <file>` and resolve any issues.
-4. When ready, set `draft: false` — never flip this before spell check passes.
-5. Run `just build` to generate the production site into `public/`.
+3. Add a new article to Git's index; spellcheck deliberately ignores untracked files.
+4. Run `just check-spelling <file>` and resolve any issues.
+5. When ready, set `draft: false` and stage the final version.
+6. Run `just build` to generate the production site into `public/`.
 
 ### Spell checking
 
-`just check-spelling` lints all draft articles (`draft: true`) with [harper-cli](https://writewithharper.com/). To check a single file regardless of draft status:
+`just check-spelling` lints Git-tracked draft articles (`draft: true`) with [harper-cli](https://writewithharper.com/). To restrict the check to one tracked file or directory:
 
 ```bash
 just check-spelling content/blog/my-post/index.md
