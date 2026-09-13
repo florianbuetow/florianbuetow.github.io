@@ -151,22 +151,22 @@ Moore's Law didn't end-it evolved. The exponential curve lived on through archit
 
 1.  [Cramming more components onto integrated circuits (Moore, G. E., 1965)](https://download.intel.com/newsroom/2023/manufacturing/moores-law-electronics.pdf)
 2.  [Dennard scaling - Wikipedia](https://en.wikipedia.org/wiki/Dennard_scaling)
-3.  [Adaptive Mixture of Local Experts (Jacobs, R. A., et al., 1991)](https://www.cs.toronto.edu/~hinton/absps/amle.pdf)
-4.  [Pathways: A next-generation AI architecture](https://blog.google/technology/ai/pathways-next-generation-ai-architecture/)
+3.  [Adaptive Mixture of Local Experts (Jacobs, R. A., et al., 1991)](https://www.cs.toronto.edu/~hinton/absps/jjnh91.pdf)
+4.  [Pathways: A next-generation AI architecture](https://blog.google/innovation-and-ai/products/introducing-pathways-next-generation-ai-architecture/)
 5.  [Anthropic | Claude](https://www.anthropic.com/claude)
 6.  Hugging Face Transformers [GitHub](https://github.com/huggingface/transformers) Repository
 7.  [DeepSparse (Note: Deprecated by Neural Magic post-Red Hat acquisition)](https://pypi.org/project/deepsparse/)
-8.  [NVIDIA Megatron-LM](https://nvidia.github.io/Megatron-LM/index.html)
+8.  [NVIDIA Megatron-LM](https://github.com/nvidia/megatron-lm)
 9.  [xAI | Grok](https://x.ai/grok)
 10. [LangGraph: Multi-Agent Workflows](https://www.langchain.com/langgraph)
 11. Microsoft AutoGen [GitHub](https://github.com/microsoft/autogen) Repository
 12. CrewAI [GitHub](https://github.com/joaomdmoura/crewAI) Repository
 13. [OmniNova: A Generalist World Model for Tool-Augmented Agent](https://arxiv.org/abs/2406.06834)
 14. [What are Large Agentic Models (LAMs)?](https://www.tech4future.com/en/large-agentic-models-lams/)
-15. [What is Ray? - Anyscale](https://www.anyscale.com/ray-overview/what-is-ray)
+15. [What is Ray? - Anyscale](https://docs.anyscale.com/get-started/what-is-ray)
 16. [Distributed training - Databricks](https://docs.databricks.com/en/machine-learning/train-model/distributed-training/index.html)
 17. [Apache Spark](https://spark.apache.org/)
-18. [MIRIX: A Multi-Agent Transpiler for Information Retrieval Systems](https://huggingface.co/papers/2407.03983)
+18. [MIRIX: A Multi-Agent Transpiler for Information Retrieval Systems](https://arxiv.org/abs/2407.03983)
 19. [Retrieval-augmented generation - Wikipedia](https://en.wikipedia.org/wiki/Retrieval-augmented_generation)
 20. [LlamaIndex](https://www.llamaindex.ai/)
 21. [Haystack | The Open Source LLM Framework](https://haystack.deepset.ai/)

@@ -98,7 +98,8 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def markdown_files(paths: list[str]) -> list[Path]:
+def markdown_files(paths: list[str]) -> tuple[list[Path], int]:
+    """Return tracked Markdown files and the unique untracked-file count."""
     tracked = {
         path.parent.resolve() / path.name
         for path in GitTrackedFiles(Path.cwd()).markdown_under(".", drafts_only=False)
@@ -110,7 +111,15 @@ def markdown_files(paths: list[str]) -> list[Path]:
             files.append(path)
         elif path.is_dir():
             files.extend(sorted(path.rglob("*.md")))
-    return sorted({path for path in files if path.parent.resolve() / path.name in tracked})
+    unique: dict[Path, Path] = {}
+    ignored: set[Path] = set()
+    for path in files:
+        canonical = path.parent.resolve() / path.name
+        if canonical in tracked:
+            unique.setdefault(canonical, path)
+        else:
+            ignored.add(canonical)
+    return sorted(unique.values()), len(ignored)
 
 
 def strip_trailing_markdown_punctuation(raw_url: str) -> str:
@@ -378,10 +387,14 @@ def main() -> int:
         return 1
 
     paths = args.file or args.paths or ["content"]
-    files = markdown_files(paths)
+    files, ignored_count = markdown_files(paths)
+    if not args.list:
+        print(f"{ANSI_BLUE}→ ignored {ignored_count} markdown file(s) "
+              f"because they are not Git-tracked{ANSI_RESET}")
     if not files:
         print(f"{ANSI_GREEN}  no Git-tracked markdown files found{ANSI_RESET}")
-        return 0
+        if not args.report_json:
+            return 0
 
     links = collect_links(files)
     skip_domains = load_skip_domains(Path(args.skip_domains_file))
@@ -405,8 +418,7 @@ def main() -> int:
     print_skipped_domains(skipped_links, skip_domains)
 
     if not urls:
-        print(f"{ANSI_GREEN}  no external links found{ANSI_RESET}")
-        return 0
+        print(f"{ANSI_GREEN}  no external links to check{ANSI_RESET}")
 
     results = check_links(
         urls,
