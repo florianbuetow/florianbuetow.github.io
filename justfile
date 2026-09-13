@@ -906,7 +906,7 @@ check-spelling file='':
         exit 1
     fi
     PATHSPEC="{{file}}"
-    DRAFTS=$(python3 scripts/git_tracked_files.py --drafts-only "${PATHSPEC:-content/}")
+    DRAFTS=$(uv run scripts/git_tracked_files.py --drafts-only "${PATHSPEC:-content/}")
     if [ -z "$DRAFTS" ]; then
         printf "\033[0;32m✓ no git-tracked draft articles found\033[0m\n"
         echo ""
@@ -938,7 +938,7 @@ check-textlint file='':
     else
         DRAFTS=$(grep -rl "^draft: true" content/ 2>/dev/null || true)
     fi
-    FILES=$(printf "%s\n" "$DRAFTS" | python3 scripts/git_tracked_files.py --filter-stdin)
+    FILES=$(printf "%s\n" "$DRAFTS" | uv run scripts/git_tracked_files.py --filter-stdin)
     if [ -z "$FILES" ]; then
         printf "\033[0;32m✓ no draft articles found\033[0m\n"
         echo ""
