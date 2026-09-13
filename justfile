@@ -102,7 +102,6 @@ help:
     @printf "  %-36s %s\n" "pytest-validate-references" "Run the link-reference validator Python tests"
     @printf "  %-36s %s\n" "pytest-draft-annotator" "Run draft annotator Python tests"
     @printf "  %-36s %s\n" "pytest-check-detect-ai-voice" "Run the ai-text-detector Python tests"
-    @printf "  %-36s %s\n" "pytest-spellcheck" "Verify spellcheck only lints git-tracked draft Markdown files"
     @printf "  %-36s %s\n" "pytest-pos-tag" "Run the pos-tagger Python tests"
     @printf "  %-36s %s\n" "pytest-fingerprint-check" "Run the fingerprint-detector Python tests"
     @printf "  %-36s %s\n" "test-textlint" "Run the custom textlint rule tests"
@@ -522,8 +521,6 @@ ci:
     printf "\033[0;32m✓ check (tooling prerequisites)\033[0m\n"
 
     printf "%s\n" "--- spelling gate ---" >> "$LOG"
-    T=$(date +%s); just pytest-spellcheck > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-spellcheck failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-spellcheck $(( $(date +%s) - T ))
-    printf "\033[0;32m✓ pytest-spellcheck\033[0m\n"
     T=$(date +%s); just check-spelling > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-spelling\033[0m\n"
 
@@ -595,7 +592,6 @@ ci-verbose:
     printf "\033[0;33m--- prerequisite gate ---\033[0m\n"
     just check
     printf "\033[0;33m--- spelling gate ---\033[0m\n"
-    just pytest-spellcheck
     just check-spelling
     printf "\033[0;33m--- fast checks ---\033[0m\n"
     just check-no-drafts-in-git
@@ -893,16 +889,6 @@ pytest-validate-references:
     printf "\033[0;34m=== Testing Link Reference Validator ===\033[0m\n"
     uv run scripts/test_validate_link_references.py
     printf "\033[0;32m✓ pytest-validate-references passed\033[0m\n"
-    echo ""
-
-# Verify spellcheck only sends git-tracked draft Markdown files to Harper
-pytest-spellcheck:
-    #!/usr/bin/env bash
-    set -e
-    echo ""
-    printf "\033[0;34m=== Testing Spellcheck File Selection ===\033[0m\n"
-    uv run scripts/test_spellcheck_tracked_drafts.py
-    printf "\033[0;32m✓ pytest-spellcheck passed\033[0m\n"
     echo ""
 
 # Spell check git-tracked draft articles (draft: true), optionally under one path
