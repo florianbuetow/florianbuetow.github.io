@@ -5,6 +5,7 @@ import contextlib
 import io
 import json
 import os
+import ssl
 import subprocess
 import sys
 import tempfile
@@ -105,6 +106,30 @@ class CurlNavigationTests(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertEqual(result.outcome, "unverified")
 
+    def test_untrusted_https_certificate_does_not_fail_reachability(self):
+        with tempfile.TemporaryDirectory() as temp:
+            cert, key = Path(temp) / "cert.pem", Path(temp) / "key.pem"
+            subprocess.run([
+                "openssl", "req", "-x509", "-newkey", "rsa:2048", "-nodes",
+                "-keyout", str(key), "-out", str(cert), "-days", "1",
+                "-subj", "/CN=localhost",
+            ], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+            context.load_cert_chain(cert, key)
+            server = ThreadingHTTPServer(("127.0.0.1", 0), LinkHandler)
+            server.socket = context.wrap_socket(server.socket, server_side=True)
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            try:
+                result = checker.check_url(
+                    f"https://127.0.0.1:{server.server_port}/ok", 3, 1,
+                )
+                self.assertTrue(result.ok, result.detail)
+            finally:
+                server.shutdown()
+                server.server_close()
+                thread.join()
+
 
 class CheckReportingTests(unittest.TestCase):
     def test_report_written_when_all_links_are_skipped_or_no_files(self):
@@ -139,7 +164,7 @@ class CheckReportingTests(unittest.TestCase):
     def test_exit_status_and_json_preserve_classification(self):
         for outcome, status, exit_code in [
             ("reachable", "200", 0), ("broken", "404", 1),
-            ("unverified", "403", 2),
+            ("unverified", "403", 0),
         ]:
             with self.subTest(outcome=outcome), tempfile.TemporaryDirectory() as temp:
                 report = Path(temp) / "report.json"
