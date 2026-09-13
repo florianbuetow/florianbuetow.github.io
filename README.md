@@ -320,7 +320,7 @@ just check-textlint content/blog/example/index.md
 On first use, an acronym must be followed immediately by its expansion, for
 example `SDLC (Software Development Life Cycle)`. Later uses need no expansion.
 Configure the accepted acronym length and document-wide exceptions in
-`.textlintrc.json` with `min_acronym_len`, `max_acronym_len`, and
+`config/textlint/.textlintrc.json` with `min_acronym_len`, `max_acronym_len`, and
 `ignore_acronyms`.
 
 ## Configuration notes

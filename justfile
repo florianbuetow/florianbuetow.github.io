@@ -897,7 +897,9 @@ check-spelling file='':
     set -e
     echo ""
     printf "\033[0;34m=== Spell Checking Draft Articles ===\033[0m\n"
-    if [ -n "{{file}}" ]; then
+    if [ "{{file}}" = "--ignore-drafts" ]; then
+        DRAFTS=$(grep -rL "^draft: true" --include='*.md' content/ 2>/dev/null || true)
+    elif [ -n "{{file}}" ]; then
         DRAFTS="{{file}}"
     else
         DRAFTS=$(grep -rl "^draft: true" content/ 2>/dev/null || true)
@@ -944,10 +946,10 @@ check-textlint file='':
         printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
         if [ -d "$file" ]; then
             while IFS= read -r md; do
-                node_modules/.bin/textlint --no-color "$md" || exit 1
+                node_modules/.bin/textlint --config config/textlint/.textlintrc.json --no-color "$md" || exit 1
             done < <(find "$file" -name "*.md" | sort)
         else
-            node_modules/.bin/textlint --no-color "$file" || exit 1
+            node_modules/.bin/textlint --config config/textlint/.textlintrc.json --no-color "$file" || exit 1
         fi
         echo ""
     done <<< "$DRAFTS"

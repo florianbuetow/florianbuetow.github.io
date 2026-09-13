@@ -126,3 +126,13 @@ inspectable
 pdftotext
 pandoc
 ArXiv
+Kiro
+Kiro's
+McCabe
+ATDD
+Dynamous
+R1
+R2
+R3
+R4
+IDE's
