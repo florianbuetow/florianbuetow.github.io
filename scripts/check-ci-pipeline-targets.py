@@ -42,11 +42,12 @@ def fail(message: str) -> int:
 def extract_recipe_body(lines: list[str], name: str) -> list[str] | None:
     """Return the body lines of recipe ``name``, or None if it is not defined.
 
-    The header is matched anchored at column 0 and tolerates a dependency list
-    after the colon (e.g. ``ci: build``), so the lookup keeps working if ``ci``
-    or ``ci-verbose`` ever gain dependencies.
+    The header is matched anchored at column 0 and tolerates a parameter list
+    before the colon (e.g. ``ci spelling='':``) and a dependency list after it
+    (e.g. ``ci: build``), so the lookup keeps working if ``ci`` or ``ci-verbose``
+    ever gain parameters or dependencies.
     """
-    header_re = re.compile(rf"^{re.escape(name)}\s*:")
+    header_re = re.compile(rf"^{re.escape(name)}(\s[^:]*)?:")
     start = None
     for i, line in enumerate(lines):
         if header_re.match(line):

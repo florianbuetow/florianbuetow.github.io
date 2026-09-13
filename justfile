@@ -61,7 +61,7 @@ help:
     @printf "  %-36s %s\n" "status" "Check if the Hugo server is running"
     @printf "  %-36s %s\n" "ci" "Run validation checks silently; no build or generated-asset writes"
     @printf "  %-36s %s\n" "ci-verbose" "Run validation checks verbosely; no build or generated-asset writes"
-    @printf "  %-36s %s\n" "build" "Run CI, normalize generated assets, build public/, Pagefind, and Lighthouse"
+    @printf "  %-36s %s\n" "build" "Run CI, normalize generated assets, build public/, Pagefind, and Lighthouse (optional: just build --ignore-drafts-spelling)"
     @printf "  %-36s %s\n" "deploy" "Deploy main to GitHub Pages (push if needed, watch, verify)"
     @echo ""
     @printf "\033[0;33mRun:\033[0m\n"
@@ -476,7 +476,7 @@ status:
     exit 1
 
 # Build the production site: CI checks, generated asset normalization, minified build, Pagefind, and Lighthouse
-build: ci
+build ignore-drafts-spelling='': (ci ignore-drafts-spelling)
     #!/usr/bin/env bash
     set -e
     echo ""
@@ -494,11 +494,20 @@ build: ci
     echo ""
 
 # Run ALL validation checks silently, without building or writing generated assets
-ci:
+ci ignore-drafts-spelling='':
     #!/usr/bin/env bash
     set -e
     echo ""
     printf "\033[0;34m=== Running CI Checks (Quiet Mode) ===\033[0m\n"
+    if [ -n "{{ignore-drafts-spelling}}" ] && [ "{{ignore-drafts-spelling}}" != "--ignore-drafts-spelling" ]; then
+        printf "\033[0;31m✗ ci failed: unsupported flag '%s' (supported: --ignore-drafts-spelling)\033[0m\n" "{{ignore-drafts-spelling}}"
+        echo ""
+        exit 1
+    fi
+    SPELLING_FLAG=""
+    if [ "{{ignore-drafts-spelling}}" = "--ignore-drafts-spelling" ]; then
+        SPELLING_FLAG="--ignore-drafts"
+    fi
     TMPFILE=$(mktemp)
     trap "rm -f $TMPFILE" EXIT
 
@@ -555,7 +564,7 @@ ci:
     printf "\033[0;32m✓ pytest-fingerprint-check\033[0m\n"
     T=$(date +%s); just pytest-check-detect-ai-voice > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ pytest-check-detect-ai-voice failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log pytest-check-detect-ai-voice $(( $(date +%s) - T ))
     printf "\033[0;32m✓ pytest-check-detect-ai-voice\033[0m\n"
-    T=$(date +%s); just check-spelling > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
+    T=$(date +%s); just check-spelling $SPELLING_FLAG > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-spelling\033[0m\n"
     T=$(date +%s); just check-textlint > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-textlint failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-textlint $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-textlint\033[0m\n"
@@ -620,7 +629,7 @@ ci-verbose:
     echo ""
 
 # Deploy main to GitHub Pages (push if needed, watch run, verify live URL)
-deploy: build
+deploy: (build '--ignore-drafts-spelling')
     #!/usr/bin/env bash
     set -e
     echo ""
