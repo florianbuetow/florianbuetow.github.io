@@ -1,5 +1,6 @@
 ---
 title: "Newsletter"
+readTime: "1 min read"
 ---
 
 I send summaries of new posts no more than once per month.

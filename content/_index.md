@@ -1,5 +1,6 @@
 ---
 title: "Cracking AI Engineering"
+readTime: "1 min read"
 ---
 
 Hi, I am Florian, an engineer with over a decade of experience in software engineering, specifically petabyte-scale backend systems for information retrieval/search, data processing, storage, and machine learning. 

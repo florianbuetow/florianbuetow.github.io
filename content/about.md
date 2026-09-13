@@ -1,6 +1,7 @@
 ---
 title: "About"
 description: "I am a lead developer experienced in implementing and designing distributed, petabyte-scale applications for storage, information retrieval, and ML and agentic systems in production."
+readTime: "1 min read"
 ---
 
 I am Florian, ex-Reddit/lead software developer with over 8 years of hands-on experienced in implementing and designing distributed, petabyte-scale applications for storage, information retrieval and machine learning applications in production. My current focus is AI engineering and Engineering with AI. 

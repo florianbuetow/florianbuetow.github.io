@@ -1,5 +1,6 @@
 ---
 title: "Resources"
+readTime: "1 min read"
 ---
 
 <table class="resources-table">

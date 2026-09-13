@@ -14,6 +14,7 @@ demo: ""
 video: ""
 featured: true
 image: "/projects/open-source-images/tts-mcp.webp"
+readTime: "2 min read"
 ---
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/tts-mcp" target="_blank" rel="noopener">https://github.com/florianbuetow/tts-mcp</a>{{< /sidenote >}}

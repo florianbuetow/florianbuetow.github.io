@@ -14,6 +14,7 @@ demo: ""
 video: ""
 featured: false
 image: "/projects/open-source-images/tmux-watchdog-tools.webp"
+readTime: "1 min read"
 ---
 
 {{< sidenote label="Code" >}}<a href="https://github.com/florianbuetow/tmux-auto-attach" target="_blank" rel="noopener">https://github.com/florianbuetow/tmux-auto-attach</a>{{< /sidenote >}}
