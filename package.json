@@ -5,6 +5,8 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.15.1",
-    "pagefind": "^1.x"
+    "pagefind": "^1.x",
+    "textlint": "^15.7.1",
+    "textlint-rule-acronym-first-use": "file:scripts/textlint-rule-acronym-first-use"
   }
 }

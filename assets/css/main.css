@@ -444,7 +444,7 @@ a {
     font-size: 1.35rem;
     font-weight: 700;
     color: #111;
-    margin: 48px 0 16px;
+    margin: 28px 0 16px;
     letter-spacing: -0.3px;
     scroll-margin-top: 24px;
 }
@@ -481,6 +481,24 @@ a {
 }
 .prose pre.mermaid {
     text-align: center;
+}
+.prose pre.ascii-art,
+.prose pre.ascii-art code {
+    /* Both selectors are required: .prose code sets its own font-family and
+       font-size (0.85rem), which wins on the inner <code> and would otherwise
+       render the glyphs in Monaco at 13.6px, inflating the line box past
+       line-height. Monaco cannot tile box-drawing glyphs at any line-height
+       (11px glyph, 13px text ink); Menlo, DejaVu, Liberation and Consolas draw
+       them to fill the cell (16px at 13px), so a 13px line box overlaps by 3px
+       and stays continuous under zoom and device-pixel rounding. */
+    font-family: Menlo, "DejaVu Sans Mono", "Liberation Mono", Consolas, monospace;
+    font-size: 13px;
+    line-height: 13px;
+    font-style: normal;
+    font-weight: 400;
+    font-kerning: none;
+    font-variant-ligatures: none;
+    letter-spacing: 0;
 }
 .prose pre code {
     background: transparent;

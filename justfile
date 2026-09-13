@@ -87,6 +87,7 @@ help:
     @printf "  %-36s %s\n" "check-external-links" "Check unique external article links with curl (optional: just check-external-links <file>)"
     @printf "  %-36s %s\n" "check-references" "Check links used in articles are listed in their references section (optional: just check-references <file>)"
     @printf "  %-36s %s\n" "check-spelling" "Spell check all drafts with harper-cli (optional: just check-spelling <file>)"
+    @printf "  %-36s %s\n" "check-textlint" "Textlint all drafts (optional: just check-textlint <file>)"
     @printf "  %-36s %s\n" "check-draft-annotations" "Fail if draft notes remain in published articles"
     @printf "  %-36s %s\n" "check-no-drafts-in-git" "Fail if any git-tracked Markdown file has draft: true"
     @printf "  %-36s %s\n" "check-detect-ai-voice" "Flag AI-generated-text tells in drafts (optional: just check-detect-ai-voice <file>)"
@@ -94,6 +95,7 @@ help:
     @echo ""
     @printf "\033[0;33mShortcuts:\033[0m\n"
     @printf "  %-36s %s\n" "spellcheck" "Shortcut for check-spelling (optional: just spellcheck <file>)"
+    @printf "  %-36s %s\n" "textlint" "Shortcut for check-textlint (optional: just textlint <file>)"
     @echo ""
     @printf "\033[0;33mTests:\033[0m\n"
     @printf "  %-36s %s\n" "check-ci-pipeline-targets" "Fail if any Content-Checks/Tests target is not called by ci and ci-verbose"
@@ -102,6 +104,7 @@ help:
     @printf "  %-36s %s\n" "pytest-check-detect-ai-voice" "Run the ai-text-detector Python tests"
     @printf "  %-36s %s\n" "pytest-pos-tag" "Run the pos-tagger Python tests"
     @printf "  %-36s %s\n" "pytest-fingerprint-check" "Run the fingerprint-detector Python tests"
+    @printf "  %-36s %s\n" "test-textlint" "Run the custom textlint rule tests"
     @printf "  %-36s %s\n" "test-lighthouse" "Audit an existing public/ build with Lighthouse CI"
     @echo ""
     @printf "\033[0;33mAnalytics:\033[0m\n"
@@ -147,8 +150,12 @@ init:
         brew install node
     fi
     printf "\033[0;32m✓ node ready (%s)\033[0m\n" "$(node --version)"
-    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ] || [ ! -x node_modules/.bin/lhci ]; then
-        printf "\033[0;33m→ node deps missing/incomplete, running 'npm install'...\033[0m\n"
+    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ] || [ ! -x node_modules/.bin/lhci ] || [ ! -x node_modules/.bin/textlint ] || ! node -e "require.resolve('textlint-rule-acronym-first-use')" >/dev/null 2>&1; then
+        if [ ! -x node_modules/.bin/textlint ] || ! node -e "require.resolve('textlint-rule-acronym-first-use')" >/dev/null 2>&1; then
+            printf "\033[0;33m→ textlint or its acronym rule missing, installing locked Node dependencies...\033[0m\n"
+        else
+            printf "\033[0;33m→ node deps missing/incomplete, running 'npm install'...\033[0m\n"
+        fi
         npm install
     fi
     printf "\033[0;32m✓ node_modules present\033[0m\n"
@@ -242,13 +249,13 @@ check:
         exit 1
     fi
     printf "\033[0;32m✓ node is installed (%s)\033[0m\n" "$(node --version)"
-    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ] || [ ! -x node_modules/.bin/lhci ]; then
+    if [ ! -d node_modules ] || [ ! -x node_modules/.bin/pagefind ] || [ ! -x node_modules/.bin/lhci ] || [ ! -x node_modules/.bin/textlint ] || ! node -e "require.resolve('textlint-rule-acronym-first-use')" >/dev/null 2>&1; then
         printf "\033[0;31m✗ check failed: node_modules missing or incomplete\033[0m\n"
-        printf "  Run: just init\n"
+        printf "  Run: just init  (installs textlint and the other locked Node dependencies)\n"
         echo ""
         exit 1
     fi
-    printf "\033[0;32m✓ node_modules present with pagefind and lhci\033[0m\n"
+    printf "\033[0;32m✓ node_modules present with pagefind, lhci, and textlint\033[0m\n"
     if [ -n "${CHROME_PATH:-}" ] && [ -x "$CHROME_PATH" ]; then
         printf "\033[0;32m✓ Chrome is available for Lighthouse CI via CHROME_PATH (%s)\033[0m\n" "$CHROME_PATH"
     else
@@ -550,6 +557,10 @@ ci:
     printf "\033[0;32m✓ pytest-check-detect-ai-voice\033[0m\n"
     T=$(date +%s); just check-spelling > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-spelling failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-spelling $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-spelling\033[0m\n"
+    T=$(date +%s); just check-textlint > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-textlint failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-textlint $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ check-textlint\033[0m\n"
+    T=$(date +%s); just test-textlint > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ test-textlint failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log test-textlint $(( $(date +%s) - T ))
+    printf "\033[0;32m✓ test-textlint\033[0m\n"
     T=$(date +%s); just check-detect-ai-voice-fingerprints > "$TMPFILE" 2>&1 || { printf "\033[0;31m✗ check-detect-ai-voice-fingerprints failed\033[0m\n"; cat "$TMPFILE"; exit 1; }; _log check-detect-ai-voice-fingerprints $(( $(date +%s) - T ))
     printf "\033[0;32m✓ check-detect-ai-voice-fingerprints\033[0m\n"
 
@@ -597,6 +608,8 @@ ci-verbose:
     just pytest-fingerprint-check
     just pytest-check-detect-ai-voice
     just check-spelling
+    just check-textlint
+    just test-textlint
     just check-detect-ai-voice-fingerprints
     printf "\033[0;33m--- slow checks ---\033[0m\n"
     just check-markdown
@@ -906,6 +919,49 @@ check-spelling file='':
         echo ""
     done <<< "$DRAFTS"
     printf "\033[0;32m✓ check-spelling passed\033[0m\n"
+    echo ""
+
+# Textlint all draft articles (draft: true), or a single file if given
+textlint file='':
+    @just check-textlint "{{file}}"
+
+check-textlint file='':
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Textlinting Draft Articles ===\033[0m\n"
+    if [ -n "{{file}}" ]; then
+        DRAFTS="{{file}}"
+    else
+        DRAFTS=$(grep -rl "^draft: true" content/ 2>/dev/null || true)
+    fi
+    if [ -z "$DRAFTS" ]; then
+        printf "\033[0;32m✓ no draft articles found\033[0m\n"
+        echo ""
+        exit 0
+    fi
+    while IFS= read -r file; do
+        printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
+        if [ -d "$file" ]; then
+            while IFS= read -r md; do
+                node_modules/.bin/textlint --no-color "$md" || exit 1
+            done < <(find "$file" -name "*.md" | sort)
+        else
+            node_modules/.bin/textlint --no-color "$file" || exit 1
+        fi
+        echo ""
+    done <<< "$DRAFTS"
+    printf "\033[0;32m✓ check-textlint passed\033[0m\n"
+    echo ""
+
+# Run tests for repo-local textlint rules
+test-textlint:
+    #!/usr/bin/env bash
+    set -e
+    echo ""
+    printf "\033[0;34m=== Testing Textlint Rules ===\033[0m\n"
+    node scripts/test_textlint_acronym_first_use.mjs
+    printf "\033[0;32m✓ test-textlint passed\033[0m\n"
     echo ""
 
 # Run, restart, or cooperatively stop the local draft annotation helper

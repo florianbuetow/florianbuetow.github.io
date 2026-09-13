@@ -304,9 +304,24 @@ just help
 - **Lifecycle:** `start`, `stop`, `status`, `build`, `ci`, `ci-verbose`, `deploy`
 - **Run:** `serve`, `serve-annotator`
 - **Build:** `render-wardley-maps`, `optimize-images`, `remove-exif-data`, `update-read-times`, `build-pagefind-index`, `validate-pagefind-index`
-- **Content-Checks:** `validate-images`, `validate-md`, `validate-content`, `check-code-line-length`, `check-external-links`, `check-spelling`, `check-help-alignment`, `check-clean-worktree`, and more
+- **Content-Checks:** `validate-images`, `validate-md`, `validate-content`, `check-code-line-length`, `check-external-links`, `check-spelling`, `check-textlint`, `check-help-alignment`, `check-clean-worktree`, and more
 - **Tests:** `pytest-*`, `test-lighthouse`
 - **Analytics:** `show-image-links`, `show-cat-tags`
+
+### Textlint acronym policy
+
+`just check-textlint` checks every `draft: true` article. Pass a path to check
+one draft or published article explicitly:
+
+```bash
+just check-textlint content/blog/example/index.md
+```
+
+On first use, an acronym must be followed immediately by its expansion, for
+example `SDLC (Software Development Life Cycle)`. Later uses need no expansion.
+Configure the accepted acronym length and document-wide exceptions in
+`.textlintrc.json` with `min_acronym_len`, `max_acronym_len`, and
+`ignore_acronyms`.
 
 ## Configuration notes
 
