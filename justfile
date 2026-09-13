@@ -905,17 +905,8 @@ check-spelling file='':
         echo ""
         exit 1
     fi
-    if [ -n "{{file}}" ]; then
-        TRACKED=$(git ls-files -- "{{file}}")
-    else
-        TRACKED=$(git ls-files -- content/)
-    fi
-    DRAFTS=$(while IFS= read -r candidate; do
-        [ -n "$candidate" ] || continue
-        if [[ "$candidate" = *.md ]] && grep -q "^draft: true" "$candidate" 2>/dev/null; then
-            printf "%s\n" "$candidate"
-        fi
-    done <<< "$TRACKED")
+    PATHSPEC="{{file}}"
+    DRAFTS=$(python3 scripts/git_tracked_files.py --drafts-only "${PATHSPEC:-content/}")
     if [ -z "$DRAFTS" ]; then
         printf "\033[0;32m✓ no git-tracked draft articles found\033[0m\n"
         echo ""
@@ -939,26 +930,25 @@ check-textlint file='':
     echo ""
     printf "\033[0;34m=== Textlinting Draft Articles ===\033[0m\n"
     if [ -n "{{file}}" ]; then
-        DRAFTS="{{file}}"
+        if [ -d "{{file}}" ]; then
+            DRAFTS=$(find "{{file}}" -name "*.md" | sort)
+        else
+            DRAFTS="{{file}}"
+        fi
     else
         DRAFTS=$(grep -rl "^draft: true" content/ 2>/dev/null || true)
     fi
-    if [ -z "$DRAFTS" ]; then
+    FILES=$(printf "%s\n" "$DRAFTS" | python3 scripts/git_tracked_files.py --filter-stdin)
+    if [ -z "$FILES" ]; then
         printf "\033[0;32m✓ no draft articles found\033[0m\n"
         echo ""
         exit 0
     fi
     while IFS= read -r file; do
         printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
-        if [ -d "$file" ]; then
-            while IFS= read -r md; do
-                node_modules/.bin/textlint --config config/textlint/.textlintrc.json --no-color "$md" || exit 1
-            done < <(find "$file" -name "*.md" | sort)
-        else
-            node_modules/.bin/textlint --config config/textlint/.textlintrc.json --no-color "$file" || exit 1
-        fi
+        node_modules/.bin/textlint --config config/textlint/.textlintrc.json --no-color "$file" || exit 1
         echo ""
-    done <<< "$DRAFTS"
+    done <<< "$FILES"
     printf "\033[0;32m✓ check-textlint passed\033[0m\n"
     echo ""
 
