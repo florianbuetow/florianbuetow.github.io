@@ -83,7 +83,7 @@ Just as multi-core CPUs enabled continued performance gains by distributing task
 
 3.  **Parallel and Distributed Processing**
 
-    Multi-agent frameworks like OmniNova \[13\] or LAMs (Large Agentic Models) \[14\] distribute cognitive tasks across a hierarchy of agents or across devices. These architectures allow different agents to handle subtasks like retrieval, reasoning, and planning simultaneously, speeding up overall system throughput. A variety of frameworks make it practical to develop systems that handle parallel and distributed processing for scalable AI workloads. Ray \[15\], for instance, simplifies distributed task execution across multiple agents or devices, making it well-suited for large-scale multi-agent systems. TensorFlow Distributed \[16\] supports parallel training and inference for AI models, and Apache Spark \[17\] efficiently manages large datasets, complementing agent-based workflows by enabling concurrent processing across diverse environments.
+    Multi-agent frameworks like OmniNova \[13\] or AutoGen \[14\] divide work among agents. In AutoGen's Mixture of Agents pattern, an orchestrator sends tasks to worker agents in successive layers and combines their outputs. A variety of frameworks make it practical to develop systems that handle parallel and distributed processing for scalable AI workloads. Ray \[15\], for instance, simplifies distributed task execution across multiple agents or devices, making it well-suited for large-scale multi-agent systems. TensorFlow Distributed \[16\] supports parallel training and inference for AI models, and Apache Spark \[17\] efficiently manages large datasets, complementing agent-based workflows by enabling concurrent processing across diverse environments.
 
 4.  **Unified Knowledge Access: Shared Memory and RAG**
 
@@ -162,7 +162,7 @@ Moore's Law didn't end-it evolved. The exponential curve lived on through archit
 11. Microsoft AutoGen [GitHub](https://github.com/microsoft/autogen) Repository
 12. CrewAI [GitHub](https://github.com/joaomdmoura/crewAI) Repository
 13. [OmniNova: A Generalist World Model for Tool-Augmented Agent](https://arxiv.org/abs/2406.06834)
-14. [What are Large Agentic Models (LAMs)?](https://www.tech4future.com/en/large-agentic-models-lams/)
+14. Microsoft AutoGen [Mixture of Agents](https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/mixture-of-agents.html)
 15. [What is Ray? - Anyscale](https://docs.anyscale.com/get-started/what-is-ray)
 16. [Distributed training - Databricks](https://docs.databricks.com/en/machine-learning/train-model/distributed-training/index.html)
 17. [Apache Spark](https://spark.apache.org/)
