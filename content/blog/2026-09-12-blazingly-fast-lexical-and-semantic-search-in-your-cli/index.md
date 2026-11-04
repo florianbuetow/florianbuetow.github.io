@@ -341,6 +341,8 @@ That is what `qsearch` does. You can get it from GitHub [here](https://github.co
 
 ## References
 
+- qsearch [GitHub](https://github.com/florianbuetow/qsearch-bash)
+
 [^ripgrep]: ripgrep, a line-oriented search tool that recursively searches directories with Rust's regex engine, cited as the fast exact-match stage of the cascade. https://github.com/BurntSushi/ripgrep
 [^rga]: ripgrep-all (rga), a ripgrep wrapper whose adapters extract searchable text from PDF, DOCX, EPUB, notebooks and archives, cited for extending lexical search beyond plain text. https://github.com/phiresky/ripgrep-all
 [^clawgrep]: clawgrep, a local hybrid retrieval tool that fuses embedding similarity with keyword matching using weighted Reciprocal Rank Fusion, cited as the semantic fallback stage. https://github.com/Schonhoffer/clawgrep
