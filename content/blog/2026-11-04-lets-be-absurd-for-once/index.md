@@ -5,7 +5,7 @@ date: 2026-11-04
 draft: false
 description: "A ship pushes the sea, a bowl of soup raises questions, and one man's concern for water reaches its logical conclusion."
 author: "Florian Buetow"
-readTime: "6 min read"
+readTime: "7 min read"
 categories: ["Fiction"]
 tags: ["Satire", "Absurdism"]
 ---
