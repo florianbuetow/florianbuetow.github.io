@@ -195,6 +195,14 @@ class TestAnalyzeText(unittest.TestCase):
         )
         self.assertEqual(kinds(text), [])
 
+    def test_body_link_matches_bare_footnote_url(self):
+        text = (
+            "Body [source](https://example.org/repo).[^a]\n\n"
+            "## References\n\n"
+            "[^a]: Source. https://example.org/repo\n"
+        )
+        self.assertEqual(kinds(text), [])
+
     def test_unused_footnote_definition_warns_without_error(self):
         text = (
             "Claim one.[^a]\n\n"

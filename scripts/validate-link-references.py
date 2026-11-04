@@ -16,7 +16,7 @@ that is not cited from the body. These reverse-direction checks are advisory:
 they point out likely stale references without failing CI.
 
 A "link" is an inline Markdown link ``[text](url)`` or an HTML ``href``.
-Images, bare URLs (so Markdown footnote definitions are ignored), footnote
+Images, bare URLs outside footnote definitions, footnote
 markers, same-page anchors (``#...``, links to the current page), and the
 author's LinkedIn post link are intentionally not counted. External and
 same-site links (``/blog/...``) are counted.
@@ -328,6 +328,10 @@ def analyze_text(text: str) -> list[Violation]:
     body_link_keys = {canonical_link(url) for url in body_links}
     section_links = extract_links(section_text)
     section_link_keys = {canonical_link(url) for url in section_links}
+    for _, line in _code_aware_lines(section_text.split("\n"), 0):
+        if FOOTNOTE_DEFINITION_RE.match(line):
+            for url in re.findall(r'https?://[^\s<>\)]+', line):
+                section_link_keys.add(canonical_link(url.rstrip('.,;')))
     violations = [
         Violation(
             "missing-link",
