@@ -110,9 +110,6 @@ The book closed a circle for me. I always regarded technology as something abstr
 
 **Disclosure:** Nathaniel Borenstein and I were colleagues on the research team at Mimecast from 2019 to 2021, where I was a senior data scientist and he was chief scientist and a mentor to me (and others) on the topics of innovation, patents, and email standards.
 
-
-[Comment on LinkedIn](/LINK_TO_BE_ADDED)
-
 ## References
 
 * [The Spirit of a Cyborg, announcement by Nathaniel Borenstein](https://www.linkedin.com/posts/nathanielborenstein_after-endless-iterations-my-book-has-a-title-share-7456429757493313536-JYd9/) - Author's announcement of the book and its full title. A pre-release copy of the manuscript was supplied by the author for this review.
