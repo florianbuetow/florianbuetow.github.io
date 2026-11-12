@@ -6,7 +6,7 @@ date: 2026-11-12
 draft: false
 description: "A review of Nathaniel Borenstein's The Spirit of a Cyborg, a memoir about cyborg life, Internet history, AI ethics, and the human choices behind technological futures."
 author: "Florian Buetow"
-readTime: "9 min read"
+readTime: "10 min read"
 categories: ["AI Engineering"]
 tags: ["AI", "Internet", "Ethics", "Memoir", "Society"]
 ---
