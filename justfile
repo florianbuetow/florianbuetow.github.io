@@ -816,7 +816,7 @@ check-markdown:
     # is required — semgrep with no target paths scans the whole CWD instead.
     if [ -n "$(git ls-files -- 'content/*.md')" ]; then
         git ls-files -z -- 'content/*.md' \
-            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/github-link-format.yml --config config/semgrep/github-link-no-scheme.yml --config config/semgrep/linkedin-comment-format.yml --config config/semgrep/no-linkedin-url-params.yml --error
+            | xargs -0 semgrep --config config/semgrep/no-em-dash.yml --config config/semgrep/no-unicode-dash.yml --config config/semgrep/github-link-format.yml --config config/semgrep/github-link-no-scheme.yml --config config/semgrep/linkedin-comment-format.yml --config config/semgrep/no-linkedin-url-params.yml --error
     else
         printf "  no tracked markdown files found\n"
     fi
@@ -915,7 +915,7 @@ check-spelling file='':
     fi
     while IFS= read -r file; do
         printf "\033[0;34m→ checking: %s\033[0m\n" "$file"
-        harper-cli lint --ignore UnclosedQuotes --no-color --user-dict-path config/harper/dictionary.txt "$file" || exit 1
+        harper-cli lint --ignore UnclosedQuotes,NumericRangeEnDash --no-color --user-dict-path config/harper/dictionary.txt "$file" || exit 1
         echo ""
     done <<< "$DRAFTS"
     printf "\033[0;32m✓ check-spelling passed\033[0m\n"

@@ -48,6 +48,17 @@ Unicode dashes have become a tell for AI-written text. Even when stylistically c
 
 Search the file for the literal characters `—` and `–`. Anything you find is a violation. Replace each per the table above.
 
+### How the rule is enforced
+
+`just check-markdown` runs two semgrep rules over every git-tracked Markdown file under `content/`:
+
+| Rule | File | Catches |
+|---|---|---|
+| `content.no-em-dash` | `config/semgrep/no-em-dash.yml` | `—` (U+2014) |
+| `content.no-unicode-dash` | `config/semgrep/no-unicode-dash.yml` | `–` `‒` `―` `−` (U+2013, U+2012, U+2015, U+2212) |
+
+Harper disagrees with this rule: its `NumericRangeEnDash` check wants `75-80%` rewritten as `75–80%`, which this repo forbids. `just check-spelling` therefore passes `--ignore UnclosedQuotes,NumericRangeEnDash` to `harper-cli`, so the spell checker never asks for a character semgrep will reject.
+
 ---
 
 ## 2. References and citations

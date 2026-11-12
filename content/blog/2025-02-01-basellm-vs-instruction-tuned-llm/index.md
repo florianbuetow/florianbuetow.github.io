@@ -21,7 +21,7 @@ Large language models (LLMs) can behave very differently depending on how they w
 To explore how these two types of language models behave, we will take a look at two models from Hugging Face's [SmolLM family](https://huggingface.co/blog/smollm):
 
 - [SmolLM on Hugging Face](https://huggingface.co/HuggingFaceTB/SmolLM-360M): a base model trained solely with next-token prediction
-- [SmolLM-Instruct on Hugging Face](https://huggingface.co/HuggingFaceTB/SmolLM-360M-Instruct): the same model, but further fine-tuned on prompt–response pairs
+- [SmolLM-Instruct on Hugging Face](https://huggingface.co/HuggingFaceTB/SmolLM-360M-Instruct): the same model, but further fine-tuned on prompt-response pairs
 
 These two models are architecturally identical: they have the same parameter count, tokenizer, and system requirements.
 
@@ -61,7 +61,7 @@ SmolLM models are available in three sizes - 135M, 360M, and 1.7B parameters-and
 
 ### Fine-tuning a BaseLLM
 
-Instruction tuning changes the objective. Rather than simply learning to continue text, the model is shown *prompt–response pairs* that teach it to follow specific instructions.
+Instruction tuning changes the objective. Rather than simply learning to continue text, the model is shown *prompt-response pairs* that teach it to follow specific instructions.
 
 Example:
 
@@ -259,7 +259,7 @@ Both models produce plausible continuations, but the instruction-tuned model is 
 
 ![BaseLLM vs Instruction-Tuned LLM](basellm-vs-instruction-tuned-llm-user.webp)
 
-This side-by-side comparison of base and instruction-tuned models reveals a profound behavioral shift driven by a seemingly minor change in training objective. The **Base LLM**, trained exclusively through next-token prediction, treats prompts as fragments to continue. In contrast, the **Instruction-Tuned LLM**, fine-tuned on explicit prompt–response pairs, interprets those same inputs as tasks to fulfill.
+This side-by-side comparison of base and instruction-tuned models reveals a profound behavioral shift driven by a seemingly minor change in training objective. The **Base LLM**, trained exclusively through next-token prediction, treats prompts as fragments to continue. In contrast, the **Instruction-Tuned LLM**, fine-tuned on explicit prompt-response pairs, interprets those same inputs as tasks to fulfill.
 
 Despite being small in size-just 360M parameters-both versions of SmolLM demonstrate that model *behavior* is not dictated solely by scale. Architecture and tokenizer were held constant in our experiment. The only distinguishing factor was the presence or absence of instruction tuning. And yet, that difference alone was sufficient to transform the model from a text generator into an interactive assistant.
 

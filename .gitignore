@@ -55,3 +55,4 @@
 .claude/
 .omx/
 .playwright-cli/
+.back*.json

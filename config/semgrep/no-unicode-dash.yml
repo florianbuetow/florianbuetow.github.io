@@ -1,0 +1,13 @@
+rules:
+  - id: content.no-unicode-dash
+    languages: [generic]
+    message: >
+      Unicode dash found (en dash U+2013, figure dash U+2012, horizontal bar
+      U+2015, or minus sign U+2212). Only the ASCII hyphen-minus (-) is
+      allowed. See docs/article-formatting.md section 1 for the right
+      replacement - it is usually a comma, period, or colon, not a hyphen.
+    severity: ERROR
+    paths:
+      include:
+        - "**/*.md"
+    pattern-regex: '[\x{2012}\x{2013}\x{2015}\x{2212}]'
