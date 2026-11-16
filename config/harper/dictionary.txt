@@ -159,3 +159,6 @@ Infotopia
 Totalitechnopoly
 entropic
 framings
+makemore
+worktree
+Mimecast's
