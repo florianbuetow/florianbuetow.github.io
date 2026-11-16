@@ -8,6 +8,7 @@ description: "Estee van der Walt is CTO and Principal Engineer at Escendant in L
 author: "Florian Buetow & Estee van der Walt"
 categories: ["Interviews", "AI Engineering"]
 tags: ["Interview", "Cyber Security", "Generative AI", "CTO", "Architecture", "Mentoring", "PhD"]
+readTime: "31 min read"
 ---
 
 ## Preamble
