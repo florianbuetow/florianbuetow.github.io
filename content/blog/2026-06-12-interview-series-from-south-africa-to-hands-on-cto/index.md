@@ -235,5 +235,5 @@ Looking back at my conversation with Estee, three things stood out to me as a li
 ## References
 
 [^estee-li]: Estee van der Walt on LinkedIn. https://www.linkedin.com/in/esteevanderwalt/
-[^escendant]: Escendant, "The Human Archive." https://thehumanarchive.com
-[^whezit]: Whezit, Estee's privacy-focused mobile bookmarking app for iOS and Android. All data is stored locally on the device, with no account and no cloud sync. https://whiteorcaoptims.com/whezit
+[^escendant]: Escendant, "The Human Archive." https://escendant.ai/
+[^whezit]: Whezit, Estee's privacy-focused mobile bookmarking app for iOS and Android. All data is stored locally on the device, with no account and no cloud sync. https://whezit.expo.app/
