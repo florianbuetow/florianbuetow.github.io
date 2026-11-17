@@ -1,5 +1,5 @@
 ---
-title: "The Watchmaker Who Forgot to Wind the Clock"
+title: "The Watchmakers Clock"
 slug: "the-watchmaker-who-forgot-to-wind-the-clock"
 date: 2026-11-17
 draft: true
