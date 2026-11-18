@@ -5,12 +5,12 @@ date: 2026-11-18
 draft: false
 description: "A watchmaker learns that the goal is not to become good at everything, but to build systems that make everything work together."
 author: "Florian Buetow"
-readTime: "3 min read"
+readTime: "2 min read"
 categories: ["AI Engineering"]
 tags: ["AI", "Productivity", "Systems"]
 ---
 
-![Illustration of a watchmaker at work](watchmaker.png?zoom)
+![Illustration of a watchmaker at work](watchmaker.webp?zoom)
 
 There was once a watchmaker who spent his days building and repairing clocks. He enjoyed solving difficult problems, understanding intricate mechanisms, and finding ways to make things work that hadn’t worked before. He also spent much of his time questioning how clocks ought to be made, exploring new approaches, and sharing his ideas with fellow watchmakers.
 
