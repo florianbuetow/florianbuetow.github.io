@@ -1,6 +1,8 @@
 ---
 title: "The Watchmakers Clock"
-slug: "the-watchmaker-who-forgot-to-wind-the-clock"
+slug: "the-watchmakers-clock"
+aliases:
+  - /blog/the-watchmaker-who-forgot-to-wind-the-clock/
 date: 2026-11-18
 draft: false
 description: "A watchmaker learns that the goal is not to become good at everything, but to build systems that make everything work together."
