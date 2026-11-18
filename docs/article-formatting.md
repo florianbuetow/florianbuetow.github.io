@@ -67,7 +67,25 @@ Citations (inline footnote markers), the closing reference list, plain-list refe
 
 ---
 
-## 3. Mermaid diagrams
+## 3. Message exchanges
+
+Use the `message` shortcode for a spoken exchange. The `side` parameter is required in practice and must be either `left` or `right`; add the optional `speaker` parameter only when an explicit visible label is useful. Give each speaker a `color` value to match the article's palette. `watercolor-rose` and `watercolor-blue` are the built-in watercolor tones; a three- or six-digit hex value is also supported. Colored bubbles render with white text.
+
+```markdown
+{{< message side="left" speaker="Mira" color="watercolor-rose" >}}
+You are still trying to fix every clock yourself.
+{{< /message >}}
+
+{{< message side="right" speaker="The Watchmaker" color="watercolor-blue" >}}
+I thought that was the job.
+{{< /message >}}
+```
+
+Keep narration as ordinary Markdown paragraphs. It stays in the main reading column, preserving the article's normal rhythm between exchanges. On narrow screens, both bubble types remain legible at a constrained width.
+
+---
+
+## 4. Mermaid diagrams
 
 Mermaid is rendered client-side from a locally bundled package. The JS only loads on pages that actually contain a Mermaid block, so there's no cost on articles without one.
 
@@ -95,7 +113,7 @@ flowchart LR
 
 ---
 
-## 4. Wardley maps
+## 5. Wardley maps
 
 Wardley maps are rendered at build time from a `.wtg2` source file (the [wardleyToGo](https://github.com/owulveryck/wardleyToGo) DSL) into an SVG that ships as a normal page-bundle asset. Both the `.wtg2` source and the generated `.svg` are committed to git.
 
@@ -113,7 +131,7 @@ Wardley maps are rendered at build time from a `.wtg2` source file (the [wardley
 
 ### Notes
 
-- The `?zoom` lightbox documented in section 6 works for SVG too: `![...](map.svg?zoom "...")`.
+- The `?zoom` lightbox documented in section 7 works for SVG too: `![...](map.svg?zoom "...")`.
 - The render hook (`layouts/_default/_markup/render-image.html`) detects `.svg` files by suffix and emits them without explicit `width`/`height`. The browser uses the SVG's intrinsic `viewBox` for sizing.
 - After editing any `.wtg2`, re-run `just render-wardley-maps` before committing. The generated `.svg` must travel with its source.
 - `validate-images` enforces that any non-draft article referencing a `.svg` has the file present, so a forgotten render is caught by CI.
@@ -122,7 +140,7 @@ Wardley maps are rendered at build time from a `.wtg2` source file (the [wardley
 
 ---
 
-## 5. Sidenotes and sidequotes
+## 6. Sidenotes and sidequotes
 
 Two shortcodes float content into the right margin of the article column:
 
@@ -164,7 +182,7 @@ The paragraph the quote sits beside goes here.
 
 ---
 
-## 6. Zoomable images
+## 7. Zoomable images
 
 Append `?zoom` to any image path to make it clickable. Clicking the image opens a full-resolution lightbox overlay.
 
@@ -188,7 +206,7 @@ The render hook (`layouts/_default/_markup/render-image.html`) strips `?zoom` fr
 
 ---
 
-## 7. Floated images
+## 8. Floated images
 
 Append `?right` or `?left` to an image path to float it to that side at 50% width, with prose flowing around it. Combine with `?zoom` for a zoomable floated image.
 
@@ -212,7 +230,7 @@ The render hook detects `?right` and `?left`, strips them from the src, and adds
 
 ---
 
-## 8. Links that open in a new tab
+## 9. Links that open in a new tab
 
 How to emit a `target="_blank"` link (and the required `rel="noopener"`) is documented in the [URL and References Formatting Guide](url-and-references-formatting-guide.md).
 

@@ -1,0 +1,17 @@
+{{- /* Usage: {{< message side="left" speaker="Mira" color="#0b69c7" >}}Message text{{< /message >}} */ -}}
+{{- $side := .Get "side" | default "left" -}}
+{{- if not (in (slice "left" "right") $side) -}}
+  {{- errorf "message shortcode: side must be left or right, got %q (%s)" $side .Position -}}
+{{- end -}}
+{{- $color := .Get "color" -}}
+{{- $palette := dict "watercolor-rose" "#b86f50" "watercolor-blue" "#7d8e95" -}}
+{{- $background := $color -}}
+{{- if isset $palette $color -}}
+  {{- $background = index $palette $color -}}
+{{- else if and $color (eq (len (findRE `^#[0-9A-Fa-f]{3}([0-9A-Fa-f]{3})?$` $color)) 0) -}}
+  {{- errorf "message shortcode: color must be a watercolor palette name or a 3- or 6-digit hex value, got %q (%s)" $color .Position -}}
+{{- end -}}
+<div class="post-message post-message--{{ $side }}"{{ with $background }} style="--post-message-bg: {{ . }}; --post-message-ink: var(--surface);"{{ end }}>
+  {{- with .Get "speaker" }}<p class="post-message__speaker">{{ . }}</p>{{ end -}}
+  <div class="post-message__bubble">{{ .Inner | markdownify }}</div>
+</div>
